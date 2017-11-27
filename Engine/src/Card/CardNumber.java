@@ -1,0 +1,5 @@
+package Card;
+
+public enum CardNumber {
+    ACE,JACK,QUEEN,KING,ONE,TWO,THREE,FOUR,FIVE,SIX,SEVEN,EIGHT,NINE,TEN
+}
