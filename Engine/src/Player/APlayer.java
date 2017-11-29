@@ -2,10 +2,11 @@ package Player;
 
 import Card.Card;
 
+import Generated.Player;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class APlayer implements Player{
+public abstract class APlayer implements IPlayer{
     private int money;
     private int num_of_buys;
     private int num_of_wins;
@@ -13,6 +14,22 @@ public abstract class APlayer implements Player{
     private String name;
     private Card[] cards;
     private PlayerState state;
+    private String type;
+    private int id;
+
+    public APlayer(String name, String type, int ID)
+    {
+        this.type=type;
+        this.name=name;
+        this.id=ID;
+    }
+
+    public APlayer(Generated.Player player)
+    {
+        this.id=player.getId();
+        this.name=player.getName();
+        this.type=player.getType();
+    }
 
     @Override
     public Card[] GetCards() {
@@ -27,11 +44,6 @@ public abstract class APlayer implements Player{
     @Override
     public int GetNumOfBuys() {
         return num_of_buys;
-    }
-
-    @Override
-    public int GetSerialNumber() {
-        return serial_number;
     }
 
     @Override
@@ -56,6 +68,11 @@ public abstract class APlayer implements Player{
     }
 
     @Override
+    public String GetType() {
+        return this.type;
+    }
+
+    @Override
     public void DecMoney(int amount) {
         this.money=this.money-amount;
     }
@@ -71,25 +88,8 @@ public abstract class APlayer implements Player{
     }
 
     @Override
-    public void SetName(String name) {
-        this.name=name;
-    }
-
-    @Override
     public void SetPlayerState(PlayerState state) {
         this.state=state;
     }
 
-    @Override
-    public void SetSerialNumber(int SR) {
-        this.serial_number=SR;
-    }
-
-    @Override
-    public Map<String, String> ToMap() {
-        Map<String,String> result=new HashMap<>();
-
-        result.put("Name",this.name);
-        return result;
-    }
 }

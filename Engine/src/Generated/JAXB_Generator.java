@@ -13,42 +13,19 @@ public class JAXB_Generator {
     private String conf_file;
     private GameDescriptor container;
 
-    public JAXB_Generator(String file_name)
-    {
-        try {
-            generator = JAXBContext.newInstance(PACKAGE_NAME);
-        } catch (JAXBException e) {
-            System.out.println(e.getMessage());
-        }
+    public JAXB_Generator(String file_name) throws JAXBException {
+        generator = JAXBContext.newInstance(PACKAGE_NAME);
         conf_file=file_name;
     }
 
-    public String GenerateFromXML()
-    {
-        try {
-            if(generator!=null) {
-                Unmarshaller u = this.generator.createUnmarshaller();
-                if(conf_file!=null) {
-                    try{
-                       container=(GameDescriptor)u.unmarshal(new FileInputStream(this.conf_file));
-                    } catch (FileNotFoundException e) {
-                        return "xml file not found, error:"+e.getMessage();
-                    }
-                    return "ok";
-                }
-                else
-                {
-                    return "null stream";
-                }
+    public void GenerateFromXML() throws FileNotFoundException,JAXBException {
+
+        if (generator != null) {
+            Unmarshaller u = this.generator.createUnmarshaller();
+            if (conf_file != null) {
+                container = (GameDescriptor) u.unmarshal(new FileInputStream(this.conf_file));
             }
-            else
-            {
-                return "null obj";
-            }
-        } catch (JAXBException e) {
-            System.out.println(e.getMessage());
         }
-        return "error";
     }
 
     GameDescriptor getContainer()
