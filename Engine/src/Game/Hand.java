@@ -81,6 +81,8 @@ public class Hand {
             }
         }
     }
+
+
     private boolean isAllPlayersPlacedBet()
     {
         for(APlayer player :this.players)
@@ -123,6 +125,19 @@ public class Hand {
         return false;
     }
 
+    private void incPot(int amount)
+    {
+        this.pot=this.pot+amount;
+    }
+
+
+    //TBD//
+    private void dealCards()
+    {
+
+    }
+
+    //Ctors
     public Hand(List<APlayer> players, Structure structure)
     {
         this.players=players;
@@ -132,6 +147,8 @@ public class Hand {
         this.small=structure.getBlindes().getSmall();
     }
 
+    
+    //Public Methods
     @API
     public void startNewBidCycle()
     {
@@ -167,7 +184,25 @@ public class Hand {
     @API
     public void implementMove(MoveType move,int stake)
     {
-                
+
+    }
+
+    @API
+    public void flop()
+    {
+
+    }
+
+    @API
+    public void river()
+    {
+
+    }
+
+    @API
+    public void turn()
+    {
+
     }
 
     @API
@@ -188,11 +223,6 @@ public class Hand {
     @API
     public int getPot() {
         return pot;
-    }
-
-    private void incPot(int amount)
-    {
-        this.pot=this.pot+amount;
     }
 
     @API
