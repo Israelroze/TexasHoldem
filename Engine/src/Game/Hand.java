@@ -147,7 +147,7 @@ public class Hand {
         this.small=structure.getBlindes().getSmall();
     }
 
-    
+
     //Public Methods
     @API
     public void startNewBidCycle()
