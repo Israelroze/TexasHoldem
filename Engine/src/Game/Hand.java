@@ -6,6 +6,7 @@ import Card.Deck;
 import Player.APlayer;
 
 import Generated.Structure;
+import Player.APlayers;
 import Player.MoveType;
 import Player.PlayerState;
 
@@ -14,7 +15,7 @@ import java.util.List;
 public class Hand {
 
     //players data
-    private List<APlayer> players;
+    private APlayers players;
     private APlayer current_player;
 
     //cards
@@ -40,52 +41,30 @@ public class Hand {
     //Private Methods
     private APlayer getFirstPlayer()
     {
-        boolean is_next=false;
-        for(APlayer player: players)
-        {
-            if(is_next)
-            {
-                return player;
-            }
-            else
-            {
-                if(bet_num==1)
-                {
-                    if(player.GetPlayerState() == PlayerState.BIG) {
-                        is_next=true;
-                    }
-                }
-                else
-                {
-                    if(player.GetPlayerState() == PlayerState.DEALER) {
-                        is_next=true;
-                    }
-                }
-            }
+        if(bet_num==1){
+            return this.players.GetBigPlayer();
         }
-        return null;
+        else{
+            return this.players.GetSmallPlayer();
+        }
+
     }
     private void SetBlinds()
     {
-        for(APlayer player: this.players) {
-            if (player.GetPlayerState() == PlayerState.BIG) {
-                player.DecMoney(this.big);
-                player.setBetPlaceFlag(true);
-                this.incPot(this.big);
-            }
+        //for small
+        APlayer small=this.players.GetSmallPlayer();
+        small.DecMoney(this.small);
+        small.setBetPlaceFlag(true);
 
-            if (player.GetPlayerState() == PlayerState.SMALL) {
-                player.DecMoney(this.small);
-                player.setBetPlaceFlag(true);
-                this.incPot(this.small);
-            }
-        }
+        //for big
+        APlayer big=this.players.GetBigPlayer();
+        big.DecMoney(this.big);
+        big.setBetPlaceFlag(true);
     }
-
 
     private boolean isAllPlayersPlacedBet()
     {
-        for(APlayer player :this.players)
+        for(APlayer player : this.players.GetPlayers())
         {
             if(player.getStake()!=this.higest_stake)
             {
@@ -102,7 +81,7 @@ public class Hand {
 
     private boolean isAllStakesEqual()
     {
-        for(APlayer player :this.players)
+        for(APlayer player :this.players.GetPlayers())
         {
             if(player.isPlacedBet()!=true)
             {
@@ -114,7 +93,7 @@ public class Hand {
 
     private boolean isAllFolded(){
         int count=0;
-        for(APlayer player :this.players)
+        for(APlayer player :this.players.GetPlayers())
         {
             if(player.isFolded()==false)
             {
@@ -138,7 +117,7 @@ public class Hand {
     }
 
     //Ctors
-    public Hand(List<APlayer> players, Structure structure)
+    public Hand(APlayers players, Structure structure)
     {
         this.players=players;
         this.bet_num=0;
@@ -155,7 +134,7 @@ public class Hand {
         //increase bet cycle number
         this.bet_num++;
 
-        //init higest stake
+        //init highest stake
         this.higest_stake=0;
 
         //init flags
@@ -166,7 +145,7 @@ public class Hand {
         this.pot=0;
 
         //init players flags
-        for(APlayer player:this.players)
+        for(APlayer player:this.players.GetPlayers())
         {
             player.ClearBidStats();
         }

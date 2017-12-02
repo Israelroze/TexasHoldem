@@ -1,8 +1,12 @@
 package Generated;
 
+import Exceptions.*;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
@@ -12,23 +16,94 @@ public class JAXB_Generator {
     private JAXBContext generator;
     private String conf_file;
     private GameDescriptor container;
+    private File file;
+    private FileInputStream file_stream;
 
-    public JAXB_Generator(String file_name) throws JAXBException {
+    public JAXB_Generator(String file_name) throws JAXBException, FileNotFoundException, WrongFileNameException, FileNotXMLException {
+
+        //validate xml extension
+        String[] path_parts=file_name.split("\\.");
+        int len=path_parts.length;
+        if (path_parts.length<2){ throw new WrongFileNameException(); }
+        if(!path_parts[path_parts.length-1].equals("xml")){ throw new FileNotXMLException(); }
+
+        //validate file exist
+        file=new File((file_name));
+        if(!file.exists()){throw new FileNotFoundException();}
+
+        //create input stream
+        file_stream=new FileInputStream(file);
+
+        //create JAXB Instance
         generator = JAXBContext.newInstance(PACKAGE_NAME);
-        conf_file=file_name;
     }
 
-    public void GenerateFromXML() throws FileNotFoundException,JAXBException {
+    public void GenerateFromXML() throws JAXBException, NullObjectException, UnexpectedObjectException {
+        Unmarshaller u = this.generator.createUnmarshaller();
+        container = (GameDescriptor) u.unmarshal(this.file_stream);
+        if(container==null){throw new NullObjectException("GameDescriptor");}
+        if(!container.getClass().getSimpleName().equals("GameDescriptor")){throw new UnexpectedObjectException("GameDescriptor");}
+    }
 
-        if (generator != null) {
-            Unmarshaller u = this.generator.createUnmarshaller();
-            if (conf_file != null) {
-                container = (GameDescriptor) u.unmarshal(new FileInputStream(this.conf_file));
+    public void ValidateXMLData() throws BigSmallMismatchException, HandsCountSmallerException, HandsCountDevideException, NullObjectException {
+
+        try {
+            container.getStructure();
+        }
+        catch (NullPointerException e){
+            throw  new NullObjectException("Structure");
+        }
+        try {
+            container.getStructure().getBlindes();
+        }
+        catch (NullPointerException e){
+            throw  new NullObjectException("Blindes");
+        }
+        try {
+            container.getPlayers();
+        }
+        catch (NullPointerException e){
+            throw  new NullObjectException("Players");
+        }
+        try {
+            container.getPlayers().getPlayer();
+        }
+        catch (NullPointerException e){
+            throw  new NullObjectException("Players List");
+        }
+//        try {
+//            container.getStructure();
+//        }
+//        catch (NullPointerException e){
+//            throw  new NullObjectException("Structure");
+//        }
+//
+//        if(container.getStructure()==null){throw  new NullObjectException("Structure");}
+//        if(container.getStructure().getBlindes()==null){throw  new NullObjectException("Blinds");}
+//        if(container.getPlayers()==null){throw  new NullObjectException("Players");}
+//        if(container.getPlayers().getPlayer()==null){throw  new NullObjectException("Player List");}
+//
+        int big=container.getStructure().getBlindes().getBig();
+        int small=container.getStructure().getBlindes().getSmall();
+        int num_of_players=container.getPlayers().getPlayer().size();
+        int num_of_hands=container.structure.getHandsCount();
+
+        if(big<=small){
+            throw new BigSmallMismatchException();
+        }
+
+        if(num_of_hands<num_of_players){
+            throw new HandsCountSmallerException();
+        }
+        else
+        {
+            if(num_of_hands%num_of_players!=0){
+                throw new HandsCountDevideException();
             }
         }
     }
 
-    GameDescriptor getContainer()
+    public GameDescriptor getContainer()
     {
         return this.container;
     }
