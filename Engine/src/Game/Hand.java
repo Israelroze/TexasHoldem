@@ -39,7 +39,7 @@ public class Hand {
     private int small;
 
     //Private Methods
-    private APlayer getFirstPlayer()
+    private APlayer GetFirstPlayer()
     {
         if(bet_num==1){
             return this.players.GetBigPlayer();
@@ -62,7 +62,7 @@ public class Hand {
         big.setBetPlaceFlag(true);
     }
 
-    private boolean isAllPlayersPlacedBet()
+    private boolean IsAllPlayersPlacedBet()
     {
         for(APlayer player : this.players.GetPlayers())
         {
@@ -74,12 +74,12 @@ public class Hand {
         return true;
     }
 
-    private void isBetCycleFinished()
+    private void IsBetCycleFinished()
     {
-        if(this.isAllPlayersPlacedBet()&&this.isAllStakesEqual()) this.is_bets_finished=true;
+        if(this.IsAllPlayersPlacedBet()&&this.IsAllStakesEqual()) this.is_bets_finished=true;
     }
 
-    private boolean isAllStakesEqual()
+    private boolean IsAllStakesEqual()
     {
         for(APlayer player :this.players.GetPlayers())
         {
@@ -91,7 +91,7 @@ public class Hand {
         return true;
     }
 
-    private boolean isAllFolded(){
+    private boolean IsAllFolded(){
         int count=0;
         for(APlayer player :this.players.GetPlayers())
         {
@@ -104,14 +104,14 @@ public class Hand {
         return false;
     }
 
-    private void incPot(int amount)
+    private void IncPot(int amount)
     {
         this.pot=this.pot+amount;
     }
 
 
     //TBD//
-    private void dealCards()
+    private void DealCards()
     {
 
     }
@@ -129,7 +129,7 @@ public class Hand {
 
     //Public Methods
     @API
-    public void startNewBidCycle()
+    public void StartNewBidCycle()
     {
         //increase bet cycle number
         this.bet_num++;
@@ -151,7 +151,7 @@ public class Hand {
         }
 
         //set first playing player
-        this.current_player=getFirstPlayer();
+        this.current_player=this.GetFirstPlayer();
 
         //blinds
         if(this.bet_num==1)
@@ -161,59 +161,60 @@ public class Hand {
     }
 
     @API
-    public void implementMove(MoveType move,int stake)
+    public void ImplementMove(MoveType move,int stake)
     {
 
     }
 
     @API
-    public void flop()
+    public void Flop()
     {
-
+        this.community=new Card[5];
+        for(int i=0;i<3;i++)
+        {
+            this.community[i]=this.deck.PopCard();
+        }
     }
 
     @API
-    public void river()
+    public void River()
     {
-
+        this.community[3]=this.deck.PopCard();
     }
 
     @API
-    public void turn()
+    public void Turn()
     {
-
+        this.community[4]=this.deck.PopCard();
     }
 
     @API
-    public APlayer getCurrentPlayer() {
+    public APlayer GetCurrentPlayer() {
         return current_player;
     }
 
     @API
-    public boolean isBetsCycleFinished() {
+    public boolean IsBetsCycleFinished() {
         return is_bets_finished;
     }
 
     @API
-    public boolean isHandOver() {
+    public boolean IsHandOver() {
         return is_hand_over;
     }
 
     @API
-    public int getPot() {
+    public int GetPot() {
         return pot;
     }
 
     @API
-    public int getBetCycleNumber() {
+    public int GetBetCycleNumber() {
         return bet_num;
     }
 
     @API
-    public APlayer getNextPlayer() {
-        int index=this.players.indexOf(this.current_player);
-        index++;
-        if(this.players.size()<=index) { index=0; }
-        return this.players.get(index);
+    public APlayer GetNextPlayer() {
+       return this.players.GetNextPlayer(this.current_player);
     }
 }

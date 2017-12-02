@@ -21,8 +21,8 @@
             <file leaf-file-name="Deck.java" pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/Engine/src/Card/Deck.java">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="136">
-                    <caret line="10" column="5" lean-forward="true" selection-start-line="10" selection-start-column="5" selection-end-line="13" selection-end-column="31" />
+                  <state relative-caret-position="476">
+                    <caret line="36" column="0" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
                     <folding />
                   </state>
                 </provider>
@@ -64,11 +64,13 @@
             <file leaf-file-name="Hand.java" pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/Engine/src/Game/Hand.java">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="850">
-                    <caret line="104" column="5" lean-forward="true" selection-start-line="104" selection-start-column="5" selection-end-line="104" selection-end-column="5" />
+                  <state relative-caret-position="412">
+                    <caret line="187" column="16" lean-forward="true" selection-start-line="187" selection-start-column="16" selection-end-line="187" selection-end-column="16" />
                     <folding>
                       <element signature="imports" expanded="true" />
-                      <element signature="method#getNextPlayer#0;class#Hand#0" expanded="false" />
+                      <element signature="method#Flop#0;class#Hand#0" expanded="false" />
+                      <element signature="e#4096#4097#0" expanded="true" />
+                      <element signature="e#4165#4166#0" expanded="true" />
                     </folding>
                   </state>
                 </provider>
@@ -119,6 +121,7 @@
     <findStrings>
       <find>@Override</find>
       <find>true</find>
+      <find>this.current_player</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -421,12 +424,12 @@
       <workItem from="1511819496929" duration="5774000" />
       <workItem from="1511860733206" duration="123000" />
       <workItem from="1511900343251" duration="7144000" />
-      <workItem from="1511986687714" duration="33347000" />
+      <workItem from="1511986687714" duration="33847000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46388000" />
+    <option name="totallyTimeSpent" value="46888000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -842,25 +845,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Engine/src/Card/Deck.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="10" column="5" lean-forward="true" selection-start-line="10" selection-start-column="5" selection-end-line="13" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Engine/src/Player/APlayer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#BuyMoney#0;class#APlayer#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Engine/src/Tester.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-8">
@@ -889,6 +873,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/src/Card/Deck.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="36" column="0" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/src/Player/APlayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="305">
+          <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#BuyMoney#0;class#APlayer#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Engine/src/Player/APlayers.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="883">
@@ -909,11 +912,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Engine/src/Game/Hand.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="850">
-          <caret line="104" column="5" lean-forward="true" selection-start-line="104" selection-start-column="5" selection-end-line="104" selection-end-column="5" />
+        <state relative-caret-position="412">
+          <caret line="187" column="16" lean-forward="true" selection-start-line="187" selection-start-column="16" selection-end-line="187" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#getNextPlayer#0;class#Hand#0" expanded="false" />
+            <element signature="method#Flop#0;class#Hand#0" expanded="false" />
+            <element signature="e#4096#4097#0" expanded="true" />
+            <element signature="e#4165#4166#0" expanded="true" />
           </folding>
         </state>
       </provider>
