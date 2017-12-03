@@ -3,6 +3,8 @@ package Game;
 
 import Card.Card;
 import Card.Deck;
+import Exceptions.NoSufficientMoneyException;
+import Move.Moves;
 import Player.APlayer;
 
 import Generated.Structure;
@@ -35,6 +37,9 @@ public class Hand {
     private int big;
     private int small;
 
+    //moves
+    private Moves moves;
+
     //Private Methods
     private APlayer GetFirstPlayer()
     {
@@ -46,17 +51,18 @@ public class Hand {
         }
 
     }
-    private void SetBlinds()
-    {
+    private void SetBlinds() throws NoSufficientMoneyException {
         //for small
         APlayer small=this.players.GetSmallPlayer();
         small.DecMoney(this.small);
         small.setBetPlaceFlag(true);
+        this.moves.AddMove(MoveType.BET,this.small);
 
         //for big
         APlayer big=this.players.GetBigPlayer();
         big.DecMoney(this.big);
         big.setBetPlaceFlag(true);
+        this.moves.AddMove(MoveType.BET,this.big);
     }
 
     private boolean IsAllPlayersPlacedBet()
@@ -121,13 +127,13 @@ public class Hand {
         this.pot=0;
         this.big=structure.getBlindes().getBig();
         this.small=structure.getBlindes().getSmall();
+        this.moves=new Moves();
     }
 
 
     //Public Methods
     @API
-    public void StartNewBidCycle()
-    {
+    public void StartNewBidCycle() throws NoSufficientMoneyException {
         //increase bet cycle number
         this.bet_num++;
 

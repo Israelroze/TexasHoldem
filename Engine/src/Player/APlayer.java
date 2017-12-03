@@ -2,6 +2,7 @@ package Player;
 
 import Card.Card;
 
+import Exceptions.NoSufficientMoneyException;
 import Generated.Player;
 import java.util.HashMap;
 import java.util.Map;
@@ -87,8 +88,14 @@ public class APlayer{
         return this.type;
     }
 
-    public void DecMoney(int amount) {
-        this.money=this.money-amount;
+    public void DecMoney(int amount) throws NoSufficientMoneyException {
+        if((this.money-amount)>=0) {
+            this.money = this.money - amount;
+        }
+        else
+        {
+            throw new NoSufficientMoneyException(this.GetName());
+        }
     }
 
     public void SetCards(Card[] cards) {

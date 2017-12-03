@@ -22,29 +22,9 @@ public class Moves {
         this.moves.add(new Move(type,value));
     }
 
-    //THE BOT Player move TBD
-    public  Move AutoMove()
-    {
-        return null;
-    }
-
-    //TBD
-    public List<Move> GetAllowdedMoves(Move current_move)
-    {
-        int max=this.GetHighestStake();
-        return null;
-
-
-    }
-
     public Move GetLastMove()
     {
         return this.moves.get(this.moves.size()-1);
-    }
-
-    public void IsMoveAllowded(Move move)
-    {
-
     }
 
     public int GetHighestStake()
@@ -59,9 +39,5 @@ public class Moves {
         }
         return max;
     }
-
-
-
-
 
 }
