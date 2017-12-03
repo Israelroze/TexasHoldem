@@ -1,5 +1,15 @@
 package Player;
 
 public enum PlayerType {
-    HUMAN, COMPUTER
+    HUMAN{
+        @Override
+        public String toString() {
+            return "H";
+        }
+    }, COMPUTER{
+        @Override
+        public String toString() {
+            return "C";
+        }
+    }
 }
