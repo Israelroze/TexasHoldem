@@ -61,7 +61,7 @@ public class ConsoleUI{
 
 
 
-        PlayerHandState p1 = new PlayerHandState(PlayerType.COMPUTER, PlayerState.DEALER ,100,20,Card.UnknownComputerCards);
+        PlayerHandState p1 = new PlayerHandState(PlayerType.HUMAN, PlayerState.DEALER ,100,20,Card.UnknownComputerCards);
         PlayerHandState p2 = new PlayerHandState(PlayerType.HUMAN, PlayerState.BIG ,100,20,HumanCards);
         PlayerHandState p3 = new PlayerHandState(PlayerType.COMPUTER, PlayerState.SMALL ,1121230,231230,Card.UnknownComputerCards);
         PlayerHandState p4 = new PlayerHandState(PlayerType.COMPUTER, PlayerState.NONE ,100,20,Card.UnknownComputerCards);
@@ -71,7 +71,7 @@ public class ConsoleUI{
         a.add(p3);
         a.add(p4);
 
-        CurrentHandState cur = new CurrentHandState(a,comCards,1000,1);
+        CurrentHandState cur = new CurrentHandState(a,comCards,1000,3);
 
         PrintGame(cur);
 
