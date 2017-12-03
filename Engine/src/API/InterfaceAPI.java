@@ -29,6 +29,6 @@ public interface  InterfaceAPI{
      */
     public List<PlayerStats> GetHandState();
 
-    public Boolean IsAnyErrorExist
+    public Boolean IsAnyErrorExist();
 
 }

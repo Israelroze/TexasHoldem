@@ -15,4 +15,9 @@ public class API  implements InterfaceAPI{
     public List<PlayerStats> GetHandState() {
         return null;
     }
+
+    @Override
+    public Boolean IsAnyErrorExist() {
+        return null;
+    }
 }
