@@ -14,6 +14,11 @@ public class Moves {
 
     public void AddMove(Move move)
     {
+        for(Move move: this.moves)
+        {
+
+        }
+
         this.moves.add(move);
     }
 
@@ -39,5 +44,6 @@ public class Moves {
         }
         return max;
     }
+
 
 }
