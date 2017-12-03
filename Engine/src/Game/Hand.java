@@ -7,10 +7,7 @@ import Player.APlayer;
 
 import Generated.Structure;
 import Player.APlayers;
-import Player.MoveType;
-import Player.PlayerState;
-
-import java.util.List;
+import Move.MoveType;
 
 public class Hand {
 
