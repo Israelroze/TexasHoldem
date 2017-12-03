@@ -1,5 +1,6 @@
 package Player;
 
+import Exceptions.PlayerDataMissingException;
 import Game.API;
 import Generated.Player;
 import Generated.Players;
@@ -16,8 +17,7 @@ public class APlayers {
 
 
 
-    public APlayers(Players players)
-    {
+    public APlayers(Players players) throws PlayerDataMissingException {
         aplayers=new LinkedList<APlayer>();
 
         for (Player player: players.getPlayer())

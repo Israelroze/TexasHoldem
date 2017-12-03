@@ -5,25 +5,35 @@ import Generated.GameDescriptor;
 import Generated.JAXB_Generator;
 import Generated.Player;
 import Player.*;
+import ReturnType.CurrentHandState;
+import ReturnType.PlayerStats;
 
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Game {
     GameDescriptor configuration;
+    CurrentHandState state;
     APlayers players;
     boolean is_game_started=false;
 
     //Methods
-    public void LoadPlayers(){ this.players=new APlayers(configuration.getPlayers());}
-    public APlayers GetPlayers(){return this.players;}
+    private void LoadPlayers() throws PlayerDataMissingException { this.players=new APlayers(configuration.getPlayers());}
+    private void SetPlayersChips()
+    {
+        for(APlayer player : this.players.GetPlayers())
+        {
+            player.SetMoney(configuration.getStructure().getBuy());
+        }
+    }
 
-
+    private APlayers GetPlayers(){return this.players;}
 
     //Methods for menu
     @API //Option 1
-    public void LoadFromFile(String file_name) throws FileNotFoundException, FileNotXMLException, WrongFileNameException, JAXBException, NullObjectException, UnexpectedObjectException, HandsCountDevideException, BigSmallMismatchException, HandsCountSmallerException, GameStartedException {
+    public void LoadFromFile(String file_name) throws FileNotFoundException, FileNotXMLException, WrongFileNameException, JAXBException, NullObjectException, UnexpectedObjectException, HandsCountDevideException, BigSmallMismatchException, HandsCountSmallerException, GameStartedException, PlayerDataMissingException {
 
         if(!this.is_game_started) {
             JAXB_Generator generator = new JAXB_Generator((file_name));
@@ -31,6 +41,7 @@ public class Game {
             generator.ValidateXMLData();
             this.configuration = generator.getContainer();
             this.LoadPlayers();
+            this.SetPlayersChips();
             this.players.ForwardStates();
             //TBD - insert function pass result
         }
@@ -48,6 +59,15 @@ public class Game {
     }
 
     // Option 3
+    public void GetPlayersStats()
+    {
+        List<PlayerStats> stats=new LinkedList<>();
+        for(APlayer player:this.players.GetPlayers())
+        {
+            stats.add
+        }
+
+    }
     //TBD
 
 

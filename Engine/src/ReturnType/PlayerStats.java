@@ -1,5 +1,6 @@
 package ReturnType;
 
+import Player.APlayer;
 import Player.PlayerState;
 import Player.PlayerType;
 
@@ -14,6 +15,13 @@ public class PlayerStats extends PlayerReturnType {
         this.handsWons = handsWons;
         this.numOfGames = numOfGames;
         this.buy = buy;
+    }
+    public PlayerStats(APlayer player,)
+    {
+        super(player.GetType(),player.GetPlayerState(),player.GetMoney());
+        this.handsWons = player.GetNumOfWins();
+        this.numOfGames =0;
+        this.buy = player.GetNumOfBuys();
     }
 
     public int getBuy() {
