@@ -49,7 +49,6 @@ public class Hand {
         else{
             return this.players.GetSmallPlayer();
         }
-
     }
     private void SetBlinds() throws NoSufficientMoneyException {
         //for small
