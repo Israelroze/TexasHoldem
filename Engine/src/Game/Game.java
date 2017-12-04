@@ -20,7 +20,7 @@ public class Game {
     boolean is_game_started=false;
 
     //Methods
-    private void LoadPlayers() throws PlayerDataMissingException { this.players=new APlayers(configuration.getPlayers());}
+    public void LoadPlayers() throws PlayerDataMissingException { this.players=new APlayers(configuration.getPlayers());}
     private void SetPlayersChips()
     {
         for(APlayer player : this.players.GetPlayers())
@@ -29,7 +29,7 @@ public class Game {
         }
     }
 
-    private APlayers GetPlayers(){return this.players;}
+    public APlayers GetPlayers(){return this.players;}
 
     //Methods for menu
     @API //Option 1
@@ -59,15 +59,16 @@ public class Game {
     }
 
     // Option 3
-    public void GetPlayersStats()
+    public List<PlayerStats> GetPlayersStats()
     {
         List<PlayerStats> stats=new LinkedList<>();
         for(APlayer player:this.players.GetPlayers())
         {
-            stats.add
+            stats.add(new PlayerStats(player,configuration.getStructure().getHandsCount()));
         }
-
+        return stats;
     }
+
     //TBD
 
 

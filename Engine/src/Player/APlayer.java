@@ -34,6 +34,7 @@ public class APlayer{
         this.num_of_buys=0;
         this.num_of_wins=0;
         this.money=0;
+        this.state=PlayerState.NONE;
     }
 
     public APlayer(Player player) throws PlayerDataMissingException {
@@ -59,6 +60,7 @@ public class APlayer{
         this.num_of_buys=0;
         this.num_of_wins=0;
         this.ClearBidStats();
+        this.state=PlayerState.NONE;
     }
 
     //Getters Setters
@@ -119,6 +121,10 @@ public class APlayer{
         {
             throw new NoSufficientMoneyException(this.GetName());
         }
+    }
+
+    public boolean GetIsFoldedFlag() {
+        return this.is_folded;
     }
 
     public void SetCards(Card[] cards) {

@@ -1,15 +1,22 @@
+
+import Exceptions.*;
 import Player.PlayerState;
 import Player.PlayerType;
 import ReturnType.CurrentHandState;
 
 import ReturnType.PlayerHandState;
 import ReturnType.PlayerStats;
+
+import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
 
 import Card.Card;
 import Card.CardSuit;
 import Card.CardNumber;
+import Game.Game;
+
+import javax.xml.bind.JAXBException;
 
 public class ConsoleUI{
     public static void PrintGameStat(List<PlayerStats> playerStats){
@@ -142,8 +149,37 @@ public class ConsoleUI{
     }
     public static void main(String[] args) {
 
+        //init
+        Game game=new Game();
+        try {
+            game.LoadFromFile("C:\\Users\\israe\\Google Drive\\Study\\JavaCourse\\TexasHoldem\\Engine\\Resource\\master.xml");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (FileNotXMLException e) {
+            e.printStackTrace();
+        } catch (WrongFileNameException e) {
+            e.printStackTrace();
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        } catch (NullObjectException e) {
+            e.printStackTrace();
+        } catch (UnexpectedObjectException e) {
+            e.printStackTrace();
+        } catch (HandsCountDevideException e) {
+            e.printStackTrace();
+        } catch (BigSmallMismatchException e) {
+            e.printStackTrace();
+        } catch (HandsCountSmallerException e) {
+            e.printStackTrace();
+        } catch (GameStartedException e) {
+            e.printStackTrace();
+        } catch (PlayerDataMissingException e) {
+            e.printStackTrace();
+        }
+
+        PrintGameStat(game.GetPlayersStats());
         //PrintGameStatTest();
-        PrintGameHandTest();
+        //PrintGameHandTest();
     }
 
 }

@@ -3,13 +3,19 @@ package Game;
 
 import Card.Card;
 import Card.Deck;
+import Exceptions.ChipLessThanPotException;
 import Exceptions.NoSufficientMoneyException;
+import Exceptions.PlayerFoldedException;
 import Move.Moves;
 import Player.APlayer;
 
 import Generated.Structure;
 import Player.APlayers;
 import Move.MoveType;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 public class Hand {
 
@@ -55,13 +61,22 @@ public class Hand {
         APlayer small=this.players.GetSmallPlayer();
         small.DecMoney(this.small);
         small.setBetPlaceFlag(true);
-        this.moves.AddMove(MoveType.BET,this.small);
+        small.setStake(this.small);
+        this.higest_stake=this.small;
+        //this.moves.AddMove(MoveType.BET,this.small);
 
         //for big
         APlayer big=this.players.GetBigPlayer();
         big.DecMoney(this.big);
         big.setBetPlaceFlag(true);
-        this.moves.AddMove(MoveType.BET,this.big);
+        big.setStake(this.big);
+        this.higest_stake=this.big;
+        //this.moves.AddMove(MoveType.BET,this.big);
+
+        //set pot
+        this.pot=this.small+this.big;
+
+        this.current_player=this.players.GetNextPlayer(big);
     }
 
     private boolean IsAllPlayersPlacedBet()
@@ -143,9 +158,6 @@ public class Hand {
         this.is_bets_started=true;
         this.is_bets_finished=false;
 
-        //init pot
-        this.pot=0;
-
         //init players flags
         for(APlayer player:this.players.GetPlayers())
         {
@@ -162,9 +174,73 @@ public class Hand {
         }
     }
 
-    @API
-    public void ImplementMove(MoveType move,int stake)
+    public int[] GetAllowdedStakeRange()
     {
+        int[] range=new int[2];
+        //TBD
+        return range;
+    }
+    
+    public List<MoveType> GetAllowdedMoves() throws PlayerFoldedException, ChipLessThanPotException {
+        List<MoveType> allowded_moves= new LinkedList<>();
+        if(this.current_player.GetIsFoldedFlag())
+        {
+            throw new PlayerFoldedException();
+        }
+        if(this.current_player.GetMoney()<this.higest_stake)
+        {
+            throw new ChipLessThanPotException(this.current_player.GetMoney());
+        }
+        if(this.higest_stake==0) // no bet placed, the player can Check,Bet,Fold
+        {
+            allowded_moves.add(MoveType.BET);
+            allowded_moves.add(MoveType.CHECK);
+            allowded_moves.add(MoveType.FOLD);
+        }
+        else
+        {
+            if(this.current_player.getStake()<this.higest_stake)//player need to Call,Raise or Fold
+            {
+                allowded_moves.add(MoveType.RAISE);
+                allowded_moves.add(MoveType.CALL);
+                allowded_moves.add(MoveType.FOLD);
+            }
+        }
+        return allowded_moves;
+    }
+    @API
+    public void ImplementMove(MoveType move,int stake) throws NoSufficientMoneyException {
+        switch(move){
+            case BET:
+                this.current_player.DecMoney(stake);
+                this.current_player.setStake(stake);
+                this.current_player.setBetPlaceFlag(true);
+                this.current_player=this.players.GetNextPlayer(this.current_player);
+                this.higest_stake=stake;
+                break;
+            case RAISE:
+                this.current_player.DecMoney(stake);
+                this.current_player.setStake(stake);
+                this.current_player.setBetPlaceFlag(true);
+                this.current_player=this.players.GetNextPlayer(this.current_player);
+                this.higest_stake=stake;
+                break;
+            case CALL:
+                this.current_player.DecMoney(this.higest_stake);
+                this.current_player.setStake(this.higest_stake);
+                this.current_player.setBetPlaceFlag(true);
+                this.current_player=this.players.GetNextPlayer(this.current_player);
+                break;
+            case CHECK:
+                this.current_player.setBetPlaceFlag(true);
+                this.current_player=this.players.GetNextPlayer(this.current_player);
+                break;
+            case FOLD:
+                this.current_player.setBetPlaceFlag(true);
+                this.current_player.setFoldedFlag(true);
+                this.current_player=this.players.GetNextPlayer(this.current_player);
+                break;
+        }
 
     }
 
