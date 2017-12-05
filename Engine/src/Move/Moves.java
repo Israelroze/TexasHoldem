@@ -27,6 +27,17 @@ public class Moves {
         return this.moves.get(this.moves.size()-1);
     }
 
+    public boolean IsExist(Move move)
+    {
+        for(Move Amove:this.moves)
+        {
+            if(Amove.GetMoveType()==move.GetMoveType()){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public int GetHighestStake()
     {
         int max=0;

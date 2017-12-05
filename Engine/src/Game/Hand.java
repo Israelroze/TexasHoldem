@@ -1,18 +1,11 @@
 package Game;
 
-
 import Card.Card;
 import Card.Deck;
-import Exceptions.ChipLessThanPotException;
-import Exceptions.NoSufficientMoneyException;
-import Exceptions.PlayerFoldedException;
-import Move.Moves;
-import Player.APlayer;
-
+import Exceptions.*;
 import Generated.Structure;
-import Player.APlayers;
-import Move.MoveType;
-
+import Player.*;
+import Move.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -34,6 +27,7 @@ public class Hand {
 
     //bet stats
     private int higest_stake;
+    private int poorest_player_chips;
 
     //money
     private int pot;
@@ -44,8 +38,20 @@ public class Hand {
     private int small;
 
     //moves
-    private Moves moves;
+    private Moves allowded_moves;
 
+
+    public Hand(APlayers players, Structure structure)
+    {
+        this.players=players;
+        this.bet_num=0;
+        this.pot=0;
+        this.big=structure.getBlindes().getBig();
+        this.small=structure.getBlindes().getSmall();
+        this.deck=new Deck();
+    }
+
+    /////////////////////////////PLAYERS ralated///////////////////////////////////////////////////////////
     //Private Methods
     private APlayer GetFirstPlayer()
     {
@@ -56,6 +62,7 @@ public class Hand {
             return this.players.GetSmallPlayer();
         }
     }
+
     private void SetBlinds() throws NoSufficientMoneyException {
         //for small
         APlayer small=this.players.GetSmallPlayer();
@@ -63,7 +70,6 @@ public class Hand {
         small.setBetPlaceFlag(true);
         small.setStake(this.small);
         this.higest_stake=this.small;
-        //this.moves.AddMove(MoveType.BET,this.small);
 
         //for big
         APlayer big=this.players.GetBigPlayer();
@@ -71,29 +77,40 @@ public class Hand {
         big.setBetPlaceFlag(true);
         big.setStake(this.big);
         this.higest_stake=this.big;
-        //this.moves.AddMove(MoveType.BET,this.big);
 
         //set pot
         this.pot=this.small+this.big;
 
         this.current_player=this.players.GetNextPlayer(big);
     }
+    //TBD//
 
-    private boolean IsAllPlayersPlacedBet()
+    private void DealCards()
     {
-        for(APlayer player : this.players.GetPlayers())
+        for(APlayer player:this.players.GetPlayers() )
         {
-            if(player.getStake()!=this.higest_stake)
-            {
-                return false;
-            }
+            player.SetCards(new Card[]{this.deck.PopCard(), this.deck.PopCard()});
         }
-        return true;
     }
 
-    private void IsBetCycleFinished()
+    public int GetPoorestChipsValue()
     {
-        if(this.IsAllPlayersPlacedBet()&&this.IsAllStakesEqual()) this.is_bets_finished=true;
+        int min=0;
+        for(APlayer player : this.players.GetPlayers())
+        {
+            if(min==0)
+            {
+                min=player.GetMoney();
+            }
+            else
+            {
+                if(min>player.GetMoney())
+                {
+                    min=player.GetMoney();
+                }
+            }
+        }
+        return min;
     }
 
     private boolean IsAllStakesEqual()
@@ -101,6 +118,18 @@ public class Hand {
         for(APlayer player :this.players.GetPlayers())
         {
             if(player.isPlacedBet()!=true)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean IsAllPlayersPlacedBet()
+    {
+        for(APlayer player : this.players.GetPlayers())
+        {
+            if(player.getStake()!=this.higest_stake)
             {
                 return false;
             }
@@ -121,31 +150,29 @@ public class Hand {
         return false;
     }
 
-    private void IncPot(int amount)
+    private void InitPlayerFlags()
     {
-        this.pot=this.pot+amount;
+        //init players flags
+        for(APlayer player:this.players.GetPlayers())
+        {
+            player.ClearBidStats();
+        }
+    }
+
+    private void InitPlayersBetFlag(APlayer Cplayer)
+    {
+        //init players flags
+        for(APlayer player:this.players.GetPlayers())
+        {
+            if(Cplayer.getId()!=player.getId())
+            {
+                player.setBetPlaceFlag(false);
+            }
+        }
     }
 
 
-    //TBD//
-    private void DealCards()
-    {
-
-    }
-
-    //Ctors
-    public Hand(APlayers players, Structure structure)
-    {
-        this.players=players;
-        this.bet_num=0;
-        this.pot=0;
-        this.big=structure.getBlindes().getBig();
-        this.small=structure.getBlindes().getSmall();
-        this.moves=new Moves();
-    }
-
-
-    //Public Methods
+    /////////////////////////////BET ralated///////////////////////////////////////////////////////////
     @API
     public void StartNewBidCycle() throws NoSufficientMoneyException {
         //increase bet cycle number
@@ -159,10 +186,10 @@ public class Hand {
         this.is_bets_finished=false;
 
         //init players flags
-        for(APlayer player:this.players.GetPlayers())
-        {
-            player.ClearBidStats();
-        }
+        this.InitPlayerFlags();
+
+        //deal cards
+        this.DealCards();
 
         //set first playing player
         this.current_player=this.GetFirstPlayer();
@@ -174,15 +201,44 @@ public class Hand {
         }
     }
 
+    private void IsBetCycleFinished()
+    {
+        if(this.IsAllPlayersPlacedBet()&&this.IsAllStakesEqual()) this.is_bets_finished=true;
+    }
+
+    private void IncPot(int amount)
+    {
+        this.pot=this.pot+amount;
+    }
+
+
+    /////////////////////////////Moves ralated///////////////////////////////////////////////////////////
+
+    //Public Methods
+
     public int[] GetAllowdedStakeRange()
     {
-        int[] range=new int[2];
-        //TBD
-        return range;
+        int low=0;
+        if(this.current_player.getStake()<this.higest_stake)
+        {
+            low=this.higest_stake;
+        }
+
+        int high=this.higest_stake;
+        int by_pot=this.pot;
+        int by_poorest=this.GetPoorestChipsValue();
+
+        if(by_pot>by_poorest){high=by_poorest;}
+        else{high=by_pot;}
+
+        return new int[]{low, high};
     }
     
     public List<MoveType> GetAllowdedMoves() throws PlayerFoldedException, ChipLessThanPotException {
-        List<MoveType> allowded_moves= new LinkedList<>();
+
+
+        List<MoveType> allowded_moves=new LinkedList<>();
+
         if(this.current_player.GetIsFoldedFlag())
         {
             throw new PlayerFoldedException();
@@ -196,6 +252,8 @@ public class Hand {
             allowded_moves.add(MoveType.BET);
             allowded_moves.add(MoveType.CHECK);
             allowded_moves.add(MoveType.FOLD);
+            //moves.AddMove(new Move(MoveType.CHECK,0));
+            //moves.AddMove(new Move(MoveType.FOLD,0));
         }
         else
         {
@@ -208,13 +266,52 @@ public class Hand {
         }
         return allowded_moves;
     }
+
+
+    public boolean IsMoveAllowded(MoveType mtype) throws PlayerFoldedException, ChipLessThanPotException {
+        List<MoveType> allowded_moves=this.GetAllowdedMoves();
+        for(MoveType move:allowded_moves)
+        {
+            if(mtype==move)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean IsStakeInRange(int stake)
+    {
+        int[] range=this.GetAllowdedStakeRange();
+
+        if(stake>=range[0] && stake<=range[1])
+        {
+            return true;
+        }
+        return false;
+    }
+
     @API
-    public void ImplementMove(MoveType move,int stake) throws NoSufficientMoneyException {
+    public void ImplementMove(MoveType move,int stake) throws NoSufficientMoneyException, PlayerFoldedException, ChipLessThanPotException, MoveNotAllowdedException, StakeNotInRangeException {
+
+        if(!this.IsMoveAllowded(move))
+        {
+            throw new MoveNotAllowdedException();
+        }
+
+        if(move==MoveType.BET || move==MoveType.RAISE){
+            if(!this.IsStakeInRange(stake))
+            {
+                throw new StakeNotInRangeException();
+            }
+        }
+
         switch(move){
             case BET:
                 this.current_player.DecMoney(stake);
                 this.current_player.setStake(stake);
                 this.current_player.setBetPlaceFlag(true);
+                this.InitPlayersBetFlag(this.current_player);
                 this.current_player=this.players.GetNextPlayer(this.current_player);
                 this.higest_stake=stake;
                 break;
@@ -222,6 +319,7 @@ public class Hand {
                 this.current_player.DecMoney(stake);
                 this.current_player.setStake(stake);
                 this.current_player.setBetPlaceFlag(true);
+                this.InitPlayersBetFlag(this.current_player);
                 this.current_player=this.players.GetNextPlayer(this.current_player);
                 this.higest_stake=stake;
                 break;
@@ -241,7 +339,7 @@ public class Hand {
                 this.current_player=this.players.GetNextPlayer(this.current_player);
                 break;
         }
-
+        this.IsBetCycleFinished();
     }
 
     @API
@@ -273,7 +371,7 @@ public class Hand {
 
     @API
     public boolean IsBetsCycleFinished() {
-        return is_bets_finished;
+        return this.is_bets_finished;
     }
 
     @API

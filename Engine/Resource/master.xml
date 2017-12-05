@@ -4,7 +4,7 @@
 	<GameType>Basic</GameType>
 	<Structure>
 		<HandsCount>8</HandsCount>
-		<Buy>128</Buy>
+		<Buy>120</Buy>
 		<Blindes fixed="true" additions="2" max-total-rounds="10">
 			<Big>4</Big>
 			<Small>2</Small>
