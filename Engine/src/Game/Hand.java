@@ -36,13 +36,9 @@ public class Hand {
     private int bet_num;
     private int big;
     private int small;
-
-    //moves
-    private Moves allowded_moves;
-
-
-    public Hand(APlayers players, Structure structure)
-    {
+    
+    //ctor
+    public Hand(APlayers players, Structure structure) {
         this.players=players;
         this.bet_num=0;
         this.pot=0;
@@ -51,10 +47,8 @@ public class Hand {
         this.deck=new Deck();
     }
 
-    /////////////////////////////PLAYERS ralated///////////////////////////////////////////////////////////
     //Private Methods
-    private APlayer GetFirstPlayer()
-    {
+    private APlayer GetFirstPlayer() {
         if(bet_num==1){
             return this.players.GetBigPlayer();
         }
@@ -83,38 +77,15 @@ public class Hand {
 
         this.current_player=this.players.GetNextPlayer(big);
     }
-    //TBD//
 
-    private void DealCards()
-    {
+    private void DealCards() {
         for(APlayer player:this.players.GetPlayers() )
         {
             player.SetCards(new Card[]{this.deck.PopCard(), this.deck.PopCard()});
         }
     }
 
-    public int GetPoorestChipsValue()
-    {
-        int min=0;
-        for(APlayer player : this.players.GetPlayers())
-        {
-            if(min==0)
-            {
-                min=player.GetMoney();
-            }
-            else
-            {
-                if(min>player.GetMoney())
-                {
-                    min=player.GetMoney();
-                }
-            }
-        }
-        return min;
-    }
-
-    private boolean IsAllStakesEqual()
-    {
+    private boolean IsAllStakesEqual() {
         for(APlayer player :this.players.GetPlayers())
         {
             if(player.isPlacedBet()!=true)
@@ -125,8 +96,7 @@ public class Hand {
         return true;
     }
 
-    private boolean IsAllPlayersPlacedBet()
-    {
+    private boolean IsAllPlayersPlacedBet() {
         for(APlayer player : this.players.GetPlayers())
         {
             if(player.getStake()!=this.higest_stake)
@@ -150,8 +120,7 @@ public class Hand {
         return false;
     }
 
-    private void InitPlayerFlags()
-    {
+    private void InitPlayerFlags() {
         //init players flags
         for(APlayer player:this.players.GetPlayers())
         {
@@ -159,8 +128,7 @@ public class Hand {
         }
     }
 
-    private void InitPlayersBetFlag(APlayer Cplayer)
-    {
+    private void InitPlayersBetFlag(APlayer Cplayer) {
         //init players flags
         for(APlayer player:this.players.GetPlayers())
         {
@@ -171,9 +139,41 @@ public class Hand {
         }
     }
 
+    private void IsBetCycleFinished() {
+        if(this.IsAllPlayersPlacedBet()&&this.IsAllStakesEqual()) this.is_bets_finished=true;
+    }
 
-    /////////////////////////////BET ralated///////////////////////////////////////////////////////////
-    @API
+    private void IncPot(int amount)
+    {
+        this.pot=this.pot+amount;
+    }
+
+
+    //Public Methods
+
+    public int GetPoorestChipsValue() {
+        int min=0;
+        for(APlayer player : this.players.GetPlayers())
+        {
+            if(min==0)
+            {
+                min=player.GetMoney();
+            }
+            else
+            {
+                if(min>player.GetMoney())
+                {
+                    min=player.GetMoney();
+                }
+            }
+        }
+        return min;
+    }
+
+    public Card[] GetCommunity() {
+        return this.community;
+    }
+
     public void StartNewBidCycle() throws NoSufficientMoneyException {
         //increase bet cycle number
         this.bet_num++;
@@ -201,23 +201,7 @@ public class Hand {
         }
     }
 
-    private void IsBetCycleFinished()
-    {
-        if(this.IsAllPlayersPlacedBet()&&this.IsAllStakesEqual()) this.is_bets_finished=true;
-    }
-
-    private void IncPot(int amount)
-    {
-        this.pot=this.pot+amount;
-    }
-
-
-    /////////////////////////////Moves ralated///////////////////////////////////////////////////////////
-
-    //Public Methods
-
-    public int[] GetAllowdedStakeRange()
-    {
+    public int[] GetAllowdedStakeRange() {
         int low=0;
         if(this.current_player.getStake()<this.higest_stake)
         {
@@ -267,7 +251,6 @@ public class Hand {
         return allowded_moves;
     }
 
-
     public boolean IsMoveAllowded(MoveType mtype) throws PlayerFoldedException, ChipLessThanPotException {
         List<MoveType> allowded_moves=this.GetAllowdedMoves();
         for(MoveType move:allowded_moves)
@@ -280,8 +263,7 @@ public class Hand {
         return false;
     }
 
-    public boolean IsStakeInRange(int stake)
-    {
+    public boolean IsStakeInRange(int stake) {
         int[] range=this.GetAllowdedStakeRange();
 
         if(stake>=range[0] && stake<=range[1])
@@ -291,7 +273,6 @@ public class Hand {
         return false;
     }
 
-    @API
     public void ImplementMove(MoveType move,int stake) throws NoSufficientMoneyException, PlayerFoldedException, ChipLessThanPotException, MoveNotAllowdedException, StakeNotInRangeException {
 
         if(!this.IsMoveAllowded(move))
@@ -342,9 +323,7 @@ public class Hand {
         this.IsBetCycleFinished();
     }
 
-    @API
-    public void Flop()
-    {
+    public void Flop() {
         this.community=new Card[5];
         for(int i=0;i<3;i++)
         {
@@ -352,44 +331,36 @@ public class Hand {
         }
     }
 
-    @API
     public void River()
     {
         this.community[3]=this.deck.PopCard();
     }
 
-    @API
     public void Turn()
     {
         this.community[4]=this.deck.PopCard();
     }
 
-    @API
     public APlayer GetCurrentPlayer() {
-        return current_player;
+        return this.current_player;
     }
 
-    @API
     public boolean IsBetsCycleFinished() {
         return this.is_bets_finished;
     }
 
-    @API
     public boolean IsHandOver() {
-        return is_hand_over;
+        return this.is_hand_over;
     }
 
-    @API
     public int GetPot() {
-        return pot;
+        return this.pot;
     }
 
-    @API
     public int GetBetCycleNumber() {
-        return bet_num;
+        return this.bet_num;
     }
 
-    @API
     public APlayer GetNextPlayer() {
        return this.players.GetNextPlayer(this.current_player);
     }

@@ -36,7 +36,4 @@ public class PlayerStats extends PlayerReturnType {
     public int getNumOfGames() {
         return numOfGames;
     }
-
-
-
 }
