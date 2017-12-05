@@ -36,7 +36,7 @@ public class Hand {
     private int bet_num;
     private int big;
     private int small;
-    
+
     //ctor
     public Hand(APlayers players, Structure structure) {
         this.players=players;
