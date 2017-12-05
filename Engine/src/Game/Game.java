@@ -20,6 +20,8 @@ public class Game {
     CurrentHandState state;
     APlayers players;
     boolean is_game_started=false;
+    private int num_of_hands=0;
+
     Hand current_hand;
     //Methods
     public void LoadPlayers() throws PlayerDataMissingException { this.players=new APlayers(configuration.getPlayers());}
@@ -114,7 +116,22 @@ public class Game {
 
         return new Move(type,value);
     }
+    public Hand GetCurrentHand(){
+        return this.current_hand;
+    }
+    public void SetCurrentHand(){
+        this.current_hand=new Hand(this.players,this.configuration.getStructure());
+        this.num_of_hands++;
+    }
 
+    public int GetHandsNumber()
+    {
+        return this.num_of_hands;
+    }
+
+    public void StartNewBidCycle() throws NoSufficientMoneyException {
+        this.current_hand.StartNewBidCycle();
+    }
     private void PringCurrentAvailable(APlayer current,List<MoveType> allowded_moves,int[]  range)
     {
         boolean is_get_value=false;
