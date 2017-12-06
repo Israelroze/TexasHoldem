@@ -6,7 +6,8 @@ public enum PlayerType {
         public String toString() {
             return "H";
         }
-    }, COMPUTER{
+    },
+    COMPUTER{
         @Override
         public String toString() {
             return "C";

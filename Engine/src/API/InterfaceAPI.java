@@ -1,34 +1,67 @@
 package API;
 
+import Exceptions.*;
+import Game.Game;
+import Move.Move;
+import Move.MoveType;
+import Player.PlayerType;
+import ReturnType.CurrentHandState;
 import ReturnType.PlayerStats;
 
+import javax.xml.bind.JAXBException;
+import java.io.FileNotFoundException;
 import java.util.List;
 
-public interface  InterfaceAPI{
-    /*
-    As No 2 requirement.
-    PlayerStats includes:
-    Type - computer or human
-    State -Dealer, Big or Small
-    Chips
-    Buys
-    Number of wins
-    number of Games
-     */
-    public List<PlayerStats> GetPlayersState();
+public interface  InterfaceAPI {
 
-    /*
-    As No 3 requirement.
-    PlayerStats includes:
-    Type - computer or human
-    State -Dealer, Big or Small
-    Chips
+    //option 1
+    public void LoadFromXML(String filename) throws GameStartedException, UnexpectedObjectException, FileNotFoundException, BigSmallMismatchException, PlayerDataMissingException, HandsCountDevideException, WrongFileNameException, HandsCountSmallerException, JAXBException, FileNotXMLException, NullObjectException;
 
-    Number of wins
-    number of Games
-     */
-    public List<PlayerStats> GetHandState();
+    //option2
+    public void StartGame();
 
-    public Boolean IsAnyErrorExist();
+
+    //Hand related API
+    public void StartNewHand();
+
+    public int GetNumberOfHands();
+
+    public boolean IsCurrentHandFinished();
+
+    public int GetCurrentHandNumber();
+
+    public void Flop();
+
+    public void River();
+
+    public void Turn();
+
+
+    //Bid related API's
+    public void StartNewBidCycle() throws NoSufficientMoneyException;
+
+    public boolean IsCurrentBidCycleFinished();
+
+    public boolean IsCurrentPlayerHuman();
+
+    public boolean IsCurrentPlayerComputer();
+
+    public List<MoveType> GetAllowdedMoves() throws PlayerFoldedException, ChipLessThanPotException;
+
+    public int[] GetAllowdedStakeRange();
+
+    public Move GetAutoMove();
+
+    public void SetNewMove(Move move) throws StakeNotInRangeException, PlayerFoldedException, MoveNotAllowdedException, ChipLessThanPotException, NoSufficientMoneyException;
+
+    public void SetWinner();
+
+    public String GetWinner();
+
+
+    //Statistics related API's
+    public List<PlayerStats> GetPlayersInfo();
+
+    public CurrentHandState GetCurrentHandState();
 
 }

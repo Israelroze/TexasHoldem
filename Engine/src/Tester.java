@@ -7,9 +7,8 @@ import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
 
 public class Tester {
-   public static void main(String[] args)
-   {
-       String conf_file="C:\\Users\\israe\\Google Drive\\Study\\JavaCourse\\TexasHoldem\\Engine\\Resource\\master.xml";
+   public static void main(String[] args) throws PlayerDataMissingException {
+       String conf_file="C:\\Users\\irozenblit\\Documents\\Private\\Java\\TexasHoldem\\Engine\\Resource\\master.xml";
        Game game=new Game();
 
        boolean isLoadOK=true;

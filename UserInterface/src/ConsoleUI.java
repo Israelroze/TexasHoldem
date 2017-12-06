@@ -1,24 +1,31 @@
+
+import Exceptions.*;
 import Player.PlayerState;
 import Player.PlayerType;
 import ReturnType.CurrentHandState;
 
 import ReturnType.PlayerHandState;
 import ReturnType.PlayerStats;
+
+import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
 
 import Card.Card;
 import Card.CardSuit;
 import Card.CardNumber;
+import Game.Game;
+
+import javax.xml.bind.JAXBException;
 
 public class ConsoleUI{
     public static void PrintGameStat(List<PlayerStats> playerStats){
         System.out.format("*******************        *******************\n");
-        System.out.format("* Type: %1s         *        * Type: %1s         *\n",playerStats.get(0).GetType(),playerStats.get(1).GetType());
-        System.out.format("* State %1s         *        * State %1s         *\n",playerStats.get(0).getState(),playerStats.get(1).getState());
-        System.out.format("* Chips: %-8d *        * Chips: %-8d *\n",playerStats.get(0).getChips(),playerStats.get(1).getChips());
-        System.out.format("* Buys: %-8d  *        * Buys: %-8d  *\n",playerStats.get(0).getBuy(),playerStats.get(1).getBuy());
-        System.out.format("* Hands Won:%2d/%-2d *        * Hands Won:%2d/%-2d *\n",playerStats.get(0).getHandsWons(),playerStats.get(0).getNumOfGames(),playerStats.get(1).getHandsWons(),playerStats.get(1).getNumOfGames());
+        System.out.format("* Type: %1s         *        * Type: %1s         *\n",playerStats.get(1).GetType(),playerStats.get(0).GetType());
+        System.out.format("* State %1s         *        * State %1s         *\n",playerStats.get(1).getState(),playerStats.get(0).getState());
+        System.out.format("* Chips: %-8d *        * Chips: %-8d *\n",playerStats.get(1).getChips(),playerStats.get(0).getChips());
+        System.out.format("* Buys: %-8d  *        * Buys: %-8d  *\n",playerStats.get(1).getBuy(),playerStats.get(0).getBuy());
+        System.out.format("* Hands Won:%2d/%-2d *        * Hands Won:%2d/%-2d *\n",playerStats.get(1).getHandsWons(),playerStats.get(1).getNumOfGames(),playerStats.get(0).getHandsWons(),playerStats.get(0).getNumOfGames());
         System.out.format("*******************        *******************\n");
         System.out.format("\n");
         System.out.format("\n");
@@ -27,7 +34,7 @@ public class ConsoleUI{
         System.out.format("*******************        *******************\n");
         System.out.format("* Type: %1s         *        * Type: %1s         *\n",playerStats.get(2).GetType(),playerStats.get(3).GetType());
         System.out.format("* State %1s         *        * State %1s         *\n",playerStats.get(2).getState(),playerStats.get(3).getState());
-        System.out.format("* Chips: %-8d *        * Chips: %-8d *\n",playerStats.get(2).getChips(),playerStats.get(1).getChips());
+        System.out.format("* Chips: %-8d *        * Chips: %-8d *\n",playerStats.get(2).getChips(),playerStats.get(3).getChips());
         System.out.format("* Buys: %-8d  *        * Buys: %-8d  *\n",playerStats.get(2).getBuy(),playerStats.get(3).getBuy());
         System.out.format("* Hands Won:%2d/%-2d *        * Hands Won:%2d/%-2d *\n",playerStats.get(2).getHandsWons(),playerStats.get(2).getNumOfGames(),playerStats.get(3).getHandsWons(),playerStats.get(3).getNumOfGames());
         System.out.format("*******************        *******************\n");
@@ -140,8 +147,54 @@ public class ConsoleUI{
 
 
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws StakeNotInRangeException, PlayerFoldedException, MoveNotAllowdedException, ChipLessThanPotException, NoSufficientMoneyException {
 
+//        //init
+//        Game game=new Game();
+//        try {
+//            game.LoadFromFile("C:\\Users\\israe\\Google Drive\\Study\\JavaCourse\\TexasHoldem\\Engine\\Resource\\master.xml");
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (FileNotXMLException e) {
+//            e.printStackTrace();
+//        } catch (WrongFileNameException e) {
+//            e.printStackTrace();
+//        } catch (JAXBException e) {
+//            e.printStackTrace();
+//        } catch (NullObjectException e) {
+//            e.printStackTrace();
+//        } catch (UnexpectedObjectException e) {
+//            e.printStackTrace();
+//        } catch (HandsCountDevideException e) {
+//            e.printStackTrace();
+//        } catch (BigSmallMismatchException e) {
+//            e.printStackTrace();
+//        } catch (HandsCountSmallerException e) {
+//            e.printStackTrace();
+//        } catch (GameStartedException e) {
+//            e.printStackTrace();
+//        } catch (PlayerDataMissingException e) {
+//            e.printStackTrace();
+//        }
+//
+//        PrintGameStat(game.GetPlayersStats());
+//
+//
+//        //God with us play hand
+//        try {
+//            game.StartNewHand();
+//        } catch (NoSufficientMoneyException e) {
+//            e.printStackTrace();
+//        } catch (PlayerFoldedException e) {
+//            e.printStackTrace();
+//        } catch (ChipLessThanPotException e) {
+//            e.printStackTrace();
+//        } catch (StakeNotInRangeException e) {
+//            e.printStackTrace();
+//        } catch (MoveNotAllowdedException e) {
+//            System.out.println(" move not allowded !insert move again.");
+//            game.NewHumanMove();
+//        }
         //PrintGameStatTest();
         PrintGameHandTest();
     }
