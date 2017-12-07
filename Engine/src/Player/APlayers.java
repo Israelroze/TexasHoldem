@@ -1,6 +1,6 @@
 package Player;
 
-import Game.API;
+import Exceptions.PlayerDataMissingException;
 import Generated.Player;
 import Generated.Players;
 import java.util.Collections;
@@ -16,8 +16,7 @@ public class APlayers {
 
 
 
-    public APlayers(Players players)
-    {
+    public APlayers(Players players) throws PlayerDataMissingException {
         aplayers=new LinkedList<APlayer>();
 
         for (Player player: players.getPlayer())
@@ -27,7 +26,6 @@ public class APlayers {
         }
     }
 
-    @API
     public void RandomPlayerSeats() {
         Random rnd = new Random();
         Collections.shuffle(this.aplayers,rnd);
@@ -51,7 +49,6 @@ public class APlayers {
         }
     }
 
-    @API
     public APlayer GetNextPlayer(APlayer player)
     {
         int index=this.aplayers.indexOf(player);
@@ -78,7 +75,6 @@ public class APlayers {
         big.SetPlayerState(PlayerState.BIG);
     }
 
-    @API
     public void ForwardStates()
     {
         if(this.dealer==null)
@@ -94,25 +90,21 @@ public class APlayers {
         this.SetBig();
     }
 
-    @API
     public APlayer GetDealer()
     {
        return this.dealer;
     }
 
-    @API
     public APlayer GetSmallPlayer()
     {
         return this.small;
     }
 
-    @API
     public APlayer GetBigPlayer()
     {
         return this.big;
     }
 
-    @API
     public List<APlayer> GetPlayers()
     {
         return this.aplayers;

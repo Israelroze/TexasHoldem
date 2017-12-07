@@ -3,13 +3,12 @@ package Player;
 import Card.Card;
 
 import Exceptions.NoSufficientMoneyException;
+import Exceptions.PlayerDataMissingException;
 import Generated.Player;
-import java.util.HashMap;
-import java.util.Map;
 
 public class APlayer{
     //info
-    private String type;
+    private PlayerType type;
     private int id;
     private String name;
 
@@ -26,20 +25,42 @@ public class APlayer{
     private int stake;
 
     //Ctors
-    public APlayer(String name, String type, int ID)
+    public APlayer(String name, PlayerType type, int ID)
     {
         this.type=type;
         this.name=name;
         this.id=ID;
         this.ClearBidStats();
+        this.num_of_buys=0;
+        this.num_of_wins=0;
+        this.money=0;
+        this.state=PlayerState.NONE;
     }
 
-    public APlayer(Player player)
-    {
-        this.id=player.getId();
-        this.name=player.getName();
-        this.type=player.getType();
+    public APlayer(Player player) throws PlayerDataMissingException {
+        try{this.id=player.getId();}
+        catch (NullPointerException e){throw new PlayerDataMissingException("ID");}
+        try{this.name=player.getName();}
+        catch (NullPointerException e){throw new PlayerDataMissingException("Name");}
+        if(player.getType().equals("Human"))
+        {
+            this.type=PlayerType.HUMAN;
+        }
+        else
+        {
+            if(player.getType().equals("Computer"))
+            {
+                this.type=PlayerType.COMPUTER;
+            }
+            else
+            {
+                throw new PlayerDataMissingException("Type");
+            }
+        }
+        this.num_of_buys=0;
+        this.num_of_wins=0;
         this.ClearBidStats();
+        this.state=PlayerState.NONE;
     }
 
     //Getters Setters
@@ -84,7 +105,11 @@ public class APlayer{
         num_of_buys++;
     }
 
-    public String GetType() {
+    public int GetNumOfWins() {
+        return this.num_of_wins;
+    }
+
+    public PlayerType GetType() {
         return this.type;
     }
 
@@ -96,6 +121,10 @@ public class APlayer{
         {
             throw new NoSufficientMoneyException(this.GetName());
         }
+    }
+
+    public boolean GetIsFoldedFlag() {
+        return this.is_folded;
     }
 
     public void SetCards(Card[] cards) {
