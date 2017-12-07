@@ -50,7 +50,7 @@ public interface  InterfaceAPI {
 
     public int[] GetAllowdedStakeRange();
 
-    public Move GetAutoMove();
+    public Move GetAutoMove() throws PlayerFoldedException, ChipLessThanPotException;
 
     public void SetNewMove(Move move) throws StakeNotInRangeException, PlayerFoldedException, MoveNotAllowdedException, ChipLessThanPotException, NoSufficientMoneyException;
 

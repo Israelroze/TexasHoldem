@@ -21,14 +21,12 @@ import javax.xml.bind.JAXBException;
 
 public class ConsoleUI{
 
+    private static Scanner reader = new Scanner(System.in);
     private InterfaceAPI  engine ;
     private boolean isXMLFileLoaded =false;
     private boolean endGame = false;
     private int numberOfHands;
     private long startTime;
-
-
-    private static Scanner reader = new Scanner(System.in);
 
     public void  RunGame()
     {
@@ -144,8 +142,14 @@ public class ConsoleUI{
         }
         while(! engine.IsCurrentBidCycleFinished())
         {
-            if(engine.IsCurrentPlayerComputer()) currentMove = engine.GetAutoMove();
-            if (engine.IsCurrentPlayerComputer()) currentMove = PlayHumanPlayer();
+            if(engine.IsCurrentPlayerComputer()) try {
+                currentMove = engine.GetAutoMove();
+            } catch (PlayerFoldedException e) {
+                e.printStackTrace();
+            } catch (ChipLessThanPotException e) {
+                e.printStackTrace();
+            }
+            if (engine.IsCurrentPlayerHuman()) currentMove = PlayHumanPlayer();
             try {
                 engine.SetNewMove(currentMove);
                 //TBD -- HANDLE
@@ -179,7 +183,7 @@ public class ConsoleUI{
         }
         if(moves == null)
         {
-            System.out.println("Moves not avalible");
+            System.out.println("Moves not avaliable");
             return null;
         }
 
@@ -207,45 +211,45 @@ public class ConsoleUI{
             System.out.print("\nPlease choose your move (choose by letter): ");
             input = reader.next();
             moveType = MoveType.FOLD;
-            this.PrintGame(engine.GetCurrentHandState());
+            //this.PrintGame(engine.GetCurrentHandState());
             if (moveChars.contains(input)) {
 
-                    switch (input) {
-                        case "B":
-                        case "b":
-                            moveType = MoveType.BET;
-                            break;
-                        case "F":
-                        case "f":
-                            moveType = MoveType.FOLD;
-                            break;
-                        case "C":
-                        case "c":
-                            moveType = MoveType.CALL;
-                            break;
-                        case "K":
-                        case "k":
-                            moveType = MoveType.CHECK;
-                            break;
-                        case "R":
-                        case "r":
-                            moveType = MoveType.RAISE;
-                            break;
-                    }
+                switch (input) {
+                    case "B":
+                    case "b":
+                        moveType = MoveType.BET;
+                        break;
+                    case "F":
+                    case "f":
+                        moveType = MoveType.FOLD;
+                        break;
+                    case "C":
+                    case "c":
+                        moveType = MoveType.CALL;
+                        break;
+                    case "K":
+                    case "k":
+                        moveType = MoveType.CHECK;
+                        break;
+                    case "R":
+                    case "r":
+                        moveType = MoveType.RAISE;
+                        break;
+                }
                 if (moveType == MoveType.BET || moveType == MoveType.RAISE) {
-                    {
-                        System.out.print("Please enter The amout: ");
-                         amount =reader.nextInt();
-                    }
 
-                    return new Move(moveType,amount);
-                }
+                    System.out.print("Please enter The amout: ");
+                    amount = reader.nextInt();
 
                 }
-                else {
+                return new Move(moveType,amount);
+
+            }else {
                 System.out.print("\n Wrong Input, Please choose again: ");
                 input = reader.next();
+
             }
+
         }while(true);
     }
 
@@ -268,19 +272,7 @@ public class ConsoleUI{
         System.out.format("*******************        *******************\n");
 
     }
-     public void PrintGameStatTest(){
-        PlayerStats p1 = new PlayerStats(PlayerType.HUMAN, PlayerState.BIG ,100,20,4,10);
-        PlayerStats p2 = new PlayerStats(PlayerType.HUMAN, PlayerState.DEALER ,100,20,4,20);
-        PlayerStats p3 = new PlayerStats(PlayerType.COMPUTER, PlayerState.SMALL ,1121230,231230,20,11);
-        PlayerStats p4 = new PlayerStats(PlayerType.HUMAN, PlayerState.NONE ,100,20,4,55);
-        List<PlayerStats> a =new LinkedList<>();
-        a.add(p1);
-        a.add(p2);
-        a.add(p3);
-        a.add(p4);
 
-
-    }
     private void LoadXMLFile()
     {
 
@@ -367,35 +359,6 @@ public class ConsoleUI{
             }
         }while (true);
             //once finished
-    }
-
-
-     public void PrintGameHandTest(){
-        List <Card> HumanCards = new LinkedList<Card>();
-        HumanCards.add(new Card(CardNumber.ACE,CardSuit.Diamonds));
-        HumanCards.add(new Card(CardNumber.TEN,CardSuit.Spades));
-
-        List <Card> comCards = new LinkedList<Card>();
-        comCards.add(new Card(CardNumber.EIGHT,CardSuit.Clubs));
-        comCards.add(new Card(CardNumber.FIVE,CardSuit.Hearts));
-        comCards.add(new Card(CardNumber.KING,CardSuit.Spades));
-        comCards.add(new Card(CardNumber.KING,CardSuit.Hearts));
-
-
-        PlayerHandState p1 = new PlayerHandState(PlayerType.HUMAN, PlayerState.DEALER ,100,20,Card.UnknownComputerCards);
-        PlayerHandState p2 = new PlayerHandState(PlayerType.HUMAN, PlayerState.BIG ,100,20,HumanCards);
-        PlayerHandState p3 = new PlayerHandState(PlayerType.COMPUTER, PlayerState.SMALL ,1121230,231230,Card.UnknownComputerCards);
-        PlayerHandState p4 = new PlayerHandState(PlayerType.COMPUTER, PlayerState.NONE ,100,20,Card.UnknownComputerCards);
-        List<PlayerHandState> a =new LinkedList<>();
-        a.add(p1);
-        a.add(p2);
-        a.add(p3);
-        a.add(p4);
-
-        CurrentHandState cur = new CurrentHandState(a,comCards,1000,3);
-
-        PrintGame(cur);
-
     }
 
     public  void PrintGame(CurrentHandState curHandState){

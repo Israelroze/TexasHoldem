@@ -251,6 +251,10 @@ public class Hand {
         return allowded_moves;
     }
 
+    public int GetHigestStake() {
+        return this.higest_stake;
+    }
+
     public boolean IsMoveAllowded(MoveType mtype) throws PlayerFoldedException, ChipLessThanPotException {
         List<MoveType> allowded_moves=this.GetAllowdedMoves();
         for(MoveType move:allowded_moves)
@@ -292,6 +296,7 @@ public class Hand {
                 this.current_player.DecMoney(stake);
                 this.current_player.setStake(stake);
                 this.current_player.setBetPlaceFlag(true);
+                this.IncPot(stake);
                 this.InitPlayersBetFlag(this.current_player);
                 this.current_player=this.players.GetNextPlayer(this.current_player);
                 this.higest_stake=stake;
@@ -300,6 +305,7 @@ public class Hand {
                 this.current_player.DecMoney(stake);
                 this.current_player.setStake(stake);
                 this.current_player.setBetPlaceFlag(true);
+                this.IncPot(stake);
                 this.InitPlayersBetFlag(this.current_player);
                 this.current_player=this.players.GetNextPlayer(this.current_player);
                 this.higest_stake=stake;
@@ -308,6 +314,7 @@ public class Hand {
                 this.current_player.DecMoney(this.higest_stake);
                 this.current_player.setStake(this.higest_stake);
                 this.current_player.setBetPlaceFlag(true);
+                this.IncPot(this.higest_stake);
                 this.current_player=this.players.GetNextPlayer(this.current_player);
                 break;
             case CHECK:

@@ -11,9 +11,7 @@ import API.*;
 
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 import Move.*;
 
@@ -229,7 +227,31 @@ public class Game implements InterfaceAPI {
 
     ///////////////////////////////TBD////////////////////////////////
     @Override
-    public Move GetAutoMove(){
+    public Move GetAutoMove() throws PlayerFoldedException, ChipLessThanPotException {
+        List<MoveType> possible_moves=this.current_hand.GetAllowdedMoves();
+        int[] range=this.current_hand.GetAllowdedStakeRange();
+
+        Random rnd=new Random();
+        int i = rnd.nextInt(possible_moves.size()-1);
+
+        MoveType type=possible_moves.get(i);
+
+        switch(type)
+        {
+
+            case RAISE:
+                i = rnd.nextInt((range[1] - range[0]) + 1) + range[0];
+                return new Move(type,i);
+            case BET:
+                i = rnd.nextInt((range[1] - range[0]) + 1) + range[0];
+                return new Move(type,i);
+            case CALL:
+                return new Move(type,this.current_hand.GetHigestStake());
+            case FOLD:
+                return new Move(type,0);
+            case CHECK:
+                return new Move(type,0);
+        }
         return null;
     }
 
