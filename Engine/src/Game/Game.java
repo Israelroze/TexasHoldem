@@ -259,11 +259,11 @@ public class Game implements InterfaceAPI {
 
         List <Card> comCards = new LinkedList<Card>();
         Card[] community=this.current_hand.GetCommunity();
-        for(int i=0;i<4;i++)
-        {
-            if (community[i] != null) comCards.add(community[i]);
+        if (community != null) {
+            for (int i = 0; i < 4; i++) {
+                if (community[i] != null) comCards.add(community[i]);
+            }
         }
-
         List<PlayerHandState> PlayersHands =new LinkedList<>();
         for(APlayer player:this.players.GetPlayers())
         {
@@ -281,7 +281,7 @@ public class Game implements InterfaceAPI {
             }
         }
 
-       return  new CurrentHandState(PlayersHands,comCards,this.current_hand.GetPot(),this.players.GetPlayers().indexOf(this.current_hand.GetCurrentPlayer()));
+       return  new CurrentHandState(PlayersHands,comCards,this.current_hand.GetPot(),this.players.GetPlayers().indexOf(this.current_hand.GetCurrentPlayer())  );
 
     }
 }
