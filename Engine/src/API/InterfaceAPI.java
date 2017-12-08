@@ -1,10 +1,8 @@
 package API;
 
 import Exceptions.*;
-import Game.Game;
 import Move.Move;
 import Move.MoveType;
-import Player.PlayerType;
 import ReturnType.CurrentHandState;
 import ReturnType.PlayerStats;
 
@@ -36,8 +34,14 @@ public interface  InterfaceAPI {
 
     public void Turn();
 
+    //Buy API
+
+    public void Buy();
+
+    public int GetMoneyInGame();
 
     //Bid related API's
+    public boolean IsHumanPlayerFolded();
     public void StartNewBidCycle() throws NoSufficientMoneyException;
 
     public boolean IsCurrentBidCycleFinished();
@@ -58,7 +62,7 @@ public interface  InterfaceAPI {
 
     public void SetWinner();
 
-    public String GetWinner();
+    public List<String> GetWinner();
 
     public PlayerStats GetCurrentPlayerInfo();
 

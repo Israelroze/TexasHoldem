@@ -17,6 +17,7 @@ public class  PlayerHandState extends PlayerReturnType {
     private int bet;
     private List<Card> cards;
 
+
     public PlayerHandState(PlayerType type, PlayerState state, int chips, int bet, List<Card> cards) {
         super(type, state, chips);
         this.bet = bet;

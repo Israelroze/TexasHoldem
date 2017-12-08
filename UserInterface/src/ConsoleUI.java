@@ -16,6 +16,7 @@ import Card.Card;
 import Card.CardSuit;
 import Card.CardNumber;
 import Game.Game;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 import javax.xml.bind.JAXBException;
 
@@ -141,15 +142,34 @@ public class ConsoleUI{
         engine.Turn();
         this.PlayBidRound();
         this.EndOfRound();
-
-        //TBD
+        engine.SetWinner();
         // add the winner
+        PrintTheWinners();
+    }
+
+
+    private void PrintTheWinners(){
+
+
+
+        System.out.println("And the winner is \\ are: " );
+        List<String> winners=    engine.GetWinner();
+
+        for (String winner : winners){
+            System.out.print("  " + winner+ " ");
+        }
+
+        System.out.println("");
+
     }
 
     private void EndOfRound() {
-        this.PrintGame(engine.GetCurrentHandState());
-        System.out.println("Round just ended, Press Enter to contionu to next Round");
-        reader.nextLine();
+
+        if(!engine.IsHumanPlayerFolded()) {
+            this.PrintGame(engine.GetCurrentHandState());
+            System.out.println("Round just ended, Press enter to contionu to next round");
+            reader.nextLine();
+        }
     }
 
 
@@ -359,7 +379,7 @@ public class ConsoleUI{
                 case 5:
                     System.out.println("Time elapsed:  " + this.GetTimePass());
                     System.out.println("The number of hands already played: " + engine.GetCurrentHandNumber());
-                    System.out.println("The pot size is: " );// TBD- add pot size
+                    System.out.println("The pot size is: " +engine.GetMoneyInGame());//
                     this.PrintGameStat(engine.GetPlayersInfo());
                     menuOption[0] = menuOption[1] = false;
                     menuOption[2] = menuOption[3] = menuOption[4] = menuOption[5] = true;
@@ -367,7 +387,11 @@ public class ConsoleUI{
                     break;
 
                 case 6:
-                    // TBD -ADD BUY
+                    engine.Buy();
+                    menuOption[0] = menuOption[1] = false;
+                    menuOption[2] = menuOption[3] = menuOption[4] = menuOption[5] = true;
+                    choice = PrintMainMenu(menuOption);
+
                     break;
                 case 7:
                     this.endGame = true;

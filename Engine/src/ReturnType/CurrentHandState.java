@@ -10,6 +10,7 @@ public class CurrentHandState {
     private int pot;
     private int currentPlayer;
 
+
     public CurrentHandState(List<PlayerHandState> playersState, List<Card> communityCards, int pot, int currentPlayer)
     {
         this.playersState = playersState;

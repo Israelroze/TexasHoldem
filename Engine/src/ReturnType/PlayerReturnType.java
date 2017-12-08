@@ -7,6 +7,7 @@ public class PlayerReturnType {
     private PlayerType type;
     private PlayerState state;
     private int chips;
+    private String name;
 
 
     public PlayerReturnType(PlayerType type, PlayerState state, int chips) {
@@ -18,6 +19,11 @@ public class PlayerReturnType {
     @Override
     public String toString() {
         return this.type.toString();
+    }
+
+
+    public String getName() {
+        return name;
     }
 
     public PlayerType GetType() {

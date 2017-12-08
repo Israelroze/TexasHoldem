@@ -17,12 +17,13 @@ import Move.*;
 
 public class Game implements InterfaceAPI {
     //members
-    GameDescriptor configuration;
-    CurrentHandState state;
-    APlayers players;
+    private GameDescriptor configuration;
+    private CurrentHandState state;
+    private APlayers players;
     boolean is_game_started=false;
     private int num_of_hands=0;
-    Hand current_hand;
+    private int global_num_of_buys = 4;
+    private Hand current_hand;
 
     //Private Methods
     private void LoadPlayers() throws PlayerDataMissingException {this.players=new APlayers(configuration.getPlayers());}
@@ -314,19 +315,27 @@ public class Game implements InterfaceAPI {
         this.current_hand.MoveToNextPlayer();
     }
 
-    ///////////////////////////////TBD////////////////////////////////
 
     @Override
     public void SetWinner(){
-
+        this.current_hand.SetWinner();
     }
 
     @Override
-    public String GetWinner(){
-        return "null";
+    public List<String> GetWinner(){
+        return  this.current_hand.GetWinnerNames();
     }
-
-
+    @Override
+    public void Buy()
+    {
+        for(APlayer player:this.players.GetPlayers())
+        {
+            if(player.GetType()==PlayerType.HUMAN) {
+                player.AddMoney(this.configuration.getStructure().getBuy());
+                this.global_num_of_buys++;
+            }
+        }
+    }
     ///////////////////////////////////////////////////////////////
 
     //Stats Methods
@@ -368,5 +377,25 @@ public class Game implements InterfaceAPI {
 
        return  new CurrentHandState(PlayersHands,comCards,this.current_hand.GetPot(),this.players.GetPlayers().indexOf(this.current_hand.GetCurrentPlayer())  );
 
+    }
+    @Override
+    public int GetMoneyInGame()
+    {
+        return this.global_num_of_buys * this.configuration.getStructure().getBuy();
+    }
+    @Override
+    public boolean IsHumanPlayerFolded()
+    {
+        for(APlayer player:this.players.GetPlayers())
+        {
+            if(player.GetType()==PlayerType.HUMAN)
+            {
+                if(player.isFolded())
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

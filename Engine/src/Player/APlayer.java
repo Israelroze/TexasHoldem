@@ -64,6 +64,10 @@ public class APlayer{
     }
 
     //Getters Setters
+    public void IncWinner()
+    {
+        this.num_of_wins++;
+    }
     public int getId() { return id; }
 
     public boolean isPlacedBet() {return is_placed_bet; }
