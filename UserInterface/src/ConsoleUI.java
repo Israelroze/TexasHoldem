@@ -135,10 +135,10 @@ public class ConsoleUI{
         engine.Flop();
         this.PlayBidRound();
         this.EndOfRound();
-        engine.Turn();
+        engine.River();
         this.PlayBidRound();
         this.EndOfRound();
-        engine.River();
+        engine.Turn();
         this.PlayBidRound();
         this.EndOfRound();
 
@@ -163,9 +163,10 @@ public class ConsoleUI{
                 currentMove = engine.GetAutoMove();
             } catch (PlayerFoldedException e) {
                 System.out.println("Computer Player Folded- Need to Be handled");
-                //engine.MoveToNextPlayer();
+                engine.MoveToNextPlayer();
+                engine.CheckBidStatus();
             } catch (ChipLessThanPotException e) {
-                System.out.println("Player Type:" + this.engine.GetCurrentPlayerInfo().GetType() + " ID:" + this.engine.GetCurrentPlayerInfo().GetID() + "Chip less than Pot" + e.GetMaxChips());
+                System.out.println("Player Type:" + this.engine.GetCurrentPlayerInfo().GetType() + " ID:" + this.engine.GetCurrentPlayerInfo().GetID() + "Chip less than Pot ");
             }
         }
         else //if human
@@ -192,21 +193,22 @@ public class ConsoleUI{
 
         boolean is_round_finished=false;
         //bid round cycle
-        while(!is_round_finished)
+        while(!engine.IsCurrentBidCycleFinished())
         {
             System.out.println(" ");
             if(this.engine.IsCurrentPlayerFolded())
             {
                 this.engine.MoveToNextPlayer();
+                this.engine.CheckBidStatus();
             }
             else
             {
                 Move currentMove = this.GetPlayerMove();
 
-                if (currentMove != null) {
+                //if (currentMove != null) {
 
-                    System.out.println("Player Type:"+this.engine.GetCurrentPlayerInfo().GetType() +" ID:"+this.engine.GetCurrentPlayerInfo().GetID()+" Move:" + currentMove.GetMoveType().toString() + "   ");
-                    System.out.print(currentMove.GetValue());
+                    //System.out.println("Player Type:"+this.engine.GetCurrentPlayerInfo().GetType() +" ID:"+this.engine.GetCurrentPlayerInfo().GetID()+" Move:" + currentMove.GetMoveType().toString() + "   ");
+                    //System.out.print(currentMove.GetValue());
 
                     try {
                         engine.SetNewMove(currentMove);
@@ -225,13 +227,17 @@ public class ConsoleUI{
                     } catch (PlayerAlreadyBetException e) {
                         System.out.println("Player already bet");
                         this.engine.MoveToNextPlayer();
+                        this.engine.CheckBidStatus();
                     }
                     finally{
                         is_round_finished=engine.IsCurrentBidCycleFinished();
                         System.out.println("is finished:"+is_round_finished);
                     }
-
-                }
+                //}
+               // else {
+                //    this.engine.MoveToNextPlayer();
+                //    this.engine.CheckBidStatus();
+                //}
             }
         }
     }
@@ -311,69 +317,69 @@ public class ConsoleUI{
     ///////////////////////////////public functions////////////////////////////////
 
     public void  RunGame() {
-        this.TestOneHand();
-//       boolean[] menuOption = new boolean[]{true,false,false,false,false,false,true};
-//        int choice= -1;
-//        choice = PrintMainMenu(menuOption);
-//        while ( !this.endGame ) {
-//            switch (choice) {
-//                case 1:
-//                    engine = new Game();
-//                    LoadXMLFile();
-//                    this.numberOfHands = engine.GetNumberOfHands();
-//                    menuOption[1] = true;
-//                    choice = PrintMainMenu(menuOption);
-//                    break;
-//
-//                case 2:
-//                    this.startTime = System.currentTimeMillis();
-//                    engine.StartGame();
-//                    this.PrintGameStat(engine.GetPlayersInfo());
-//                    menuOption[0] = menuOption[1] = false;
-//                    menuOption[2] = menuOption[3] = menuOption[4] = menuOption[5] = true;
-//                    choice = PrintMainMenu(menuOption);
-//                    break;
-//                case 3:
-//                    this.PrintGameStat(engine.GetPlayersInfo());
-//                    menuOption[0] = menuOption[1] = false;
-//                    menuOption[2] = menuOption[3] = menuOption[4] = menuOption[5] = true;
-//                    choice = PrintMainMenu(menuOption);
-//                    break;
-//                case 4:
-//                    if (engine != null && engine.GetNumberOfHands() == 0)
-//                        System.out.println("Game Over, Number Of Hand is 0");
-//                    else {
-//                        PlayOneHand();
-//                        menuOption[0] = menuOption[1] = false;
-//                        menuOption[2] = menuOption[3] = menuOption[4] = menuOption[5] = true;
-//                        choice = PrintMainMenu(menuOption);
-//                    }
-//                    break;
-//
-//                case 5:
-//                    System.out.println("Time elapsed:  " + this.GetTimePass());
-//                    System.out.println("The number of hands already played: " + engine.GetCurrentHandNumber());
-//                    System.out.println("The pot size is: " );// TBD- add pot size
-//                    this.PrintGameStat(engine.GetPlayersInfo());
-//                    menuOption[0] = menuOption[1] = false;
-//                    menuOption[2] = menuOption[3] = menuOption[4] = menuOption[5] = true;
-//                    choice = PrintMainMenu(menuOption);
-//                    break;
-//
-//                case 6:
-//                    // TBD -ADD BUY
-//                    break;
-//                case 7:
-//                    this.endGame = true;
-//                    System.out.println("Game End, Bye Bye!");
-//                    break;
-//
-//
-//
-//
-//
-//            }
-//        }
+       // this.TestOneHand();
+       boolean[] menuOption = new boolean[]{true,false,false,false,false,false,true};
+        int choice= -1;
+        choice = PrintMainMenu(menuOption);
+        while ( !this.endGame ) {
+            switch (choice) {
+                case 1:
+                    engine = new Game();
+                    LoadXMLFile();
+                    this.numberOfHands = engine.GetNumberOfHands();
+                    menuOption[1] = true;
+                    choice = PrintMainMenu(menuOption);
+                    break;
+
+                case 2:
+                    this.startTime = System.currentTimeMillis();
+                    engine.StartGame();
+                    this.PrintGameStat(engine.GetPlayersInfo());
+                    menuOption[0] = menuOption[1] = false;
+                    menuOption[2] = menuOption[3] = menuOption[4] = menuOption[5] = true;
+                    choice = PrintMainMenu(menuOption);
+                    break;
+                case 3:
+                    this.PrintGameStat(engine.GetPlayersInfo());
+                    menuOption[0] = menuOption[1] = false;
+                    menuOption[2] = menuOption[3] = menuOption[4] = menuOption[5] = true;
+                    choice = PrintMainMenu(menuOption);
+                    break;
+                case 4:
+                    if (engine != null && engine.GetNumberOfHands() == 0)
+                        System.out.println("Game Over, Number Of Hand is 0");
+                    else {
+                        PlayOneHand();
+                        menuOption[0] = menuOption[1] = false;
+                        menuOption[2] = menuOption[3] = menuOption[4] = menuOption[5] = true;
+                        choice = PrintMainMenu(menuOption);
+                    }
+                    break;
+
+                case 5:
+                    System.out.println("Time elapsed:  " + this.GetTimePass());
+                    System.out.println("The number of hands already played: " + engine.GetCurrentHandNumber());
+                    System.out.println("The pot size is: " );// TBD- add pot size
+                    this.PrintGameStat(engine.GetPlayersInfo());
+                    menuOption[0] = menuOption[1] = false;
+                    menuOption[2] = menuOption[3] = menuOption[4] = menuOption[5] = true;
+                    choice = PrintMainMenu(menuOption);
+                    break;
+
+                case 6:
+                    // TBD -ADD BUY
+                    break;
+                case 7:
+                    this.endGame = true;
+                    System.out.println("Game End, Bye Bye!");
+                    break;
+
+
+
+
+
+            }
+        }
 
 
 

@@ -61,7 +61,7 @@ public class Hand {
         //for small
         APlayer small=this.players.GetSmallPlayer();
         small.DecMoney(this.small);
-        small.setBetPlaceFlag(true);
+        //small.setBetPlaceFlag(true);
         small.setStake(this.small);
         this.higest_stake=this.small;
 
@@ -99,7 +99,7 @@ public class Hand {
     private boolean IsAllPlayersPlacedBet() {
         for(APlayer player : this.players.GetPlayers())
         {
-            if(player.getStake()!=this.higest_stake)
+            if(!player.isPlacedBet())
             {
                 return false;
             }
@@ -139,37 +139,49 @@ public class Hand {
         }
     }
 
-    private void IsBetCycleFinished() {
-        if(this.IsAllPlayersPlacedBet()&&this.IsAllStakesEqual()) this.is_bets_finished=true;
-    }
-
     private void IncPot(int amount)
     {
         this.pot=this.pot+amount;
     }
 
 
-    //Public Methods
 
+    //Public Methods
     public int GetPoorestChipsValue() {
         int min=0;
         for(APlayer player : this.players.GetPlayers())
         {
-            if(min==0)
+            if(this.higest_stake==0)
             {
-                min=player.GetMoney();
+                if (min == 0) {
+                    min = player.GetMoney();
+                } else {
+                    if (min > player.GetMoney()) {
+                        if (player.getStake() < this.higest_stake) {
+                            min = player.GetMoney();
+                        }
+                    }
+                }
             }
-            else
-            {
-                if(min>player.GetMoney())
-                {
-                    if(player.getStake()<this.higest_stake) {
+            else {
+                if (player.getStake() != this.higest_stake) {
+                    if (min == 0) {
                         min = player.GetMoney();
+                    } else {
+                        if (min > player.GetMoney()) {
+                            if (player.getStake() < this.higest_stake) {
+                                min = player.GetMoney();
+                            }
+                        }
                     }
                 }
             }
         }
         return min;
+    }
+
+    public void SetIsBetCycleFinished() {
+        if(this.IsAllPlayersPlacedBet()) this.is_bets_finished=true;
     }
 
     public Card[] GetCommunity() {
@@ -192,6 +204,9 @@ public class Hand {
 
         //deal cards
         this.DealCards();
+
+        //forward states
+        this.players.ForwardStates();
 
         //set first playing player
         this.current_player=this.GetFirstPlayer();
@@ -221,16 +236,15 @@ public class Hand {
         int by_poorest=this.GetPoorestChipsValue();
         System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"poorest chips:"+by_poorest);
 
-        if(by_poorest<this.higest_stake)
+        if(by_poorest<=this.higest_stake)
         {
-
-            return new int[]{this.higest_stake,this.higest_stake};
+            low=0;
+            high=by_poorest;
         }
         else {
             if (by_pot > by_poorest) {
                 high = by_poorest;
-            }
-            else {
+            } else {
                 high = by_pot;
             }
         }
@@ -264,6 +278,7 @@ public class Hand {
         {
             if(this.current_player.getStake()<this.higest_stake)//player need to Call,Raise or Fold
             {
+                System.out.println("FROM HAND:current player stake less than highest stake");
                 allowded_moves.add(MoveType.RAISE);
                 allowded_moves.add(MoveType.CALL);
                 allowded_moves.add(MoveType.FOLD);
@@ -273,9 +288,15 @@ public class Hand {
             {
                 if(this.current_player.getStake()==this.higest_stake)
                 {
+                    System.out.println("FROM HAND:current player stake equal than highest stake");
                     allowded_moves.add(MoveType.RAISE);
                     allowded_moves.add(MoveType.CHECK);
+                    allowded_moves.add(MoveType.FOLD);
                     System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"allowded moves: raise,check");
+                }
+                else //current player stake bigger than highest stake
+                {
+                    System.out.println("FROM HAND:current player stake bigger than highest stake");
                 }
             }
         }
@@ -310,6 +331,20 @@ public class Hand {
 
     public void ImplementMove(MoveType move,int stake) throws NoSufficientMoneyException, PlayerFoldedException, ChipLessThanPotException, MoveNotAllowdedException, StakeNotInRangeException, PlayerAlreadyBetException {
 
+        if(move==null)
+        {
+            System.out.println("FROM GAME: current player:"+this.current_player.getId()+" cant play any more");
+            this.current_player.setBetPlaceFlag(true);
+        }
+//        if( move == MoveType.FOLD)
+//        {
+//            // ADD BY AVISHAY
+//            System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"Implementing move... type:fold stake:"+stake);
+//            this.current_player.setBetPlaceFlag(true);
+//            this.current_player.setFoldedFlag(true);
+//
+//        }
+
         if(this.current_player.isPlacedBet())
         {
             throw new PlayerAlreadyBetException();
@@ -327,6 +362,7 @@ public class Hand {
             }
         }
 
+        int delta;
         switch(move){
             case BET:
                 System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"Implementing move... type:bet stake:"+stake);
@@ -340,20 +376,22 @@ public class Hand {
                 break;
             case RAISE:
                 System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"Implementing move... type:raise stake:"+stake);
-                this.current_player.DecMoney(stake);
+                delta=stake-this.current_player.getStake();
+                this.current_player.DecMoney(delta);
                 this.current_player.setStake(stake);
                 this.current_player.setBetPlaceFlag(true);
-                this.IncPot(stake);
+                this.IncPot(delta);
                 this.InitPlayersBetFlag(this.current_player);
                 this.current_player=this.players.GetNextPlayer(this.current_player);
                 this.higest_stake=stake;
                 break;
             case CALL:
                 System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"Implementing move... type:call stake:"+stake);
-                this.current_player.DecMoney(this.higest_stake);
+                delta=this.higest_stake-this.current_player.getStake();
+                this.current_player.DecMoney(delta);
                 this.current_player.setStake(this.higest_stake);
                 this.current_player.setBetPlaceFlag(true);
-                this.IncPot(this.higest_stake);
+                this.IncPot(delta);
                 this.current_player=this.players.GetNextPlayer(this.current_player);
                 break;
             case CHECK:
@@ -368,7 +406,7 @@ public class Hand {
                 this.current_player=this.players.GetNextPlayer(this.current_player);
                 break;
         }
-        this.IsBetCycleFinished();
+        this.SetIsBetCycleFinished();
     }
 
     public void Flop() {

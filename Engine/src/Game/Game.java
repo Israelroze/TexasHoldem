@@ -205,7 +205,10 @@ public class Game implements InterfaceAPI {
         if(this.GetCurrentHand().GetCurrentPlayer().GetType()== PlayerType.COMPUTER){return true;}
         return false;
     }
-
+    @Override
+    public void CheckBidStatus(){
+        this.current_hand.SetIsBetCycleFinished();
+    }
     @Override
     public boolean IsCurrentPlayerFolded() {
         if(this.GetCurrentHand().GetCurrentPlayer().isFolded())
@@ -228,7 +231,12 @@ public class Game implements InterfaceAPI {
 
     @Override
     public void SetNewMove(Move move) throws StakeNotInRangeException, PlayerFoldedException, MoveNotAllowdedException, ChipLessThanPotException, NoSufficientMoneyException, PlayerAlreadyBetException {
-        this.GetCurrentHand().ImplementMove(move.GetMoveType(),move.GetValue());
+        if(move==null){
+            this.GetCurrentHand().ImplementMove(null,0);
+        }
+        else {
+            this.GetCurrentHand().ImplementMove(move.GetMoveType(), move.GetValue());
+        }
     }
 
     @Override
@@ -244,43 +252,70 @@ public class Game implements InterfaceAPI {
 
         System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"Got the range...");
 
-        MoveType type;
+        MoveType type=null;
         Random rnd=new Random();
         int i;
 
         System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"posdsible moves number:"+possible_moves.size());
-        if(possible_moves.size()>0){
-            i = rnd.nextInt(possible_moves.size() - 1);
-            System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"random:"+i);
-            type =possible_moves.get(i);
+        if(possible_moves.size()==1)
+        {
+            type=possible_moves.get(0);
         }
         else
         {
-            throw new PlayerFoldedException();
-            //type= MoveType.FOLD;
+            if(possible_moves.size()>0){
+                i = rnd.nextInt(possible_moves.size() - 1);
+                System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"random:"+i);
+                type =possible_moves.get(i);
+            }
         }
-
-        switch(type)
+        if(type!=null)
         {
-            case RAISE:
-                i = rnd.nextInt((range[1] - range[0]) + 1) + range[0];
-                System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"random:"+i);
-                return new Move(type,i);
-            case BET:
-                i = rnd.nextInt((range[1] - range[0]) + 1) + range[0];
-                System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"random:"+i);
-                return new Move(type,i);
-            case CALL:
-                return new Move(type,this.current_hand.GetHigestStake());
-            case FOLD:
-                return new Move(type,0);
-            case CHECK:
-                return new Move(type,0);
+            switch(type)
+            {
+                case RAISE:
+                    if(range[0]==range[1])
+                    {
+                        System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"only one:"+range[0]);
+                        return new Move(type,range[0]);
+                    }
+                    else
+                    {
+                        i = rnd.nextInt((range[1] - range[0]) + 1) + range[0];
+                        System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"random:"+i);
+                        return new Move(type,i);
+                    }
+                case BET:
+                    if(range[0]==range[1])
+                    {
+                        System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"only one:"+range[0]);
+                        return new Move(type,range[0]);
+                    }
+                    else
+                    {
+                        i = rnd.nextInt((range[1] - range[0]) + 1) + range[0];
+                        System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"random:"+i);
+                        return new Move(type,i);
+                    }
+                case CALL:
+                    return new Move(type,0);
+                case FOLD:
+                    return new Move(type,0);
+                case CHECK:
+                    return new Move(type,0);
+            }
         }
         return null;
     }
 
+    @Override
+    public void MoveToNextPlayer()
+    {
+        this.current_hand.MoveToNextPlayer();
+    }
+
     ///////////////////////////////TBD////////////////////////////////
+
     @Override
     public void SetWinner(){
 
@@ -289,12 +324,6 @@ public class Game implements InterfaceAPI {
     @Override
     public String GetWinner(){
         return "null";
-    }
-
-    @Override
-    public void MoveToNextPlayer()
-    {
-        this.current_hand.MoveToNextPlayer();
     }
 
 
@@ -316,7 +345,7 @@ public class Game implements InterfaceAPI {
         List <Card> comCards = new LinkedList<Card>();
         Card[] community=this.current_hand.GetCommunity();
         if (community != null) {
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < 5; i++) {
                 if (community[i] != null) comCards.add(community[i]);
             }
         }
