@@ -48,16 +48,19 @@ public interface  InterfaceAPI {
 
     public List<MoveType> GetAllowdedMoves() throws PlayerFoldedException, ChipLessThanPotException;
 
+    public void MoveToNextPlayer();
+
     public int[] GetAllowdedStakeRange();
 
     public Move GetAutoMove() throws PlayerFoldedException, ChipLessThanPotException;
 
-    public void SetNewMove(Move move) throws StakeNotInRangeException, PlayerFoldedException, MoveNotAllowdedException, ChipLessThanPotException, NoSufficientMoneyException;
+    public void SetNewMove(Move move) throws StakeNotInRangeException, PlayerFoldedException, MoveNotAllowdedException, ChipLessThanPotException, NoSufficientMoneyException, PlayerAlreadyBetException;
 
     public void SetWinner();
 
     public String GetWinner();
 
+    public PlayerStats GetCurrentPlayerInfo();
 
     //Statistics related API's
     public List<PlayerStats> GetPlayersInfo();

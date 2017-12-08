@@ -108,7 +108,7 @@ public class Game implements InterfaceAPI {
         System.out.println("Allowded range: low:"+range[0]+" high:"+range[1]);
 
     }
-    private void NewHumanMove() throws PlayerFoldedException, ChipLessThanPotException, StakeNotInRangeException, MoveNotAllowdedException, NoSufficientMoneyException {
+    private void NewHumanMove() throws PlayerFoldedException, ChipLessThanPotException, StakeNotInRangeException, MoveNotAllowdedException, NoSufficientMoneyException, PlayerAlreadyBetException {
         while(!this.current_hand.IsBetsCycleFinished()) {
             APlayer current = this.current_hand.GetCurrentPlayer();
             List<MoveType> allowded_moves=this.current_hand.GetAllowdedMoves();
@@ -220,21 +220,33 @@ public class Game implements InterfaceAPI {
     }
 
     @Override
-    public void SetNewMove(Move move) throws StakeNotInRangeException, PlayerFoldedException, MoveNotAllowdedException, ChipLessThanPotException, NoSufficientMoneyException{
+    public void SetNewMove(Move move) throws StakeNotInRangeException, PlayerFoldedException, MoveNotAllowdedException, ChipLessThanPotException, NoSufficientMoneyException, PlayerAlreadyBetException {
         this.GetCurrentHand().ImplementMove(move.GetMoveType(),move.GetValue());
     }
 
+    @Override
+    public PlayerStats GetCurrentPlayerInfo()
+    {
+        return new PlayerStats(this.current_hand.GetCurrentPlayer(),this.GetNumberOfHands());
+    }
 
     ///////////////////////////////TBD////////////////////////////////
     @Override
     public Move GetAutoMove() throws PlayerFoldedException, ChipLessThanPotException {
         List<MoveType> possible_moves=this.current_hand.GetAllowdedMoves();
         int[] range=this.current_hand.GetAllowdedStakeRange();
-
+        MoveType type;
         Random rnd=new Random();
-        int i = rnd.nextInt(possible_moves.size()-1);
-
-        MoveType type=possible_moves.get(i);
+        int i;
+        if(possible_moves.size()>0){
+            i = rnd.nextInt(possible_moves.size() - 1);
+            type =possible_moves.get(i);
+        }
+        else
+        {
+            throw new PlayerFoldedException();
+            //type= MoveType.FOLD;
+        }
 
         switch(type)
         {
@@ -262,6 +274,12 @@ public class Game implements InterfaceAPI {
     @Override
     public String GetWinner(){
         return "null";
+    }
+
+    @Override
+    public void MoveToNextPlayer()
+    {
+        this.current_hand.MoveToNextPlayer();
     }
 
     ///////////////////////////////////////////////////////////////

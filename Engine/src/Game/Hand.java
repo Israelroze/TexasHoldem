@@ -277,7 +277,12 @@ public class Hand {
         return false;
     }
 
-    public void ImplementMove(MoveType move,int stake) throws NoSufficientMoneyException, PlayerFoldedException, ChipLessThanPotException, MoveNotAllowdedException, StakeNotInRangeException {
+    public void ImplementMove(MoveType move,int stake) throws NoSufficientMoneyException, PlayerFoldedException, ChipLessThanPotException, MoveNotAllowdedException, StakeNotInRangeException, PlayerAlreadyBetException {
+
+        /*if(this.current_player.isPlacedBet())
+        {
+            throw new PlayerAlreadyBetException();
+        }*/
 
         if(!this.IsMoveAllowded(move))
         {
@@ -336,6 +341,11 @@ public class Hand {
         {
             this.community[i]=this.deck.PopCard();
         }
+    }
+
+    public void MoveToNextPlayer()
+    {
+        this.current_player=this.players.GetNextPlayer(this.current_player);
     }
 
     public void River()
