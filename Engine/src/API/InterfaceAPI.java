@@ -62,6 +62,9 @@ public interface  InterfaceAPI {
 
     public PlayerStats GetCurrentPlayerInfo();
 
+
+    public boolean IsCurrentPlayerFolded();
+
     //Statistics related API's
     public List<PlayerStats> GetPlayersInfo();
 

@@ -37,7 +37,6 @@ public class Game implements InterfaceAPI {
         return this.current_hand;
     }
 
-
     //for testing
     private Move GetConsoleMove(APlayer player) {
         MoveType type = null;
@@ -118,8 +117,6 @@ public class Game implements InterfaceAPI {
             this.current_hand.ImplementMove(new_move.GetMoveType(),new_move.GetValue());
         }
     }
-
-
 
     /////////////////////////////////////////////////////////////API's/////////////////////////////////////////////////////////////////////////////////////////
 
@@ -210,6 +207,16 @@ public class Game implements InterfaceAPI {
     }
 
     @Override
+    public boolean IsCurrentPlayerFolded() {
+        if(this.GetCurrentHand().GetCurrentPlayer().isFolded())
+        {
+            System.out.println("FROM GAME: current player folded!!!");
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public List<MoveType> GetAllowdedMoves() throws PlayerFoldedException, ChipLessThanPotException {
         return this.GetCurrentHand().GetAllowdedMoves();
     }
@@ -225,21 +232,26 @@ public class Game implements InterfaceAPI {
     }
 
     @Override
-    public PlayerStats GetCurrentPlayerInfo()
-    {
+    public PlayerStats GetCurrentPlayerInfo() {
         return new PlayerStats(this.current_hand.GetCurrentPlayer(),this.GetNumberOfHands());
     }
 
-    ///////////////////////////////TBD////////////////////////////////
     @Override
     public Move GetAutoMove() throws PlayerFoldedException, ChipLessThanPotException {
+        System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"Getting  auto move...");
         List<MoveType> possible_moves=this.current_hand.GetAllowdedMoves();
         int[] range=this.current_hand.GetAllowdedStakeRange();
+
+        System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"Got the range...");
+
         MoveType type;
         Random rnd=new Random();
         int i;
+
+        System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"posdsible moves number:"+possible_moves.size());
         if(possible_moves.size()>0){
             i = rnd.nextInt(possible_moves.size() - 1);
+            System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"random:"+i);
             type =possible_moves.get(i);
         }
         else
@@ -250,12 +262,13 @@ public class Game implements InterfaceAPI {
 
         switch(type)
         {
-
             case RAISE:
                 i = rnd.nextInt((range[1] - range[0]) + 1) + range[0];
+                System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"random:"+i);
                 return new Move(type,i);
             case BET:
                 i = rnd.nextInt((range[1] - range[0]) + 1) + range[0];
+                System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"random:"+i);
                 return new Move(type,i);
             case CALL:
                 return new Move(type,this.current_hand.GetHigestStake());
@@ -267,10 +280,12 @@ public class Game implements InterfaceAPI {
         return null;
     }
 
+    ///////////////////////////////TBD////////////////////////////////
     @Override
     public void SetWinner(){
 
     }
+
     @Override
     public String GetWinner(){
         return "null";
@@ -281,6 +296,7 @@ public class Game implements InterfaceAPI {
     {
         this.current_hand.MoveToNextPlayer();
     }
+
 
     ///////////////////////////////////////////////////////////////
 

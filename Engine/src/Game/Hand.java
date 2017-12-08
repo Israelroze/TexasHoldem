@@ -132,7 +132,7 @@ public class Hand {
         //init players flags
         for(APlayer player:this.players.GetPlayers())
         {
-            if(Cplayer.getId()!=player.getId())
+            if(Cplayer.getId()!=player.getId() && !player.isFolded())
             {
                 player.setBetPlaceFlag(false);
             }
@@ -163,7 +163,9 @@ public class Hand {
             {
                 if(min>player.GetMoney())
                 {
-                    min=player.GetMoney();
+                    if(player.getStake()<this.higest_stake) {
+                        min = player.GetMoney();
+                    }
                 }
             }
         }
@@ -201,26 +203,44 @@ public class Hand {
         }
     }
 
+
     public int[] GetAllowdedStakeRange() {
+        System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"getting allowded stake range");
+
         int low=0;
         if(this.current_player.getStake()<this.higest_stake)
         {
             low=this.higest_stake;
         }
 
+        System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"higest stake:"+this.higest_stake);
         int high=this.higest_stake;
         int by_pot=this.pot;
+        System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"pot:"+this.pot);
+
         int by_poorest=this.GetPoorestChipsValue();
+        System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"poorest chips:"+by_poorest);
 
-        if(by_pot>by_poorest){high=by_poorest;}
-        else{high=by_pot;}
+        if(by_poorest<this.higest_stake)
+        {
 
+            return new int[]{this.higest_stake,this.higest_stake};
+        }
+        else {
+            if (by_pot > by_poorest) {
+                high = by_poorest;
+            }
+            else {
+                high = by_pot;
+            }
+        }
+        System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"the range is: low:"+low+" high:"+high+"....");
         return new int[]{low, high};
     }
     
     public List<MoveType> GetAllowdedMoves() throws PlayerFoldedException, ChipLessThanPotException {
 
-
+        System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"Getting  allowded moves...");
         List<MoveType> allowded_moves=new LinkedList<>();
 
         if(this.current_player.GetIsFoldedFlag())
@@ -238,6 +258,7 @@ public class Hand {
             allowded_moves.add(MoveType.FOLD);
             //moves.AddMove(new Move(MoveType.CHECK,0));
             //moves.AddMove(new Move(MoveType.FOLD,0));
+            System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"allowded moves: bet,check,fold");
         }
         else
         {
@@ -246,6 +267,16 @@ public class Hand {
                 allowded_moves.add(MoveType.RAISE);
                 allowded_moves.add(MoveType.CALL);
                 allowded_moves.add(MoveType.FOLD);
+                System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"allowded moves: raise,call,fold");
+            }
+            else
+            {
+                if(this.current_player.getStake()==this.higest_stake)
+                {
+                    allowded_moves.add(MoveType.RAISE);
+                    allowded_moves.add(MoveType.CHECK);
+                    System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"allowded moves: raise,check");
+                }
             }
         }
         return allowded_moves;
@@ -279,10 +310,10 @@ public class Hand {
 
     public void ImplementMove(MoveType move,int stake) throws NoSufficientMoneyException, PlayerFoldedException, ChipLessThanPotException, MoveNotAllowdedException, StakeNotInRangeException, PlayerAlreadyBetException {
 
-        /*if(this.current_player.isPlacedBet())
+        if(this.current_player.isPlacedBet())
         {
             throw new PlayerAlreadyBetException();
-        }*/
+        }
 
         if(!this.IsMoveAllowded(move))
         {
@@ -298,6 +329,7 @@ public class Hand {
 
         switch(move){
             case BET:
+                System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"Implementing move... type:bet stake:"+stake);
                 this.current_player.DecMoney(stake);
                 this.current_player.setStake(stake);
                 this.current_player.setBetPlaceFlag(true);
@@ -307,6 +339,7 @@ public class Hand {
                 this.higest_stake=stake;
                 break;
             case RAISE:
+                System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"Implementing move... type:raise stake:"+stake);
                 this.current_player.DecMoney(stake);
                 this.current_player.setStake(stake);
                 this.current_player.setBetPlaceFlag(true);
@@ -316,6 +349,7 @@ public class Hand {
                 this.higest_stake=stake;
                 break;
             case CALL:
+                System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"Implementing move... type:call stake:"+stake);
                 this.current_player.DecMoney(this.higest_stake);
                 this.current_player.setStake(this.higest_stake);
                 this.current_player.setBetPlaceFlag(true);
@@ -323,10 +357,12 @@ public class Hand {
                 this.current_player=this.players.GetNextPlayer(this.current_player);
                 break;
             case CHECK:
+                System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"Implementing move... type:check stake:"+stake);
                 this.current_player.setBetPlaceFlag(true);
                 this.current_player=this.players.GetNextPlayer(this.current_player);
                 break;
             case FOLD:
+                System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"Implementing move... type:fold stake:"+stake);
                 this.current_player.setBetPlaceFlag(true);
                 this.current_player.setFoldedFlag(true);
                 this.current_player=this.players.GetNextPlayer(this.current_player);
