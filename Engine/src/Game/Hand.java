@@ -235,7 +235,7 @@ public class Hand {
 
 
     public int[] GetAllowdedStakeRange() {
-        System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"getting allowded stake range");
+        if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"getting allowded stake range");
 
         int low=0;
         if(this.current_player.getStake()<this.higest_stake)
@@ -243,13 +243,13 @@ public class Hand {
             low=this.higest_stake;
         }
 
-        System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"higest stake:"+this.higest_stake);
+        if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"higest stake:"+this.higest_stake);
         int high=this.higest_stake;
         int by_pot=this.pot;
-        System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"pot:"+this.pot);
+        if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"pot:"+this.pot);
 
         int by_poorest=this.GetPoorestChipsValue();
-        System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"poorest chips:"+by_poorest);
+        if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"poorest chips:"+by_poorest);
 
         if(by_poorest<=this.higest_stake)
         {
@@ -263,13 +263,13 @@ public class Hand {
                 high = by_pot;
             }
         }
-        System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"the range is: low:"+low+" high:"+high+"....");
+        if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"the range is: low:"+low+" high:"+high+"....");
         return new int[]{low, high};
     }
     
     public List<MoveType> GetAllowdedMoves() throws PlayerFoldedException, ChipLessThanPotException {
 
-        System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"Getting  allowded moves...");
+        if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"Getting  allowded moves...");
         List<MoveType> allowded_moves=new LinkedList<>();
 
         if(this.current_player.GetIsFoldedFlag())
@@ -287,31 +287,31 @@ public class Hand {
             allowded_moves.add(MoveType.FOLD);
             //moves.AddMove(new Move(MoveType.CHECK,0));
             //moves.AddMove(new Move(MoveType.FOLD,0));
-            System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"allowded moves: bet,check,fold");
+            if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"allowded moves: bet,check,fold");
         }
         else
         {
             if(this.current_player.getStake()<this.higest_stake)//player need to Call,Raise or Fold
             {
-                System.out.println("FROM HAND:current player stake less than highest stake");
+                if(Game.ENABLE_LOG) System.out.println("FROM HAND:current player stake less than highest stake");
                 allowded_moves.add(MoveType.RAISE);
                 allowded_moves.add(MoveType.CALL);
                 allowded_moves.add(MoveType.FOLD);
-                System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"allowded moves: raise,call,fold");
+                if(Game.ENABLE_LOG)  System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"allowded moves: raise,call,fold");
             }
             else
             {
                 if(this.current_player.getStake()==this.higest_stake)
                 {
-                    System.out.println("FROM HAND:current player stake equal than highest stake");
+                    if(Game.ENABLE_LOG)System.out.println("FROM HAND:current player stake equal than highest stake");
                     allowded_moves.add(MoveType.RAISE);
                     allowded_moves.add(MoveType.CHECK);
                     allowded_moves.add(MoveType.FOLD);
-                    System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"allowded moves: raise,check");
+                    if(Game.ENABLE_LOG)System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"allowded moves: raise,check");
                 }
                 else //current player stake bigger than highest stake
                 {
-                    System.out.println("FROM HAND:current player stake bigger than highest stake");
+                    if(Game.ENABLE_LOG)System.out.println("FROM HAND:current player stake bigger than highest stake");
                 }
             }
         }
@@ -348,13 +348,13 @@ public class Hand {
 
         if(move==null)
         {
-            System.out.println("FROM GAME: current player:"+this.current_player.getId()+" cant play any more");
+            if(Game.ENABLE_LOG) System.out.println("FROM GAME: current player:"+this.current_player.getId()+" cant play any more");
             this.current_player.setBetPlaceFlag(true);
         }
 //        if( move == MoveType.FOLD)
 //        {
 //            // ADD BY AVISHAY
-//            System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"Implementing move... type:fold stake:"+stake);
+//            if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"Implementing move... type:fold stake:"+stake);
 //            this.current_player.setBetPlaceFlag(true);
 //            this.current_player.setFoldedFlag(true);
 //
@@ -380,7 +380,7 @@ public class Hand {
         int delta;
         switch(move){
             case BET:
-                System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"Implementing move... type:bet stake:"+stake);
+                if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"Implementing move... type:bet stake:"+stake);
                 this.current_player.DecMoney(stake);
                 this.current_player.setStake(stake);
                 this.current_player.setBetPlaceFlag(true);
@@ -390,7 +390,7 @@ public class Hand {
                 this.higest_stake=stake;
                 break;
             case RAISE:
-                System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"Implementing move... type:raise stake:"+stake);
+                if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"Implementing move... type:raise stake:"+stake);
                 delta=stake-this.current_player.getStake();
                 this.current_player.DecMoney(delta);
                 this.current_player.setStake(stake);
@@ -401,7 +401,7 @@ public class Hand {
                 this.higest_stake=stake;
                 break;
             case CALL:
-                System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"Implementing move... type:call stake:"+stake);
+                if(Game.ENABLE_LOG)System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"Implementing move... type:call stake:"+stake);
                 delta=this.higest_stake-this.current_player.getStake();
                 this.current_player.DecMoney(delta);
                 this.current_player.setStake(this.higest_stake);
@@ -410,12 +410,12 @@ public class Hand {
                 this.current_player=this.players.GetNextPlayer(this.current_player);
                 break;
             case CHECK:
-                System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"Implementing move... type:check stake:"+stake);
+                if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"Implementing move... type:check stake:"+stake);
                 this.current_player.setBetPlaceFlag(true);
                 this.current_player=this.players.GetNextPlayer(this.current_player);
                 break;
             case FOLD:
-                System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"Implementing move... type:fold stake:"+stake);
+                if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"Implementing move... type:fold stake:"+stake);
                 this.current_player.setBetPlaceFlag(true);
                 this.current_player.setFoldedFlag(true);
                 this.current_player=this.players.GetNextPlayer(this.current_player);
@@ -494,7 +494,7 @@ public class Hand {
             board+=number+type;
         }
 
-        System.out.println("FROM HAND: building Winner calculation, board string:"+board);
+        if(Game.ENABLE_LOG) System.out.println("FROM HAND: building Winner calculation, board string:"+board);
         try {
             calculator.setBoardFromString(board);
         } catch (Exception e) {
@@ -521,7 +521,7 @@ public class Hand {
                     number = number.toLowerCase();
                     str_hand += number + type;
                 }
-                System.out.println("FROM HAND: Player ID:"+player.getId()+ "building Winner calculation, Hand string:" + str_hand);
+                if(Game.ENABLE_LOG) System.out.println("FROM HAND: Player ID:"+player.getId()+ "building Winner calculation, Hand string:" + str_hand);
                 try {
                     com.rundef.poker.Hand hand = com.rundef.poker.Hand.fromString(str_hand);
                     calculator.addHand(hand);
@@ -545,7 +545,7 @@ public class Hand {
             {
                 this.winners.add(i);
             }
-            System.out.println("Player ID"+this.players.GetPlayers().get(i).getId()+"Hand #" + (i+1) + ": Rank: " + calculator.getHandRanking(i) + " Equity: " + calculator.getHandEquity(i));
+            if(Game.ENABLE_LOG) System.out.println("Player ID"+this.players.GetPlayers().get(i).getId()+"Hand #" + (i+1) + ": Rank: " + calculator.getHandRanking(i) + " Equity: " + calculator.getHandEquity(i));
         }
 
         //set the number of wins for the players
@@ -567,7 +567,7 @@ public class Hand {
     {
         if(this.winners.size()<1)
         {
-            System.out.println("Basa");
+            if(Game.ENABLE_LOG) System.out.println("Basa");
         }
         else {
             if (this.winners.size() > 1)//we have more than one winner

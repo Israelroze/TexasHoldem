@@ -16,6 +16,8 @@ import java.util.*;
 import Move.*;
 
 public class Game implements InterfaceAPI {
+
+    final static Boolean ENABLE_LOG = false;
     //members
     private GameDescriptor configuration;
     private CurrentHandState state;
@@ -45,7 +47,7 @@ public class Game implements InterfaceAPI {
 
         boolean is_get_value=false;
 
-        System.out.println("Please provide the player move for:"+player.GetName());
+        if(ENABLE_LOG) System.out.println("Please provide the player move for:"+player.GetName());
         Scanner stdin=new Scanner(System.in);
         String move=stdin.nextLine();
 
@@ -72,7 +74,7 @@ public class Game implements InterfaceAPI {
 
         if(is_get_value)
         {
-            System.out.println("Please provide the value:"+player.GetName());
+            if(ENABLE_LOG) System.out.println("Please provide the value:"+player.GetName());
             value=stdin.nextInt();
         }
 
@@ -80,32 +82,32 @@ public class Game implements InterfaceAPI {
     }
     private void PringCurrentAvailable(APlayer current,List<MoveType> allowded_moves,int[]  range) {
         boolean is_get_value=false;
-        System.out.println("Allowded move for player"+current.GetName()+":");
+       if(ENABLE_LOG) System.out.println("Allowded move for player"+current.GetName()+":");
         for(MoveType type:allowded_moves)
         {
             switch(type)
             {
                 case BET:
-                    System.out.println("Bet(B)");
+                    if(ENABLE_LOG) System.out.println("Bet(B)");
                     is_get_value=true;
                     break;
                 case CALL:
-                    System.out.println("Call(C)");
+                    if(ENABLE_LOG)  System.out.println("Call(C)");
                     break;
                 case CHECK:
-                    System.out.println("Check(K)");
+                    if(ENABLE_LOG) System.out.println("Check(K)");
                     break;
                 case FOLD:
-                    System.out.println("Fold(F)");
+                    if(ENABLE_LOG) System.out.println("Fold(F)");
                     break;
                 case RAISE:
-                    System.out.println("Raise(R)");
+                    if(ENABLE_LOG) System.out.println("Raise(R)");
                     is_get_value=true;
                     break;
             }
         }
 
-        System.out.println("Allowded range: low:"+range[0]+" high:"+range[1]);
+        if(ENABLE_LOG) System.out.println("Allowded range: low:"+range[0]+" high:"+range[1]);
 
     }
     private void NewHumanMove() throws PlayerFoldedException, ChipLessThanPotException, StakeNotInRangeException, MoveNotAllowdedException, NoSufficientMoneyException, PlayerAlreadyBetException {
@@ -214,7 +216,7 @@ public class Game implements InterfaceAPI {
     public boolean IsCurrentPlayerFolded() {
         if(this.GetCurrentHand().GetCurrentPlayer().isFolded())
         {
-            System.out.println("FROM GAME: current player folded!!!");
+            if(ENABLE_LOG) System.out.println("FROM GAME: current player folded!!!");
             return true;
         }
         return false;
@@ -247,17 +249,17 @@ public class Game implements InterfaceAPI {
 
     @Override
     public Move GetAutoMove() throws PlayerFoldedException, ChipLessThanPotException {
-        System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"Getting  auto move...");
+        if(ENABLE_LOG) System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"Getting  auto move...");
         List<MoveType> possible_moves=this.current_hand.GetAllowdedMoves();
         int[] range=this.current_hand.GetAllowdedStakeRange();
 
-        System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"Got the range...");
+        if(ENABLE_LOG)  System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"Got the range...");
 
         MoveType type=null;
         Random rnd=new Random();
         int i;
 
-        System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"posdsible moves number:"+possible_moves.size());
+        if(ENABLE_LOG) System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"posdsible moves number:"+possible_moves.size());
         if(possible_moves.size()==1)
         {
             type=possible_moves.get(0);
@@ -266,7 +268,7 @@ public class Game implements InterfaceAPI {
         {
             if(possible_moves.size()>0){
                 i = rnd.nextInt(possible_moves.size() - 1);
-                System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"random:"+i);
+                if(ENABLE_LOG) System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"random:"+i);
                 type =possible_moves.get(i);
             }
         }
@@ -277,25 +279,25 @@ public class Game implements InterfaceAPI {
                 case RAISE:
                     if(range[0]==range[1])
                     {
-                        System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"only one:"+range[0]);
+                        if(ENABLE_LOG) System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"only one:"+range[0]);
                         return new Move(type,range[0]);
                     }
                     else
                     {
                         i = rnd.nextInt((range[1] - range[0]) + 1) + range[0];
-                        System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"random:"+i);
+                        if(ENABLE_LOG) System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"random:"+i);
                         return new Move(type,i);
                     }
                 case BET:
                     if(range[0]==range[1])
                     {
-                        System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"only one:"+range[0]);
+                        if(ENABLE_LOG) System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"only one:"+range[0]);
                         return new Move(type,range[0]);
                     }
                     else
                     {
                         i = rnd.nextInt((range[1] - range[0]) + 1) + range[0];
-                        System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"random:"+i);
+                        if(ENABLE_LOG) System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"random:"+i);
                         return new Move(type,i);
                     }
                 case CALL:

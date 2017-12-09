@@ -3,7 +3,7 @@
 <GameDescriptor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="TexaxHoldem.xsd">
 	<GameType>Basic</GameType>
 	<Structure>
-		<HandsCount>8</HandsCount>
+		<HandsCount>9</HandsCount>
 		<Buy>120</Buy>
 		<Blindes fixed="true" additions="2" max-total-rounds="10">
 			<Big>4</Big>

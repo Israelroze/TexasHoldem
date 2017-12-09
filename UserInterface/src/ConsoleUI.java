@@ -18,6 +18,7 @@ import Card.CardNumber;
 import Game.Game;
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
+import javax.swing.text.StyledEditorKit;
 import javax.xml.bind.JAXBException;
 
 public class ConsoleUI{
@@ -54,7 +55,7 @@ public class ConsoleUI{
             //System.out.println("Player folded,Please enter new choice");// TBD:  shouldn't happen, ask israel the reason for this exception!!!
             engine.MoveToNextPlayer();
         } catch (ChipLessThanPotException e) {
-            System.out.println("Chips is less than the Pot, Number of Chip is: "+ e.GetMaxChips());
+            System.out.println("Chips is less than the Pot, number of chip is: "+ e.GetMaxChips());
         }
         if(moves == null)
         {
@@ -84,7 +85,11 @@ public class ConsoleUI{
                 }
             }
             System.out.print("\nPlease choose your move (choose by letter): ");
-            input = reader.next();
+            Boolean isWrongInput = true;
+            do {
+                input = reader.nextLine();
+                if( input.matches("[A-Za-z]{1}")) isWrongInput = false;
+            }while(isWrongInput);
             moveType = MoveType.FOLD;
             //this.PrintGame(engine.GetCurrentHandState());
             if (moveChars.contains(input)) {
@@ -167,14 +172,14 @@ public class ConsoleUI{
 
         if(!engine.IsHumanPlayerFolded()) {
             this.PrintGame(engine.GetCurrentHandState());
-            System.out.println("Round just ended, Press enter to contionu to next round");
+            System.out.println("Round just ended, press enter to contionu to next round [Enter]");
             reader.nextLine();
         }
     }
 
 
     private Move GetPlayerMove() {
-        System.out.println("Player Type:"+this.engine.GetCurrentPlayerInfo().GetType() +" ID:"+this.engine.GetCurrentPlayerInfo().GetID()+"Getting move...");
+        if(TexasHoldem.ENABLE_LOG)System.out.println("Player Type:"+this.engine.GetCurrentPlayerInfo().GetType() +" ID:"+this.engine.GetCurrentPlayerInfo().GetID()+"Getting move...");
         Move currentMove = null;
 
         //if computer
@@ -186,7 +191,7 @@ public class ConsoleUI{
                 engine.MoveToNextPlayer();
                 engine.CheckBidStatus();
             } catch (ChipLessThanPotException e) {
-                System.out.println("Player Type:" + this.engine.GetCurrentPlayerInfo().GetType() + " ID:" + this.engine.GetCurrentPlayerInfo().GetID() + "Chip less than Pot ");
+                if(TexasHoldem.ENABLE_LOG) System.out.println("Player Type:" + this.engine.GetCurrentPlayerInfo().GetType() + " ID:" + this.engine.GetCurrentPlayerInfo().GetID() + "Chip less than Pot ");
             }
         }
         else //if human
@@ -227,7 +232,7 @@ public class ConsoleUI{
 
                 //if (currentMove != null) {
 
-                    //System.out.println("Player Type:"+this.engine.GetCurrentPlayerInfo().GetType() +" ID:"+this.engine.GetCurrentPlayerInfo().GetID()+" Move:" + currentMove.GetMoveType().toString() + "   ");
+                    //if(TexasHoldem.ENABLE_LOG) System.out.println("Player Type:"+this.engine.GetCurrentPlayerInfo().GetType() +" ID:"+this.engine.GetCurrentPlayerInfo().GetID()+" Move:" + currentMove.GetMoveType().toString() + "   ");
                     //System.out.print(currentMove.GetValue());
 
                     try {
@@ -251,7 +256,7 @@ public class ConsoleUI{
                     }
                     finally{
                         is_round_finished=engine.IsCurrentBidCycleFinished();
-                        System.out.println("is finished:"+is_round_finished);
+                        if(TexasHoldem.ENABLE_LOG) System.out.println("is finished:"+is_round_finished);
                     }
                 //}
                // else {
@@ -346,8 +351,10 @@ public class ConsoleUI{
                 case 1:
                     engine = new Game();
                     LoadXMLFile();
-                    this.numberOfHands = engine.GetNumberOfHands();
-                    menuOption[1] = true;
+                    if(this.isXMLFileLoaded) {
+                        this.numberOfHands = engine.GetNumberOfHands();
+                        menuOption[1] = true;
+                    }
                     choice = PrintMainMenu(menuOption);
                     break;
 
@@ -444,11 +451,14 @@ public class ConsoleUI{
         System.out.println("Please enter your choice:");
         // Reading from System.in
         do {
+            while(!reader.hasNextInt()) {
 
+                System.out.print("Wrong input, please enter a integer: ");
+                reader.nextLine();
+            }
             n = reader.nextInt(); reader.nextLine(); // Scans the next token of the input as an int.
             if ((n >= 1 && n <= 7) && menuOption.length == 7 && menuOption[n - 1] == true)
             {
-
                 return n;
             }
             else {
