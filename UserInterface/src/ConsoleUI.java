@@ -228,7 +228,7 @@ public class ConsoleUI{
         while(!engine.IsCurrentBidCycleFinished())
         {
             System.out.println(" ");
-            if(this.engine.IsCurrentPlayerFolded() || this.engine.IsAnyPlayerOutOfMoney())
+            if(this.engine.IsCurrentPlayerFolded() || this.engine.IsCurrentPlayerNoMoney())
             {
                 this.engine.MoveToNextPlayer();
                 this.engine.CheckBidStatus();

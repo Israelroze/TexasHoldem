@@ -24,6 +24,7 @@ public class APlayer{
     private boolean is_folded;
     private int stake;
 
+
     //Ctors
     public APlayer(String name, PlayerType type, int ID)
     {

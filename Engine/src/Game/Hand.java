@@ -370,7 +370,7 @@ public class Hand {
             throw new MoveNotAllowdedException();
         }
 
-        if(move==MoveType.BET || move==MoveType.RAISE){
+        if(move==MoveType.BET /* || move==MoveType.RAISE*/){
             if(!this.IsStakeInRange(stake))
             {
                 throw new StakeNotInRangeException();
