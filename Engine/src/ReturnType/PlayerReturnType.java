@@ -8,13 +8,20 @@ public class PlayerReturnType {
     private PlayerState state;
     private int chips;
     private String name;
-
-
-    public PlayerReturnType(PlayerType type, PlayerState state, int chips) {
+    private int id;
+    public PlayerReturnType(PlayerType type, PlayerState state, int chips ,String name, int id)
+    {
         this.type = type;
         this.state = state;
         this.chips = chips;
+        this.name = name;
+        this.id = id;
     }
+
+    public PlayerReturnType(PlayerType type, PlayerState state, int chips) {
+        this(type,state,chips,"anonymous", 0);
+    }
+
 
     @Override
     public String toString() {
@@ -33,6 +40,9 @@ public class PlayerReturnType {
     public int getChips() {
         return chips;
     }
+
+    public int getId() { return id; }
+
 
 
     public String getState() {

@@ -4,6 +4,7 @@ import Card.*;
 import Exceptions.*;
 import Generated.GameDescriptor;
 import Generated.JAXB_Generator;
+import Generated.Player;
 import Player.*;
 import ReturnType.*;
 import API.*;
@@ -154,6 +155,11 @@ public class Game implements InterfaceAPI {
     public void StartNewHand(){
         this.current_hand=new Hand(this.players,this.configuration.getStructure());
         this.num_of_hands++;
+        List<APlayer> players = this.GetPlayers().GetPlayers();
+        for (APlayer player :players )
+        {
+            player.setFoldedFlag(false);
+        }
     }
 
     @Override
@@ -221,6 +227,17 @@ public class Game implements InterfaceAPI {
         }
         return false;
     }
+    @Override
+    public boolean IsCurrentPlayerNoMoney()
+    {
+        if(this.GetCurrentHand().GetCurrentPlayer().GetMoney()<= 0)
+        {
+            if(ENABLE_LOG) System.out.println("FROM GAME: current Player has no money- such a loser!!!!");
+            return true;
+        }
+        return false;
+
+    }
 
     @Override
     public List<MoveType> GetAllowdedMoves() throws PlayerFoldedException, ChipLessThanPotException {
@@ -244,7 +261,7 @@ public class Game implements InterfaceAPI {
 
     @Override
     public PlayerStats GetCurrentPlayerInfo() {
-        return new PlayerStats(this.current_hand.GetCurrentPlayer(),this.GetNumberOfHands());
+        return new PlayerStats(this.current_hand.GetCurrentPlayer(),this.GetNumberOfHands() );
     }
 
     @Override
@@ -333,7 +350,7 @@ public class Game implements InterfaceAPI {
         for(APlayer player:this.players.GetPlayers())
         {
             if(player.GetType()==PlayerType.HUMAN) {
-                player.AddMoney(this.configuration.getStructure().getBuy());
+                player.BuyMoney(this.configuration.getStructure().getBuy());
                 this.global_num_of_buys++;
             }
         }
@@ -361,6 +378,8 @@ public class Game implements InterfaceAPI {
             }
         }
         List<PlayerHandState> PlayersHands =new LinkedList<>();
+        int humanPlayerIndex = -1;
+        int c=0;
         for(APlayer player:this.players.GetPlayers())
         {
             if(player.GetType() == PlayerType.HUMAN ) {
@@ -368,16 +387,18 @@ public class Game implements InterfaceAPI {
                 Card[] cards = player.GetCards();
                 HumanCards.add(cards[0]);
                 HumanCards.add(cards[1]);
+                humanPlayerIndex = c;
 
-                PlayersHands.add(new PlayerHandState(PlayerType.HUMAN, player.GetPlayerState(), player.GetMoney(), player.getStake(),HumanCards ));
+                PlayersHands.add(new PlayerHandState(PlayerType.HUMAN, player.GetPlayerState(), player.GetMoney(), player.getStake(),HumanCards, player.GetName(),player.getId()));
             }
             else
             {
-                PlayersHands.add(new PlayerHandState(PlayerType.COMPUTER, player.GetPlayerState(), player.GetMoney(), player.getStake(),Card.UnknownComputerCards));
+                PlayersHands.add(new PlayerHandState(PlayerType.COMPUTER, player.GetPlayerState(), player.GetMoney(), player.getStake(),Card.UnknownComputerCards, player.GetName(), player.getId()));
             }
+            c++;
         }
 
-       return  new CurrentHandState(PlayersHands,comCards,this.current_hand.GetPot(),this.players.GetPlayers().indexOf(this.current_hand.GetCurrentPlayer())  );
+       return  new CurrentHandState(PlayersHands,comCards,this.current_hand.GetPot(),humanPlayerIndex , this.configuration.getStructure().getBlindes().getBig(),this.configuration.getStructure().getBlindes().getSmall());
 
     }
     @Override
@@ -400,4 +421,16 @@ public class Game implements InterfaceAPI {
         }
         return false;
     }
+    @Override
+    public boolean IsAnyPlayerOutOfMoney()
+    {
+    List<APlayer> players = this.players.GetPlayers();
+        for (APlayer player: players)
+        {
+            if( player.GetMoney() <= 0)
+                return true;
+        }
+        return false;
+    }
+
 }

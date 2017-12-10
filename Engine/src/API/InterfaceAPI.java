@@ -74,4 +74,7 @@ public interface  InterfaceAPI {
 
     public CurrentHandState GetCurrentHandState();
 
+    public boolean IsAnyPlayerOutOfMoney();
+    public boolean IsCurrentPlayerNoMoney();
+
 }

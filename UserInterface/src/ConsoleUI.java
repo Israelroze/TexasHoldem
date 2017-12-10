@@ -3,22 +3,14 @@ import API.InterfaceAPI;
 import Exceptions.*;
 import Move.Move;
 import Move.MoveType;
-import Player.PlayerState;
-import Player.PlayerType;
 import ReturnType.CurrentHandState;
-import ReturnType.PlayerHandState;
 import ReturnType.PlayerStats;
 
 import java.io.FileNotFoundException;
 import java.util.*;
 
-import Card.Card;
-import Card.CardSuit;
-import Card.CardNumber;
 import Game.Game;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
-import javax.swing.text.StyledEditorKit;
 import javax.xml.bind.JAXBException;
 
 public class ConsoleUI{
@@ -28,8 +20,8 @@ public class ConsoleUI{
     private InterfaceAPI  engine ;
     private boolean isXMLFileLoaded =false;
     private boolean endGame = false;
-    private int numberOfHands;
     private long startTime;
+    private int numberOfHandPlayed = 0;
 
 
     ///////////////////////////////private functions////////////////////////////////
@@ -117,11 +109,24 @@ public class ConsoleUI{
                         break;
                 }
                 if (moveType == MoveType.BET || moveType == MoveType.RAISE) {
+                    boolean goodInput = false;
+                    do {
+                        System.out.format("Please enter The amout between  %d to %d: ", engine.GetAllowdedStakeRange()[0], engine.GetAllowdedStakeRange()[1]);
+                        while (!reader.hasNextInt()) {
 
-                    System.out.print("Please enter The amout: ");
-                    amount = reader.nextInt();
-                    reader.nextLine();
+                            System.out.print("Wrong input, please enter a integer: ");
+                            reader.nextLine();
+                        }
 
+                        amount = reader.nextInt();
+                        reader.nextLine();
+                        if (engine.GetAllowdedStakeRange()[0] <= amount && amount <= engine.GetAllowdedStakeRange()[1])
+                            goodInput = true;
+                        else {
+                            System.out.println("Please enter number in the range, thanks");
+                            reader.nextLine();
+                        }
+                    } while (!goodInput);
                 }
                 return new Move(moveType,amount);
 
@@ -135,6 +140,8 @@ public class ConsoleUI{
     }
 
     private void  PlayOneHand() {
+        if(engine.IsAnyPlayerOutOfMoney()) endGame = true;
+        this.numberOfHandPlayed++;
         engine.StartNewHand();
         this.PlayBidRound();
         this.EndOfRound();
@@ -221,11 +228,12 @@ public class ConsoleUI{
         while(!engine.IsCurrentBidCycleFinished())
         {
             System.out.println(" ");
-            if(this.engine.IsCurrentPlayerFolded())
+            if(this.engine.IsCurrentPlayerFolded() || this.engine.IsAnyPlayerOutOfMoney())
             {
                 this.engine.MoveToNextPlayer();
                 this.engine.CheckBidStatus();
             }
+
             else
             {
                 Move currentMove = this.GetPlayerMove();
@@ -352,13 +360,14 @@ public class ConsoleUI{
                     engine = new Game();
                     LoadXMLFile();
                     if(this.isXMLFileLoaded) {
-                        this.numberOfHands = engine.GetNumberOfHands();
+                        this.numberOfHandPlayed = 0;
                         menuOption[1] = true;
                     }
                     choice = PrintMainMenu(menuOption);
                     break;
 
                 case 2:
+
                     this.startTime = System.currentTimeMillis();
                     engine.StartGame();
                     this.PrintGameStat(engine.GetPlayersInfo());
@@ -373,13 +382,25 @@ public class ConsoleUI{
                     choice = PrintMainMenu(menuOption);
                     break;
                 case 4:
-                    if (engine != null && engine.GetNumberOfHands() == 0)
-                        System.out.println("Game Over, Number Of Hand is 0");
-                    else {
-                        PlayOneHand();
-                        menuOption[0] = menuOption[1] = false;
-                        menuOption[2] = menuOption[3] = menuOption[4] = menuOption[5] = true;
-                        choice = PrintMainMenu(menuOption);
+                    if (engine != null) {
+                        if (this.numberOfHandPlayed >= engine.GetNumberOfHands()) {
+                            System.out.println("Game Over, Number Of Hand is 0");
+                            PrintWinner(engine.GetPlayersInfo());
+                            menuOption[3]= false;
+                            menuOption[0] = menuOption[1]= menuOption[2]  = menuOption[4] = menuOption[5] = true;
+                        } else {
+                            PlayOneHand();
+                            if(this.endGame) System.out.println("One Player run out of money - sorry, this is the end of the game.");
+                            else {
+                                menuOption[0] = menuOption[1] = false;
+                                menuOption[2] = menuOption[3] = menuOption[4] = menuOption[5] = true;
+                                if ((this.numberOfHandPlayed == engine.GetNumberOfHands())) {
+                                    PrintWinner(engine.GetPlayersInfo());
+                                }
+                            }
+
+                        }
+                        if(!endGame) choice = PrintMainMenu(menuOption);
                     }
                     break;
 
@@ -416,6 +437,33 @@ public class ConsoleUI{
 
     }
 
+   public void PrintWinner(List<PlayerStats> currentStat){
+
+      List<String> names= new LinkedList<>();
+      int num =-1;
+      if((currentStat != null) && currentStat.size()>0) {
+          for (PlayerStats player : currentStat) {
+            if(player.getChips() > num) {
+                names.clear();
+                names.add(player.getName());
+                num = player.getChips();
+            }else if(player.getHandsWons() ==  num)
+            {
+                names.add(player.getName());
+            }
+
+          }
+      }
+       System.out.println("-------------------------------------------" );
+      System.out.print("The winner of the game is / are: ");
+      for(String name: names)
+      {
+          System.out.print(name + "  ");
+      }
+      System.out.println();
+       System.out.println("-------------------------------------------" );
+    }
+
     public void TestOneHand(){
         engine = new Game();
         LoadXMLFile();
@@ -426,6 +474,7 @@ public class ConsoleUI{
     }
 
     public  void PrintGameStat(List<PlayerStats> playerStats){
+        System.out.format("%-9s      %4d        %-9s      %4d\n",playerStats.get(0).getName(), playerStats.get(0).getId(), playerStats.get(3).getName(), playerStats.get(3).getId());
         System.out.format("*******************        *******************\n");
         System.out.format("* Type: %1s         *        * Type: %1s         *\n",playerStats.get(0).GetType(),playerStats.get(3).GetType());
         System.out.format("* State %1s         *        * State %1s         *\n",playerStats.get(0).getState(),playerStats.get(3).getState());
@@ -435,6 +484,7 @@ public class ConsoleUI{
         System.out.format("*******************        *******************\n");
         System.out.format("\n");
         System.out.format("\n");
+        System.out.format("%-9s      %4d        %-9s      %4d\n",playerStats.get(1).getName(), playerStats.get(1).getId(), playerStats.get(2).getName(), playerStats.get(2).getId());
         System.out.format("*******************        *******************\n");
         System.out.format("* Type: %1s         *        * Type: %1s         *\n",playerStats.get(1).GetType(),playerStats.get(2).GetType());
         System.out.format("* State %1s         *        * State %1s         *\n",playerStats.get(1).getState(),playerStats.get(2).getState());
@@ -477,7 +527,7 @@ public class ConsoleUI{
 //        System.out.format("%s",curHandState.getPlayersState().get(1).getCard().toString());
 
 
-        System.out.format("                 %s                        %s\n",curHandState.getCurrentPlayer() == 0 ? "***": "   ",curHandState.getCurrentPlayer() == 3 ? "***": "   ");
+        System.out.format("%-9s  %-4d  %s       %-9s  %-4d  %s\n",curHandState.getPlayersState().get(0).getName(),curHandState.getPlayersState().get(0).getId(),curHandState.getCurrentPlayer() == 0 ? "***": "   ",curHandState.getPlayersState().get(3).getName(),curHandState.getPlayersState().get(3).getId(),curHandState.getCurrentPlayer() == 3 ? "***": "   ");
         System.out.format("*****************%s       *****************%s\n",curHandState.getCurrentPlayer() == 0 ? "***": "** ",curHandState.getCurrentPlayer() == 3 ? "***": "** ");
         System.out.format("* Type: %1s        %s       * Type: %1s        %s\n",curHandState.getPlayersState().get(0).GetType().toString(),curHandState.getCurrentPlayer() == 0 ? "***": " * ",curHandState.getPlayersState().get(3).GetType().toString(),curHandState.getCurrentPlayer() == 3 ? "***": " * ");
         System.out.format("* State %1s         *        * State %1s         *\n",curHandState.getPlayersState().get(0).getState().toString(),curHandState.getPlayersState().get(3).getState().toString());
@@ -501,9 +551,10 @@ public class ConsoleUI{
 
         System.out.format("*******************        *******************\n");
         System.out.format("\n");
-        System.out.format("     %s       POT: %d   ", curHandState.getStringOfCommunityCard(),curHandState.getPot());
+        System.out.format("     %s            ***POT: %d *** \n", curHandState.getStringOfCommunityCard(),curHandState.getPot());
+        System.out.format("Big Blind: %-5d   Small Blind : %-5d \n", curHandState.getBigBlind(), curHandState.getSmallBlind());
         System.out.format("\n");
-        System.out.format("                 %s                        %s\n",curHandState.getCurrentPlayer() == 1 ? "***": "   ",curHandState.getCurrentPlayer() == 2 ? "***": "   ");
+        System.out.format("%-9s  %-4d  %s       %-9s %4d  %s\n",curHandState.getPlayersState().get(1).getName(),curHandState.getPlayersState().get(1).getId(),curHandState.getCurrentPlayer() == 1 ? "***": "   ",curHandState.getPlayersState().get(2).getName(),curHandState.getPlayersState().get(2).getId(),curHandState.getCurrentPlayer() == 2 ? "***": "   ");
         System.out.format("*****************%s       *****************%s\n",curHandState.getCurrentPlayer() == 1 ? "***": "** ",curHandState.getCurrentPlayer() == 2 ? "***": "** ");
         System.out.format("* Type: %1s        %s       * Type: %1s        %s\n",curHandState.getPlayersState().get(1).GetType().toString(),curHandState.getCurrentPlayer() == 1 ? "***": " * ",curHandState.getPlayersState().get(2).GetType().toString(),curHandState.getCurrentPlayer() == 2 ? "***": " * ");
         System.out.format("* State %1s         *        * State %1s         *\n",curHandState.getPlayersState().get(1).getState().toString(),curHandState.getPlayersState().get(2).getState().toString());
