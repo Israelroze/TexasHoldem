@@ -18,7 +18,7 @@ import Move.*;
 
 public class Game implements InterfaceAPI {
 
-    final static Boolean ENABLE_LOG = false;
+    final static Boolean ENABLE_LOG = true;
     //members
     private GameDescriptor configuration;
     private CurrentHandState state;
@@ -252,9 +252,11 @@ public class Game implements InterfaceAPI {
     @Override
     public void SetNewMove(Move move) throws StakeNotInRangeException, PlayerFoldedException, MoveNotAllowdedException, ChipLessThanPotException, NoSufficientMoneyException, PlayerAlreadyBetException {
         if(move==null){
+            if(ENABLE_LOG) System.out.println("FROM GAME: SetNewMove got null move, implementing...");
             this.GetCurrentHand().ImplementMove(null,0);
         }
         else {
+            if(ENABLE_LOG) System.out.println("FROM GAME: SetNewMove got move:"+move.GetMoveType()+ "value:"+move.GetValue()+", implementing...");
             this.GetCurrentHand().ImplementMove(move.GetMoveType(), move.GetValue());
         }
     }
