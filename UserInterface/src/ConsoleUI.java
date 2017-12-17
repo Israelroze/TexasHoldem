@@ -168,7 +168,7 @@ public class ConsoleUI{
         // add the winner
         PrintTheWinners();
     }
-    
+
     private void PrintTheWinners(){
         System.out.println("And the winner is \\ are: " );
         List<String> winners=    engine.GetWinner();

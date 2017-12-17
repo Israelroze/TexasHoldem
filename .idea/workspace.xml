@@ -16,17 +16,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ConsoleUI.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ConsoleUI.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/UserInterface/src/ConsoleUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="245" column="0" lean-forward="false" selection-start-line="245" selection-start-column="0" selection-end-line="245" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="357">
+              <caret line="170" column="0" lean-forward="false" selection-start-line="170" selection-start-column="0" selection-end-line="170" selection-end-column="0" />
+              <folding>
+                <element signature="method#GetTimePass#0;class#ConsoleUI#0" expanded="false" />
+                <element signature="method#PlayHumanPlayer#0;class#ConsoleUI#0" expanded="false" />
+                <element signature="method#PlayOneHand#0;class#ConsoleUI#0" expanded="false" />
+                <element signature="method#PrintTheWinners#0;class#ConsoleUI#0" expanded="false" />
+                <element signature="method#EndOfRound#0;class#ConsoleUI#0" expanded="false" />
+                <element signature="method#GetPlayerMove#0;class#ConsoleUI#0" expanded="false" />
+                <element signature="method#SetMove#0;class#ConsoleUI#0" expanded="false" />
+                <element signature="method#PlayBidRound#0;class#ConsoleUI#0" expanded="false" />
+                <element signature="method#LoadXMLFile#0;class#ConsoleUI#0" expanded="false" />
+                <element signature="method#PrintMainMenu#0;class#ConsoleUI#0" expanded="false" />
+                <element signature="method#finalize#0;class#ConsoleUI#0" expanded="false" />
+                <element signature="method#RunGame#0;class#ConsoleUI#0" expanded="false" />
+                <element signature="method#PrintWinner#0;class#ConsoleUI#0" expanded="false" />
+                <element signature="method#TestOneHand#0;class#ConsoleUI#0" expanded="false" />
+                <element signature="method#PrintGameStat#0;class#ConsoleUI#0" expanded="false" />
+                <element signature="method#GetOptionNumber#0;class#ConsoleUI#0" expanded="false" />
+                <element signature="method#PrintGame#0;class#ConsoleUI#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Game.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Engine/src/Game/Game.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="118">
@@ -169,10 +187,10 @@
         <option value="$PROJECT_DIR$/Engine/src/ReturnType/PlayerStats.java" />
         <option value="$PROJECT_DIR$/Engine/src/Player/APlayer.java" />
         <option value="$PROJECT_DIR$/UserInterface/src/TexasHoldem.java" />
-        <option value="$PROJECT_DIR$/UserInterface/src/ConsoleUI.java" />
         <option value="$PROJECT_DIR$/Engine/src/Game/Hand.java" />
         <option value="$PROJECT_DIR$/Engine/src/API/InterfaceAPI.java" />
         <option value="$PROJECT_DIR$/Engine/src/Game/Game.java" />
+        <option value="$PROJECT_DIR$/UserInterface/src/ConsoleUI.java" />
       </list>
     </option>
   </component>
@@ -441,16 +459,15 @@
       <workItem from="1512757099453" duration="11079000" />
       <workItem from="1512768419694" duration="18952000" />
       <workItem from="1512843054497" duration="35067000" />
-      <workItem from="1513530560011" duration="935000" />
+      <workItem from="1513530560011" duration="1154000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="171520000" />
+    <option name="totallyTimeSpent" value="171739000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1292" height="692" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -529,7 +546,7 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="108" />
+      <option name="time" value="109" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -808,14 +825,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/UserInterface/src/ConsoleUI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="245" column="0" lean-forward="false" selection-start-line="245" selection-start-column="0" selection-end-line="245" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Engine/src/Player/APlayer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="237">
@@ -865,6 +874,32 @@
             <element signature="method#GetCurrentHandState#0;class#Game#0" expanded="false" />
             <element signature="method#IsHumanPlayerFolded#0;class#Game#0" expanded="false" />
             <element signature="method#IsAnyPlayerOutOfMoney#0;class#Game#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UserInterface/src/ConsoleUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="170" column="0" lean-forward="false" selection-start-line="170" selection-start-column="0" selection-end-line="170" selection-end-column="0" />
+          <folding>
+            <element signature="method#GetTimePass#0;class#ConsoleUI#0" expanded="false" />
+            <element signature="method#PlayHumanPlayer#0;class#ConsoleUI#0" expanded="false" />
+            <element signature="method#PlayOneHand#0;class#ConsoleUI#0" expanded="false" />
+            <element signature="method#PrintTheWinners#0;class#ConsoleUI#0" expanded="false" />
+            <element signature="method#EndOfRound#0;class#ConsoleUI#0" expanded="false" />
+            <element signature="method#GetPlayerMove#0;class#ConsoleUI#0" expanded="false" />
+            <element signature="method#SetMove#0;class#ConsoleUI#0" expanded="false" />
+            <element signature="method#PlayBidRound#0;class#ConsoleUI#0" expanded="false" />
+            <element signature="method#LoadXMLFile#0;class#ConsoleUI#0" expanded="false" />
+            <element signature="method#PrintMainMenu#0;class#ConsoleUI#0" expanded="false" />
+            <element signature="method#finalize#0;class#ConsoleUI#0" expanded="false" />
+            <element signature="method#RunGame#0;class#ConsoleUI#0" expanded="false" />
+            <element signature="method#PrintWinner#0;class#ConsoleUI#0" expanded="false" />
+            <element signature="method#TestOneHand#0;class#ConsoleUI#0" expanded="false" />
+            <element signature="method#PrintGameStat#0;class#ConsoleUI#0" expanded="false" />
+            <element signature="method#GetOptionNumber#0;class#ConsoleUI#0" expanded="false" />
+            <element signature="method#PrintGame#0;class#ConsoleUI#0" expanded="false" />
           </folding>
         </state>
       </provider>
