@@ -298,23 +298,30 @@ public class Hand {
                 allowded_moves.add(MoveType.CALL);
                 allowded_moves.add(MoveType.FOLD);
 <<<<<<< HEAD
+<<<<<<< HEAD
                 //moves.AddMove(new Move(MoveType.CHECK,0));
                 //moves.AddMove(new Move(MoveType.FOLD,0));
                 if (Game.ENABLE_LOG) System.out.println("Player Type:" + this.current_player.GetType() + " ID:" + this.current_player.getId() + "allowded moves: bet,check,fold");
             } else {
                 if (this.higest_stake >= ranges[1] ) ///If the current table stake is them maximum, only call or fold.
 =======
+=======
+>>>>>>> parent of 0bca4d6... sdcsdc
                 if(Game.ENABLE_LOG)  System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"allowded moves: raise,call,fold");
             }
             else
             {
                 if(this.current_player.getStake()==this.higest_stake)
+<<<<<<< HEAD
+>>>>>>> parent of 0bca4d6... sdcsdc
+=======
 >>>>>>> parent of 0bca4d6... sdcsdc
                 {
                     if(Game.ENABLE_LOG)System.out.println("FROM HAND:current player stake equal than highest stake");
                     allowded_moves.add(MoveType.RAISE);
                     allowded_moves.add(MoveType.CHECK);
                     allowded_moves.add(MoveType.FOLD);
+<<<<<<< HEAD
 <<<<<<< HEAD
                     if (Game.ENABLE_LOG) System.out.println("Player Type:" + this.current_player.GetType() + " ID:" + this.current_player.getId() + "allowded moves: call,fold");
 
@@ -345,6 +352,14 @@ public class Hand {
                 }
 
                 if (Game.ENABLE_LOG) System.out.println("FROM HAND: highest stake:" + this.higest_stake + " poorest:" + ranges[1]);
+=======
+                    if(Game.ENABLE_LOG)System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"allowded moves: raise,check");
+                }
+                else //current player stake bigger than highest stake
+                {
+                    if(Game.ENABLE_LOG)System.out.println("FROM HAND:current player stake bigger than highest stake");
+                }
+>>>>>>> parent of 0bca4d6... sdcsdc
 =======
                     if(Game.ENABLE_LOG)System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"allowded moves: raise,check");
                 }

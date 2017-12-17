@@ -435,11 +435,15 @@
       <workItem from="1512757099453" duration="11079000" />
       <workItem from="1512768419694" duration="18952000" />
       <workItem from="1512843054497" duration="24455000" />
+<<<<<<< HEAD
+>>>>>>> parent of 0bca4d6... sdcsdc
+=======
 >>>>>>> parent of 0bca4d6... sdcsdc
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
 <<<<<<< HEAD
     <option name="totallyTimeSpent" value="268000" />
   </component>
@@ -474,6 +478,8 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
 =======
+=======
+>>>>>>> parent of 0bca4d6... sdcsdc
     <option name="totallyTimeSpent" value="159973000" />
   </component>
   <component name="ToolWindowManager">

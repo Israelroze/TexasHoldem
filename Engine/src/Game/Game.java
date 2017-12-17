@@ -18,12 +18,17 @@ import Move.*;
 
 public class Game implements InterfaceAPI {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     final static Boolean ENABLE_LOG = false;
 <<<<<<< HEAD
 =======
 >>>>>>> a9582d87470f41feebd88060fdf81baca5e54e24
 =======
+>>>>>>> parent of 0bca4d6... sdcsdc
+=======
+
+    final static Boolean ENABLE_LOG = false;
 >>>>>>> parent of 0bca4d6... sdcsdc
     //members
     final static Boolean ENABLE_LOG = true;
@@ -246,7 +251,10 @@ public class Game implements InterfaceAPI {
     public void SetNewMove(Move move) throws StakeNotInRangeException, PlayerFoldedException, MoveNotAllowdedException, ChipLessThanPotException, NoSufficientMoneyException, PlayerAlreadyBetException {
         if(move==null){
 <<<<<<< HEAD
+<<<<<<< HEAD
             if (Game.ENABLE_LOG)System.out.println("FROM GAME: SetNewMove got null move, implementing...");
+=======
+>>>>>>> parent of 0bca4d6... sdcsdc
 =======
 >>>>>>> parent of 0bca4d6... sdcsdc
             this.GetCurrentHand().ImplementMove(null,0);
