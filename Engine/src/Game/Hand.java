@@ -85,20 +85,12 @@ public class Hand {
             player.SetCards(new Card[]{this.deck.PopCard(), this.deck.PopCard()});
         }
     }
-    private void InitNotFinishedPlayers(){
-        for(APlayer player :this.players.GetPlayers())
-        {
-            if(player.getStake()<this.higest_stake) {
-               player.setFoldedFlag(false);
-            }
-        }
-    }
+
     private boolean IsAllStakesEqual() {
         for(APlayer player :this.players.GetPlayers())
         {
             if(player.isPlacedBet()!=true)
             {
-                this.InitNotFinishedPlayers();
                 return false;
             }
         }
@@ -161,35 +153,32 @@ public class Hand {
     //Public Methods
     public int GetPoorestChipsValue() {
         int min=0;
-        int a;
-        this.players.GetPlayers();
         for(APlayer player : this.players.GetPlayers())
         {
-            if(this.higest_stake==0) //round only started
+            if(this.higest_stake==0)
             {
-                if(Game.ENABLE_LOG) System.out.println("all stakes are o, calculating poorest between all.");
                 if (min == 0) {
                     min = player.GetMoney();
                 } else {
                     if (min > player.GetMoney()) {
-                       // if (player.getStake() < this.higest_stake) {
+                        if (player.getStake() < this.higest_stake) {
                             min = player.GetMoney();
-                        //}
+                        }
                     }
                 }
             }
             else {
-              //  if (player.getStake() != this.higest_stake) {
+                if (player.getStake() != this.higest_stake) {
                     if (min == 0) {
                         min = player.GetMoney();
                     } else {
-                        if (min >  player.GetMoney()) {
+                        if (min > player.GetMoney()) {
                             if (player.getStake() < this.higest_stake) {
                                 min = player.GetMoney();
                             }
                         }
                     }
-                //}
+                }
             }
         }
         return min;
@@ -248,7 +237,7 @@ public class Hand {
     public int[] GetAllowdedStakeRange() {
         if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"getting allowded stake range");
 
-        int low=1;
+        int low=0;
         if(this.current_player.getStake()<this.higest_stake)
         {
             low=this.higest_stake;
@@ -282,39 +271,51 @@ public class Hand {
 
         if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"Getting  allowded moves...");
         List<MoveType> allowded_moves=new LinkedList<>();
-        int[] ranges=this.GetAllowdedStakeRange();
 
         if(this.current_player.GetIsFoldedFlag())
         {
             throw new PlayerFoldedException();
         }
-        if(this.current_player.GetMoney()<(this.higest_stake-this.current_player.getStake())) //not suppose to happen really
+        if(this.current_player.GetMoney()<this.higest_stake)
         {
             throw new ChipLessThanPotException(this.current_player.GetMoney());
         }
-
-
-        if(this.current_player.GetMoney()==0 && this.higest_stake==this.current_player.getStake()) {//
-            if(Game.ENABLE_LOG)System.out.println("FROM HAND: player have no money but its ok, no one raised or bet.");
+        if(this.higest_stake==0) // no bet placed, the player can Check,Bet,Fold
+        {
+            allowded_moves.add(MoveType.BET);
             allowded_moves.add(MoveType.CHECK);
             allowded_moves.add(MoveType.FOLD);
-            if(Game.ENABLE_LOG)System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"allowded moves: check,fold");
+            //moves.AddMove(new Move(MoveType.CHECK,0));
+            //moves.AddMove(new Move(MoveType.FOLD,0));
+            if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"allowded moves: bet,check,fold");
         }
-        else {
-            if (this.higest_stake == 0) // no bet placed, the player can Check,Bet,Fold
+        else
+        {
+            if(this.current_player.getStake()<this.higest_stake)//player need to Call,Raise or Fold
             {
-                allowded_moves.add(MoveType.BET);
-                allowded_moves.add(MoveType.CHECK);
+                if(Game.ENABLE_LOG) System.out.println("FROM HAND:current player stake less than highest stake");
+                allowded_moves.add(MoveType.RAISE);
+                allowded_moves.add(MoveType.CALL);
                 allowded_moves.add(MoveType.FOLD);
+<<<<<<< HEAD
                 //moves.AddMove(new Move(MoveType.CHECK,0));
                 //moves.AddMove(new Move(MoveType.FOLD,0));
                 if (Game.ENABLE_LOG) System.out.println("Player Type:" + this.current_player.GetType() + " ID:" + this.current_player.getId() + "allowded moves: bet,check,fold");
             } else {
                 if (this.higest_stake >= ranges[1] ) ///If the current table stake is them maximum, only call or fold.
+=======
+                if(Game.ENABLE_LOG)  System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"allowded moves: raise,call,fold");
+            }
+            else
+            {
+                if(this.current_player.getStake()==this.higest_stake)
+>>>>>>> parent of 0bca4d6... sdcsdc
                 {
-                    if (Game.ENABLE_LOG) System.out.println("FROM HAND: highest stake is the maximum! can go higher");
-                    allowded_moves.add(MoveType.CALL);
+                    if(Game.ENABLE_LOG)System.out.println("FROM HAND:current player stake equal than highest stake");
+                    allowded_moves.add(MoveType.RAISE);
+                    allowded_moves.add(MoveType.CHECK);
                     allowded_moves.add(MoveType.FOLD);
+<<<<<<< HEAD
                     if (Game.ENABLE_LOG) System.out.println("Player Type:" + this.current_player.GetType() + " ID:" + this.current_player.getId() + "allowded moves: call,fold");
 
                 } else {
@@ -344,6 +345,14 @@ public class Hand {
                 }
 
                 if (Game.ENABLE_LOG) System.out.println("FROM HAND: highest stake:" + this.higest_stake + " poorest:" + ranges[1]);
+=======
+                    if(Game.ENABLE_LOG)System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"allowded moves: raise,check");
+                }
+                else //current player stake bigger than highest stake
+                {
+                    if(Game.ENABLE_LOG)System.out.println("FROM HAND:current player stake bigger than highest stake");
+                }
+>>>>>>> parent of 0bca4d6... sdcsdc
             }
         }
         return allowded_moves;
@@ -354,7 +363,8 @@ public class Hand {
     }
 
     public boolean IsMoveAllowded(MoveType mtype) throws PlayerFoldedException, ChipLessThanPotException {
-        for(MoveType move:this.GetAllowdedMoves())
+        List<MoveType> allowded_moves=this.GetAllowdedMoves();
+        for(MoveType move:allowded_moves)
         {
             if(mtype==move)
             {
