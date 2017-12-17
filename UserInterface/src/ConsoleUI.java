@@ -150,23 +150,27 @@ public class ConsoleUI{
     }
 
     private void  PlayOneHand() {
-        if(engine.IsAnyPlayerOutOfMoney()) endGame = true;
-        this.numberOfHandPlayed++;
-        engine.StartNewHand();
-        this.PlayBidRound();
-        this.EndOfRound();
-        engine.Flop();
-        this.PlayBidRound();
-        this.EndOfRound();
-        engine.River();
-        this.PlayBidRound();
-        this.EndOfRound();
-        engine.Turn();
-        this.PlayBidRound();
-        this.EndOfRound();
-        engine.SetWinner();
-        // add the winner
-        PrintTheWinners();
+        if (engine.IsAnyPlayerOutOfMoney()) {
+            endGame = true;
+            this.PrintTheWinners();
+        } else {
+            this.numberOfHandPlayed++;
+            engine.StartNewHand();
+            this.PlayBidRound();
+            this.EndOfRound();
+            engine.Flop();
+            this.PlayBidRound();
+            this.EndOfRound();
+            engine.River();
+            this.PlayBidRound();
+            this.EndOfRound();
+            engine.Turn();
+            this.PlayBidRound();
+            this.EndOfRound();
+            engine.SetWinner();
+            // add the winner
+            PrintTheWinners();
+        }
     }
 
     private void PrintTheWinners(){
