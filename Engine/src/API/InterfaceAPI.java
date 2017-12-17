@@ -3,6 +3,7 @@ package API;
 import Exceptions.*;
 import Move.Move;
 import Move.MoveType;
+import Player.PlayerType;
 import ReturnType.CurrentHandState;
 import ReturnType.PlayerStats;
 
@@ -67,7 +68,10 @@ public interface  InterfaceAPI {
     public PlayerStats GetCurrentPlayerInfo();
 
     public void CheckBidStatus();
+
     public boolean IsCurrentPlayerFolded();
+
+    public void AddNewPlayer(String name, PlayerType type, int ID);
 
     //Statistics related API's
     public List<PlayerStats> GetPlayersInfo();

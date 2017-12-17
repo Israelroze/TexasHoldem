@@ -145,6 +145,11 @@ public class Game implements InterfaceAPI {
     }
 
     @Override
+    public void AddNewPlayer(String name, PlayerType type, int ID){
+        this.players.GetPlayers().add(new APlayer(name,type,ID));
+    }
+
+    @Override
     public void StartGame() {
         this.is_game_started=true;
         //TBD - insert function pass result
