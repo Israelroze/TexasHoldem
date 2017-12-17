@@ -34,13 +34,13 @@ public class ConsoleUI{
     }
 
     private Move PlayHumanPlayer() {
-        List<String> moveChars = Arrays.asList("B","b","F","f","R","r","C","c","K","k");
+        List<String> moveChars = new LinkedList<>();// = Arrays.asList("B","b","F","f","R","r","C","c","K","k");
         List<MoveType> moves=null;
         int amount =0;
         String input;
         MoveType moveType;
         PrintGame(engine.GetCurrentHandState());
-
+        moveChars.clear();
         try {
             moves= engine.GetAllowdedMoves();
         } catch (PlayerFoldedException e) {
@@ -61,18 +61,28 @@ public class ConsoleUI{
                 switch (move) {
                     case BET:
                         System.out.print("B. BET ");
+                        moveChars.add("b");
+                        moveChars.add("B");
                         break;
                     case FOLD:
                         System.out.print("F. FOLD ");
+                        moveChars.add("f");
+                        moveChars.add("F");
                         break;
                     case RAISE:
                         System.out.print("R. RAISE ");
+                        moveChars.add("r");
+                        moveChars.add("R");
                         break;
                     case CALL:
                         System.out.print("C. CALL ");
+                        moveChars.add("c");
+                        moveChars.add("C");
                         break;
                     case CHECK:
                         System.out.print("K. CHECK ");
+                        moveChars.add("k");
+                        moveChars.add("K");
                         break;
                 }
             }
@@ -163,7 +173,11 @@ public class ConsoleUI{
         }
     }
 
+
     private void PrintTheWinners(){
+
+
+
         System.out.println("And the winner is \\ are: " );
         List<String> winners=    engine.GetWinner();
 
@@ -172,6 +186,7 @@ public class ConsoleUI{
         }
 
         System.out.println("");
+
     }
 
     private void EndOfRound() {
@@ -182,6 +197,7 @@ public class ConsoleUI{
             reader.nextLine();
         }
     }
+
 
     private Move GetPlayerMove() {
         if(TexasHoldem.ENABLE_LOG)System.out.println("Player Type:"+this.engine.GetCurrentPlayerInfo().GetType() +" ID:"+this.engine.GetCurrentPlayerInfo().GetID()+"Getting move...");
@@ -208,11 +224,9 @@ public class ConsoleUI{
 
         return currentMove;
     }
-
     private void SetMove(Move move){
 
     }
-
     private void PlayBidRound(){
 
         //init a new bid round
@@ -228,7 +242,7 @@ public class ConsoleUI{
         while(!engine.IsCurrentBidCycleFinished())
         {
             System.out.println(" ");
-            if(this.engine.IsCurrentPlayerFolded() || this.engine.IsCurrentPlayerNoMoney())
+            if(this.engine.IsCurrentPlayerFolded() /*|| this.engine.IsCurrentPlayerNoMoney()*/)
             {
                 this.engine.MoveToNextPlayer();
                 this.engine.CheckBidStatus();
@@ -432,9 +446,12 @@ public class ConsoleUI{
 
             }
         }
+
+
+
     }
 
-    public void PrintWinner(List<PlayerStats> currentStat){
+   public void PrintWinner(List<PlayerStats> currentStat){
 
       List<String> names= new LinkedList<>();
       int num =-1;
