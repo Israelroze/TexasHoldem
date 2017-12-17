@@ -172,12 +172,8 @@ public class ConsoleUI{
             PrintTheWinners();
         }
     }
-
-
+    
     private void PrintTheWinners(){
-
-
-
         System.out.println("And the winner is \\ are: " );
         List<String> winners=    engine.GetWinner();
 
@@ -186,7 +182,6 @@ public class ConsoleUI{
         }
 
         System.out.println("");
-
     }
 
     private void EndOfRound() {
@@ -197,7 +192,6 @@ public class ConsoleUI{
             reader.nextLine();
         }
     }
-
 
     private Move GetPlayerMove() {
         if(TexasHoldem.ENABLE_LOG)System.out.println("Player Type:"+this.engine.GetCurrentPlayerInfo().GetType() +" ID:"+this.engine.GetCurrentPlayerInfo().GetID()+"Getting move...");
@@ -224,9 +218,11 @@ public class ConsoleUI{
 
         return currentMove;
     }
+
     private void SetMove(Move move){
 
     }
+
     private void PlayBidRound(){
 
         //init a new bid round
@@ -446,12 +442,9 @@ public class ConsoleUI{
 
             }
         }
-
-
-
     }
 
-   public void PrintWinner(List<PlayerStats> currentStat){
+    public void PrintWinner(List<PlayerStats> currentStat){
 
       List<String> names= new LinkedList<>();
       int num =-1;

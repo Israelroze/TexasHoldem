@@ -3,6 +3,7 @@ package API;
 import Exceptions.*;
 import Move.Move;
 import Move.MoveType;
+import Player.PlayerType;
 import ReturnType.CurrentHandState;
 import ReturnType.PlayerStats;
 
@@ -74,6 +75,7 @@ public interface  InterfaceAPI {
 
     public CurrentHandState GetCurrentHandState();
 
+    public void AddNewPlayer(String name, PlayerType type, int ID);
     public boolean IsAnyPlayerOutOfMoney();
     public boolean IsCurrentPlayerNoMoney();
 
