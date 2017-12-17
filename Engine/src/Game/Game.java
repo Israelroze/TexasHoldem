@@ -18,7 +18,7 @@ import Move.*;
 
 public class Game implements InterfaceAPI {
 
-    final static Boolean ENABLE_LOG = false;
+    final static Boolean ENABLE_LOG = true;
     //members
     private GameDescriptor configuration;
     private CurrentHandState state;
@@ -124,15 +124,37 @@ public class Game implements InterfaceAPI {
 
     /////////////////////////////////////////////////////////////API's/////////////////////////////////////////////////////////////////////////////////////////
 
+    private void Init4Players(){
+        this.players=new APlayers();
+        this.players.GetPlayers().add(new APlayer("Bluffer",PlayerType.COMPUTER,12));
+        this.players.GetPlayers().add(new APlayer("Cheater",PlayerType.COMPUTER,22));
+        this.players.GetPlayers().add(new APlayer("Bunker",PlayerType.COMPUTER,33));
+        this.players.GetPlayers().add(new APlayer("Camper",PlayerType.HUMAN,65));
+    }
+
     @Override
-    public void LoadFromXML(String file_name) throws FileNotFoundException, FileNotXMLException, WrongFileNameException, JAXBException, NullObjectException, UnexpectedObjectException, HandsCountDevideException, BigSmallMismatchException, HandsCountSmallerException, GameStartedException, PlayerDataMissingException {
+    public void LoadFromXML(String file_name) throws FileNotFoundException, FileNotXMLException, WrongFileNameException, JAXBException, UnexpectedObjectException, HandsCountDevideException, BigSmallMismatchException, HandsCountSmallerException, GameStartedException, PlayerDataMissingException {
 
         if(!this.is_game_started) {
             JAXB_Generator generator = new JAXB_Generator((file_name));
-            generator.GenerateFromXML();
-            generator.ValidateXMLData();
+            try {
+                generator.GenerateFromXML();
+                generator.ValidateXMLData();
+            }
+            catch (NullObjectException e){
+                if(e.GetObjectName().equals("Players") || e.GetObjectName().equals("Players List"))
+                {
+                    this.Init4Players();
+                }
+            }
+
+
+            if(this.players.GetPlayers()==null)
+            {
+                this.LoadPlayers();
+            }
+
             this.configuration = generator.getContainer();
-            this.LoadPlayers();
             this.SetPlayersChips();
             this.players.RandomPlayerSeats();
             this.players.ForwardStates();

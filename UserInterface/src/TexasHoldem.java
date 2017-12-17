@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class TexasHoldem {
 
-    final static Boolean ENABLE_LOG = false;
+    final static Boolean ENABLE_LOG = true;
 
 
     public static void main(String[] args) {

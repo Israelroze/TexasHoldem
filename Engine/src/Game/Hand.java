@@ -39,65 +39,62 @@ public class Hand {
 
     //ctor
     public Hand(APlayers players, Structure structure) {
-        this.players=players;
-        this.bet_num=0;
-        this.pot=0;
-        this.big=structure.getBlindes().getBig();
-        this.small=structure.getBlindes().getSmall();
-        this.deck=new Deck();
-        this.winners=new LinkedList<>();
+        this.players = players;
+        this.bet_num = 0;
+        this.pot = 0;
+        this.big = structure.getBlindes().getBig();
+        this.small = structure.getBlindes().getSmall();
+        this.deck = new Deck();
+        this.winners = new LinkedList<>();
     }
 
     //Private Methods
     private APlayer GetFirstPlayer() {
-        if(bet_num==1){
+        if (bet_num == 1) {
             return this.players.GetBigPlayer();
-        }
-        else{
+        } else {
             return this.players.GetSmallPlayer();
         }
     }
 
     private void SetBlinds() throws NoSufficientMoneyException {
         //for small
-        APlayer small=this.players.GetSmallPlayer();
+        APlayer small = this.players.GetSmallPlayer();
         small.DecMoney(this.small);
         //small.setBetPlaceFlag(true);
         small.setStake(this.small);
-        this.higest_stake=this.small;
+        this.higest_stake = this.small;
 
         //for big
-        APlayer big=this.players.GetBigPlayer();
+        APlayer big = this.players.GetBigPlayer();
         big.DecMoney(this.big);
         big.setBetPlaceFlag(true);
         big.setStake(this.big);
-        this.higest_stake=this.big;
+        this.higest_stake = this.big;
 
         //set pot
-        this.pot=this.small+this.big;
+        this.pot = this.small + this.big;
 
-        this.current_player=this.players.GetNextPlayer(big);
+        this.current_player = this.players.GetNextPlayer(big);
     }
 
     private void DealCards() {
-        for(APlayer player:this.players.GetPlayers() )
-        {
+        for (APlayer player : this.players.GetPlayers()) {
             player.SetCards(new Card[]{this.deck.PopCard(), this.deck.PopCard()});
         }
     }
-    private void InitNotFinishedPlayers(){
-        for(APlayer player :this.players.GetPlayers())
-        {
-            if(player.getStake()<this.higest_stake) {
-               player.setFoldedFlag(false);
+
+    private void InitNotFinishedPlayers() {
+        for (APlayer player : this.players.GetPlayers()) {
+            if (player.getStake() < this.higest_stake) {
+                player.setFoldedFlag(false);
             }
         }
     }
+
     private boolean IsAllStakesEqual() {
-        for(APlayer player :this.players.GetPlayers())
-        {
-            if(player.isPlacedBet()!=true)
-            {
+        for (APlayer player : this.players.GetPlayers()) {
+            if (player.isPlacedBet() != true) {
                 this.InitNotFinishedPlayers();
                 return false;
             }
@@ -106,35 +103,30 @@ public class Hand {
     }
 
     private boolean IsAllPlayersPlacedBet() {
-        for(APlayer player : this.players.GetPlayers())
-        {
-            if(!player.isPlacedBet())
-            {
+        for (APlayer player : this.players.GetPlayers()) {
+            if (!player.isPlacedBet()) {
                 return false;
             }
         }
         return true;
     }
 
-    private boolean IsAllFolded(){
-        int count=0;
-        for(APlayer player :this.players.GetPlayers())
-        {
-            if(player.isFolded()==false)
-            {
+    private boolean IsAllFolded() {
+        int count = 0;
+        for (APlayer player : this.players.GetPlayers()) {
+            if (player.isFolded() == false) {
                 count++;
             }
         }
-        if(count<=1) return true;
+        if (count <= 1) return true;
         return false;
     }
 
     private void InitPlayerFlags() {
 
         //init players flags
-        for(APlayer player:this.players.GetPlayers())
-        {
-            if(!player.isFolded()) {
+        for (APlayer player : this.players.GetPlayers()) {
+            if (!player.isFolded()) {
                 player.ClearBidStats();
             }
         }
@@ -142,58 +134,66 @@ public class Hand {
 
     private void InitPlayersBetFlag(APlayer Cplayer) {
         //init players flags
-        for(APlayer player:this.players.GetPlayers())
-        {
-            if(Cplayer.getId()!=player.getId() && !player.isFolded())
-            {
+        for (APlayer player : this.players.GetPlayers()) {
+            if (Cplayer.getId() != player.getId() && !player.isFolded()) {
                 player.setBetPlaceFlag(false);
             }
         }
     }
 
-    private void IncPot(int amount)
-    {
-        this.pot=this.pot+amount;
+    private void IncPot(int amount) {
+        this.pot = this.pot + amount;
     }
-
 
 
     //Public Methods
     public int GetPoorestChipsValue() {
-        int min=0;
-        int a;
-        this.players.GetPlayers();
-        for(APlayer player : this.players.GetPlayers())
-        {
-            if(this.higest_stake==0) //round only started
-            {
-                if(Game.ENABLE_LOG) System.out.println("all stakes are o, calculating poorest between all.");
-                if (min == 0) {
-                    min = player.GetMoney();
-                } else {
-                    if (min > player.GetMoney()) {
-                       // if (player.getStake() < this.higest_stake) {
-                            min = player.GetMoney();
-                        //}
-                    }
+        Integer min = null;
+        for (APlayer player : this.players.GetPlayers()) {
+            if (min == null) {
+                min = player.GetMoney()+player.getStake();
+            } else {
+                if (min > player.GetMoney()) {
+                    min = player.GetMoney()+player.getStake();
                 }
             }
-            else {
-              //  if (player.getStake() != this.higest_stake) {
-                    if (min == 0) {
-                        min = player.GetMoney();
-                    } else {
-                        if (min >  player.GetMoney()) {
-                            if (player.getStake() < this.higest_stake) {
-                                min = player.GetMoney();
-                            }
-                        }
-                    }
-                //}
-            }
         }
-        return min;
+        return min.intValue();
     }
+
+//        int a;
+//        this.players.GetPlayers();
+//        for(APlayer player : this.players.GetPlayers())
+//        {
+//            if(this.higest_stake==0) //round only started
+//            {
+//                if(Game.ENABLE_LOG) System.out.println("all stakes are o, calculating poorest between all.");
+//                if (min == 0) {
+//                    min = player.GetMoney();
+//                } else {
+//                    if (min > player.GetMoney()) {
+//                       // if (player.getStake() < this.higest_stake) {
+//                            min = player.GetMoney();
+//                        //}
+//                    }
+//                }
+//            }
+//            else {
+//              //  if (player.getStake() != this.higest_stake) {
+//                    if (min == 0) {
+//                        min = player.GetMoney();
+//                    } else {
+//                        if (min >  player.GetMoney()) {
+//                            if (player.getStake() < this.higest_stake) {
+//                                min = player.GetMoney();
+//                            }
+//                        }
+//                    }
+//                //}
+//            }
+//        }
+       //return min;
+    //}
 
     public void SetIsBetCycleFinished() {
         if(this.IsAllPlayersPlacedBet()) this.is_bets_finished=true;
@@ -247,37 +247,59 @@ public class Hand {
 
     public int[] GetAllowdedStakeRange() {
         if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"getting allowded stake range");
+        int low=this.higest_stake;
+        int high=0;
 
-        int low=1;
-        if(this.current_player.getStake()<this.higest_stake)
-        {
-            low=this.higest_stake;
-        }
-
-        if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"higest stake:"+this.higest_stake);
-        int high=this.higest_stake;
-        int by_pot=this.pot;
-        if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"pot:"+this.pot);
-
+        //int by_poorest=low+this.GetPoorestChipsValue();
         int by_poorest=this.GetPoorestChipsValue();
-        if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"poorest chips:"+by_poorest);
+        int by_pot=this.pot;
 
-        if(by_poorest<=this.higest_stake)
+        if(by_poorest<by_pot)
         {
-            low=0;
             high=by_poorest;
         }
-        else {
-            if (by_pot > by_poorest) {
-                high = by_poorest;
-            } else {
-                high = by_pot;
-            }
+        else
+        {
+            high=by_pot;
         }
+//        int low=1;
+//        if(this.current_player.getStake()<this.higest_stake)
+//        {
+//            low=this.higest_stake;
+//        }
+//
+//        if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"higest stake:"+this.higest_stake);
+//        int high=this.higest_stake;
+//        int by_pot=this.pot;
+//        if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"pot:"+this.pot);
+//
+//        int by_poorest=this.GetPoorestChipsValue();
+//        if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"poorest chips:"+by_poorest);
+//
+//        if(by_poorest<=this.higest_stake)
+//        {
+//            low=0;
+//            high=by_poorest;
+//        }
+//        else {
+//            if (by_pot > by_poorest) {
+//                high = by_poorest;
+//            } else {
+//                high = by_pot;
+//            }
+//        }
         if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"the range is: low:"+low+" high:"+high+"....");
-        return new int[]{low, high};
+        return new int[]{low+1, high};
     }
-    
+
+    public boolean IsOneOfPlayersOutOfMoney()
+    {
+        for(APlayer player:this.players.GetPlayers())
+        {
+            if(player.GetMoney()==0) return true;
+        }
+        return false;
+    }
     public List<MoveType> GetAllowdedMoves() throws PlayerFoldedException, ChipLessThanPotException {
 
         if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"Getting  allowded moves...");
@@ -293,8 +315,7 @@ public class Hand {
             throw new ChipLessThanPotException(this.current_player.GetMoney());
         }
 
-
-        if(this.current_player.GetMoney()==0 && this.higest_stake==this.current_player.getStake()) {//
+        if(this.IsOneOfPlayersOutOfMoney() && this.higest_stake==this.current_player.getStake()) {//
             if(Game.ENABLE_LOG)System.out.println("FROM HAND: player have no money but its ok, no one raised or bet.");
             allowded_moves.add(MoveType.CHECK);
             allowded_moves.add(MoveType.FOLD);
@@ -502,6 +523,7 @@ public class Hand {
     }
 
     public void SetWinner() {
+        int[] winner_indexs=new int[4];
         EquityCalculator calculator = new EquityCalculator();
 
         //boards cards to string
@@ -555,6 +577,7 @@ public class Hand {
                 try {
                     com.rundef.poker.Hand hand = com.rundef.poker.Hand.fromString(str_hand);
                     calculator.addHand(hand);
+                    winner_indexs[num_of_hands]=this.players.GetPlayers().indexOf(player);
                     num_of_hands++;
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -573,9 +596,10 @@ public class Hand {
             HandEquity equity=calculator.getHandEquity(i);
             if(equity.getEquity()!=0)//we have a winner
             {
-                this.winners.add(i);
+                if(Game.ENABLE_LOG) System.out.println("Adding player in index"+winner_indexs[i]+" as winner");
+                this.winners.add(winner_indexs[i]);
             }
-            if(Game.ENABLE_LOG) System.out.println("Player ID"+this.players.GetPlayers().get(i).getId()+"Hand #" + (i+1) + ": Rank: " + calculator.getHandRanking(i) + " Equity: " + calculator.getHandEquity(i));
+            if(Game.ENABLE_LOG) System.out.println("Player ID"+this.players.GetPlayers().get(winner_indexs[i]).getId()+"Hand #" + (i+1) + ": Rank: " + calculator.getHandRanking(i) + " Equity: " + calculator.getHandEquity(i));
         }
 
         //set the number of wins for the players

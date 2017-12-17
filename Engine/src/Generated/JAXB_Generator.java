@@ -59,6 +59,9 @@ public class JAXB_Generator {
         catch (NullPointerException e){
             throw  new NullObjectException("Blindes");
         }
+
+
+
         try {
             container.getPlayers();
         }

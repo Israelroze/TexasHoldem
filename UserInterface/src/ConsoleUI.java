@@ -3,6 +3,7 @@ import API.InterfaceAPI;
 import Exceptions.*;
 import Move.Move;
 import Move.MoveType;
+import Player.PlayerType;
 import ReturnType.CurrentHandState;
 import ReturnType.PlayerStats;
 
@@ -327,9 +328,6 @@ public class ConsoleUI{
         } catch (FileNotXMLException e) {
             System.out.println("Problem in XML file,");
             return;
-        } catch (NullObjectException e) {
-            System.out.println("Problem in XML file,");
-            return;
         }
         this.isXMLFileLoaded = true;
     }
@@ -404,7 +402,12 @@ public class ConsoleUI{
                             menuOption[0] = menuOption[1]= menuOption[2]  = menuOption[4] = menuOption[5] = true;
                         } else {
                             PlayOneHand();
-                            if(this.endGame) System.out.println("One Player run out of money - sorry, this is the end of the game.");
+                            if(this.endGame) {
+                                System.out.println("One Player run out of money - sorry, this is the end of the game.");
+                                System.out.println("Please press enter to exit [ENTER]");
+                                reader.nextLine();
+
+                            }
                             else {
                                 menuOption[0] = menuOption[1] = false;
                                 menuOption[2] = menuOption[3] = menuOption[4] = menuOption[5] = true;
