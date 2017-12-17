@@ -68,14 +68,16 @@ public interface  InterfaceAPI {
     public PlayerStats GetCurrentPlayerInfo();
 
     public void CheckBidStatus();
+
     public boolean IsCurrentPlayerFolded();
+
+    public void AddNewPlayer(String name, PlayerType type, int ID);
 
     //Statistics related API's
     public List<PlayerStats> GetPlayersInfo();
 
     public CurrentHandState GetCurrentHandState();
 
-    public void AddNewPlayer(String name, PlayerType type, int ID);
     public boolean IsAnyPlayerOutOfMoney();
     public boolean IsCurrentPlayerNoMoney();
 

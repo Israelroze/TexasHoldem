@@ -17,13 +17,9 @@ import java.util.*;
 import Move.*;
 
 public class Game implements InterfaceAPI {
-<<<<<<< HEAD
 
     final static Boolean ENABLE_LOG = false;
-=======
->>>>>>> a9582d87470f41feebd88060fdf81baca5e54e24
     //members
-    final static Boolean ENABLE_LOG = true;
     private GameDescriptor configuration;
     private CurrentHandState state;
     private APlayers players;
@@ -127,8 +123,10 @@ public class Game implements InterfaceAPI {
     }
 
     /////////////////////////////////////////////////////////////API's/////////////////////////////////////////////////////////////////////////////////////////
+
     @Override
     public void LoadFromXML(String file_name) throws FileNotFoundException, FileNotXMLException, WrongFileNameException, JAXBException, NullObjectException, UnexpectedObjectException, HandsCountDevideException, BigSmallMismatchException, HandsCountSmallerException, GameStartedException, PlayerDataMissingException {
+
         if(!this.is_game_started) {
             JAXB_Generator generator = new JAXB_Generator((file_name));
             generator.GenerateFromXML();
@@ -145,8 +143,12 @@ public class Game implements InterfaceAPI {
             throw new GameStartedException();
         }
     }
+
     @Override
-    public void AddNewPlayer(String name, PlayerType type, int ID) { this.players.GetPlayers().add(new APlayer(name,type,ID)); }
+    public void AddNewPlayer(String name, PlayerType type, int ID){
+        this.players.GetPlayers().add(new APlayer(name,type,ID));
+    }
+
     @Override
     public void StartGame() {
         this.is_game_started=true;
@@ -164,26 +166,32 @@ public class Game implements InterfaceAPI {
             player.setFoldedFlag(false);
         }
     }
+
     @Override
     public int GetNumberOfHands() {
         return this.configuration.getStructure().getHandsCount();
     }
+
     @Override
     public int GetCurrentHandNumber(){
         return this.num_of_hands;
     }
+
     @Override
     public boolean IsCurrentHandFinished(){
         return this.current_hand.IsHandOver();
     }
+
     @Override
     public void Flop(){
         this.current_hand.Flop();
     }
+
     @Override
     public void River(){
         this.current_hand.River();
     }
+
     @Override
     public void Turn(){
         this.current_hand.Turn();
@@ -194,15 +202,18 @@ public class Game implements InterfaceAPI {
     public void StartNewBidCycle() throws NoSufficientMoneyException {
         this.current_hand.StartNewBidCycle();
     }
+
     @Override
     public boolean IsCurrentBidCycleFinished(){
         return this.GetCurrentHand().IsBetsCycleFinished();
     }
+
     @Override
     public boolean IsCurrentPlayerHuman(){
         if(this.GetCurrentHand().GetCurrentPlayer().GetType()== PlayerType.HUMAN){return true;}
         return false;
     }
+
     @Override
     public boolean IsCurrentPlayerComputer(){
         if(this.GetCurrentHand().GetCurrentPlayer().GetType()== PlayerType.COMPUTER){return true;}
@@ -222,7 +233,8 @@ public class Game implements InterfaceAPI {
         return false;
     }
     @Override
-    public boolean IsCurrentPlayerNoMoney() {
+    public boolean IsCurrentPlayerNoMoney()
+    {
         if(this.GetCurrentHand().GetCurrentPlayer().GetMoney()<= 0)
         {
             if(ENABLE_LOG) System.out.println("FROM GAME: current Player has no money- such a loser!!!!");
@@ -231,14 +243,17 @@ public class Game implements InterfaceAPI {
         return false;
 
     }
+
     @Override
     public List<MoveType> GetAllowdedMoves() throws PlayerFoldedException, ChipLessThanPotException {
         return this.GetCurrentHand().GetAllowdedMoves();
     }
+
     @Override
     public int[] GetAllowdedStakeRange(){
         return this.GetCurrentHand().GetAllowdedStakeRange();
     }
+
     @Override
     public void SetNewMove(Move move) throws StakeNotInRangeException, PlayerFoldedException, MoveNotAllowdedException, ChipLessThanPotException, NoSufficientMoneyException, PlayerAlreadyBetException {
         if(move==null){
@@ -250,10 +265,12 @@ public class Game implements InterfaceAPI {
             this.GetCurrentHand().ImplementMove(move.GetMoveType(), move.GetValue());
         }
     }
+
     @Override
     public PlayerStats GetCurrentPlayerInfo() {
         return new PlayerStats(this.current_hand.GetCurrentPlayer(),this.GetNumberOfHands() );
     }
+
     @Override
     public Move GetAutoMove() throws PlayerFoldedException, ChipLessThanPotException {
         if(ENABLE_LOG) System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"Getting  auto move...");
@@ -317,21 +334,26 @@ public class Game implements InterfaceAPI {
         }
         return null;
     }
+
     @Override
     public void MoveToNextPlayer()
     {
         this.current_hand.MoveToNextPlayer();
     }
+
+
     @Override
     public void SetWinner(){
         this.current_hand.SetWinner();
     }
+
     @Override
     public List<String> GetWinner(){
         return  this.current_hand.GetWinnerNames();
     }
     @Override
-    public void Buy() {
+    public void Buy()
+    {
         for(APlayer player:this.players.GetPlayers())
         {
             if(player.GetType()==PlayerType.HUMAN) {
@@ -340,8 +362,8 @@ public class Game implements InterfaceAPI {
             }
         }
     }
-
     ///////////////////////////////////////////////////////////////
+
     //Stats Methods
     @Override
     public List<PlayerStats>  GetPlayersInfo() {
@@ -392,7 +414,8 @@ public class Game implements InterfaceAPI {
         return this.global_num_of_buys * this.configuration.getStructure().getBuy();
     }
     @Override
-    public boolean IsHumanPlayerFolded() {
+    public boolean IsHumanPlayerFolded()
+    {
         for(APlayer player:this.players.GetPlayers())
         {
             if(player.GetType()==PlayerType.HUMAN)
@@ -406,8 +429,9 @@ public class Game implements InterfaceAPI {
         return false;
     }
     @Override
-    public boolean IsAnyPlayerOutOfMoney() {
-        List<APlayer> players = this.players.GetPlayers();
+    public boolean IsAnyPlayerOutOfMoney()
+    {
+    List<APlayer> players = this.players.GetPlayers();
         for (APlayer player: players)
         {
             if( player.GetMoney() <= 0)
@@ -415,4 +439,5 @@ public class Game implements InterfaceAPI {
         }
         return false;
     }
+
 }
