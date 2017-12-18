@@ -290,7 +290,7 @@ public class ConsoleUI{
         }
     }
 
-    private void LoadXMLFile() {
+    private boolean LoadXMLFile() {
 
 
         System.out.println("Please enter XML file path: ");
@@ -300,36 +300,43 @@ public class ConsoleUI{
         try { engine.LoadFromXML(res);
         } catch (GameStartedException e) {
             System.out.println("Game Already Start");
-            return;
+            return false;
         } catch (UnexpectedObjectException e) {
             System.out.println("No XML file exist");
-            return;
+            return false;
         } catch (FileNotFoundException e) {
             System.out.println("No XML file exist");
-            return;
+            return false;
         } catch (BigSmallMismatchException e) {
             System.out.println("Problem in XML file, Big Blind and Small Blind Value is incorrect");
-            return;
+            return false;
         } catch (PlayerDataMissingException e) {
             System.out.println("Problem in XML file, player data missing");
-            return;
+            return false;
         } catch (HandsCountDevideException e) {
             System.out.println("Problem in XML file, Hand count do not divine by number of players");
-            return;
+            return false;
         } catch (WrongFileNameException e) {
             System.out.println("Problem in XML file, wrong File Name");
-            return;
+            return false;
         } catch (HandsCountSmallerException e) {
-            System.out.println("Problem in XML file,");
-            return;
+            System.out.println("Problem in XML file,Hand Count smaller than the number of players ");
+            return false;
         } catch (JAXBException e) {
-            System.out.println("Problem in XML file,");
-            return;
+            System.out.println("Problem in XML file loading...");
+            return false;
         } catch (FileNotXMLException e) {
-            System.out.println("Problem in XML file,");
-            return;
+            System.out.println("Problem in XML file, This File is not XML");
+            return false;
+        } catch (MinusZeroValueException e) {
+            System.out.println("Problem in XML file, One of the values is negative or zero");
+            return false;
+        } catch (BigBiggerThanBuyException e) {
+            System.out.println("Problem in XML file, The big blind is bigger than the buy");
+            return false;
         }
         this.isXMLFileLoaded = true;
+        return true;
     }
 
     private int PrintMainMenu(boolean[] menuOption){
@@ -370,10 +377,13 @@ public class ConsoleUI{
             switch (choice) {
                 case 1:
                     engine = new Game();
-                    LoadXMLFile();
-                    if(this.isXMLFileLoaded) {
+                    //LoadXMLFile();
+                    if(LoadXMLFile()) {
                         this.numberOfHandPlayed = 0;
                         menuOption[1] = true;
+                    }
+                    else {
+                        menuOption[1] = false;
                     }
                     choice = PrintMainMenu(menuOption);
                     break;

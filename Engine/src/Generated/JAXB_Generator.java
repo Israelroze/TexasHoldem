@@ -88,7 +88,14 @@ public class JAXB_Generator {
 //
         int big=container.getStructure().getBlindes().getBig();
         int small=container.getStructure().getBlindes().getSmall();
-        int num_of_players=container.getPlayers().getPlayer().size();
+        int num_of_players;
+        if(container.getPlayers().getPlayer()!=null)
+        {
+            num_of_players=container.getPlayers().getPlayer().size();
+        }
+        else {
+            num_of_players = 4;
+        }
         int num_of_hands=container.structure.getHandsCount();
 
         if(big<=small){

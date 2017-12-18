@@ -18,7 +18,7 @@ import Move.*;
 
 public class Game implements InterfaceAPI {
 
-    final static Boolean ENABLE_LOG = true;
+    final static Boolean ENABLE_LOG = false;
     //members
     private GameDescriptor configuration;
     private CurrentHandState state;
@@ -132,29 +132,92 @@ public class Game implements InterfaceAPI {
         this.players.GetPlayers().add(new APlayer("Camper",PlayerType.HUMAN,65));
     }
 
+    private void ValidateXML(GameDescriptor container) throws NullObjectException, BigSmallMismatchException, HandsCountSmallerException, HandsCountDevideException, MinusZeroValueException, BigBiggerThanBuyException {
+        int big;
+        int small;
+        int buy;
+        int num_of_players;
+        int num_of_hands;
+        try {
+            container.getStructure();
+            num_of_hands=container.getStructure().getHandsCount();
+        }
+        catch (NullPointerException e){
+            throw  new NullObjectException("Structure");
+        }
+        try {
+            container.getStructure().getBlindes();
+        }
+        catch (NullPointerException e){
+            throw  new NullObjectException("Blindes");
+        }
+
+        try {
+            container.getPlayers();
+        }
+        catch (NullPointerException e){
+            this.Init4Players();
+            num_of_players=4;
+        }
+        try {
+            container.getPlayers().getPlayer();
+            num_of_players=container.getPlayers().getPlayer().size();
+        }
+        catch (NullPointerException e) {
+            this.Init4Players();
+            num_of_players=4;
+        }
+
+        big=container.getStructure().getBlindes().getBig();
+        small=container.getStructure().getBlindes().getSmall();
+        buy=container.getStructure().getBuy();
+
+
+        if(big<=0 || small<=0)
+        {
+            throw new MinusZeroValueException();
+        }
+
+        if(big>buy)
+        {
+            throw new BigBiggerThanBuyException();
+        }
+
+        if(big<=small){
+            throw new BigSmallMismatchException();
+        }
+
+        if(num_of_hands<num_of_players){
+            throw new HandsCountSmallerException();
+        }
+        else
+        {
+            if(num_of_hands%num_of_players!=0){
+                throw new HandsCountDevideException();
+            }
+        }
+    }
+
     @Override
-    public void LoadFromXML(String file_name) throws FileNotFoundException, FileNotXMLException, WrongFileNameException, JAXBException, UnexpectedObjectException, HandsCountDevideException, BigSmallMismatchException, HandsCountSmallerException, GameStartedException, PlayerDataMissingException {
+    public void LoadFromXML(String file_name) throws FileNotFoundException, FileNotXMLException, WrongFileNameException, JAXBException, UnexpectedObjectException, HandsCountDevideException, BigSmallMismatchException, HandsCountSmallerException, GameStartedException, PlayerDataMissingException, MinusZeroValueException, BigBiggerThanBuyException {
 
         if(!this.is_game_started) {
             JAXB_Generator generator = new JAXB_Generator((file_name));
             try {
                 generator.GenerateFromXML();
-                generator.ValidateXMLData();
+                //generator.ValidateXMLData();
+                this.ValidateXML(generator.getContainer());
+                this.configuration=generator.getContainer();
             }
             catch (NullObjectException e){
-                if(e.GetObjectName().equals("Players") || e.GetObjectName().equals("Players List"))
-                {
-                    this.Init4Players();
-                }
+
             }
 
-
-            if(this.players.GetPlayers()==null)
+            //this.configuration = generator.getContainer();
+            if(this.players==null && this.configuration.getPlayers()!=null)
             {
                 this.LoadPlayers();
             }
-
-            this.configuration = generator.getContainer();
             this.SetPlayersChips();
             this.players.RandomPlayerSeats();
             this.players.ForwardStates();
