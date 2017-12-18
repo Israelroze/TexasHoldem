@@ -6,24 +6,11 @@
     </artifacts-to-build>
   </component>
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/UserInterface/src/ConsoleUI.java" line="36" />
-    <bookmark url="file://$PROJECT_DIR$/Engine/src/Game/Game.java" line="503" />
+    <bookmark url="file://$PROJECT_DIR$/UserInterface/src/ConsoleUI.java" line="37" />
+    <bookmark url="file://$PROJECT_DIR$/Engine/src/Game/Game.java" line="528" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="be5ebfd0-ae6a-48ba-bc14-48c8715af483" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Engine/src/Exceptions/BigBiggerThanBuyException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Engine/src/Exceptions/MinusZeroValueException.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/TexasHoldem_jar/TexasHoldem.jar" afterPath="$PROJECT_DIR$/out/artifacts/TexasHoldem_jar/TexasHoldem.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Engine/API/InterfaceAPI.class" afterPath="$PROJECT_DIR$/out/production/Engine/API/InterfaceAPI.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Engine/Game/Game.class" afterPath="$PROJECT_DIR$/out/production/Engine/Game/Game.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Engine/Generated/JAXB_Generator.class" afterPath="$PROJECT_DIR$/out/production/Engine/Generated/JAXB_Generator.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/UserInterface/ConsoleUI.class" afterPath="$PROJECT_DIR$/out/production/UserInterface/ConsoleUI.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/src/API/InterfaceAPI.java" afterPath="$PROJECT_DIR$/Engine/src/API/InterfaceAPI.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/src/Game/Game.java" afterPath="$PROJECT_DIR$/Engine/src/Game/Game.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/src/Generated/JAXB_Generator.java" afterPath="$PROJECT_DIR$/Engine/src/Generated/JAXB_Generator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/UserInterface/src/ConsoleUI.java" afterPath="$PROJECT_DIR$/UserInterface/src/ConsoleUI.java" />
-    </list>
+    <list default="true" id="be5ebfd0-ae6a-48ba-bc14-48c8715af483" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -37,8 +24,8 @@
       <file leaf-file-name="ConsoleUI.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UserInterface/src/ConsoleUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6273">
-              <caret line="382" column="30" lean-forward="false" selection-start-line="382" selection-start-column="30" selection-end-line="382" selection-end-column="30" />
+            <state relative-caret-position="288">
+              <caret line="203" column="33" lean-forward="false" selection-start-line="203" selection-start-column="23" selection-end-line="203" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -48,20 +35,18 @@
         <entry file="file://$PROJECT_DIR$/Engine/src/ReturnType/CurrentHandState.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="221">
-              <caret line="15" column="20" lean-forward="true" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
+              <caret line="15" column="20" lean-forward="false" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Game.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Engine/src/Game/Game.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="102">
-              <caret line="20" column="43" lean-forward="false" selection-start-line="20" selection-start-column="43" selection-end-line="20" selection-end-column="43" />
+              <caret line="20" column="35" lean-forward="false" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="35" />
               <folding>
-                <element signature="e#14884#14885#0" expanded="true" />
-                <element signature="e#14942#14943#0" expanded="true" />
                 <element signature="e#15763#15769#0" expanded="true" />
                 <element signature="e#16292#16298#0" expanded="true" />
               </folding>
@@ -92,8 +77,8 @@
       <file leaf-file-name="JAXB_Generator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Engine/src/Generated/JAXB_Generator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="124">
-              <caret line="112" column="9" lean-forward="true" selection-start-line="49" selection-start-column="7" selection-end-line="112" selection-end-column="9" />
+            <state relative-caret-position="1683">
+              <caret line="120" column="0" lean-forward="false" selection-start-line="49" selection-start-column="7" selection-end-line="120" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -112,8 +97,8 @@
       <file leaf-file-name="Hand.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Engine/src/Game/Hand.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="115">
-              <caret line="311" column="9" lean-forward="true" selection-start-line="311" selection-start-column="9" selection-end-line="311" selection-end-column="9" />
+            <state relative-caret-position="5368">
+              <caret line="332" column="9" lean-forward="false" selection-start-line="332" selection-start-column="9" selection-end-line="332" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -121,11 +106,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TexasHoldem.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TexasHoldem.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/UserInterface/src/TexasHoldem.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="42" lean-forward="false" selection-start-line="4" selection-start-column="42" selection-end-line="4" selection-end-column="42" />
+            <state relative-caret-position="85">
+              <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -154,7 +139,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>void</find>
       <find>print</find>
       <find>IsA</find>
       <find>case</find>
@@ -184,6 +168,7 @@
       <find>players</find>
       <find>case 1</find>
       <find>case 4:</find>
+      <find>ENABLE_LOG</find>
     </findStrings>
     <replaceStrings>
       <replace>this</replace>
@@ -225,13 +210,13 @@
         <option value="$PROJECT_DIR$/Engine/src/Player/APlayer.java" />
         <option value="$PROJECT_DIR$/Engine/src/API/InterfaceAPI.java" />
         <option value="$PROJECT_DIR$/Engine/src/Player/APlayers.java" />
-        <option value="$PROJECT_DIR$/UserInterface/src/TexasHoldem.java" />
         <option value="$PROJECT_DIR$/Engine/src/Game/Hand.java" />
         <option value="$PROJECT_DIR$/Engine/src/Generated/JAXB_Generator.java" />
         <option value="$PROJECT_DIR$/Engine/src/Exceptions/MinusZeroValueException.java" />
         <option value="$PROJECT_DIR$/Engine/src/Exceptions/BigBiggerThanBuyException.java" />
         <option value="$PROJECT_DIR$/UserInterface/src/ConsoleUI.java" />
         <option value="$PROJECT_DIR$/Engine/src/Game/Game.java" />
+        <option value="$PROJECT_DIR$/UserInterface/src/TexasHoldem.java" />
       </list>
     </option>
   </component>
@@ -263,7 +248,32 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
+      <pane id="PackagesPane" />
+      <pane id="AndroidView">
+        <subPane>
+          <expand>
+            <path>
+              <item name="TexasHoldem" type="1abcf292:AndroidViewProjectNode" />
+              <item name="Engine" type="1039202d:NonAndroidModuleNode" />
+            </path>
+            <path>
+              <item name="TexasHoldem" type="1abcf292:AndroidViewProjectNode" />
+              <item name="Engine" type="1039202d:NonAndroidModuleNode" />
+              <item name="java" type="b5c1fe26:NonAndroidSourceTypeNode" />
+            </path>
+            <path>
+              <item name="TexasHoldem" type="1abcf292:AndroidViewProjectNode" />
+              <item name="UserInterface" type="1039202d:NonAndroidModuleNode" />
+            </path>
+            <path>
+              <item name="TexasHoldem" type="1abcf292:AndroidViewProjectNode" />
+              <item name="UserInterface" type="1039202d:NonAndroidModuleNode" />
+              <item name="java" type="b5c1fe26:NonAndroidSourceTypeNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -323,32 +333,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="AndroidView">
-        <subPane>
-          <expand>
-            <path>
-              <item name="TexasHoldem" type="1abcf292:AndroidViewProjectNode" />
-              <item name="Engine" type="1039202d:NonAndroidModuleNode" />
-            </path>
-            <path>
-              <item name="TexasHoldem" type="1abcf292:AndroidViewProjectNode" />
-              <item name="Engine" type="1039202d:NonAndroidModuleNode" />
-              <item name="java" type="b5c1fe26:NonAndroidSourceTypeNode" />
-            </path>
-            <path>
-              <item name="TexasHoldem" type="1abcf292:AndroidViewProjectNode" />
-              <item name="UserInterface" type="1039202d:NonAndroidModuleNode" />
-            </path>
-            <path>
-              <item name="TexasHoldem" type="1abcf292:AndroidViewProjectNode" />
-              <item name="UserInterface" type="1039202d:NonAndroidModuleNode" />
-              <item name="java" type="b5c1fe26:NonAndroidSourceTypeNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -491,14 +476,15 @@
       <workItem from="1512768419694" duration="18952000" />
       <workItem from="1512843054497" duration="37676000" />
       <workItem from="1513544279949" duration="17711000" />
+      <workItem from="1513634182223" duration="91000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="191154000" />
+    <option name="totallyTimeSpent" value="191245000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -509,19 +495,19 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="1.0" sideWeight="0.50292826" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49684542" sideWeight="0.65812594" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49684542" sideWeight="0.65812594" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2737921" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2734375" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40288925" sideWeight="0.49707174" order="6" side_tool="false" content_ui="tabs" x="1691" y="648" width="1361" height="499" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40288925" sideWeight="0.49707174" order="6" side_tool="false" content_ui="tabs" x="1691" y="648" width="1361" height="499" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -578,37 +564,31 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/Engine/src/Game/Game.java</url>
-          <line>467</line>
-          <properties />
-          <option name="timeStamp" value="36" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/Engine/src/Game/Game.java</url>
-          <line>294</line>
+          <line>379</line>
           <properties />
           <option name="timeStamp" value="61" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/Engine/src/Game/Hand.java</url>
-          <line>486</line>
+          <line>507</line>
           <properties />
           <option name="timeStamp" value="88" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/Engine/src/Game/Hand.java</url>
-          <line>491</line>
+          <line>512</line>
           <properties />
           <option name="timeStamp" value="89" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/Engine/src/Game/Hand.java</url>
-          <line>426</line>
+          <line>447</line>
           <properties />
           <option name="timeStamp" value="102" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/Engine/src/Generated/JAXB_Generator.java</url>
-          <line>91</line>
+          <line>101</line>
           <properties />
           <option name="timeStamp" value="116" />
         </line-breakpoint>
@@ -620,43 +600,43 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/Engine/src/Generated/JAXB_Generator.java</url>
-          <line>88</line>
+          <line>98</line>
           <properties />
           <option name="timeStamp" value="120" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/Engine/src/Generated/JAXB_Generator.java</url>
-          <line>89</line>
+          <line>99</line>
           <properties />
           <option name="timeStamp" value="121" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/Engine/src/Game/Game.java</url>
-          <line>189</line>
+          <line>274</line>
           <properties />
           <option name="timeStamp" value="123" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/Engine/src/Game/Game.java</url>
-          <line>165</line>
+          <line>250</line>
           <properties />
           <option name="timeStamp" value="125" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/Engine/src/Game/Game.java</url>
-          <line>162</line>
+          <line>247</line>
           <properties />
           <option name="timeStamp" value="126" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/Engine/src/Game/Game.java</url>
-          <line>203</line>
+          <line>288</line>
           <properties />
           <option name="timeStamp" value="127" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Engine/src/Game/Game.java</url>
-          <line>216</line>
+          <line>301</line>
           <properties />
           <option name="timeStamp" value="128" />
         </line-breakpoint>
@@ -875,7 +855,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="30" column="31" lean-forward="false" selection-start-line="30" selection-start-column="31" selection-end-line="30" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -913,24 +892,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Engine/src/Game/Hand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="311" column="9" lean-forward="true" selection-start-line="311" selection-start-column="9" selection-end-line="311" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UserInterface/src/TexasHoldem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="42" lean-forward="false" selection-start-line="4" selection-start-column="42" selection-end-line="4" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Engine/src/ReturnType/PlayerStats.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -951,16 +912,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Engine/src/Generated/JAXB_Generator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="112" column="9" lean-forward="true" selection-start-line="49" selection-start-column="7" selection-end-line="112" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Engine/src/API/InterfaceAPI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="16" column="23" lean-forward="false" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
+        <state relative-caret-position="1683">
+          <caret line="120" column="0" lean-forward="false" selection-start-line="49" selection-start-column="7" selection-end-line="120" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -976,15 +929,15 @@
     <entry file="file://$PROJECT_DIR$/Engine/src/ReturnType/CurrentHandState.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
-          <caret line="15" column="20" lean-forward="true" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
+          <caret line="15" column="20" lean-forward="false" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/UserInterface/src/ConsoleUI.java">
+    <entry file="file://$PROJECT_DIR$/Engine/src/API/InterfaceAPI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6273">
-          <caret line="382" column="30" lean-forward="false" selection-start-line="382" selection-start-column="30" selection-end-line="382" selection-end-column="30" />
+        <state relative-caret-position="119">
+          <caret line="16" column="23" lean-forward="false" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
           <folding />
         </state>
       </provider>
@@ -992,13 +945,37 @@
     <entry file="file://$PROJECT_DIR$/Engine/src/Game/Game.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
-          <caret line="20" column="43" lean-forward="false" selection-start-line="20" selection-start-column="43" selection-end-line="20" selection-end-column="43" />
+          <caret line="20" column="35" lean-forward="false" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="35" />
           <folding>
-            <element signature="e#14884#14885#0" expanded="true" />
-            <element signature="e#14942#14943#0" expanded="true" />
             <element signature="e#15763#15769#0" expanded="true" />
             <element signature="e#16292#16298#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UserInterface/src/ConsoleUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="203" column="33" lean-forward="false" selection-start-line="203" selection-start-column="23" selection-end-line="203" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/src/Game/Hand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5368">
+          <caret line="332" column="9" lean-forward="false" selection-start-line="332" selection-start-column="9" selection-end-line="332" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UserInterface/src/TexasHoldem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
