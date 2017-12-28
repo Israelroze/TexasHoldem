@@ -1,7 +1,6 @@
 package API;
 
 import Exceptions.*;
-import Game.Game;
 import Move.Move;
 import Move.MoveType;
 import Player.PlayerType;
@@ -15,7 +14,7 @@ import java.util.List;
 public interface  InterfaceAPI {
 
     //option 1
-    public void LoadFromXML(String filename) throws GameStartedException, UnexpectedObjectException, FileNotFoundException, BigSmallMismatchException, PlayerDataMissingException, HandsCountDevideException, WrongFileNameException, HandsCountSmallerException, JAXBException, FileNotXMLException, NullObjectException;
+    public void LoadFromXML(String filename) throws GameStartedException, UnexpectedObjectException, FileNotFoundException, BigSmallMismatchException, PlayerDataMissingException, HandsCountDevideException, WrongFileNameException, HandsCountSmallerException, JAXBException, FileNotXMLException, MinusZeroValueException, BigBiggerThanBuyException;
 
     //option2
     public void StartGame();
@@ -36,8 +35,14 @@ public interface  InterfaceAPI {
 
     public void Turn();
 
+    //Buy API
+
+    public void Buy();
+
+    public int GetMoneyInGame();
 
     //Bid related API's
+    public boolean IsHumanPlayerFolded();
     public void StartNewBidCycle() throws NoSufficientMoneyException;
 
     public boolean IsCurrentBidCycleFinished();
@@ -48,20 +53,32 @@ public interface  InterfaceAPI {
 
     public List<MoveType> GetAllowdedMoves() throws PlayerFoldedException, ChipLessThanPotException;
 
+    public void MoveToNextPlayer();
+
     public int[] GetAllowdedStakeRange();
 
-    public Move GetAutoMove();
+    public Move GetAutoMove() throws PlayerFoldedException, ChipLessThanPotException;
 
-    public void SetNewMove(Move move) throws StakeNotInRangeException, PlayerFoldedException, MoveNotAllowdedException, ChipLessThanPotException, NoSufficientMoneyException;
+    public void SetNewMove(Move move) throws StakeNotInRangeException, PlayerFoldedException, MoveNotAllowdedException, ChipLessThanPotException, NoSufficientMoneyException, PlayerAlreadyBetException;
 
     public void SetWinner();
 
-    public String GetWinner();
+    public List<String> GetWinner();
 
+    public PlayerStats GetCurrentPlayerInfo();
+
+    public void CheckBidStatus();
+
+    public boolean IsCurrentPlayerFolded();
+
+    public void AddNewPlayer(String name, PlayerType type, int ID);
 
     //Statistics related API's
     public List<PlayerStats> GetPlayersInfo();
 
     public CurrentHandState GetCurrentHandState();
+
+    public boolean IsAnyPlayerOutOfMoney();
+    public boolean IsCurrentPlayerNoMoney();
 
 }

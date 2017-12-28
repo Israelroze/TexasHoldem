@@ -4,6 +4,7 @@ import Card.*;
 import Exceptions.*;
 import Generated.GameDescriptor;
 import Generated.JAXB_Generator;
+import Generated.Player;
 import Player.*;
 import ReturnType.*;
 import API.*;
@@ -11,20 +12,21 @@ import API.*;
 
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 import Move.*;
 
 public class Game implements InterfaceAPI {
+
+    final static Boolean ENABLE_LOG = false;
     //members
-    GameDescriptor configuration;
-    CurrentHandState state;
-    APlayers players;
+    private GameDescriptor configuration;
+    private CurrentHandState state;
+    private APlayers players;
     boolean is_game_started=false;
     private int num_of_hands=0;
-    Hand current_hand;
+    private int global_num_of_buys = 4;
+    private Hand current_hand;
 
     //Private Methods
     private void LoadPlayers() throws PlayerDataMissingException {this.players=new APlayers(configuration.getPlayers());}
@@ -39,7 +41,6 @@ public class Game implements InterfaceAPI {
         return this.current_hand;
     }
 
-
     //for testing
     private Move GetConsoleMove(APlayer player) {
         MoveType type = null;
@@ -47,7 +48,7 @@ public class Game implements InterfaceAPI {
 
         boolean is_get_value=false;
 
-        System.out.println("Please provide the player move for:"+player.GetName());
+        if(ENABLE_LOG) System.out.println("Please provide the player move for:"+player.GetName());
         Scanner stdin=new Scanner(System.in);
         String move=stdin.nextLine();
 
@@ -74,7 +75,7 @@ public class Game implements InterfaceAPI {
 
         if(is_get_value)
         {
-            System.out.println("Please provide the value:"+player.GetName());
+            if(ENABLE_LOG) System.out.println("Please provide the value:"+player.GetName());
             value=stdin.nextInt();
         }
 
@@ -82,35 +83,35 @@ public class Game implements InterfaceAPI {
     }
     private void PringCurrentAvailable(APlayer current,List<MoveType> allowded_moves,int[]  range) {
         boolean is_get_value=false;
-        System.out.println("Allowded move for player"+current.GetName()+":");
+       if(ENABLE_LOG) System.out.println("Allowded move for player"+current.GetName()+":");
         for(MoveType type:allowded_moves)
         {
             switch(type)
             {
                 case BET:
-                    System.out.println("Bet(B)");
+                    if(ENABLE_LOG) System.out.println("Bet(B)");
                     is_get_value=true;
                     break;
                 case CALL:
-                    System.out.println("Call(C)");
+                    if(ENABLE_LOG)  System.out.println("Call(C)");
                     break;
                 case CHECK:
-                    System.out.println("Check(K)");
+                    if(ENABLE_LOG) System.out.println("Check(K)");
                     break;
                 case FOLD:
-                    System.out.println("Fold(F)");
+                    if(ENABLE_LOG) System.out.println("Fold(F)");
                     break;
                 case RAISE:
-                    System.out.println("Raise(R)");
+                    if(ENABLE_LOG) System.out.println("Raise(R)");
                     is_get_value=true;
                     break;
             }
         }
 
-        System.out.println("Allowded range: low:"+range[0]+" high:"+range[1]);
+        if(ENABLE_LOG) System.out.println("Allowded range: low:"+range[0]+" high:"+range[1]);
 
     }
-    private void NewHumanMove() throws PlayerFoldedException, ChipLessThanPotException, StakeNotInRangeException, MoveNotAllowdedException, NoSufficientMoneyException {
+    private void NewHumanMove() throws PlayerFoldedException, ChipLessThanPotException, StakeNotInRangeException, MoveNotAllowdedException, NoSufficientMoneyException, PlayerAlreadyBetException {
         while(!this.current_hand.IsBetsCycleFinished()) {
             APlayer current = this.current_hand.GetCurrentPlayer();
             List<MoveType> allowded_moves=this.current_hand.GetAllowdedMoves();
@@ -121,19 +122,102 @@ public class Game implements InterfaceAPI {
         }
     }
 
-
-
     /////////////////////////////////////////////////////////////API's/////////////////////////////////////////////////////////////////////////////////////////
 
+    private void Init4Players(){
+        this.players=new APlayers();
+        this.players.GetPlayers().add(new APlayer("Bluffer",PlayerType.COMPUTER,12));
+        this.players.GetPlayers().add(new APlayer("Cheater",PlayerType.COMPUTER,22));
+        this.players.GetPlayers().add(new APlayer("Bunker",PlayerType.COMPUTER,33));
+        this.players.GetPlayers().add(new APlayer("Camper",PlayerType.HUMAN,65));
+    }
+
+    private void ValidateXML(GameDescriptor container) throws NullObjectException, BigSmallMismatchException, HandsCountSmallerException, HandsCountDevideException, MinusZeroValueException, BigBiggerThanBuyException {
+        int big;
+        int small;
+        int buy;
+        int num_of_players;
+        int num_of_hands;
+        try {
+            container.getStructure();
+            num_of_hands=container.getStructure().getHandsCount();
+        }
+        catch (NullPointerException e){
+            throw  new NullObjectException("Structure");
+        }
+        try {
+            container.getStructure().getBlindes();
+        }
+        catch (NullPointerException e){
+            throw  new NullObjectException("Blindes");
+        }
+
+        try {
+            container.getPlayers();
+        }
+        catch (NullPointerException e){
+            this.Init4Players();
+            num_of_players=4;
+        }
+        try {
+            container.getPlayers().getPlayer();
+            num_of_players=container.getPlayers().getPlayer().size();
+        }
+        catch (NullPointerException e) {
+            this.Init4Players();
+            num_of_players=4;
+        }
+
+        big=container.getStructure().getBlindes().getBig();
+        small=container.getStructure().getBlindes().getSmall();
+        buy=container.getStructure().getBuy();
+
+
+        if(big<=0 || small<=0)
+        {
+            throw new MinusZeroValueException();
+        }
+
+        if(big>buy)
+        {
+            throw new BigBiggerThanBuyException();
+        }
+
+        if(big<=small){
+            throw new BigSmallMismatchException();
+        }
+
+        if(num_of_hands<num_of_players){
+            throw new HandsCountSmallerException();
+        }
+        else
+        {
+            if(num_of_hands%num_of_players!=0){
+                throw new HandsCountDevideException();
+            }
+        }
+    }
+
     @Override
-    public void LoadFromXML(String file_name) throws FileNotFoundException, FileNotXMLException, WrongFileNameException, JAXBException, NullObjectException, UnexpectedObjectException, HandsCountDevideException, BigSmallMismatchException, HandsCountSmallerException, GameStartedException, PlayerDataMissingException {
+    public void LoadFromXML(String file_name) throws FileNotFoundException, FileNotXMLException, WrongFileNameException, JAXBException, UnexpectedObjectException, HandsCountDevideException, BigSmallMismatchException, HandsCountSmallerException, GameStartedException, PlayerDataMissingException, MinusZeroValueException, BigBiggerThanBuyException {
 
         if(!this.is_game_started) {
             JAXB_Generator generator = new JAXB_Generator((file_name));
-            generator.GenerateFromXML();
-            generator.ValidateXMLData();
-            this.configuration = generator.getContainer();
-            this.LoadPlayers();
+            try {
+                generator.GenerateFromXML();
+                //generator.ValidateXMLData();
+                this.ValidateXML(generator.getContainer());
+                this.configuration=generator.getContainer();
+            }
+            catch (NullObjectException e){
+
+            }
+
+            //this.configuration = generator.getContainer();
+            if(this.players==null && this.configuration.getPlayers()!=null)
+            {
+                this.LoadPlayers();
+            }
             this.SetPlayersChips();
             this.players.RandomPlayerSeats();
             this.players.ForwardStates();
@@ -143,6 +227,11 @@ public class Game implements InterfaceAPI {
         {
             throw new GameStartedException();
         }
+    }
+
+    @Override
+    public void AddNewPlayer(String name, PlayerType type, int ID){
+        this.players.GetPlayers().add(new APlayer(name,type,ID));
     }
 
     @Override
@@ -156,6 +245,11 @@ public class Game implements InterfaceAPI {
     public void StartNewHand(){
         this.current_hand=new Hand(this.players,this.configuration.getStructure());
         this.num_of_hands++;
+        List<APlayer> players = this.GetPlayers().GetPlayers();
+        for (APlayer player :players )
+        {
+            player.setFoldedFlag(false);
+        }
     }
 
     @Override
@@ -210,6 +304,30 @@ public class Game implements InterfaceAPI {
         if(this.GetCurrentHand().GetCurrentPlayer().GetType()== PlayerType.COMPUTER){return true;}
         return false;
     }
+    @Override
+    public void CheckBidStatus(){
+        this.current_hand.SetIsBetCycleFinished();
+    }
+    @Override
+    public boolean IsCurrentPlayerFolded() {
+        if(this.GetCurrentHand().GetCurrentPlayer().isFolded())
+        {
+            if(ENABLE_LOG) System.out.println("FROM GAME: current player folded!!!");
+            return true;
+        }
+        return false;
+    }
+    @Override
+    public boolean IsCurrentPlayerNoMoney()
+    {
+        if(this.GetCurrentHand().GetCurrentPlayer().GetMoney()<= 0)
+        {
+            if(ENABLE_LOG) System.out.println("FROM GAME: current Player has no money- such a loser!!!!");
+            return true;
+        }
+        return false;
+
+    }
 
     @Override
     public List<MoveType> GetAllowdedMoves() throws PlayerFoldedException, ChipLessThanPotException {
@@ -222,26 +340,113 @@ public class Game implements InterfaceAPI {
     }
 
     @Override
-    public void SetNewMove(Move move) throws StakeNotInRangeException, PlayerFoldedException, MoveNotAllowdedException, ChipLessThanPotException, NoSufficientMoneyException{
-        this.GetCurrentHand().ImplementMove(move.GetMoveType(),move.GetValue());
+    public void SetNewMove(Move move) throws StakeNotInRangeException, PlayerFoldedException, MoveNotAllowdedException, ChipLessThanPotException, NoSufficientMoneyException, PlayerAlreadyBetException {
+        if(move==null){
+            if (Game.ENABLE_LOG)System.out.println("FROM GAME: SetNewMove got null move, implementing...");
+            this.GetCurrentHand().ImplementMove(null,0);
+        }
+        else {
+            if(ENABLE_LOG) System.out.println("FROM GAME: SetNewMove got move:"+move.GetMoveType()+ "value:"+move.GetValue()+", implementing...");
+            this.GetCurrentHand().ImplementMove(move.GetMoveType(), move.GetValue());
+        }
     }
 
-
-    ///////////////////////////////TBD////////////////////////////////
     @Override
-    public Move GetAutoMove(){
+    public PlayerStats GetCurrentPlayerInfo() {
+        return new PlayerStats(this.current_hand.GetCurrentPlayer(),this.GetNumberOfHands() );
+    }
+
+    @Override
+    public Move GetAutoMove() throws PlayerFoldedException, ChipLessThanPotException {
+        if(ENABLE_LOG) System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"Getting  auto move...");
+        List<MoveType> possible_moves=this.current_hand.GetAllowdedMoves();
+        int[] range=this.current_hand.GetAllowdedStakeRange();
+
+        if(ENABLE_LOG)  System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"Got the range...");
+
+        MoveType type=null;
+        Random rnd=new Random();
+        int i;
+
+        if(ENABLE_LOG) System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"posdsible moves number:"+possible_moves.size());
+        if(possible_moves.size()==1)
+        {
+            type=possible_moves.get(0);
+        }
+        else
+        {
+            if(possible_moves.size()>0){
+                i = rnd.nextInt(possible_moves.size() - 1);
+                if(ENABLE_LOG) System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"random:"+i);
+                type =possible_moves.get(i);
+            }
+        }
+        if(type!=null)
+        {
+            switch(type)
+            {
+                case RAISE:
+                    if(range[0]==range[1])
+                    {
+                        if(ENABLE_LOG) System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"only one:"+range[0]);
+                        return new Move(type,range[0]);
+                    }
+                    else
+                    {
+                        i = rnd.nextInt((range[1] - range[0]) + 1) + range[0];
+                        if(ENABLE_LOG) System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"random:"+i);
+                        return new Move(type,i);
+                    }
+                case BET:
+                    if(range[0]==range[1])
+                    {
+                        if(ENABLE_LOG) System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"only one:"+range[0]);
+                        return new Move(type,range[0]);
+                    }
+                    else
+                    {
+                        i = rnd.nextInt((range[1] - range[0]) + 1) + range[0];
+                        if(ENABLE_LOG) System.out.println("Player Type:"+this.current_hand.GetCurrentPlayer().GetType() +" ID:"+this.current_hand.GetCurrentPlayer().getId()+"random:"+i);
+                        return new Move(type,i);
+                    }
+                case CALL:
+                    return new Move(type,0);
+                case FOLD:
+                    return new Move(type,0);
+                case CHECK:
+                    return new Move(type,0);
+            }
+        }
         return null;
     }
 
     @Override
-    public void SetWinner(){
+    public void MoveToNextPlayer()
+    {
+        this.current_hand.MoveToNextPlayer();
+    }
 
+
+    @Override
+    public void SetWinner(){
+        this.current_hand.SetWinner();
+    }
+
+    @Override
+    public List<String> GetWinner(){
+        return  this.current_hand.GetWinnerNames();
     }
     @Override
-    public String GetWinner(){
-        return "null";
+    public void Buy()
+    {
+        for(APlayer player:this.players.GetPlayers())
+        {
+            if(player.GetType()==PlayerType.HUMAN) {
+                player.BuyMoney(this.configuration.getStructure().getBuy());
+                this.global_num_of_buys++;
+            }
+        }
     }
-
     ///////////////////////////////////////////////////////////////
 
     //Stats Methods
@@ -260,11 +465,13 @@ public class Game implements InterfaceAPI {
         List <Card> comCards = new LinkedList<Card>();
         Card[] community=this.current_hand.GetCommunity();
         if (community != null) {
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < 5; i++) {
                 if (community[i] != null) comCards.add(community[i]);
             }
         }
         List<PlayerHandState> PlayersHands =new LinkedList<>();
+        int humanPlayerIndex = -1;
+        int c=0;
         for(APlayer player:this.players.GetPlayers())
         {
             if(player.GetType() == PlayerType.HUMAN ) {
@@ -272,16 +479,50 @@ public class Game implements InterfaceAPI {
                 Card[] cards = player.GetCards();
                 HumanCards.add(cards[0]);
                 HumanCards.add(cards[1]);
+                humanPlayerIndex = c;
 
-                PlayersHands.add(new PlayerHandState(PlayerType.HUMAN, player.GetPlayerState(), player.GetMoney(), player.getStake(),HumanCards ));
+                PlayersHands.add(new PlayerHandState(PlayerType.HUMAN, player.GetPlayerState(), player.GetMoney(), player.getStake(),HumanCards, player.GetName(),player.getId()));
             }
             else
             {
-                PlayersHands.add(new PlayerHandState(PlayerType.COMPUTER, player.GetPlayerState(), player.GetMoney(), player.getStake(),Card.UnknownComputerCards));
+                PlayersHands.add(new PlayerHandState(PlayerType.COMPUTER, player.GetPlayerState(), player.GetMoney(), player.getStake(),Card.UnknownComputerCards, player.GetName(), player.getId()));
             }
+            c++;
         }
 
-       return  new CurrentHandState(PlayersHands,comCards,this.current_hand.GetPot(),this.players.GetPlayers().indexOf(this.current_hand.GetCurrentPlayer())  );
+       return  new CurrentHandState(PlayersHands,comCards,this.current_hand.GetPot(),humanPlayerIndex , this.configuration.getStructure().getBlindes().getBig(),this.configuration.getStructure().getBlindes().getSmall());
 
     }
+    @Override
+    public int GetMoneyInGame()
+    {
+        return this.global_num_of_buys * this.configuration.getStructure().getBuy();
+    }
+    @Override
+    public boolean IsHumanPlayerFolded()
+    {
+        for(APlayer player:this.players.GetPlayers())
+        {
+            if(player.GetType()==PlayerType.HUMAN)
+            {
+                if(player.isFolded())
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    @Override
+    public boolean IsAnyPlayerOutOfMoney()
+    {
+    List<APlayer> players = this.players.GetPlayers();
+        for (APlayer player: players)
+        {
+            if( player.GetMoney() <= 0)
+                return true;
+        }
+        return false;
+    }
+
 }

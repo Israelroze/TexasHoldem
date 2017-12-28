@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="TexasHoldem:jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/UserInterface/src/ConsoleUI.java" line="37" />
+    <bookmark url="file://$PROJECT_DIR$/Engine/src/Game/Game.java" line="528" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="be5ebfd0-ae6a-48ba-bc14-48c8715af483" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/UserInterface/src/TexasHoldem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Engine/API/InterfaceAPI.class" afterPath="$PROJECT_DIR$/out/production/Engine/API/InterfaceAPI.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Engine/Game/Game$1.class" afterPath="$PROJECT_DIR$/out/production/Engine/Game/Game$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Engine/Game/Game.class" afterPath="$PROJECT_DIR$/out/production/Engine/Game/Game.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Engine/Game/Hand$1.class" afterPath="$PROJECT_DIR$/out/production/Engine/Game/Hand$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Engine/Game/Hand.class" afterPath="$PROJECT_DIR$/out/production/Engine/Game/Hand.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Engine/Player/APlayers.class" afterPath="$PROJECT_DIR$/out/production/Engine/Player/APlayers.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Engine/Player/PlayerState.class" afterPath="$PROJECT_DIR$/out/production/Engine/Player/PlayerState.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/UserInterface/ConsoleUI.class" afterPath="$PROJECT_DIR$/out/production/UserInterface/ConsoleUI.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/src/Game/Game.java" afterPath="$PROJECT_DIR$/Engine/src/Game/Game.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/src/Player/PlayerState.java" afterPath="$PROJECT_DIR$/Engine/src/Player/PlayerState.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/src/Tester.java" afterPath="$PROJECT_DIR$/Engine/src/Tester.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/UserInterface/src/ConsoleUI.java" afterPath="$PROJECT_DIR$/UserInterface/src/ConsoleUI.java" />
-    </list>
+    <list default="true" id="be5ebfd0-ae6a-48ba-bc14-48c8715af483" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -25,189 +19,114 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ChangesViewManager" flattened_view="false" />
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.76760566">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="ConsoleUI.java" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/UserInterface/src/ConsoleUI.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="345">
-                  <caret line="76" column="64" lean-forward="false" selection-start-line="76" selection-start-column="64" selection-end-line="76" selection-end-column="64" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                    <element signature="method#PlayHumanPlayer#0;class#ConsoleUI#0" expanded="false" />
-                    <element signature="method#PrintGameStatTest#0;class#ConsoleUI#0" expanded="false" />
-                    <element signature="method#LoadXMLFile#0;class#ConsoleUI#0" expanded="false" />
-                    <element signature="method#PrintGameHandTest#0;class#ConsoleUI#0" expanded="false" />
-                    <element signature="e#14225#14231#0" expanded="true" />
-                    <element signature="e#14415#14421#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="PlayerReturnType.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Engine/src/ReturnType/PlayerReturnType.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="289">
-                  <caret line="19" column="31" lean-forward="false" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
-                  <folding>
-                    <element signature="e#479#480#0" expanded="true" />
-                    <element signature="e#506#507#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Enum.java" pinned="false" current-in-tab="false">
-            <entry file="jar://C:/Program Files/Java/jdk1.8.0_151/src.zip!/java/lang/Enum.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1666">
-                  <caret line="129" column="18" lean-forward="false" selection-start-line="129" selection-start-column="18" selection-end-line="129" selection-end-column="18" />
-                  <folding>
-                    <element signature="e#4005#4006#0" expanded="true" />
-                    <element signature="e#4032#4033#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="PlayerType.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Engine/src/Player/PlayerType.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="34">
-                  <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="PlayerState.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Engine/src/Player/PlayerState.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="238">
-                  <caret line="21" column="23" lean-forward="false" selection-start-line="21" selection-start-column="23" selection-end-line="21" selection-end-column="23" />
-                  <folding>
-                    <element signature="e#106#107#0" expanded="true" />
-                    <element signature="e#140#141#0" expanded="true" />
-                    <element signature="e#204#205#0" expanded="true" />
-                    <element signature="e#238#239#0" expanded="true" />
-                    <element signature="e#304#305#0" expanded="true" />
-                    <element signature="e#338#339#0" expanded="true" />
-                    <element signature="e#403#404#0" expanded="true" />
-                    <element signature="e#437#438#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="LinkedList.java" pinned="false" current-in-tab="false">
-            <entry file="jar://C:/Program Files/Java/jdk1.8.0_151/src.zip!/java/util/LinkedList.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="7514">
-                  <caret line="475" column="0" lean-forward="false" selection-start-line="475" selection-start-column="0" selection-end-line="475" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="CurrentHandState.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Engine/src/ReturnType/CurrentHandState.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="442">
-                  <caret line="32" column="45" lean-forward="false" selection-start-line="32" selection-start-column="45" selection-end-line="32" selection-end-column="45" />
-                  <folding>
-                    <element signature="e#1059#1060#0" expanded="true" />
-                    <element signature="e#1095#1096#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Engine/src/Game/Game.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1615">
-                  <caret line="225" column="0" lean-forward="false" selection-start-line="225" selection-start-column="0" selection-end-line="225" selection-end-column="0" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                    <element signature="method#SetPlayersChips#0;class#Game#0" expanded="false" />
-                    <element signature="e#994#995#0" expanded="true" />
-                    <element signature="e#1034#1035#0" expanded="true" />
-                    <element signature="method#GetConsoleMove#0;class#Game#0" expanded="false" />
-                    <element signature="method#PringCurrentAvailable#0;class#Game#0" expanded="false" />
-                    <element signature="method#NewHumanMove#0;class#Game#0" expanded="false" />
-                    <element signature="method#LoadFromXML#0;class#Game#0" expanded="false" />
-                    <element signature="method#StartGame#0;class#Game#0" expanded="false" />
-                    <element signature="method#StartNewHand#0;class#Game#0" expanded="false" />
-                    <element signature="method#StartNewBidCycle#0;class#Game#0" expanded="false" />
-                    <element signature="method#IsCurrentPlayerHuman#0;class#Game#0" expanded="false" />
-                    <element signature="method#IsCurrentPlayerComputer#0;class#Game#0" expanded="false" />
-                    <element signature="method#GetAllowdedMoves#0;class#Game#0" expanded="false" />
-                    <element signature="method#GetPlayersInfo#0;class#Game#0" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Hand.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Engine/src/Game/Hand.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1037">
-                  <caret line="173" column="0" lean-forward="false" selection-start-line="173" selection-start-column="0" selection-end-line="173" selection-end-column="0" />
-                  <folding>
-                    <element signature="method#Hand#0;class#Hand#0" expanded="false" />
-                    <element signature="method#GetFirstPlayer#0;class#Hand#0" expanded="false" />
-                    <element signature="method#SetBlinds#0;class#Hand#0" expanded="false" />
-                    <element signature="method#DealCards#0;class#Hand#0" expanded="false" />
-                    <element signature="method#IsAllStakesEqual#0;class#Hand#0" expanded="false" />
-                    <element signature="method#IsAllPlayersPlacedBet#0;class#Hand#0" expanded="false" />
-                    <element signature="method#IsAllFolded#0;class#Hand#0" expanded="false" />
-                    <element signature="method#InitPlayerFlags#0;class#Hand#0" expanded="false" />
-                    <element signature="method#InitPlayersBetFlag#0;class#Hand#0" expanded="false" />
-                    <element signature="method#IsBetCycleFinished#0;class#Hand#0" expanded="false" />
-                    <element signature="method#GetPoorestChipsValue#0;class#Hand#0" expanded="false" />
-                    <element signature="e#4019#4020#0" expanded="true" />
-                    <element signature="method#StartNewBidCycle#0;class#Hand#0" expanded="false" />
-                    <element signature="method#GetAllowdedStakeRange#0;class#Hand#0" expanded="false" />
-                    <element signature="method#GetAllowdedMoves#0;class#Hand#0" expanded="false" />
-                    <element signature="method#IsMoveAllowded#0;class#Hand#0" expanded="false" />
-                    <element signature="method#IsStakeInRange#0;class#Hand#0" expanded="false" />
-                    <element signature="method#ImplementMove#0;class#Hand#0" expanded="false" />
-                    <element signature="method#Flop#0;class#Hand#0" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="TexasHoldem.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/UserInterface/src/TexasHoldem.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="51">
-                  <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="InterfaceAPI.java" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/Engine/src/API/InterfaceAPI.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="68">
-                  <caret line="14" column="18" lean-forward="false" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="ConsoleUI.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/UserInterface/src/ConsoleUI.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3230">
+              <caret line="203" column="33" lean-forward="false" selection-start-line="203" selection-start-column="23" selection-end-line="203" selection-end-column="33" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CurrentHandState.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Engine/src/ReturnType/CurrentHandState.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="15" column="20" lean-forward="false" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Engine/src/Game/Game.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="20" column="35" lean-forward="false" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BigBiggerThanBuyException.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Engine/src/Exceptions/BigBiggerThanBuyException.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="56" lean-forward="false" selection-start-line="2" selection-start-column="56" selection-end-line="2" selection-end-column="56" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MinusZeroValueException.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Engine/src/Exceptions/MinusZeroValueException.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="54" lean-forward="false" selection-start-line="2" selection-start-column="54" selection-end-line="2" selection-end-column="54" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JAXB_Generator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Engine/src/Generated/JAXB_Generator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1853">
+              <caret line="120" column="0" lean-forward="false" selection-start-line="49" selection-start-column="7" selection-end-line="120" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InterfaceAPI.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Engine/src/API/InterfaceAPI.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="16" column="23" lean-forward="false" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Hand.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Engine/src/Game/Hand.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="5542">
+              <caret line="332" column="9" lean-forward="false" selection-start-line="332" selection-start-column="9" selection-end-line="332" selection-end-column="9" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TexasHoldem.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/UserInterface/src/TexasHoldem.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PlayerStats.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Engine/src/ReturnType/PlayerStats.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -218,21 +137,89 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>RandomPlayerSeats</find>
-      <find>RandomPlayerSeats()</find>
-      <find>game</find>
-      <find>Sca</find>
-      <find>reader.cl</find>
-      <find>read</find>
+      <find>print</find>
+      <find>IsA</find>
       <find>case</find>
+      <find>Play</find>
+      <find>stake</find>
+      <find>poor</find>
+      <find>PlayerAlreadyBetException</find>
+      <find>Player already bet</find>
+      <find>Allowded</find>
+      <find>Allowded44444</find>
+      <find>Chips is less than the Pot, number of chip is:</find>
+      <find>ChipLessThanPotException</find>
+      <find>iscurrent</find>
+      <find>IsBe</find>
+      <find>Chip less than Pot</find>
+      <find>Allow</find>
+      <find>play</find>
+      <find>System.out.println</find>
+      <find>case 4</find>
+      <find>Load</find>
+      <find>Game</find>
+      <find>Game(</find>
+      <find>game</find>
+      <find>ENTER</find>
+      <find>GetPoo</find>
+      <find>Loadf</find>
+      <find>players</find>
       <find>case 1</find>
+      <find>case 4:</find>
+      <find>ENABLE_LOG</find>
     </findStrings>
     <replaceStrings>
       <replace>this</replace>
+      <replace>System.out.println</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Console-Version" />
+      </map>
+    </option>
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="Console-Version" />
+              </list>
+            </value>
+          </entry>
+          <entry type="REMOTE">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="origin/Console-Version" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
+    <excluded-from-favorite>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="master" />
+              </list>
+            </value>
+          </entry>
+          <entry type="REMOTE">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="origin/master" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </excluded-from-favorite>
   </component>
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
@@ -245,22 +232,34 @@
         <option value="$PROJECT_DIR$/Engine/src/Player/PlayerType.java" />
         <option value="$PROJECT_DIR$/Engine/src/Exceptions/NoPlayerTypeProvidedException.java" />
         <option value="$PROJECT_DIR$/Engine/src/Exceptions/PlayerDataMissingException.java" />
-        <option value="$PROJECT_DIR$/Engine/src/Player/APlayers.java" />
-        <option value="$PROJECT_DIR$/Engine/src/Player/APlayer.java" />
         <option value="$PROJECT_DIR$/Engine/src/Exceptions/PlayerFoldedException.java" />
         <option value="$PROJECT_DIR$/Engine/src/Exceptions/ChipLessThanPotException.java" />
         <option value="$PROJECT_DIR$/Engine/src/Exceptions/MoveNotAllowdedException.java" />
         <option value="$PROJECT_DIR$/Engine/src/Move/Moves.java" />
         <option value="$PROJECT_DIR$/Engine/src/Exceptions/StakeNotInRangeException.java" />
-        <option value="$PROJECT_DIR$/Engine/src/API/InterfaceAPI.java" />
         <option value="$PROJECT_DIR$/Engine/src/API/API.java" />
-        <option value="$PROJECT_DIR$/Engine/src/ReturnType/PlayerStats.java" />
-        <option value="$PROJECT_DIR$/Engine/src/Game/Hand.java" />
         <option value="$PROJECT_DIR$/Engine/src/Tester.java" />
-        <option value="$PROJECT_DIR$/UserInterface/src/TexasHoldem.java" />
-        <option value="$PROJECT_DIR$/Engine/src/Game/Game.java" />
         <option value="$PROJECT_DIR$/Engine/src/Player/PlayerState.java" />
+        <option value="$PROJECT_DIR$/Engine/src/Exceptions/PlayerAlreadyBetException.java" />
+        <option value="$PROJECT_DIR$/Engine/src/Card/Deck.java" />
+        <option value="$PROJECT_DIR$/Engine/src/Card/Card.java" />
+        <option value="$PROJECT_DIR$/Engine/src/Card/CardNumber.java" />
+        <option value="$PROJECT_DIR$/Engine/src/ReturnType/PlayerReturnType.java" />
+        <option value="$PROJECT_DIR$/Engine/Resource/ex1-basic.xml" />
+        <option value="$PROJECT_DIR$/Engine/Resource/master.xml" />
+        <option value="$PROJECT_DIR$/Engine/src/ReturnType/CurrentHandState.java" />
+        <option value="$PROJECT_DIR$/Engine/src/ReturnType/PlayerHandState.java" />
+        <option value="$PROJECT_DIR$/Engine/src/ReturnType/PlayerStats.java" />
+        <option value="$PROJECT_DIR$/Engine/src/Player/APlayer.java" />
+        <option value="$PROJECT_DIR$/Engine/src/API/InterfaceAPI.java" />
+        <option value="$PROJECT_DIR$/Engine/src/Player/APlayers.java" />
+        <option value="$PROJECT_DIR$/Engine/src/Game/Hand.java" />
+        <option value="$PROJECT_DIR$/Engine/src/Generated/JAXB_Generator.java" />
+        <option value="$PROJECT_DIR$/Engine/src/Exceptions/MinusZeroValueException.java" />
+        <option value="$PROJECT_DIR$/Engine/src/Exceptions/BigBiggerThanBuyException.java" />
         <option value="$PROJECT_DIR$/UserInterface/src/ConsoleUI.java" />
+        <option value="$PROJECT_DIR$/Engine/src/Game/Game.java" />
+        <option value="$PROJECT_DIR$/UserInterface/src/TexasHoldem.java" />
       </list>
     </option>
   </component>
@@ -271,10 +270,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="546" />
-    <option name="y" value="-8" />
-    <option name="width" value="1152" />
-    <option name="height" value="504" />
+    <option name="x" value="-547" />
+    <option name="y" value="6" />
+    <option name="width" value="1378" />
+    <option name="height" value="733" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -292,6 +291,64 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="TexasHoldem" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Engine" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TexasHoldem" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Engine" type="462c0819:PsiDirectoryNode" />
+              <item name="Resource" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TexasHoldem" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Engine" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TexasHoldem" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Engine" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="API" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TexasHoldem" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Engine" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Exceptions" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TexasHoldem" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Engine" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Game" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TexasHoldem" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Engine" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Player" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TexasHoldem" type="b2602c69:ProjectViewProjectNode" />
+              <item name="UserInterface" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TexasHoldem" type="b2602c69:ProjectViewProjectNode" />
+              <item name="UserInterface" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TexasHoldem" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -317,79 +374,19 @@
           <select />
         </subPane>
       </pane>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="TexasHoldem" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Engine" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TexasHoldem" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Engine" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TexasHoldem" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Engine" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Exceptions" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TexasHoldem" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Engine" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Game" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TexasHoldem" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Engine" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Generated" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TexasHoldem" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Engine" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Move" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TexasHoldem" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Engine" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Player" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TexasHoldem" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Engine" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="ReturnType" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TexasHoldem" type="b2602c69:ProjectViewProjectNode" />
-              <item name="UserInterface" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TexasHoldem" type="b2602c69:ProjectViewProjectNode" />
-              <item name="UserInterface" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/HandRank.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="ChangesBrowser.SHOW_FLATTEN" value="false" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -515,46 +512,118 @@
       <workItem from="1512585833228" duration="22493000" />
       <workItem from="1512645638865" duration="10984000" />
       <workItem from="1512657828583" duration="4915000" />
+      <workItem from="1512672424153" duration="969000" />
+      <workItem from="1512674080927" duration="2914000" />
+      <workItem from="1512677581502" duration="12201000" />
+      <workItem from="1512727090738" duration="12542000" />
+      <workItem from="1512757099453" duration="11079000" />
+      <workItem from="1512768419694" duration="18952000" />
+      <workItem from="1512843054497" duration="37676000" />
+      <workItem from="1513544279949" duration="17711000" />
+      <workItem from="1513634182223" duration="1197000" />
+      <workItem from="1514497404705" duration="189000" />
+      <workItem from="1514497979839" duration="17000" />
+      <workItem from="1514498465147" duration="32000" />
+      <workItem from="1514498628003" duration="356000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="76861000" />
+    <option name="totallyTimeSpent" value="193020000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329653" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="1.0" sideWeight="0.50292826" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.60570824" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3085896" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49684542" sideWeight="0.65812594" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19375" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2734375" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5867508" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40288925" sideWeight="0.49707174" order="6" side_tool="false" content_ui="tabs" x="1691" y="648" width="1361" height="499" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32744783" sideWeight="0.49707174" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27602524" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="1.0" sideWeight="0.50292826" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.6971609" sideWeight="0.49707174" order="6" side_tool="false" content_ui="tabs" x="1691" y="648" width="1361" height="499" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3280757" sideWeight="0.49707174" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25078863" sideWeight="0.65812594" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31405565" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27602524" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.ini" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -564,136 +633,105 @@
       <breakpoints>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/Engine/src/ReturnType/PlayerReturnType.java</url>
-          <line>32</line>
+          <line>48</line>
           <properties />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/UserInterface/src/ConsoleUI.java</url>
-          <line>259</line>
+          <url>file://$PROJECT_DIR$/Engine/src/Game/Game.java</url>
+          <line>379</line>
           <properties />
-          <option name="timeStamp" value="1" />
+          <option name="timeStamp" value="61" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/Engine/src/Game/Hand.java</url>
+          <line>507</line>
+          <properties />
+          <option name="timeStamp" value="88" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/Engine/src/Game/Hand.java</url>
+          <line>512</line>
+          <properties />
+          <option name="timeStamp" value="89" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/Engine/src/Game/Hand.java</url>
+          <line>447</line>
+          <properties />
+          <option name="timeStamp" value="102" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/Engine/src/Generated/JAXB_Generator.java</url>
+          <line>101</line>
+          <properties />
+          <option name="timeStamp" value="116" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/Engine/src/Generated/JAXB_Generator.java</url>
+          <line>50</line>
+          <properties />
+          <option name="timeStamp" value="118" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/Engine/src/Generated/JAXB_Generator.java</url>
+          <line>98</line>
+          <properties />
+          <option name="timeStamp" value="120" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/Engine/src/Generated/JAXB_Generator.java</url>
+          <line>99</line>
+          <properties />
+          <option name="timeStamp" value="121" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/Engine/src/Game/Game.java</url>
+          <line>274</line>
+          <properties />
+          <option name="timeStamp" value="123" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/Engine/src/Game/Game.java</url>
+          <line>250</line>
+          <properties />
+          <option name="timeStamp" value="125" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/Engine/src/Game/Game.java</url>
+          <line>247</line>
+          <properties />
+          <option name="timeStamp" value="126" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/Engine/src/Game/Game.java</url>
+          <line>288</line>
+          <properties />
+          <option name="timeStamp" value="127" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Engine/src/Game/Game.java</url>
-          <line>263</line>
+          <line>301</line>
           <properties />
-          <option name="timeStamp" value="25" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/UserInterface/src/ConsoleUI.java</url>
-          <line>210</line>
-          <properties />
-          <option name="timeStamp" value="29" />
+          <option name="timeStamp" value="128" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="31" />
+      <option name="time" value="129" />
     </breakpoint-manager>
-    <watches-manager />
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="this.higest_stake" language="JAVA" />
+        <watch expression="((Game.Game)this).players.aplayers.get(1)" custom="Game.Game" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Engine/src/ReturnType/PlayerReturnType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding>
-            <element signature="e#479#480#0" expanded="true" />
-            <element signature="e#506#507#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Engine/src/Player/PlayerType.java" />
-    <entry file="file://$PROJECT_DIR$/Engine/src/ReturnType/CurrentHandState.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="29" column="51" lean-forward="true" selection-start-line="29" selection-start-column="51" selection-end-line="29" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Engine/src/Player/APlayers.java" />
-    <entry file="file://$PROJECT_DIR$/Engine/src/Player/APlayer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1581">
-          <caret line="109" column="21" lean-forward="false" selection-start-line="109" selection-start-column="21" selection-end-line="109" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Engine/src/Exceptions/PlayerDataMissingException.java" />
-    <entry file="file://$PROJECT_DIR$/Engine/src/Game/Hand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1309">
-          <caret line="85" column="54" lean-forward="true" selection-start-line="85" selection-start-column="54" selection-end-line="85" selection-end-column="54" />
-          <folding>
-            <element signature="method#Hand#0;class#Hand#0" expanded="false" />
-            <element signature="method#GetFirstPlayer#0;class#Hand#0" expanded="false" />
-            <element signature="method#SetBlinds#0;class#Hand#0" expanded="false" />
-            <element signature="method#DealCards#0;class#Hand#0" expanded="false" />
-            <element signature="method#IsAllStakesEqual#0;class#Hand#0" expanded="false" />
-            <element signature="method#IsAllPlayersPlacedBet#0;class#Hand#0" expanded="false" />
-            <element signature="method#IsAllFolded#0;class#Hand#0" expanded="false" />
-            <element signature="method#InitPlayerFlags#0;class#Hand#0" expanded="false" />
-            <element signature="method#InitPlayersBetFlag#0;class#Hand#0" expanded="false" />
-            <element signature="method#IsBetCycleFinished#0;class#Hand#0" expanded="false" />
-            <element signature="method#GetPoorestChipsValue#0;class#Hand#0" expanded="false" />
-            <element signature="e#4019#4020#0" expanded="true" />
-            <element signature="method#StartNewBidCycle#0;class#Hand#0" expanded="false" />
-            <element signature="method#GetAllowdedStakeRange#0;class#Hand#0" expanded="false" />
-            <element signature="method#GetAllowdedMoves#0;class#Hand#0" expanded="false" />
-            <element signature="method#IsMoveAllowded#0;class#Hand#0" expanded="false" />
-            <element signature="method#IsStakeInRange#0;class#Hand#0" expanded="false" />
-            <element signature="method#ImplementMove#0;class#Hand#0" expanded="false" />
-            <element signature="method#Flop#0;class#Hand#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Engine/src/ReturnType/PlayerStats.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="18" column="38" lean-forward="false" selection-start-line="18" selection-start-column="38" selection-end-line="18" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Engine/src/API/InterfaceAPI.java" />
-    <entry file="file://$PROJECT_DIR$/Engine/src/Move/Moves.java" />
-    <entry file="file://$PROJECT_DIR$/Engine/src/API/API.java" />
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Engine/src/Card/Card.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Engine/src/Card/Deck.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="21" column="13" lean-forward="true" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Engine/src/Exceptions/NullObjectException.java" />
     <entry file="file://$PROJECT_DIR$/Engine/src/Game/API.java" />
-    <entry file="file://$PROJECT_DIR$/Engine/src/Generated/GameDescriptor.java" />
     <entry file="file://$PROJECT_DIR$/Engine/src/Exceptions/NoPlayerTypeProvidedException.java" />
     <entry file="file://$PROJECT_DIR$/Engine/src/Exceptions/PlayerDataMissingException.java" />
-    <entry file="file://$PROJECT_DIR$/Engine/src/Generated/JAXB_Generator.java" />
     <entry file="file://$PROJECT_DIR$/Engine/src/Generated/Structure.java" />
     <entry file="file://$PROJECT_DIR$/Engine/src/Exceptions/PlayerFoldedException.java" />
     <entry file="file://$PROJECT_DIR$/Engine/src/Exceptions/MoveNotAllowdedException.java" />
@@ -706,22 +744,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Engine/src/Player/APlayer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1904">
-          <caret line="136" column="0" lean-forward="false" selection-start-line="136" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Engine/src/API/API.java" />
-    <entry file="file://$PROJECT_DIR$/Engine/src/ReturnType/PlayerStats.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="37" column="5" lean-forward="false" selection-start-line="37" selection-start-column="5" selection-end-line="37" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Engine/src/Move/Move.java" />
     <entry file="file://$PROJECT_DIR$/Engine/src/ReturnType/ErrorTypes.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -729,7 +752,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Engine/src/Player/APlayers.java" />
     <entry file="file://$PROJECT_DIR$/Engine/src/Tester.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1343">
@@ -780,80 +802,82 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Engine/src/API/InterfaceAPI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="14" column="18" lean-forward="false" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Engine/src/ReturnType/CurrentHandState.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="32" column="45" lean-forward="false" selection-start-line="32" selection-start-column="45" selection-end-line="32" selection-end-column="45" />
-          <folding>
-            <element signature="e#1059#1060#0" expanded="true" />
-            <element signature="e#1095#1096#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UserInterface/src/TexasHoldem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Engine/src/Game/Hand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1037">
-          <caret line="173" column="0" lean-forward="false" selection-start-line="173" selection-start-column="0" selection-end-line="173" selection-end-column="0" />
-          <folding>
-            <element signature="method#Hand#0;class#Hand#0" expanded="false" />
-            <element signature="method#GetFirstPlayer#0;class#Hand#0" expanded="false" />
-            <element signature="method#SetBlinds#0;class#Hand#0" expanded="false" />
-            <element signature="method#DealCards#0;class#Hand#0" expanded="false" />
-            <element signature="method#IsAllStakesEqual#0;class#Hand#0" expanded="false" />
-            <element signature="method#IsAllPlayersPlacedBet#0;class#Hand#0" expanded="false" />
-            <element signature="method#IsAllFolded#0;class#Hand#0" expanded="false" />
-            <element signature="method#InitPlayerFlags#0;class#Hand#0" expanded="false" />
-            <element signature="method#InitPlayersBetFlag#0;class#Hand#0" expanded="false" />
-            <element signature="method#IsBetCycleFinished#0;class#Hand#0" expanded="false" />
-            <element signature="method#GetPoorestChipsValue#0;class#Hand#0" expanded="false" />
-            <element signature="e#4019#4020#0" expanded="true" />
-            <element signature="method#StartNewBidCycle#0;class#Hand#0" expanded="false" />
-            <element signature="method#GetAllowdedStakeRange#0;class#Hand#0" expanded="false" />
-            <element signature="method#GetAllowdedMoves#0;class#Hand#0" expanded="false" />
-            <element signature="method#IsMoveAllowded#0;class#Hand#0" expanded="false" />
-            <element signature="method#IsStakeInRange#0;class#Hand#0" expanded="false" />
-            <element signature="method#ImplementMove#0;class#Hand#0" expanded="false" />
-            <element signature="method#Flop#0;class#Hand#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Engine/src/ReturnType/PlayerReturnType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="19" column="31" lean-forward="false" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
-          <folding>
-            <element signature="e#479#480#0" expanded="true" />
-            <element signature="e#506#507#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_151/src.zip!/java/lang/Enum.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1666">
           <caret line="129" column="18" lean-forward="false" selection-start-line="129" selection-start-column="18" selection-end-line="129" selection-end-column="18" />
-          <folding>
-            <element signature="e#4005#4006#0" expanded="true" />
-            <element signature="e#4032#4033#0" expanded="true" />
-          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_151/src.zip!/java/util/LinkedList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7514">
+          <caret line="475" column="0" lean-forward="false" selection-start-line="475" selection-start-column="0" selection-end-line="475" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_151/src.zip!/java/util/Random.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="387" column="0" lean-forward="false" selection-start-line="387" selection-start-column="0" selection-end-line="387" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/src/Exceptions/PlayerAlreadyBetException.java" />
+    <entry file="file://$PROJECT_DIR$/Engine/src/Move/Move.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="26" lean-forward="false" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/src/Card/CardSuit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="20" column="6" lean-forward="true" selection-start-line="20" selection-start-column="6" selection-end-line="20" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/src/Card/Deck.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="12" column="12" lean-forward="false" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/src/Card/CardNumber.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="23" column="5" lean-forward="false" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/Resource/TexaxHoldem.xsd">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="17" lean-forward="true" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/src/Engine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="13" lean-forward="false" selection-start-line="0" selection-start-column="13" selection-end-line="0" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/src/Card/Card.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="13" column="31" lean-forward="false" selection-start-line="13" selection-start-column="31" selection-end-line="13" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TexasHoldem.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -865,68 +889,161 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Engine/src/Player/PlayerState.java">
+    <entry file="file://$PROJECT_DIR$/Engine/src/ReturnType/PlayerReturnType.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
-          <caret line="21" column="23" lean-forward="false" selection-start-line="21" selection-start-column="23" selection-end-line="21" selection-end-column="23" />
+          <caret line="22" column="5" lean-forward="true" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
           <folding>
-            <element signature="e#106#107#0" expanded="true" />
-            <element signature="e#140#141#0" expanded="true" />
-            <element signature="e#204#205#0" expanded="true" />
-            <element signature="e#238#239#0" expanded="true" />
-            <element signature="e#304#305#0" expanded="true" />
-            <element signature="e#338#339#0" expanded="true" />
-            <element signature="e#403#404#0" expanded="true" />
-            <element signature="e#437#438#0" expanded="true" />
+            <element signature="e#549#550#0" expanded="true" />
+            <element signature="e#602#603#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_151/src.zip!/java/util/LinkedList.java">
+    <entry file="file://$PROJECT_DIR$/Engine/src/Player/PlayerState.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7514">
-          <caret line="475" column="0" lean-forward="false" selection-start-line="475" selection-start-column="0" selection-end-line="475" selection-end-column="0" />
+        <state relative-caret-position="34">
+          <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/Resource/ex1-basic.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="21" lean-forward="false" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/src/Generated/GameDescriptor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="91" column="0" lean-forward="false" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/src/ReturnType/PlayerHandState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="30" column="31" lean-forward="false" selection-start-line="30" selection-start-column="31" selection-end-line="30" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/Resource/master.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="38" lean-forward="false" selection-start-line="0" selection-start-column="38" selection-end-line="0" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/src/META-INF/desktop.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="4" lean-forward="true" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/src/Player/APlayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="28" column="56" lean-forward="false" selection-start-line="28" selection-start-column="18" selection-end-line="28" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/src/Player/APlayers.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="28" column="21" lean-forward="false" selection-start-line="28" selection-start-column="11" selection-end-line="28" selection-end-column="21" />
+          <folding>
+            <element signature="e#666#667#0" expanded="false" />
+            <element signature="e#716#717#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/src/ReturnType/PlayerStats.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/src/Exceptions/MinusZeroValueException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="54" lean-forward="false" selection-start-line="2" selection-start-column="54" selection-end-line="2" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/src/Generated/JAXB_Generator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1853">
+          <caret line="120" column="0" lean-forward="false" selection-start-line="49" selection-start-column="7" selection-end-line="120" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/src/Exceptions/BigBiggerThanBuyException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="56" lean-forward="false" selection-start-line="2" selection-start-column="56" selection-end-line="2" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/src/ReturnType/CurrentHandState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="15" column="20" lean-forward="false" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/src/API/InterfaceAPI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="16" column="23" lean-forward="false" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Engine/src/Game/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1615">
-          <caret line="225" column="0" lean-forward="false" selection-start-line="225" selection-start-column="0" selection-end-line="225" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#SetPlayersChips#0;class#Game#0" expanded="false" />
-            <element signature="e#994#995#0" expanded="true" />
-            <element signature="e#1034#1035#0" expanded="true" />
-            <element signature="method#GetConsoleMove#0;class#Game#0" expanded="false" />
-            <element signature="method#PringCurrentAvailable#0;class#Game#0" expanded="false" />
-            <element signature="method#NewHumanMove#0;class#Game#0" expanded="false" />
-            <element signature="method#LoadFromXML#0;class#Game#0" expanded="false" />
-            <element signature="method#StartGame#0;class#Game#0" expanded="false" />
-            <element signature="method#StartNewHand#0;class#Game#0" expanded="false" />
-            <element signature="method#StartNewBidCycle#0;class#Game#0" expanded="false" />
-            <element signature="method#IsCurrentPlayerHuman#0;class#Game#0" expanded="false" />
-            <element signature="method#IsCurrentPlayerComputer#0;class#Game#0" expanded="false" />
-            <element signature="method#GetAllowdedMoves#0;class#Game#0" expanded="false" />
-            <element signature="method#GetPlayersInfo#0;class#Game#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="102">
+          <caret line="20" column="35" lean-forward="false" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="35" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/UserInterface/src/ConsoleUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="76" column="64" lean-forward="false" selection-start-line="76" selection-start-column="64" selection-end-line="76" selection-end-column="64" />
+        <state relative-caret-position="3230">
+          <caret line="203" column="33" lean-forward="false" selection-start-line="203" selection-start-column="23" selection-end-line="203" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/src/Game/Hand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5542">
+          <caret line="332" column="9" lean-forward="false" selection-start-line="332" selection-start-column="9" selection-end-line="332" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#PlayHumanPlayer#0;class#ConsoleUI#0" expanded="false" />
-            <element signature="method#PrintGameStatTest#0;class#ConsoleUI#0" expanded="false" />
-            <element signature="method#LoadXMLFile#0;class#ConsoleUI#0" expanded="false" />
-            <element signature="method#PrintGameHandTest#0;class#ConsoleUI#0" expanded="false" />
-            <element signature="e#14225#14231#0" expanded="true" />
-            <element signature="e#14415#14421#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UserInterface/src/TexasHoldem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -936,10 +1053,12 @@
       <state key="ArtifactsStructureConfigurable.UI">
         <settings>
           <artifact-editor />
+          <last-edited>TexasHoldem:jar</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
                 <option value="0.2" />
+                <option value="0.5" />
               </list>
             </option>
           </splitter-proportions>
@@ -982,7 +1101,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>UserInterface</last-edited>
+          <last-edited>Engine</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

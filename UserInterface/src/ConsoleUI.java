@@ -3,35 +3,373 @@ import API.InterfaceAPI;
 import Exceptions.*;
 import Move.Move;
 import Move.MoveType;
-import Player.PlayerState;
 import Player.PlayerType;
 import ReturnType.CurrentHandState;
-import ReturnType.PlayerHandState;
 import ReturnType.PlayerStats;
 
 import java.io.FileNotFoundException;
 import java.util.*;
 
-import Card.Card;
-import Card.CardSuit;
-import Card.CardNumber;
 import Game.Game;
 
 import javax.xml.bind.JAXBException;
 
 public class ConsoleUI{
 
+    ///////////////////////////////members////////////////////////////////
+    private static Scanner reader = new Scanner(System.in);
     private InterfaceAPI  engine ;
     private boolean isXMLFileLoaded =false;
     private boolean endGame = false;
-    private int numberOfHands;
     private long startTime;
+    private int numberOfHandPlayed = 0;
 
 
-    private static Scanner reader = new Scanner(System.in);
+    ///////////////////////////////private functions////////////////////////////////
 
-    public void  RunGame()
-    {
+    private String GetTimePass() {
+        long timeElapsed = System.currentTimeMillis() - this.startTime;
+        long hours = timeElapsed/1000/60/60;
+        long minute = timeElapsed/1000/60 - hours *60;
+        return String.format("%d:%d", hours, minute);
+    }
+
+    private Move PlayHumanPlayer() {
+        List<String> moveChars = new LinkedList<>();// = Arrays.asList("B","b","F","f","R","r","C","c","K","k");
+        List<MoveType> moves=null;
+        int amount =0;
+        String input;
+        MoveType moveType;
+        PrintGame(engine.GetCurrentHandState());
+        moveChars.clear();
+        try {
+            moves= engine.GetAllowdedMoves();
+        } catch (PlayerFoldedException e) {
+            //System.out.println("Player folded,Please enter new choice");// TBD:  shouldn't happen, ask israel the reason for this exception!!!
+            engine.MoveToNextPlayer();
+        } catch (ChipLessThanPotException e) {
+            System.out.println("Chips is less than the Pot, number of chip is: "+ e.GetMaxChips());
+        }
+        if(moves == null)
+        {
+            System.out.println("Moves not avaliable");
+            return null;
+        }
+
+        do {
+            //this.PrintGame(engine.GetCurrentHandState());
+            for (MoveType move : moves) {
+                switch (move) {
+                    case BET:
+                        System.out.print("B. BET ");
+                        moveChars.add("b");
+                        moveChars.add("B");
+                        break;
+                    case FOLD:
+                        System.out.print("F. FOLD ");
+                        moveChars.add("f");
+                        moveChars.add("F");
+                        break;
+                    case RAISE:
+                        System.out.print("R. RAISE ");
+                        moveChars.add("r");
+                        moveChars.add("R");
+                        break;
+                    case CALL:
+                        System.out.print("C. CALL ");
+                        moveChars.add("c");
+                        moveChars.add("C");
+                        break;
+                    case CHECK:
+                        System.out.print("K. CHECK ");
+                        moveChars.add("k");
+                        moveChars.add("K");
+                        break;
+                }
+            }
+            System.out.print("\nPlease choose your move (choose by letter): ");
+            Boolean isWrongInput = true;
+            do {
+                input = reader.nextLine();
+                if( input.matches("[A-Za-z]{1}")) isWrongInput = false;
+            }while(isWrongInput);
+            moveType = MoveType.FOLD;
+            //this.PrintGame(engine.GetCurrentHandState());
+            if (moveChars.contains(input)) {
+
+                switch (input) {
+                    case "B":
+                    case "b":
+                        moveType = MoveType.BET;
+                        break;
+                    case "F":
+                    case "f":
+                        moveType = MoveType.FOLD;
+                        break;
+                    case "C":
+                    case "c":
+                        moveType = MoveType.CALL;
+                        break;
+                    case "K":
+                    case "k":
+                        moveType = MoveType.CHECK;
+                        break;
+                    case "R":
+                    case "r":
+                        moveType = MoveType.RAISE;
+                        break;
+                }
+                if (moveType == MoveType.BET || moveType == MoveType.RAISE) {
+                    boolean goodInput = false;
+                    do {
+                        System.out.format("Please enter The amout between  %d to %d: ", engine.GetAllowdedStakeRange()[0], engine.GetAllowdedStakeRange()[1]);
+                        while (!reader.hasNextInt()) {
+
+                            System.out.print("Wrong input, please enter a integer: ");
+                            reader.nextLine();
+                        }
+
+                        amount = reader.nextInt();
+                        reader.nextLine();
+                        if (engine.GetAllowdedStakeRange()[0] <= amount && amount <= engine.GetAllowdedStakeRange()[1])
+                            goodInput = true;
+                        else {
+                            System.out.println("Please enter number in the range, thanks");
+                            reader.nextLine();
+                        }
+                    } while (!goodInput);
+                }
+                return new Move(moveType,amount);
+
+            }else {
+                System.out.print("\n Wrong Input, Please choose again: ");
+                input = reader.next();
+
+            }
+
+        }while(true);
+    }
+
+    private void  PlayOneHand() {
+        if (engine.IsAnyPlayerOutOfMoney()) {
+            endGame = true;
+            this.PrintTheWinners();
+        } else {
+            this.numberOfHandPlayed++;
+            engine.StartNewHand();
+            this.PlayBidRound();
+            this.EndOfRound();
+            engine.Flop();
+            this.PlayBidRound();
+            this.EndOfRound();
+            engine.River();
+            this.PlayBidRound();
+            this.EndOfRound();
+            engine.Turn();
+            this.PlayBidRound();
+            this.EndOfRound();
+            engine.SetWinner();
+            // add the winner
+            PrintTheWinners();
+        }
+    }
+
+
+    private void PrintTheWinners(){
+
+
+
+        System.out.println("And the winner is \\ are: " );
+        List<String> winners=    engine.GetWinner();
+
+        for (String winner : winners){
+            System.out.print("  " + winner+ " ");
+        }
+
+        System.out.println("");
+
+    }
+
+    private void EndOfRound() {
+
+        if(!engine.IsHumanPlayerFolded()) {
+            this.PrintGame(engine.GetCurrentHandState());
+            System.out.println("Round just ended, press enter to contionu to next round [Enter]");
+            reader.nextLine();
+        }
+    }
+
+
+    private Move GetPlayerMove() {
+        if(TexasHoldem.ENABLE_LOG)System.out.println("Player Type:"+this.engine.GetCurrentPlayerInfo().GetType() +" ID:"+this.engine.GetCurrentPlayerInfo().GetID()+"Getting move...");
+        Move currentMove = null;
+
+        //if computer
+        if (engine.IsCurrentPlayerComputer()) {
+            try {
+                currentMove = engine.GetAutoMove();
+            } catch (PlayerFoldedException e) {
+                System.out.println("Computer Player Folded- Need to Be handled");
+                engine.MoveToNextPlayer();
+                engine.CheckBidStatus();
+            } catch (ChipLessThanPotException e) {
+                if(TexasHoldem.ENABLE_LOG) System.out.println("Player Type:" + this.engine.GetCurrentPlayerInfo().GetType() + " ID:" + this.engine.GetCurrentPlayerInfo().GetID() + "Chip less than Pot ");
+            }
+        }
+        else //if human
+        {
+            if (engine.IsCurrentPlayerHuman()) {
+                currentMove = PlayHumanPlayer();
+            }
+        }
+
+        return currentMove;
+    }
+    private void SetMove(Move move){
+
+    }
+    private void PlayBidRound(){
+
+        //init a new bid round
+        try {
+            engine.StartNewBidCycle();
+        } catch (NoSufficientMoneyException e) {
+            //it means one of the players do not enough to put the big or small blind
+            this.endGame = true;
+        }
+
+        boolean is_round_finished=false;
+        //bid round cycle
+        while(!engine.IsCurrentBidCycleFinished())
+        {
+            System.out.println(" ");
+            if(this.engine.IsCurrentPlayerFolded() /*|| this.engine.IsCurrentPlayerNoMoney()*/)
+            {
+                this.engine.MoveToNextPlayer();
+                this.engine.CheckBidStatus();
+            }
+
+            else
+            {
+                Move currentMove = this.GetPlayerMove();
+
+                //if (currentMove != null) {
+
+                    //if(TexasHoldem.ENABLE_LOG) System.out.println("Player Type:"+this.engine.GetCurrentPlayerInfo().GetType() +" ID:"+this.engine.GetCurrentPlayerInfo().GetID()+" Move:" + currentMove.GetMoveType().toString() + "   ");
+                    //System.out.print(currentMove.GetValue());
+
+                    try {
+                        engine.SetNewMove(currentMove);
+                        //TBD -- HANDLE
+                    } catch (StakeNotInRangeException e) {
+                        System.out.println("Stake value not in range!");
+                    } catch (PlayerFoldedException e) {
+                        System.out.println("Player Folded 11");
+                        //engine.MoveToNextPlayer();
+                    } catch (MoveNotAllowdedException e) {
+                        System.out.println("Move Not allowed 22");
+                    } catch (ChipLessThanPotException e) {
+                        System.out.println("Chip less than Pot 33");
+                    } catch (NoSufficientMoneyException e) {
+                        System.out.println("No sufficient Money");
+                    } catch (PlayerAlreadyBetException e) {
+                        System.out.println("Player already bet");
+                        this.engine.MoveToNextPlayer();
+                        this.engine.CheckBidStatus();
+                    }
+                    finally{
+                        is_round_finished=engine.IsCurrentBidCycleFinished();
+                        if(TexasHoldem.ENABLE_LOG) System.out.println("is finished:"+is_round_finished);
+                    }
+                //}
+               // else {
+                //    this.engine.MoveToNextPlayer();
+                //    this.engine.CheckBidStatus();
+                //}
+            }
+        }
+    }
+
+    private boolean LoadXMLFile() {
+
+
+        System.out.println("Please enter XML file path: ");
+        String res = reader.nextLine();
+
+
+        try { engine.LoadFromXML(res);
+        } catch (GameStartedException e) {
+            System.out.println("Game Already Start");
+            return false;
+        } catch (UnexpectedObjectException e) {
+            System.out.println("No XML file exist");
+            return false;
+        } catch (FileNotFoundException e) {
+            System.out.println("No XML file exist");
+            return false;
+        } catch (BigSmallMismatchException e) {
+            System.out.println("Problem in XML file, Big Blind and Small Blind Value is incorrect");
+            return false;
+        } catch (PlayerDataMissingException e) {
+            System.out.println("Problem in XML file, player data missing");
+            return false;
+        } catch (HandsCountDevideException e) {
+            System.out.println("Problem in XML file, Hand count do not divine by number of players");
+            return false;
+        } catch (WrongFileNameException e) {
+            System.out.println("Problem in XML file, wrong File Name");
+            return false;
+        } catch (HandsCountSmallerException e) {
+            System.out.println("Problem in XML file,Hand Count smaller than the number of players ");
+            return false;
+        } catch (JAXBException e) {
+            System.out.println("Problem in XML file loading...");
+            return false;
+        } catch (FileNotXMLException e) {
+            System.out.println("Problem in XML file, This File is not XML");
+            return false;
+        } catch (MinusZeroValueException e) {
+            System.out.println("Problem in XML file, One of the values is negative or zero");
+            return false;
+        } catch (BigBiggerThanBuyException e) {
+            System.out.println("Problem in XML file, The big blind is bigger than the buy");
+            return false;
+        }
+        this.isXMLFileLoaded = true;
+        return true;
+    }
+
+    private int PrintMainMenu(boolean[] menuOption){
+
+        if (menuOption.length != 7) {
+            System.out.println("MenuOption Size is wrong");
+            return -1;
+        }
+
+
+        System.out.println("Please enter your choice: ");
+        if(menuOption[0]) System.out.println("1. Load Game Setting From XML File");
+        if(menuOption[1]) System.out.println("2. Start Game");
+        if(menuOption[2]) System.out.println("3. Show Game State");
+        if(menuOption[3]) System.out.println("4. Play One Hand");
+        if(menuOption[4]) System.out.println("5. Get Statistics");
+        if(menuOption[5]) System.out.println("6. Extra Buy");
+        if(menuOption[6]) System.out.println("7. Quit Game");
+        System.out.println("");
+
+        return GetOptionNumber(menuOption);
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        reader.close();
+        super.finalize();
+    }
+
+    ///////////////////////////////public functions////////////////////////////////
+
+    public void  RunGame() {
+       // this.TestOneHand();
        boolean[] menuOption = new boolean[]{true,false,false,false,false,false,true};
         int choice= -1;
         choice = PrintMainMenu(menuOption);
@@ -39,13 +377,19 @@ public class ConsoleUI{
             switch (choice) {
                 case 1:
                     engine = new Game();
-                    LoadXMLFile();
-                    this.numberOfHands = engine.GetNumberOfHands();
-                    menuOption[1] = true;
+                    //LoadXMLFile();
+                    if(LoadXMLFile()) {
+                        this.numberOfHandPlayed = 0;
+                        menuOption[1] = true;
+                    }
+                    else {
+                        menuOption[1] = false;
+                    }
                     choice = PrintMainMenu(menuOption);
                     break;
 
                 case 2:
+
                     this.startTime = System.currentTimeMillis();
                     engine.StartGame();
                     this.PrintGameStat(engine.GetPlayersInfo());
@@ -60,20 +404,37 @@ public class ConsoleUI{
                     choice = PrintMainMenu(menuOption);
                     break;
                 case 4:
-                    if (engine != null && engine.GetNumberOfHands() == 0)
-                        System.out.println("Game Over, Number Of Hand is 0");
-                    else {
-                        PlayOneHand();
-                        menuOption[0] = menuOption[1] = false;
-                        menuOption[2] = menuOption[3] = menuOption[4] = menuOption[5] = true;
-                        choice = PrintMainMenu(menuOption);
+                    if (engine != null) {
+                        if (this.numberOfHandPlayed >= engine.GetNumberOfHands()) {
+                            System.out.println("Game Over, Number Of Hand is 0");
+                            PrintWinner(engine.GetPlayersInfo());
+                            menuOption[3]= false;
+                            menuOption[0] = menuOption[1]= menuOption[2]  = menuOption[4] = menuOption[5] = true;
+                        } else {
+                            PlayOneHand();
+                            if(this.endGame) {
+                                System.out.println("One Player run out of money - sorry, this is the end of the game.");
+                                System.out.println("Please press enter to exit [ENTER]");
+                                reader.nextLine();
+
+                            }
+                            else {
+                                menuOption[0] = menuOption[1] = false;
+                                menuOption[2] = menuOption[3] = menuOption[4] = menuOption[5] = true;
+                                if ((this.numberOfHandPlayed == engine.GetNumberOfHands())) {
+                                    PrintWinner(engine.GetPlayersInfo());
+                                }
+                            }
+
+                        }
+                        if(!endGame) choice = PrintMainMenu(menuOption);
                     }
                     break;
 
                 case 5:
                     System.out.println("Time elapsed:  " + this.GetTimePass());
                     System.out.println("The number of hands already played: " + engine.GetCurrentHandNumber());
-                    System.out.println("The pot size is: " );// TBD- add pot size
+                    System.out.println("The pot size is: " +engine.GetMoneyInGame());//
                     this.PrintGameStat(engine.GetPlayersInfo());
                     menuOption[0] = menuOption[1] = false;
                     menuOption[2] = menuOption[3] = menuOption[4] = menuOption[5] = true;
@@ -81,7 +442,11 @@ public class ConsoleUI{
                     break;
 
                 case 6:
-                    // TBD -ADD BUY
+                    engine.Buy();
+                    menuOption[0] = menuOption[1] = false;
+                    menuOption[2] = menuOption[3] = menuOption[4] = menuOption[5] = true;
+                    choice = PrintMainMenu(menuOption);
+
                     break;
                 case 7:
                     this.endGame = true;
@@ -99,157 +464,44 @@ public class ConsoleUI{
 
     }
 
-    private String GetTimePass()
-    {
-        long timeElapsed = System.currentTimeMillis() - this.startTime;
-        long hours = timeElapsed/1000/60/60;
-        long minute = timeElapsed/1000/60 - hours *60;
-        return String.format("%d:%d", hours, minute);
+   public void PrintWinner(List<PlayerStats> currentStat){
+
+      List<String> names= new LinkedList<>();
+      int num =-1;
+      if((currentStat != null) && currentStat.size()>0) {
+          for (PlayerStats player : currentStat) {
+            if(player.getChips() > num) {
+                names.clear();
+                names.add(player.getName());
+                num = player.getChips();
+            }else if(player.getHandsWons() ==  num)
+            {
+                names.add(player.getName());
+            }
+
+          }
+      }
+       System.out.println("-------------------------------------------" );
+      System.out.print("The winner of the game is / are: ");
+      for(String name: names)
+      {
+          System.out.print(name + "  ");
+      }
+      System.out.println();
+       System.out.println("-------------------------------------------" );
     }
 
-    @Override
-    protected void finalize() throws Throwable {
-        reader.close();
-        super.finalize();
-    }
-
-    private void  PlayOneHand()
-    {
+    public void TestOneHand(){
+        engine = new Game();
+        LoadXMLFile();
+        engine.StartGame();
+        this.PrintGameStat(engine.GetPlayersInfo());
         engine.StartNewHand();
         this.PlayBidRound();
-        this.EndOfRound();
-        engine.Flop();
-        this.EndOfRound();
-        engine.Turn();
-        this.EndOfRound();
-        engine.River();
-        this.EndOfRound();
-
-        //TBD
-        // add the winner
-    }
-    private void EndOfRound()
-    {
-        this.PrintGame(engine.GetCurrentHandState());
-        System.out.println("Round just ended, Press Enter to contionu to next Round");
-        reader.nextLine();
-    }
-    private void PlayBidRound(){
-       Move currentMove = new Move(MoveType.FOLD, 0);// Just default move
-        try {
-            engine.StartNewBidCycle();
-        } catch (NoSufficientMoneyException e) {
-            //Check if is the correct Option?
-            this.endGame = true;
-        }
-        while(! engine.IsCurrentBidCycleFinished())
-        {
-            if(engine.IsCurrentPlayerComputer()) currentMove = engine.GetAutoMove();
-            if (engine.IsCurrentPlayerComputer()) currentMove = PlayHumanPlayer();
-            try {
-                engine.SetNewMove(currentMove);
-                //TBD -- HANDLE
-            } catch (StakeNotInRangeException e) {
-            } catch (PlayerFoldedException e) {
-                e.printStackTrace();
-            } catch (MoveNotAllowdedException e) {
-                e.printStackTrace();
-            } catch (ChipLessThanPotException e) {
-                e.printStackTrace();
-            } catch (NoSufficientMoneyException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private Move PlayHumanPlayer() {
-        List<String> moveChars = Arrays.asList("B","b","F","f","R","r","C","c","K","k");
-        List<MoveType> moves=null;
-        int amount =0;
-        String input;
-        MoveType moveType;
-        PrintGame(engine.GetCurrentHandState());
-
-        try {
-            moves= engine.GetAllowdedMoves();
-        } catch (PlayerFoldedException e) {
-            System.out.println("Player folded,Please enter new choice");// TBD:  shouldn't happen, ask israel the reason for this exception!!!
-        } catch (ChipLessThanPotException e) {
-            System.out.println("Chips is less than the Pot, Number of Chip is: "+ e.GetMaxChips());
-        }
-        if(moves == null)
-        {
-            System.out.println("Moves not avalible");
-            return null;
-        }
-
-        do {
-            //this.PrintGame(engine.GetCurrentHandState());
-            for (MoveType move : moves) {
-                switch (move) {
-                    case BET:
-                        System.out.print("B. BET ");
-                        break;
-                    case FOLD:
-                        System.out.print("F. FOLD ");
-                        break;
-                    case RAISE:
-                        System.out.print("R. RAISE ");
-                        break;
-                    case CALL:
-                        System.out.print("C. CALL ");
-                        break;
-                    case CHECK:
-                        System.out.print("K. CHECK ");
-                        break;
-                }
-            }
-            System.out.print("\nPlease choose your move (choose by letter): ");
-            input = reader.next();
-            moveType = MoveType.FOLD;
-            this.PrintGame(engine.GetCurrentHandState());
-            if (moveChars.contains(input)) {
-
-                    switch (input) {
-                        case "B":
-                        case "b":
-                            moveType = MoveType.BET;
-                            break;
-                        case "F":
-                        case "f":
-                            moveType = MoveType.FOLD;
-                            break;
-                        case "C":
-                        case "c":
-                            moveType = MoveType.CALL;
-                            break;
-                        case "K":
-                        case "k":
-                            moveType = MoveType.CHECK;
-                            break;
-                        case "R":
-                        case "r":
-                            moveType = MoveType.RAISE;
-                            break;
-                    }
-                if (moveType == MoveType.BET || moveType == MoveType.RAISE) {
-                    {
-                        System.out.print("Please enter The amout: ");
-                         amount =reader.nextInt();
-                    }
-
-                    return new Move(moveType,amount);
-                }
-
-                }
-                else {
-                System.out.print("\n Wrong Input, Please choose again: ");
-                input = reader.next();
-            }
-        }while(true);
     }
 
     public  void PrintGameStat(List<PlayerStats> playerStats){
+        System.out.format("%-9s      %4d        %-9s      %4d\n",playerStats.get(0).getName(), playerStats.get(0).getId(), playerStats.get(3).getName(), playerStats.get(3).getId());
         System.out.format("*******************        *******************\n");
         System.out.format("* Type: %1s         *        * Type: %1s         *\n",playerStats.get(0).GetType(),playerStats.get(3).GetType());
         System.out.format("* State %1s         *        * State %1s         *\n",playerStats.get(0).getState(),playerStats.get(3).getState());
@@ -259,6 +511,7 @@ public class ConsoleUI{
         System.out.format("*******************        *******************\n");
         System.out.format("\n");
         System.out.format("\n");
+        System.out.format("%-9s      %4d        %-9s      %4d\n",playerStats.get(1).getName(), playerStats.get(1).getId(), playerStats.get(2).getName(), playerStats.get(2).getId());
         System.out.format("*******************        *******************\n");
         System.out.format("* Type: %1s         *        * Type: %1s         *\n",playerStats.get(1).GetType(),playerStats.get(2).GetType());
         System.out.format("* State %1s         *        * State %1s         *\n",playerStats.get(1).getState(),playerStats.get(2).getState());
@@ -268,98 +521,21 @@ public class ConsoleUI{
         System.out.format("*******************        *******************\n");
 
     }
-     public void PrintGameStatTest(){
-        PlayerStats p1 = new PlayerStats(PlayerType.HUMAN, PlayerState.BIG ,100,20,4,10);
-        PlayerStats p2 = new PlayerStats(PlayerType.HUMAN, PlayerState.DEALER ,100,20,4,20);
-        PlayerStats p3 = new PlayerStats(PlayerType.COMPUTER, PlayerState.SMALL ,1121230,231230,20,11);
-        PlayerStats p4 = new PlayerStats(PlayerType.HUMAN, PlayerState.NONE ,100,20,4,55);
-        List<PlayerStats> a =new LinkedList<>();
-        a.add(p1);
-        a.add(p2);
-        a.add(p3);
-        a.add(p4);
 
-
-    }
-    private void LoadXMLFile()
-    {
-
-
-        System.out.println("Please enter XML file path: ");
-        String res = reader.nextLine();
-
-
-        try {
-            engine.LoadFromXML(res);
-        } catch (GameStartedException e) {
-            System.out.println("Game Already Start");
-            return;
-        } catch (UnexpectedObjectException e) {
-            System.out.println("No XML file exist");
-            return;
-        } catch (FileNotFoundException e) {
-            System.out.println("No XML file exist");
-            return;
-        } catch (BigSmallMismatchException e) {
-            System.out.println("Problem in XML file, Big Blind and Small Blind Value is incorrect");
-            return;
-        } catch (PlayerDataMissingException e) {
-            System.out.println("Problem in XML file, player data missing");
-            return;
-        } catch (HandsCountDevideException e) {
-            System.out.println("Problem in XML file, Hand count do not divine by number of players");
-            return;
-        } catch (WrongFileNameException e) {
-            System.out.println("Problem in XML file, wrong File Name");
-            return;
-        } catch (HandsCountSmallerException e) {
-            System.out.println("Problem in XML file,");
-            return;
-        } catch (JAXBException e) {
-            System.out.println("Problem in XML file,");
-            return;
-        } catch (FileNotXMLException e) {
-            System.out.println("Problem in XML file,");
-            return;
-        } catch (NullObjectException e) {
-            System.out.println("Problem in XML file,");
-            return;
-        }
-        this.isXMLFileLoaded = true;
-    }
-    private int PrintMainMenu(boolean[] menuOption){
-
-    if (menuOption.length != 7) {
-        System.out.println("MenuOption Size is wrong");
-        return -1;
-    }
-
-
-    System.out.println("Please enter your choice: ");
-    if(menuOption[0]) System.out.println("1. Load Game Setting From XML File");
-    if(menuOption[1]) System.out.println("2. Start Game");
-    if(menuOption[2]) System.out.println("3. Show Game State");
-    if(menuOption[3]) System.out.println("4. Play One Hand");
-    if(menuOption[4]) System.out.println("5. Get Statistics");
-    if(menuOption[5]) System.out.println("6. Extra Buy");
-    if(menuOption[6]) System.out.println("7. Quit Game");
-    System.out.println("");
-
-        return GetOptionNumber(menuOption);
-    }
-
-    int GetOptionNumber(boolean[] menuOption)
-    {
+    public int GetOptionNumber(boolean[] menuOption) {
         int n;
         boolean goodInput= false;
         System.out.println("Please enter your choice:");
         // Reading from System.in
         do {
+            while(!reader.hasNextInt()) {
 
+                System.out.print("Wrong input, please enter a integer: ");
+                reader.nextLine();
+            }
             n = reader.nextInt(); reader.nextLine(); // Scans the next token of the input as an int.
             if ((n >= 1 && n <= 7) && menuOption.length == 7 && menuOption[n - 1] == true)
             {
-
                 return n;
             }
             else {
@@ -367,35 +543,6 @@ public class ConsoleUI{
             }
         }while (true);
             //once finished
-    }
-
-
-     public void PrintGameHandTest(){
-        List <Card> HumanCards = new LinkedList<Card>();
-        HumanCards.add(new Card(CardNumber.ACE,CardSuit.Diamonds));
-        HumanCards.add(new Card(CardNumber.TEN,CardSuit.Spades));
-
-        List <Card> comCards = new LinkedList<Card>();
-        comCards.add(new Card(CardNumber.EIGHT,CardSuit.Clubs));
-        comCards.add(new Card(CardNumber.FIVE,CardSuit.Hearts));
-        comCards.add(new Card(CardNumber.KING,CardSuit.Spades));
-        comCards.add(new Card(CardNumber.KING,CardSuit.Hearts));
-
-
-        PlayerHandState p1 = new PlayerHandState(PlayerType.HUMAN, PlayerState.DEALER ,100,20,Card.UnknownComputerCards);
-        PlayerHandState p2 = new PlayerHandState(PlayerType.HUMAN, PlayerState.BIG ,100,20,HumanCards);
-        PlayerHandState p3 = new PlayerHandState(PlayerType.COMPUTER, PlayerState.SMALL ,1121230,231230,Card.UnknownComputerCards);
-        PlayerHandState p4 = new PlayerHandState(PlayerType.COMPUTER, PlayerState.NONE ,100,20,Card.UnknownComputerCards);
-        List<PlayerHandState> a =new LinkedList<>();
-        a.add(p1);
-        a.add(p2);
-        a.add(p3);
-        a.add(p4);
-
-        CurrentHandState cur = new CurrentHandState(a,comCards,1000,3);
-
-        PrintGame(cur);
-
     }
 
     public  void PrintGame(CurrentHandState curHandState){
@@ -407,7 +554,7 @@ public class ConsoleUI{
 //        System.out.format("%s",curHandState.getPlayersState().get(1).getCard().toString());
 
 
-        System.out.format("                 %s                        %s\n",curHandState.getCurrentPlayer() == 0 ? "***": "   ",curHandState.getCurrentPlayer() == 3 ? "***": "   ");
+        System.out.format("%-9s  %-4d  %s       %-9s  %-4d  %s\n",curHandState.getPlayersState().get(0).getName(),curHandState.getPlayersState().get(0).getId(),curHandState.getCurrentPlayer() == 0 ? "***": "   ",curHandState.getPlayersState().get(3).getName(),curHandState.getPlayersState().get(3).getId(),curHandState.getCurrentPlayer() == 3 ? "***": "   ");
         System.out.format("*****************%s       *****************%s\n",curHandState.getCurrentPlayer() == 0 ? "***": "** ",curHandState.getCurrentPlayer() == 3 ? "***": "** ");
         System.out.format("* Type: %1s        %s       * Type: %1s        %s\n",curHandState.getPlayersState().get(0).GetType().toString(),curHandState.getCurrentPlayer() == 0 ? "***": " * ",curHandState.getPlayersState().get(3).GetType().toString(),curHandState.getCurrentPlayer() == 3 ? "***": " * ");
         System.out.format("* State %1s         *        * State %1s         *\n",curHandState.getPlayersState().get(0).getState().toString(),curHandState.getPlayersState().get(3).getState().toString());
@@ -431,9 +578,10 @@ public class ConsoleUI{
 
         System.out.format("*******************        *******************\n");
         System.out.format("\n");
-        System.out.format("     %s       POT: %d   ", curHandState.getStringOfCommunityCard(),curHandState.getPot());
+        System.out.format("     %s            ***POT: %d *** \n", curHandState.getStringOfCommunityCard(),curHandState.getPot());
+        System.out.format("Big Blind: %-5d   Small Blind : %-5d \n", curHandState.getBigBlind(), curHandState.getSmallBlind());
         System.out.format("\n");
-        System.out.format("                 %s                        %s\n",curHandState.getCurrentPlayer() == 1 ? "***": "   ",curHandState.getCurrentPlayer() == 2 ? "***": "   ");
+        System.out.format("%-9s  %-4d  %s       %-9s %4d  %s\n",curHandState.getPlayersState().get(1).getName(),curHandState.getPlayersState().get(1).getId(),curHandState.getCurrentPlayer() == 1 ? "***": "   ",curHandState.getPlayersState().get(2).getName(),curHandState.getPlayersState().get(2).getId(),curHandState.getCurrentPlayer() == 2 ? "***": "   ");
         System.out.format("*****************%s       *****************%s\n",curHandState.getCurrentPlayer() == 1 ? "***": "** ",curHandState.getCurrentPlayer() == 2 ? "***": "** ");
         System.out.format("* Type: %1s        %s       * Type: %1s        %s\n",curHandState.getPlayersState().get(1).GetType().toString(),curHandState.getCurrentPlayer() == 1 ? "***": " * ",curHandState.getPlayersState().get(2).GetType().toString(),curHandState.getCurrentPlayer() == 2 ? "***": " * ");
         System.out.format("* State %1s         *        * State %1s         *\n",curHandState.getPlayersState().get(1).getState().toString(),curHandState.getPlayersState().get(2).getState().toString());

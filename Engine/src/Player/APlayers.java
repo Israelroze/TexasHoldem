@@ -26,6 +26,10 @@ public class APlayers {
         }
     }
 
+    public APlayers()  {
+        aplayers=new LinkedList<APlayer>();
+    }
+
     public void RandomPlayerSeats() {
         Random rnd = new Random();
         Collections.shuffle(this.aplayers,rnd);
@@ -54,6 +58,8 @@ public class APlayers {
         int index=this.aplayers.indexOf(player);
         return this.GetNextPlayer(index);
     }
+
+
 
     private void RandomDealer()
     {
