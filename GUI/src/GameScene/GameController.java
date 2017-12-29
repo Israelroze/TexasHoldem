@@ -77,7 +77,7 @@ public class GameController implements Initializable {
         else if(playerData.isIsSmall()) singleController.getTypeLabel().setText("Small");
         else singleController.getTypeLabel().setText("");
 
-        singleController.
+        //singleController.
 
 
 
