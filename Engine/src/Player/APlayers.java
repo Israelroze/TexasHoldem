@@ -3,22 +3,21 @@ package Player;
 import Exceptions.PlayerDataMissingException;
 import Generated.Player;
 import Generated.Players;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
+
+import java.util.*;
 
 public class APlayers {
     private List<APlayer> aplayers;
     private APlayer dealer;
     private APlayer big;
     private APlayer small;
-
-
+    private Map<Integer,Integer> ids;
 
     public APlayers(Players players) throws PlayerDataMissingException {
         aplayers=new LinkedList<APlayer>();
+        ids=new HashMap<>();
 
+        int index=0;
         for (Player player: players.getPlayer())
         {
             APlayer nplayer=new APlayer(player);
@@ -28,6 +27,7 @@ public class APlayers {
 
     public APlayers()  {
         aplayers=new LinkedList<APlayer>();
+        ids=new HashMap<>();
     }
 
     public void RandomPlayerSeats() {
@@ -42,7 +42,7 @@ public class APlayers {
         }
     }
 
-    private APlayer GetNextPlayer(int index)
+    public APlayer GetNextPlayer(int index)
     {
         if((index+1)<=aplayers.size()-1) {
             return aplayers.get(index + 1);
@@ -53,13 +53,25 @@ public class APlayers {
         }
     }
 
+    public int GetSize()
+    {
+        return aplayers.size();
+    }
+
+    public int GetFirstPlayerID(){
+        return this.aplayers.get(0).getId();
+    }
+
+    public APlayer GetPlayer(int index)
+    {
+        return aplayers.get(index);
+    }
+
     public APlayer GetNextPlayer(APlayer player)
     {
         int index=this.aplayers.indexOf(player);
         return this.GetNextPlayer(index);
     }
-
-
 
     private void RandomDealer()
     {

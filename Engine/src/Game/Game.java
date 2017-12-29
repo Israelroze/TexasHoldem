@@ -40,98 +40,6 @@ public class Game implements InterfaceAPI {
     private Hand GetCurrentHand(){
         return this.current_hand;
     }
-
-    //for testing
-    private Move GetConsoleMove(APlayer player) {
-        MoveType type = null;
-        int value=0;
-
-        boolean is_get_value=false;
-
-        if(ENABLE_LOG) System.out.println("Please provide the player move for:"+player.GetName());
-        Scanner stdin=new Scanner(System.in);
-        String move=stdin.nextLine();
-
-        switch(move)
-        {
-            case "B":
-                type=MoveType.BET;
-                is_get_value=true;
-                break;
-            case "F":
-                type=MoveType.FOLD;
-                break;
-            case "C":
-                type=MoveType.CALL;
-                break;
-            case "K":
-                type=MoveType.CHECK;
-                break;
-            case "R":
-                type=MoveType.RAISE;
-                is_get_value=true;
-                break;
-        }
-
-        if(is_get_value)
-        {
-            if(ENABLE_LOG) System.out.println("Please provide the value:"+player.GetName());
-            value=stdin.nextInt();
-        }
-
-        return new Move(type,value);
-    }
-    private void PringCurrentAvailable(APlayer current,List<MoveType> allowded_moves,int[]  range) {
-        boolean is_get_value=false;
-       if(ENABLE_LOG) System.out.println("Allowded move for player"+current.GetName()+":");
-        for(MoveType type:allowded_moves)
-        {
-            switch(type)
-            {
-                case BET:
-                    if(ENABLE_LOG) System.out.println("Bet(B)");
-                    is_get_value=true;
-                    break;
-                case CALL:
-                    if(ENABLE_LOG)  System.out.println("Call(C)");
-                    break;
-                case CHECK:
-                    if(ENABLE_LOG) System.out.println("Check(K)");
-                    break;
-                case FOLD:
-                    if(ENABLE_LOG) System.out.println("Fold(F)");
-                    break;
-                case RAISE:
-                    if(ENABLE_LOG) System.out.println("Raise(R)");
-                    is_get_value=true;
-                    break;
-            }
-        }
-
-        if(ENABLE_LOG) System.out.println("Allowded range: low:"+range[0]+" high:"+range[1]);
-
-    }
-    private void NewHumanMove() throws PlayerFoldedException, ChipLessThanPotException, StakeNotInRangeException, MoveNotAllowdedException, NoSufficientMoneyException, PlayerAlreadyBetException {
-        while(!this.current_hand.IsBetsCycleFinished()) {
-            APlayer current = this.current_hand.GetCurrentPlayer();
-            List<MoveType> allowded_moves=this.current_hand.GetAllowdedMoves();
-            int [] range=this.current_hand.GetAllowdedStakeRange();
-            PringCurrentAvailable(current,allowded_moves,range);
-            Move new_move=this.GetConsoleMove(current);
-            this.current_hand.ImplementMove(new_move.GetMoveType(),new_move.GetValue());
-        }
-    }
-
-    /////////////////////////////////////////////////////////////API's/////////////////////////////////////////////////////////////////////////////////////////
-
-    private void Init4Players(){
-        this.players=new APlayers();
-        this.players.GetPlayers().add(new APlayer("Bluffer",PlayerType.COMPUTER,12));
-        this.players.GetPlayers().add(new APlayer("Cheater",PlayerType.COMPUTER,22));
-        this.players.GetPlayers().add(new APlayer("Bunker",PlayerType.COMPUTER,33));
-        this.players.GetPlayers().add(new APlayer("Camper",PlayerType.HUMAN,65));
-    }
-
     private void ValidateXML(GameDescriptor container) throws NullObjectException, BigSmallMismatchException, HandsCountSmallerException, HandsCountDevideException, MinusZeroValueException, BigBiggerThanBuyException {
         int big;
         int small;
@@ -197,7 +105,100 @@ public class Game implements InterfaceAPI {
             }
         }
     }
+    private void Init4Players(){
+        this.players=new APlayers();
+        this.players.GetPlayers().add(new APlayer("Bluffer",PlayerType.COMPUTER,12));
+        this.players.GetPlayers().add(new APlayer("Cheater",PlayerType.COMPUTER,22));
+        this.players.GetPlayers().add(new APlayer("Bunker",PlayerType.COMPUTER,33));
+        this.players.GetPlayers().add(new APlayer("Camper",PlayerType.HUMAN,65));
+    }
 
+    //for testing
+    private Move GetConsoleMove(APlayer player) {
+        MoveType type = null;
+        int value=0;
+
+        boolean is_get_value=false;
+
+        if(ENABLE_LOG) System.out.println("Please provide the player move for:"+player.GetName());
+        Scanner stdin=new Scanner(System.in);
+        String move=stdin.nextLine();
+
+        switch(move)
+        {
+            case "B":
+                type=MoveType.BET;
+                is_get_value=true;
+                break;
+            case "F":
+                type=MoveType.FOLD;
+                break;
+            case "C":
+                type=MoveType.CALL;
+                break;
+            case "K":
+                type=MoveType.CHECK;
+                break;
+            case "R":
+                type=MoveType.RAISE;
+                is_get_value=true;
+                break;
+        }
+
+        if(is_get_value)
+        {
+            if(ENABLE_LOG) System.out.println("Please provide the value:"+player.GetName());
+            value=stdin.nextInt();
+        }
+
+        return new Move(type,value);
+    }
+
+    private void PringCurrentAvailable(APlayer current,List<MoveType> allowded_moves,int[]  range) {
+        boolean is_get_value=false;
+       if(ENABLE_LOG) System.out.println("Allowded move for player"+current.GetName()+":");
+        for(MoveType type:allowded_moves)
+        {
+            switch(type)
+            {
+                case BET:
+                    if(ENABLE_LOG) System.out.println("Bet(B)");
+                    is_get_value=true;
+                    break;
+                case CALL:
+                    if(ENABLE_LOG)  System.out.println("Call(C)");
+                    break;
+                case CHECK:
+                    if(ENABLE_LOG) System.out.println("Check(K)");
+                    break;
+                case FOLD:
+                    if(ENABLE_LOG) System.out.println("Fold(F)");
+                    break;
+                case RAISE:
+                    if(ENABLE_LOG) System.out.println("Raise(R)");
+                    is_get_value=true;
+                    break;
+            }
+        }
+
+        if(ENABLE_LOG) System.out.println("Allowded range: low:"+range[0]+" high:"+range[1]);
+
+    }
+
+    private void NewHumanMove() throws PlayerFoldedException, ChipLessThanPotException, StakeNotInRangeException, MoveNotAllowdedException, NoSufficientMoneyException, PlayerAlreadyBetException {
+        while(!this.current_hand.IsBetsCycleFinished()) {
+            APlayer current = this.current_hand.GetCurrentPlayer();
+            List<MoveType> allowded_moves=this.current_hand.GetAllowdedMoves();
+            int [] range=this.current_hand.GetAllowdedStakeRange();
+            PringCurrentAvailable(current,allowded_moves,range);
+            Move new_move=this.GetConsoleMove(current);
+            this.current_hand.ImplementMove(new_move.GetMoveType(),new_move.GetValue());
+        }
+    }
+
+    /////////////////////////////////////////////////////////////API's/////////////////////////////////////////////////////////////////////////////////////////
+
+    //xml file apis
     @Override
     public void LoadFromXML(String file_name) throws FileNotFoundException, FileNotXMLException, WrongFileNameException, JAXBException, UnexpectedObjectException, HandsCountDevideException, BigSmallMismatchException, HandsCountSmallerException, GameStartedException, PlayerDataMissingException, MinusZeroValueException, BigBiggerThanBuyException {
 
@@ -229,15 +230,113 @@ public class Game implements InterfaceAPI {
         }
     }
 
+        //TBD devide the validation before, xml loading and validation after to apis
+
+    //game apis
+    @Override
+    public void StartGame() {
+        this.is_game_started=true;
+        //TBD - insert function pass result
+    }
+
+    @Override
+    public int GetMoneyInGame()
+    {
+        return this.global_num_of_buys * this.configuration.getStructure().getBuy();
+    }
+
+    @Override
+    public int GetMaxBuys(){
+        return GetMoneyInGame();
+    }
+
+    @Override
+    public int GetSmall(){
+        return this.configuration.getStructure().getBlindes().getSmall();
+    }
+
+    @Override
+    public int GetBig(){
+        return this.configuration.getStructure().getBlindes().getBig();
+    }
+    
+    @Override
+    public int GetPot(){
+        return this.current_hand.GetPot();
+    }
+
+    //player apis
     @Override
     public void AddNewPlayer(String name, PlayerType type, int ID){
         this.players.GetPlayers().add(new APlayer(name,type,ID));
     }
 
     @Override
-    public void StartGame() {
-        this.is_game_started=true;
-        //TBD - insert function pass result
+    public int GetTotalNumberOfPlayers(){
+        return this.players.GetSize();
+    }
+
+    @Override
+    public int GetFirstPlayerID(){
+        return this.players.GetFirstPlayerID();
+    }
+
+    @Override
+    public int GetNextPlayerID(int id){
+        return this.players.GetNextPlayer(id).getId();
+    }
+
+    @Override
+    public int GetPlayerPot(int id){
+        return this.players.GetPlayer(id).GetMoney();
+    }
+
+    @Override
+    public int GetPlayerNumOfWins(int id){
+        return this.players.GetPlayer(id).GetNumOfWins();
+    }
+
+    @Override
+    public boolean GetPlayerIsDealer(int id){
+        if(this.players.GetPlayer(id).GetPlayerState()==PlayerState.DEALER) return true;
+        return false;
+    }
+
+    @Override
+    public boolean GetPlayerIsBig(int id){
+        if(this.players.GetPlayer(id).GetPlayerState()==PlayerState.BIG) return true;
+        return false;
+    }
+
+    @Override
+    public boolean GetPlayerIsSmall(int id){
+        if(this.players.GetPlayer(id).GetPlayerState()==PlayerState.SMALL) return true;
+        return false;
+    }
+
+    @Override
+    public boolean GetPlayerIsHuman(int id){
+        if(this.players.GetPlayer(id).GetType()==PlayerType.HUMAN) return true;
+        return false;
+    }
+
+    @Override
+    public int GetPlayerNumOfBuy(int id){
+        return this.players.GetPlayer(id).GetNumOfBuys();
+    }
+
+    @Override
+    public String GetPlayerName(int id){
+        return this.players.GetPlayer(id).GetName();
+    }
+
+    @Override
+    public List<Card> GetPlayersCards(int id){
+        List<Card> cards=new LinkedList<Card>();
+        Card[] arr=this.players.GetPlayer(id).GetCards();
+        cards.add(arr[0]);
+        cards.add(arr[1]);
+        return cards;
     }
 
     //Hand Methods
@@ -289,25 +388,21 @@ public class Game implements InterfaceAPI {
     }
 
     @Override
-    public boolean IsCurrentBidCycleFinished(){
-        return this.GetCurrentHand().IsBetsCycleFinished();
-    }
-
-    @Override
     public boolean IsCurrentPlayerHuman(){
         if(this.GetCurrentHand().GetCurrentPlayer().GetType()== PlayerType.HUMAN){return true;}
         return false;
     }
 
     @Override
-    public boolean IsCurrentPlayerComputer(){
-        if(this.GetCurrentHand().GetCurrentPlayer().GetType()== PlayerType.COMPUTER){return true;}
-        return false;
+    public boolean IsCurrentBidCycleFinished(){
+        return this.GetCurrentHand().IsBetsCycleFinished();
     }
+
     @Override
     public void CheckBidStatus(){
         this.current_hand.SetIsBetCycleFinished();
     }
+
     @Override
     public boolean IsCurrentPlayerFolded() {
         if(this.GetCurrentHand().GetCurrentPlayer().isFolded())
@@ -317,9 +412,9 @@ public class Game implements InterfaceAPI {
         }
         return false;
     }
+
     @Override
-    public boolean IsCurrentPlayerNoMoney()
-    {
+    public boolean IsCurrentPlayerNoMoney() {
         if(this.GetCurrentHand().GetCurrentPlayer().GetMoney()<= 0)
         {
             if(ENABLE_LOG) System.out.println("FROM GAME: current Player has no money- such a loser!!!!");
@@ -421,11 +516,16 @@ public class Game implements InterfaceAPI {
     }
 
     @Override
+    public boolean IsCurrentPlayerComputer(){
+        if(this.GetCurrentHand().GetCurrentPlayer().GetType()== PlayerType.COMPUTER){return true;}
+        return false;
+    }
+
+    @Override
     public void MoveToNextPlayer()
     {
         this.current_hand.MoveToNextPlayer();
     }
-
 
     @Override
     public void SetWinner(){
@@ -436,9 +536,9 @@ public class Game implements InterfaceAPI {
     public List<String> GetWinner(){
         return  this.current_hand.GetWinnerNames();
     }
+
     @Override
-    public void Buy()
-    {
+    public void Buy() {
         for(APlayer player:this.players.GetPlayers())
         {
             if(player.GetType()==PlayerType.HUMAN) {
@@ -447,9 +547,33 @@ public class Game implements InterfaceAPI {
             }
         }
     }
-    ///////////////////////////////////////////////////////////////
+    @Override
+    public boolean IsHumanPlayerFolded() {
+        for(APlayer player:this.players.GetPlayers())
+        {
+            if(player.GetType()==PlayerType.HUMAN)
+            {
+                if(player.isFolded())
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
-    //Stats Methods
+    @Override
+    public boolean IsAnyPlayerOutOfMoney() {
+        List<APlayer> players = this.players.GetPlayers();
+        for (APlayer player: players)
+        {
+            if( player.GetMoney() <= 0)
+                return true;
+        }
+        return false;
+    }
+    ///////////////////////////////////////////////////////////////
+    //Stats apis
     @Override
     public List<PlayerStats>  GetPlayersInfo() {
         List<PlayerStats> stats=new LinkedList<>();
@@ -492,37 +616,6 @@ public class Game implements InterfaceAPI {
 
        return  new CurrentHandState(PlayersHands,comCards,this.current_hand.GetPot(),humanPlayerIndex , this.configuration.getStructure().getBlindes().getBig(),this.configuration.getStructure().getBlindes().getSmall());
 
-    }
-    @Override
-    public int GetMoneyInGame()
-    {
-        return this.global_num_of_buys * this.configuration.getStructure().getBuy();
-    }
-    @Override
-    public boolean IsHumanPlayerFolded()
-    {
-        for(APlayer player:this.players.GetPlayers())
-        {
-            if(player.GetType()==PlayerType.HUMAN)
-            {
-                if(player.isFolded())
-                {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-    @Override
-    public boolean IsAnyPlayerOutOfMoney()
-    {
-    List<APlayer> players = this.players.GetPlayers();
-        for (APlayer player: players)
-        {
-            if( player.GetMoney() <= 0)
-                return true;
-        }
-        return false;
     }
 
 }

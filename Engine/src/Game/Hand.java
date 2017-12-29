@@ -244,7 +244,6 @@ public class Hand {
         }
     }
 
-
     public int[] GetAllowdedStakeRange() {
         if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"getting allowded stake range");
         int low=this.higest_stake;
@@ -292,14 +291,14 @@ public class Hand {
         return new int[]{low+1, high};
     }
 
-    public boolean IsOneOfPlayersOutOfMoney()
-    {
+    public boolean IsOneOfPlayersOutOfMoney() {
         for(APlayer player:this.players.GetPlayers())
         {
             if(player.GetMoney()==0) return true;
         }
         return false;
     }
+
     public List<MoveType> GetAllowdedMoves() throws PlayerFoldedException, ChipLessThanPotException {
 
         if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"Getting  allowded moves...");
@@ -609,16 +608,14 @@ public class Hand {
         this.PassPot();
     }
 
-    private void SetWinnersCounter()
-    {
+    private void SetWinnersCounter() {
         for(Integer index:this.winners)
         {
             this.players.GetPlayers().get(index).IncWinner();
         }
     }
 
-    private void PassPot()
-    {
+    private void PassPot() {
         if(this.winners.size()<1)
         {
             if(Game.ENABLE_LOG) System.out.println("Basa");

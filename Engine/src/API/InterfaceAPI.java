@@ -99,7 +99,7 @@ public interface  InterfaceAPI {
     public boolean GetPlayerIsBig(int id);
     public boolean GetPlayerIsSmall(int id);
     public boolean GetPlayerIsHuman(int id);
-    public  int GetPlayerNumOfBuy(int id);
+    public int GetPlayerNumOfBuy(int id);
     public String GetPlayerName(int id);
     public List<Card> GetPlayersCards(int id);
 
