@@ -81,4 +81,23 @@ public interface  InterfaceAPI {
     public boolean IsAnyPlayerOutOfMoney();
     public boolean IsCurrentPlayerNoMoney();
 
+
+    /////API FOR TARGIL 2
+
+    //public int GetCurrentHandNumber(); // TBD -Check
+    public int GetMaxBuys();
+    public int GetSmall();
+    public int GetBig();
+    public int GetPot();
+    public int GetTotalNumberOfPlayers();
+    public int GetFirstPlayerID();
+    public int GetNextPlayerID(int id);
+    public int GetPlayerPot(int id);
+    public int GetPlayerNumOfWins(int id);
+    public boolean GetPlayerIsDealer(int id);
+    public boolean GetPlayerIsBig(int id);
+    public boolean GetPlayerIsSmall(int id);
+    public boolean GetPlayerIsHuman(int id);
+    public  int GetPlayerNumOfBuy(int id);
+
 }

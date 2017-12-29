@@ -1,5 +1,6 @@
 package GameScene.GameData;
 
+import API.InterfaceAPI;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -8,13 +9,47 @@ import java.util.PrimitiveIterator;
 
 public class PlayerData {
 
-    private SimpleIntegerProperty PlaceInTable;
+
+    private InterfaceAPI model;
+    private SimpleIntegerProperty placeInTable;
     private SimpleIntegerProperty numOfChips;
     private SimpleIntegerProperty numOfBuy;
     private SimpleIntegerProperty numOfWins;
     private SimpleBooleanProperty isDealer;
     private SimpleBooleanProperty isBig;
     private SimpleBooleanProperty isSmall;
+    private SimpleBooleanProperty isHuman;
+
+
+
+    private SimpleIntegerProperty id;
+
+
+
+    public PlayerData(InterfaceAPI model, int placeInTable, int id) {
+        this.model = model;
+        this.id = new SimpleIntegerProperty(id);
+        this.placeInTable= new SimpleIntegerProperty(placeInTable);
+        this.numOfChips = new SimpleIntegerProperty(model.GetPlayerPot(id));
+        this.numOfBuy = new SimpleIntegerProperty(model.GetPlayerNumOfBuy(id));
+        this.numOfWins = new SimpleIntegerProperty(model.GetPlayerNumOfWins(id));
+        this.isDealer = new SimpleBooleanProperty(model.GetPlayerIsDealer(id));
+        this.isBig = new SimpleBooleanProperty(model.GetPlayerIsBig(id));
+        this.isSmall = new SimpleBooleanProperty(model.GetPlayerIsSmall(id));
+        this.isHuman = new SimpleBooleanProperty(model.GetPlayerIsHuman(id));
+    }
+
+    public void setNumOfChips() { this.numOfChips.set(model.GetPlayerPot(this.id.get())); }
+
+    public void setNumOfBuy() { this.numOfBuy.set(model.GetPlayerNumOfBuy(this.id.get()));}
+
+    public void setNumOfWins() { this.numOfWins.set(model.GetPlayerNumOfWins(this.id.get())); }
+
+    public void setIsDealer() { this.isDealer.set(model.GetPlayerIsDealer(this.id.get())); }
+
+    public void setIsBig() { this.isBig.set(model.GetPlayerIsBig(this.id.get())); }
+
+    public void setIsSmall() { this.isSmall.set(model.GetPlayerIsSmall(this.id.get())); }
 
     public boolean isIsDealer() {
         return isDealer.get();
@@ -41,11 +76,11 @@ public class PlayerData {
     }
 
     public int getPlaceInTable() {
-        return PlaceInTable.get();
+        return placeInTable.get();
     }
 
     public SimpleIntegerProperty placeInTableProperty() {
-        return PlaceInTable;
+        return placeInTable;
     }
 
     public int getNumOfChips() {
@@ -71,6 +106,10 @@ public class PlayerData {
     public SimpleIntegerProperty numOfWinsProperty() {
         return numOfWins;
     }
+
+    public int getId() { return id.get(); }
+
+    public SimpleIntegerProperty idProperty() { return id; }
 
 }
 
