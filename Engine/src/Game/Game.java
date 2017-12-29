@@ -259,7 +259,7 @@ public class Game implements InterfaceAPI {
     public int GetBig(){
         return this.configuration.getStructure().getBlindes().getBig();
     }
-    
+
     @Override
     public int GetPot(){
         return this.current_hand.GetPot();
