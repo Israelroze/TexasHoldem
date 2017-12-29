@@ -1,10 +1,13 @@
 package GameScene.GameData;
 
 import API.InterfaceAPI;
+import Card.Card;
+import Utils.ImageUtils;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
+import java.util.List;
 import java.util.PrimitiveIterator;
 
 public class PlayerData {
@@ -19,11 +22,14 @@ public class PlayerData {
     private SimpleBooleanProperty isBig;
     private SimpleBooleanProperty isSmall;
     private SimpleBooleanProperty isHuman;
-
-
-
+    private SimpleStringProperty Card1;
+    private SimpleStringProperty Card2;
+    private List<Card> playerCards;
     private SimpleStringProperty playerName;
     private SimpleIntegerProperty id;
+
+    private final String UnknownCardImageName ="UU.png";
+
 
 
     public PlayerData(InterfaceAPI model, int placeInTable, int id) {
@@ -38,9 +44,15 @@ public class PlayerData {
         this.isSmall = new SimpleBooleanProperty(model.GetPlayerIsSmall(id));
         this.isHuman = new SimpleBooleanProperty(model.GetPlayerIsHuman(id));
         this.playerName = new SimpleStringProperty(model.GetPlayerName(id));
+        this.playerCards = model.GetPlayersCards(id);
+        this.Card1 = new SimpleStringProperty();
+        this.Card1 = new SimpleStringProperty(UnknownCardImageName);
+        this.Card2 = new SimpleStringProperty();
+        this.Card2 = new SimpleStringProperty(UnknownCardImageName);
     }
 
     public boolean isIsHuman() { return isHuman.get(); }
+
     public SimpleBooleanProperty isHumanProperty() { return isHuman; }
 
     public String getPlayerName() { return playerName.get(); }
@@ -118,6 +130,28 @@ public class PlayerData {
     public int getId() { return id.get(); }
 
     public SimpleIntegerProperty idProperty() { return id; }
+    public String getCard1() { return Card1.get(); }
+    public SimpleStringProperty card1Property() { return Card1; }
+    public String getCard2() { return Card2.get(); }
+    public SimpleStringProperty card2Property() { return Card2; }
+
+
+
+    private void SetRealCard1() { this.Card1.set(this.playerCards.get(0).toString()); }
+    private void SetRealCard2() { this.Card2.set(this.playerCards.get(0).toString()); }
+    private void HideCard1() { this.Card1.set(this.UnknownCardImageName); }
+    private void HideCard2() { this.Card2.set(this.UnknownCardImageName); }
+
+    public void ShowCard()
+    {
+        SetRealCard1();
+        SetRealCard2();
+    }
+
+    public void HideCards(){
+        HideCard1();
+        HideCard2();
+    }
 
 }
 

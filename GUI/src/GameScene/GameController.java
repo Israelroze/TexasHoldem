@@ -58,6 +58,7 @@ public class GameController implements Initializable {
         {
 
            this.BuildSinglePlayerPane(i,gameData.getOnePlayerDataForBinding(i));
+
         }
 
 
@@ -76,6 +77,10 @@ public class GameController implements Initializable {
         else if(playerData.isIsSmall()) singleController.getTypeLabel().setText("Small");
         else singleController.getTypeLabel().setText("");
 
+        singleController.
+
+
+
 
 
 
@@ -86,17 +91,7 @@ public class GameController implements Initializable {
 
 
 
-        b2.setVisible(false);
-        b3.setVisible(false);
-        b4.setVisible(false);
-        b1.translateXProperty().bind(pane.widthProperty().divide(5));
-        b1.translateYProperty().bind(pane.heightProperty().divide(5));
-        //b2.translateXProperty().bind(pane.heightProperty().multiply());
-//        b2.translateYProperty().bind(pane.widthProperty(). multiply(1/2));
-//        b3.translateXProperty().bind(pane.heightProperty().multiply(1));
-//        b3.translateYProperty().bind(pane.widthProperty(). multiply(1/2));
-//        b4.translateXProperty().bind(pane.heightProperty().multiply(1));
-//        b4.translateYProperty().bind(pane.widthProperty(). multiply(1/2));
+
 
     }
     @FXML protected  void test()

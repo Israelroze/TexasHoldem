@@ -1,16 +1,18 @@
 package GameScene.PlayerCube;
 
+import Utils.ImageUtils;
+import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 
+
 import java.net.URL;
 import java.util.ResourceBundle;
-
+import javafx.scene.image.ImageView;
 
 
 
@@ -22,13 +24,14 @@ public class PlayerCubeController implements Initializable {
     @FXML private Label NumberOfBuyLabel;
     @FXML private Label NumberOfWinsLabel;
 
-    public Pane getCard1() {
-        return Card1;
-    }
 
-    public Pane getCard2() {
-        return Card2;
-    }
+
+    private final String UnknownCardImageName ="UU.png";
+
+
+    ImageView Card1View;
+    ImageView Card2View;
+
 
     public Label getNameLable() {
         return NameLable;
@@ -50,10 +53,9 @@ public class PlayerCubeController implements Initializable {
         return MoneyLabel;
     }
 
+
+
     @FXML private Label MoneyLabel;
-
-
-
 
 
     @FXML
@@ -78,15 +80,22 @@ public class PlayerCubeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+       Card1View = ImageUtils.getImageView(this.UnknownCardImageName);
+       Card1View.fitHeightProperty().bind(Card1.heightProperty());
+       Card1View.fitWidthProperty().bind(Card1.widthProperty());
+        Card2View = ImageUtils.getImageView(this.UnknownCardImageName);
+        Card2View.fitHeightProperty().bind(Card2.heightProperty());
+        Card2View.fitWidthProperty().bind(Card2.widthProperty());
     }
 
 
 
-    public void GetPlayerValues()
+    public void AllUnbind()
     {
 
-
-
+        Card1View.fitHeightProperty().unbind();
+        Card2View.fitHeightProperty().unbind();
+        Card1View.fitWidthProperty().unbind();
+        Card2View.fitWidthProperty().unbind();
     }
 }
