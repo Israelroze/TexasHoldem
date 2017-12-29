@@ -53,6 +53,10 @@ public class GameData {
         return currentHandNumber;
     }
 
+    public int getNumberOfPlayers() {return this.playerData.size();}
+
+    public PlayerData getOnePlayerDataForBinding(int playerIndex) { return  playerData.get(playerIndex); }
+
 
 
     public void LoadPlayers()
@@ -66,13 +70,6 @@ public class GameData {
             current_id=model.GetNextPlayerID(current_id);
         }
     }
-
-
-
-
-
-
-
 
 }
 

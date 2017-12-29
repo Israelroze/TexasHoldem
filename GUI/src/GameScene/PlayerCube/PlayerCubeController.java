@@ -21,7 +21,40 @@ public class PlayerCubeController implements Initializable {
     @FXML private Label TypeLabel;
     @FXML private Label NumberOfBuyLabel;
     @FXML private Label NumberOfWinsLabel;
+
+    public Pane getCard1() {
+        return Card1;
+    }
+
+    public Pane getCard2() {
+        return Card2;
+    }
+
+    public Label getNameLable() {
+        return NameLable;
+    }
+
+    public Label getTypeLabel() {
+        return TypeLabel;
+    }
+
+    public Label getNumberOfBuyLabel() {
+        return NumberOfBuyLabel;
+    }
+
+    public Label getNumberOfWinsLabel() {
+        return NumberOfWinsLabel;
+    }
+
+    public Label getMoneyLabel() {
+        return MoneyLabel;
+    }
+
     @FXML private Label MoneyLabel;
+
+
+
+
 
     @FXML
     void FirstCardPressedHandle(MouseEvent event) {
@@ -47,6 +80,8 @@ public class PlayerCubeController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
     }
+
+
 
     public void GetPlayerValues()
     {

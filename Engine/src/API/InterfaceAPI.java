@@ -6,6 +6,7 @@ import Move.MoveType;
 import Player.PlayerType;
 import ReturnType.CurrentHandState;
 import ReturnType.PlayerStats;
+import Card.Card;
 
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
@@ -99,5 +100,10 @@ public interface  InterfaceAPI {
     public boolean GetPlayerIsSmall(int id);
     public boolean GetPlayerIsHuman(int id);
     public  int GetPlayerNumOfBuy(int id);
+    public String GetPlayerName(int id);
+    public List<Card> GetPlayersCards(int id);
+
+
+
 
 }

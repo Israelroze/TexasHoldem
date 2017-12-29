@@ -22,8 +22,8 @@ public class PlayerData {
 
 
 
+    private SimpleStringProperty playerName;
     private SimpleIntegerProperty id;
-
 
 
     public PlayerData(InterfaceAPI model, int placeInTable, int id) {
@@ -37,7 +37,15 @@ public class PlayerData {
         this.isBig = new SimpleBooleanProperty(model.GetPlayerIsBig(id));
         this.isSmall = new SimpleBooleanProperty(model.GetPlayerIsSmall(id));
         this.isHuman = new SimpleBooleanProperty(model.GetPlayerIsHuman(id));
+        this.playerName = new SimpleStringProperty(model.GetPlayerName(id));
     }
+
+    public boolean isIsHuman() { return isHuman.get(); }
+    public SimpleBooleanProperty isHumanProperty() { return isHuman; }
+
+    public String getPlayerName() { return playerName.get(); }
+
+    public SimpleStringProperty playerNameProperty() { return playerName; }
 
     public void setNumOfChips() { this.numOfChips.set(model.GetPlayerPot(this.id.get())); }
 
