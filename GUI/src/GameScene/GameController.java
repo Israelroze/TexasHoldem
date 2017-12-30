@@ -33,7 +33,6 @@ public class GameController implements Initializable {
     private  List<Node> PlayersNode;
     @FXML private BorderPane gameBorderPane;
     @FXML private ScrollPane scrollPaneForPlayers;
-    @FXML private StackPane stackForGrid;
     @FXML private GridPane playerGrid;
 
 
@@ -67,7 +66,8 @@ public class GameController implements Initializable {
 
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/GameScene/PlayerCube/PlayerCube.fxml"));
+            URL url =getClass().getResource("/GameScene/PlayerCube/PlayerCube.fxml");
+            loader.setLocation(url);
 
             Node singlePlayer = loader.load();
 

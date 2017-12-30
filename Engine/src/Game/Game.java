@@ -288,29 +288,56 @@ public class Game implements InterfaceAPI {
 
     @Override
     public int GetPlayerPot(int id){
-        return this.players.GetPlayer(id).GetMoney();
+        for (APlayer player : players.GetPlayers()) {
+            if (player.getId() == id) return player.GetMoney();
+        }
+        return -1;
+        //return this.players.GetPlayer(id).GetMoney();
     }
 
     @Override
     public int GetPlayerNumOfWins(int id){
-        return this.players.GetPlayer(id).GetNumOfWins();
+        for (APlayer player : players.GetPlayers()) {
+            if (player.getId() == id) return player.GetNumOfWins();
+        }
+            return -1;
+        //return this.players.GetPlayer(id).GetNumOfWins();
     }
 
     @Override
     public boolean GetPlayerIsDealer(int id){
-        if(this.players.GetPlayer(id).GetPlayerState()==PlayerState.DEALER) return true;
+        for (APlayer player : players.GetPlayers()) {
+            if (player.getId() == id ){
+                if (player.GetPlayerState() == PlayerState.DEALER) return true;
+            else return false;
+            }
+        }
+        //if(this.players.GetPlayer(id).GetPlayerState()==PlayerState.DEALER) return true;
         return false;
     }
 
     @Override
     public boolean GetPlayerIsBig(int id){
-        if(this.players.GetPlayer(id).GetPlayerState()==PlayerState.BIG) return true;
+
+        for (APlayer player : players.GetPlayers()) {
+            if (player.getId() == id ){
+                if (player.GetPlayerState() == PlayerState.BIG) return true;
+                else return false;
+            }
+        }
+        //if(this.players.GetPlayer(id).GetPlayerState()==PlayerState.BIG) return true;
         return false;
     }
 
     @Override
     public boolean GetPlayerIsSmall(int id){
-        if(this.players.GetPlayer(id).GetPlayerState()==PlayerState.SMALL) return true;
+        for (APlayer player : players.GetPlayers()) {
+            if (player.getId() == id) {
+                if (player.GetPlayerState() == PlayerState.SMALL) return true;
+                else return false;
+            }
+        }
+        //if(this.players.GetPlayer(id).GetPlayerState()==PlayerState.SMALL) return true;
         return false;
     }
 
@@ -323,26 +350,46 @@ public class Game implements InterfaceAPI {
             if (player.getId() == id && player.GetType() == PlayerType.HUMAN)
                 return true;
         }
-       // if(this.players.GetPlayer(id).GetType()==PlayerType.HUMAN) return true;
+       //if(this.players.GetPlayer(id).GetType()==PlayerType.HUMAN) return true;
         return false;
     }
 
     @Override
     public int GetPlayerNumOfBuy(int id){
-        return this.players.GetPlayer(id).GetNumOfBuys();
+
+        for (APlayer player : players.GetPlayers()) {
+            if (player.getId() == id ) return player.GetNumOfBuys();
+        }
+        //return this.players.GetPlayer(id).GetNumOfBuys();
+        return -1;
     }
 
     @Override
     public String GetPlayerName(int id){
-        return this.players.GetPlayer(id).GetName();
+        for (APlayer player : players.GetPlayers())
+        {
+            if (player.getId() == id ) return player.GetName();
+
+        }
+        return "I have No Name";
     }
 
     @Override
     public List<Card> GetPlayersCards(int id){
         List<Card> cards=new LinkedList<Card>();
-        Card[] arr=this.players.GetPlayer(id).GetCards();
-        cards.add(arr[0]);
-        cards.add(arr[1]);
+        for (APlayer player : players.GetPlayers())
+        {
+            if (player.getId() == id ) {
+                cards.add(player.GetCards()[0]);
+                cards.add(player.GetCards()[1]);
+            }
+
+        }
+
+
+      // this.players.GetPlayer(id).GetCards();
+        //cards.add(arr[0]);
+        //cards.add(arr[1]);
         return cards;
     }
 

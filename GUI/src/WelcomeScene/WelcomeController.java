@@ -65,19 +65,22 @@ public class WelcomeController implements Initializable {
     }
 
     @FXML protected void handleLoadFromXmlFileButtonAction(ActionEvent event) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Select XML file");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("xml files", "*.xml"));
-        File selectedFile = fileChooser.showOpenDialog(primaryStage);
-        if (selectedFile == null) {
-            return;
-        }
-        String absolutePath = selectedFile.getAbsolutePath();
-        System.out.println(absolutePath);
-        selectedFileProperty.set(absolutePath);
-        isFileSelected.set(true);
+//        FileChooser fileChooser = new FileChooser();
+//        fileChooser.setTitle("Select XML file");
+//        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("xml files", "*.xml"));
+//        File selectedFile = fileChooser.showOpenDialog(primaryStage);
+//        if (selectedFile == null) {
+//            return;
+//        }
+//        String absolutePath = selectedFile.getAbsolutePath();
+//        System.out.println(absolutePath);
+//        selectedFileProperty.set(absolutePath);
+//        isFileSelected.set(true);
 
-        LoadXMLFile(absolutePath);
+        //LoadXMLFile(absolutePath);
+
+        // /for testing
+        LoadXMLFile("C:\\Users\\Avishay\\Desktop\\ex1-basic.xml");
 
     }
 

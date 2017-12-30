@@ -50,13 +50,13 @@ public class PlayerData {
         this.isSmall = new SimpleBooleanProperty(false);
         this.isHuman = new SimpleBooleanProperty(model.GetPlayerIsHuman(id));
         this.playerName = new SimpleStringProperty(model.GetPlayerName(id));
-        this.playerCards = model.GetPlayersCards(id);
-        this.Card1 = new SimpleStringProperty();
+        //this.playerCards = model.GetPlayersCards(id);
         this.Card1 = new SimpleStringProperty(UnknownCardImageName);
-        this.Card2 = new SimpleStringProperty();
         this.Card2 = new SimpleStringProperty(UnknownCardImageName);
 
     }
+
+    public void getCardForPlayer() { this.playerCards = model.GetPlayersCards(this.getId()); }
 
     public boolean isIsHuman() { return isHuman.get(); }
 
