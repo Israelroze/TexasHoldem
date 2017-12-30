@@ -1,7 +1,9 @@
 package GameScene.PlayerCube;
 
+import Card.Card;
 import Utils.ImageUtils;
 import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -26,11 +28,30 @@ public class PlayerCubeController implements Initializable {
 
 
 
+    private ImageView Card1View;
+    private ImageView Card2View;
     private final String UnknownCardImageName ="UU.png";
+    private String firstCardName;
+    private String secondCardName;
+
+    private int PlayerId;
 
 
-    ImageView Card1View;
-    ImageView Card2View;
+    public void setCards(String card1, String card2)
+    {
+        firstCardName = card1 + ".png";
+        secondCardName= card2+ ".png";
+    }
+    public void setPlayerId(int id) { this.PlayerId = id; }
+
+
+    public int getCurrentPlayerId() { return CurrentPlayerId.get(); }
+
+    public SimpleIntegerProperty currentPlayerIdProperty() { return CurrentPlayerId; }
+
+    private SimpleIntegerProperty CurrentPlayerId;
+
+
 
 
     public Label getNameLable() {
@@ -57,30 +78,39 @@ public class PlayerCubeController implements Initializable {
 
     @FXML private Label MoneyLabel;
 
+    private void ShowCards()
+    {
+        if (this.CurrentPlayerId.get() == this.PlayerId)
+        {
+            Card1View.setImage(ImageUtils.getImage(this.firstCardName));
+            Card2View.setImage(ImageUtils.getImage(this.secondCardName));
+        }
 
-    @FXML
-    void FirstCardPressedHandle(MouseEvent event) {
-
+    }
+    private void HideCards()
+    {
+        Card1View = ImageUtils.getImageView(this.UnknownCardImageName);
+        Card2View = ImageUtils.getImageView(this.UnknownCardImageName);
     }
 
     @FXML
-    void FirstCardReleasedHandle(MouseEvent event) {
-
-    }
+    void FirstCardPressedHandle(MouseEvent event) { ShowCards(); }
 
     @FXML
-    void SecondCardPressedHandle(MouseEvent event) {
-
-    }
+    void FirstCardReleasedHandle(MouseEvent event) { HideCards(); }
 
     @FXML
-    void SecondCardReleasedHandle(MouseEvent event){
+    void SecondCardPressedHandle(MouseEvent event) { ShowCards(); }
 
-    }
+    @FXML
+    void SecondCardReleasedHandle(MouseEvent event){ HideCards(); }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-       Card1View = ImageUtils.getImageView(this.UnknownCardImageName);
+        CurrentPlayerId = new SimpleIntegerProperty(0);
+
+        HideCards();
+
        Card1View.fitHeightProperty().bind(Card1.heightProperty());
        Card1View.fitWidthProperty().bind(Card1.widthProperty());
         Card2View = ImageUtils.getImageView(this.UnknownCardImageName);

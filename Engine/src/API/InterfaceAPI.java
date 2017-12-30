@@ -43,8 +43,9 @@ public interface  InterfaceAPI {
     public int GetMoneyInGame();
 
     //Bid related API's
-    public boolean IsHumanPlayerFolded();
     public void StartNewBidCycle() throws NoSufficientMoneyException;
+
+    public boolean IsHumanPlayerFolded();
 
     public boolean IsCurrentBidCycleFinished();
 
@@ -92,6 +93,7 @@ public interface  InterfaceAPI {
     public int GetPot();
     public int GetTotalNumberOfPlayers();
     public int GetFirstPlayerID();
+    public int GetCurrentPlayerID();
     public int GetNextPlayerID(int id);
     public int GetPlayerPot(int id);
     public int GetPlayerNumOfWins(int id);

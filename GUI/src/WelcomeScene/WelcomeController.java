@@ -125,7 +125,10 @@ public class WelcomeController implements Initializable {
             n.setLocation(url);
             Parent root1 = n.load();
             GameController gameController = n.getController();
-            setModel(this.model);
+            gameController.setModel(model);
+            model.StartGame();
+
+            gameController.StartGameView();
             setPrimaryStage(this.primaryStage);
             Scene scene = new Scene(root1, 1000, 600);
             primaryStage.setScene(scene);

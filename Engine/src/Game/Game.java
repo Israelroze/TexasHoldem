@@ -316,7 +316,14 @@ public class Game implements InterfaceAPI {
 
     @Override
     public boolean GetPlayerIsHuman(int id){
-        if(this.players.GetPlayer(id).GetType()==PlayerType.HUMAN) return true;
+
+        //Avishay Changes
+        for (APlayer player : players.GetPlayers())
+        {
+            if (player.getId() == id && player.GetType() == PlayerType.HUMAN)
+                return true;
+        }
+       // if(this.players.GetPlayer(id).GetType()==PlayerType.HUMAN) return true;
         return false;
     }
 
@@ -349,6 +356,11 @@ public class Game implements InterfaceAPI {
         {
             player.setFoldedFlag(false);
         }
+    }
+
+    @Override
+    public int GetCurrentPlayerID(){
+       return this.current_hand.GetCurrentPlayer().getId();
     }
 
     @Override

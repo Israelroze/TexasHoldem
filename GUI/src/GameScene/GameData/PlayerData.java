@@ -36,12 +36,18 @@ public class PlayerData {
         this.model = model;
         this.id = new SimpleIntegerProperty(id);
         this.placeInTable= new SimpleIntegerProperty(placeInTable);
-        this.numOfChips = new SimpleIntegerProperty(model.GetPlayerPot(id));
-        this.numOfBuy = new SimpleIntegerProperty(model.GetPlayerNumOfBuy(id));
-        this.numOfWins = new SimpleIntegerProperty(model.GetPlayerNumOfWins(id));
-        this.isDealer = new SimpleBooleanProperty(model.GetPlayerIsDealer(id));
-        this.isBig = new SimpleBooleanProperty(model.GetPlayerIsBig(id));
-        this.isSmall = new SimpleBooleanProperty(model.GetPlayerIsSmall(id));
+//        this.numOfChips = new SimpleIntegerProperty(model.GetPlayerPot(id));
+//        this.numOfBuy = new SimpleIntegerProperty(model.GetPlayerNumOfBuy(id));
+//        this.numOfWins = new SimpleIntegerProperty(model.GetPlayerNumOfWins(id));
+//        this.isDealer = new SimpleBooleanProperty(model.GetPlayerIsDealer(id));
+//        this.isBig = new SimpleBooleanProperty(model.GetPlayerIsBig(id));
+//        this.isSmall = new SimpleBooleanProperty(model.GetPlayerIsSmall(id));
+        this.numOfChips = new SimpleIntegerProperty(0);
+        this.numOfBuy = new SimpleIntegerProperty(0);
+        this.numOfWins = new SimpleIntegerProperty(0);
+        this.isDealer = new SimpleBooleanProperty(false);
+        this.isBig = new SimpleBooleanProperty(false);
+        this.isSmall = new SimpleBooleanProperty(false);
         this.isHuman = new SimpleBooleanProperty(model.GetPlayerIsHuman(id));
         this.playerName = new SimpleStringProperty(model.GetPlayerName(id));
         this.playerCards = model.GetPlayersCards(id);
@@ -49,6 +55,7 @@ public class PlayerData {
         this.Card1 = new SimpleStringProperty(UnknownCardImageName);
         this.Card2 = new SimpleStringProperty();
         this.Card2 = new SimpleStringProperty(UnknownCardImageName);
+
     }
 
     public boolean isIsHuman() { return isHuman.get(); }

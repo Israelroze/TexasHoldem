@@ -16,13 +16,21 @@ public class GameData {
     private InterfaceAPI model;
     private List<PlayerData> playerData;
 
+
+
+    private SimpleIntegerProperty currentPlayerId;
+
+
     public GameData (InterfaceAPI model)
     {
+        this.model = model;
         this.big = new SimpleIntegerProperty(model.GetBig());
         this.small = new SimpleIntegerProperty(model.GetSmall());
-        this.maxPot = new SimpleIntegerProperty(model.GetPot());
+        //this.maxPot = new SimpleIntegerProperty(model.GetPot()); // the game has not started
+        this.maxPot = new SimpleIntegerProperty(0);
         this.currentHandNumber = new SimpleIntegerProperty(model.GetCurrentHandNumber());
-        this.model = model;
+        currentPlayerId = new SimpleIntegerProperty(-1);
+
         this.LoadPlayers();
     }
     //Setters
@@ -30,11 +38,18 @@ public class GameData {
 
     public void setMaxPot() { this.maxPot.set(model.GetPot()); }
 
+    public void setCurrentPlayerId() { this.currentPlayerId.set(model.GetCurrentPlayerID()); }
+
     public void setBig() { this.big.set(model.GetBig()); }
 
     public void setSmall() { this.small.set(model.GetSmall());}
 
     //Getters
+
+    public int getCurrentPlayerId() { return currentPlayerId.get(); }
+
+    public SimpleIntegerProperty currentPlayerIdProperty() { return currentPlayerId; }
+
     public int getMaxPot() { return maxPot.get(); }
 
     public SimpleIntegerProperty maxPotProperty() { return maxPot; }

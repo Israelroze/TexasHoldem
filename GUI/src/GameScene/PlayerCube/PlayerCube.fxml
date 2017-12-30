@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<HBox xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<HBox xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane fx:id="Card1" onKeyReleased="#FirstCardReleasedHandle" onMousePressed="#FirstCardPressedHandle" onMouseReleased="#FirstCardReleasedHandle" />
+      <Pane fx:id="Card1" onMousePressed="#FirstCardPressedHandle" onMouseReleased="#FirstCardReleasedHandle" />
       <Pane fx:id="Card2" onMousePressed="#SecondCardPressedHandle" onMouseReleased="#SecondCardReleasedHandle" />
       <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
         <columnConstraints>
