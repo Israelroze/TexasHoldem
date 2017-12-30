@@ -99,6 +99,8 @@ public class GameController implements Initializable {
             Node MenuBox = loader.load();
 
             MainOptionController MenuContorller=loader.getController();
+            MenuContorller.ConnectToMainGame(this);
+
             this.MainOptionVbox.setAlignment(Pos.CENTER);
             MenuContorller.SetRequiredButton(true,false,true,false);
             MenuContorller.HideButton();
@@ -137,6 +139,24 @@ public class GameController implements Initializable {
 
 
     }
+
+    public void OnClickStart() {
+
+    }
+
+    public void OnClickHand() {
+
+    }
+
+    public void OnClickBack() {
+
+
+    }
+
+    public void OnClickReplay(){
+
+    }
+
 
     public void StartGameView () {
         this.gameData = new GameData(model);
