@@ -62,9 +62,17 @@ public class APlayers {
         return this.aplayers.get(0).getId();
     }
 
-    public APlayer GetPlayer(int index)
+    public APlayer GetPlayer(int id)
     {
-        return aplayers.get(index);
+        for(APlayer player: this.aplayers)
+        {
+            if(player.getId()==id)
+            {
+                return player;
+            }
+        }
+        return null;
+        //return aplayers.get(index);
     }
 
     public APlayer GetNextPlayer(APlayer player)

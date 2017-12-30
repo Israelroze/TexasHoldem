@@ -2,80 +2,81 @@ package GameScene.GameData;
 
 import API.InterfaceAPI;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class GameData {
 
-
-    private SimpleIntegerProperty currentHandNumber;
-    private SimpleIntegerProperty maxPot;
-    private SimpleIntegerProperty big;
-    private SimpleIntegerProperty small;
+    private SimpleStringProperty currentHandNumber;
+    private SimpleStringProperty maxPot;
+    private SimpleStringProperty big;
+    private SimpleStringProperty small;
     private InterfaceAPI model;
     private List<PlayerData> playerData;
-
-
-
     private SimpleIntegerProperty currentPlayerId;
 
 
-    public GameData (InterfaceAPI model)
-    {
+    public GameData (InterfaceAPI model) {
         this.model = model;
-        this.big = new SimpleIntegerProperty(model.GetBig());
-        this.small = new SimpleIntegerProperty(model.GetSmall());
-        //this.maxPot = new SimpleIntegerProperty(model.GetPot()); // the game has not started
-        this.maxPot = new SimpleIntegerProperty(0);
-        this.currentHandNumber = new SimpleIntegerProperty(model.GetCurrentHandNumber());
+        this.big = new SimpleStringProperty("Big "+(Integer.toString(model.GetBig())));
+        this.small = new SimpleStringProperty("Small "+(Integer.toString(model.GetSmall()) ));
+        this.maxPot = new SimpleStringProperty("Game Money "+(Integer.toString(0)));
+        this.currentHandNumber = new SimpleStringProperty("Hand Number "+(Integer.toString(model.GetCurrentHandNumber())));
         currentPlayerId = new SimpleIntegerProperty(-1);
 
         this.LoadPlayers();
     }
-    //Setters
-    public void setCurrentHandNumber() { this.currentHandNumber.set(model.GetCurrentHandNumber()); }
 
-    public void setMaxPot() { this.maxPot.set(model.GetPot()); }
+    //Setters
+
+    public void setCurrentHandNumber() { this.currentHandNumber.set((Integer.toString(model.GetCurrentHandNumber()) + " Hand Number")); }
+
+    public void setMaxPot() { this.maxPot.set((Integer.toString(model.GetMaxBuys()) + " Game Money")); }
+
+    public void setBig() { this.big.set((Integer.toString(model.GetBig()) + " Big")); }
+
+    public void setSmall() { this.small.set((Integer.toString(model.GetSmall()) + " Small"));}
 
     public void setCurrentPlayerId() { this.currentPlayerId.set(model.GetCurrentPlayerID()); }
 
-    public void setBig() { this.big.set(model.GetBig()); }
-
-    public void setSmall() { this.small.set(model.GetSmall());}
 
     //Getters
+
+    public int getMaxPot() { return model.GetMaxBuys();}
+
+    public SimpleStringProperty maxPotProperty() { return maxPot; }
+
+
+    public int getBig() { return model.GetBig(); }
+
+    public SimpleStringProperty bigProperty() { return big; }
+
+
+    public int getSmall() { return model.GetSmall(); }
+
+    public SimpleStringProperty smallProperty() { return small; }
+
+
+    public int getCurrentHandNumber() { return model.GetCurrentHandNumber(); }
+
+    public SimpleStringProperty currentHandNumberProperty() {
+        return currentHandNumber;
+    }
+
 
     public int getCurrentPlayerId() { return currentPlayerId.get(); }
 
     public SimpleIntegerProperty currentPlayerIdProperty() { return currentPlayerId; }
 
-    public int getMaxPot() { return maxPot.get(); }
-
-    public SimpleIntegerProperty maxPotProperty() { return maxPot; }
-
-    public int getBig() { return big.get(); }
-
-    public SimpleIntegerProperty bigProperty() { return big; }
-
-    public int getSmall() { return small.get(); }
-
-    public SimpleIntegerProperty smallProperty() { return small; }
-
-    public int getCurrentHandNumber() { return currentHandNumber.get(); }
-
-    public SimpleIntegerProperty currentHandNumberProperty() {
-        return currentHandNumber;
-    }
 
     public int getNumberOfPlayers() {return this.playerData.size();}
 
+
     public PlayerData getOnePlayerDataForBinding(int playerIndex) { return  playerData.get(playerIndex); }
 
-
-
-    public void LoadPlayers()
-    {
+    public void LoadPlayers() {
         playerData=new LinkedList<>();
         int current_id=model.GetFirstPlayerID();
 

@@ -25,33 +25,35 @@ public class PlayerCubeController implements Initializable {
     @FXML private Label TypeLabel;
     @FXML private Label NumberOfBuyLabel;
     @FXML private Label NumberOfWinsLabel;
-
-
+    @FXML private Label MoneyLabel;
 
     private ImageView Card1View;
     private ImageView Card2View;
     private final String UnknownCardImageName ="UU.png";
     private String firstCardName;
     private String secondCardName;
-
     private int PlayerId;
 
 
-    public void setCards(String card1, String card2)
-    {
+    public void setCards(String card1, String card2) {
         firstCardName = card1 + ".png";
         secondCardName= card2+ ".png";
+        Card1View.fitHeightProperty().bind(Card1.heightProperty());
+        Card1View.fitWidthProperty().bind(Card1.widthProperty());
+        Card2View = ImageUtils.getImageView(this.UnknownCardImageName);
+        Card2View.fitHeightProperty().bind(Card2.heightProperty());
+        Card2View.fitWidthProperty().bind(Card2.widthProperty());
+        Card1.getChildren().add(Card1View);
+        Card2.getChildren().add(Card2View);
     }
-    public void setPlayerId(int id) { this.PlayerId = id; }
 
+    public void setPlayerId(int id) { this.PlayerId = id; }
 
     public int getCurrentPlayerId() { return CurrentPlayerId.get(); }
 
     public SimpleIntegerProperty currentPlayerIdProperty() { return CurrentPlayerId; }
 
     private SimpleIntegerProperty CurrentPlayerId;
-
-
 
 
     public Label getNameLable() {
@@ -74,12 +76,7 @@ public class PlayerCubeController implements Initializable {
         return MoneyLabel;
     }
 
-
-
-    @FXML private Label MoneyLabel;
-
-    private void ShowCards()
-    {
+    private void ShowCards() {
         if (this.CurrentPlayerId.get() == this.PlayerId)
         {
             Card1View.setImage(ImageUtils.getImage(this.firstCardName));
@@ -87,8 +84,8 @@ public class PlayerCubeController implements Initializable {
         }
 
     }
-    private void HideCards()
-    {
+
+    private void HideCards() {
         Card1View = ImageUtils.getImageView(this.UnknownCardImageName);
         Card2View = ImageUtils.getImageView(this.UnknownCardImageName);
     }
@@ -108,20 +105,10 @@ public class PlayerCubeController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         CurrentPlayerId = new SimpleIntegerProperty(0);
-
         HideCards();
-
-       Card1View.fitHeightProperty().bind(Card1.heightProperty());
-       Card1View.fitWidthProperty().bind(Card1.widthProperty());
-        Card2View = ImageUtils.getImageView(this.UnknownCardImageName);
-        Card2View.fitHeightProperty().bind(Card2.heightProperty());
-        Card2View.fitWidthProperty().bind(Card2.widthProperty());
     }
 
-
-
-    public void AllUnbind()
-    {
+    public void AllUnbind() {
 
         Card1View.fitHeightProperty().unbind();
         Card2View.fitHeightProperty().unbind();

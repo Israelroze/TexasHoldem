@@ -283,7 +283,8 @@ public class Game implements InterfaceAPI {
 
     @Override
     public int GetNextPlayerID(int id){
-        return this.players.GetNextPlayer(id).getId();
+        return this.players.GetNextPlayer(this.players.GetPlayer(id)).getId();
+        //return this.players.GetNextPlayer(id).getId();
     }
 
     @Override
@@ -345,12 +346,12 @@ public class Game implements InterfaceAPI {
     public boolean GetPlayerIsHuman(int id){
 
         //Avishay Changes
-        for (APlayer player : players.GetPlayers())
-        {
-            if (player.getId() == id && player.GetType() == PlayerType.HUMAN)
-                return true;
-        }
-       //if(this.players.GetPlayer(id).GetType()==PlayerType.HUMAN) return true;
+//        for (APlayer player : players.GetPlayers())
+//        {
+//            if (player.getId() == id && player.GetType() == PlayerType.HUMAN)
+//                return true;
+//        }
+        if(this.players.GetPlayer(id).GetType()==PlayerType.HUMAN) return true;
         return false;
     }
 

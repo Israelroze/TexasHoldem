@@ -1,55 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.geometry.Point3D?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameScene.GameController">
+<ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="827.0" prefWidth="1185.0" stylesheets="@Game.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameScene.GameController">
    <content>
       <BorderPane fx:id="gameBorderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">
          <right>
-            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+            <VBox fx:id="StatusPane" BorderPane.alignment="CENTER" />
          </right>
-         <left>
-            <ButtonBar prefHeight="398.0" prefWidth="69.0" BorderPane.alignment="CENTER">
-              <buttons>
-                <Button alignment="BOTTOM_CENTER" contentDisplay="TOP" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#test" text="TestGame" textAlignment="CENTER" textOverrun="CENTER_WORD_ELLIPSIS">
-                     <rotationAxis>
-                        <Point3D />
-                     </rotationAxis></Button>
-              </buttons>
-            </ButtonBar>
-         </left>
          <center>
-            <ScrollPane fx:id="scrollPaneForPlayers" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="321.0" prefWidth="460.0" BorderPane.alignment="CENTER">
                <content>
-                  <GridPane fx:id="playerGrid" alignment="CENTER" hgap="100.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" vgap="70.0">
+                  <GridPane fx:id="playerGrid" alignment="CENTER" hgap="50.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" styleClass="TableView" vgap="30.0">
                     <columnConstraints>
                       <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="100.0" />
                       <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="100.0" />
                         <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints maxHeight="1.7976931348623157E308" minHeight="100.0" prefHeight="100.0" valignment="CENTER" vgrow="ALWAYS" />
-                      <RowConstraints maxHeight="1.7976931348623157E308" minHeight="100.0" prefHeight="100.0" valignment="CENTER" vgrow="ALWAYS" />
+                      <RowConstraints maxHeight="1.7976931348623157E308" minHeight="100.0" prefHeight="103.0" valignment="CENTER" vgrow="ALWAYS" />
+                      <RowConstraints maxHeight="1.7976931348623157E308" minHeight="52.0" prefHeight="97.0" valignment="CENTER" vgrow="ALWAYS" />
                     </rowConstraints>
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                      <padding>
-                        <Insets top="20.0" />
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </GridPane>
                </content>
             </ScrollPane>
          </center>
+         <bottom>
+            <HBox fx:id="BetOptionsAnchor" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+            </HBox>
+         </bottom>
+         <left>
+            <VBox fx:id="MainOptionVbox" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+         </left>
       </BorderPane>
    </content>
 </ScrollPane>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -7,13 +8,10 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<HBox xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameScene.PlayerCube.PlayerCubeController">
+<HBox stylesheets="@PlayerCube.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameScene.PlayerCube.PlayerCubeController">
    <children>
-      <Pane fx:id="Card1" onMousePressed="#FirstCardPressedHandle" onMouseReleased="#FirstCardReleasedHandle" />
-      <Pane fx:id="Card2" onMousePressed="#SecondCardPressedHandle" onMouseReleased="#SecondCardReleasedHandle" />
       <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
@@ -24,17 +22,21 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="NameLable" alignment="CENTER" contentDisplay="CENTER" text="Name" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-            <Label fx:id="TypeLabel" alignment="CENTER" text="Type" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <Label fx:id="NumberOfBuyLabel" alignment="CENTER" text="Number of Buy" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-            <Label fx:id="NumberOfWinsLabel" alignment="CENTER" text="Number of Wins" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-            <Label fx:id="MoneyLabel" alignment="CENTER" text="Money" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-            <Label fx:id="NameLable1" alignment="CENTER" contentDisplay="CENTER" layoutX="144.0" layoutY="17.0" text="Name:" />
-            <Label fx:id="TypeLabel1" alignment="CENTER" layoutX="147.0" layoutY="47.0" text="Type:" GridPane.rowIndex="1" />
-            <Label fx:id="NumberOfWinsLabel1" alignment="CENTER" layoutX="117.0" layoutY="107.0" text="Number of Wins:" GridPane.rowIndex="3" />
-            <Label fx:id="MoneyLabel1" alignment="CENTER" layoutX="142.0" layoutY="137.0" text="Money:" GridPane.rowIndex="4" />
-            <Label text="Number of Buy:" GridPane.rowIndex="2" />
+            <Label fx:id="NameLable" alignment="CENTER" contentDisplay="CENTER" stylesheets="@PlayerCube.css" text="Name" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <Label fx:id="TypeLabel" alignment="CENTER" text="Type" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Label fx:id="NumberOfBuyLabel" alignment="CENTER" text="Number of Buy" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <Label fx:id="NumberOfWinsLabel" alignment="CENTER" text="Number of Wins" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+            <Label fx:id="MoneyLabel" alignment="CENTER" text="Money" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
+      <Pane fx:id="Card1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMousePressed="#FirstCardPressedHandle" onMouseReleased="#FirstCardReleasedHandle" prefHeight="72.6" prefWidth="50.0">
+         <HBox.margin>
+            <Insets top="73.0" />
+         </HBox.margin></Pane>
+      <Pane fx:id="Card2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMousePressed="#SecondCardPressedHandle" onMouseReleased="#SecondCardReleasedHandle" prefHeight="72.6" prefWidth="50.0">
+         <HBox.margin>
+            <Insets top="73.0" />
+         </HBox.margin>
+      </Pane>
    </children>
 </HBox>

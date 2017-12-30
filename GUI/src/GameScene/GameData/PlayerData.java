@@ -15,9 +15,12 @@ public class PlayerData {
 
     private InterfaceAPI model;
     private SimpleIntegerProperty placeInTable;
-    private SimpleIntegerProperty numOfChips;
-    private SimpleIntegerProperty numOfBuy;
-    private SimpleIntegerProperty numOfWins;
+    private SimpleStringProperty numOfChips;
+    private SimpleStringProperty numOfBuy;
+    private SimpleStringProperty numOfWins;
+
+    private SimpleIntegerProperty id;
+
     private SimpleBooleanProperty isDealer;
     private SimpleBooleanProperty isBig;
     private SimpleBooleanProperty isSmall;
@@ -26,7 +29,6 @@ public class PlayerData {
     private SimpleStringProperty Card2;
     private List<Card> playerCards;
     private SimpleStringProperty playerName;
-    private SimpleIntegerProperty id;
 
     private final String UnknownCardImageName ="UU.png";
 
@@ -36,18 +38,18 @@ public class PlayerData {
         this.model = model;
         this.id = new SimpleIntegerProperty(id);
         this.placeInTable= new SimpleIntegerProperty(placeInTable);
-//        this.numOfChips = new SimpleIntegerProperty(model.GetPlayerPot(id));
-//        this.numOfBuy = new SimpleIntegerProperty(model.GetPlayerNumOfBuy(id));
-//        this.numOfWins = new SimpleIntegerProperty(model.GetPlayerNumOfWins(id));
-//        this.isDealer = new SimpleBooleanProperty(model.GetPlayerIsDealer(id));
-//        this.isBig = new SimpleBooleanProperty(model.GetPlayerIsBig(id));
-//        this.isSmall = new SimpleBooleanProperty(model.GetPlayerIsSmall(id));
-        this.numOfChips = new SimpleIntegerProperty(0);
-        this.numOfBuy = new SimpleIntegerProperty(0);
-        this.numOfWins = new SimpleIntegerProperty(0);
-        this.isDealer = new SimpleBooleanProperty(false);
-        this.isBig = new SimpleBooleanProperty(false);
-        this.isSmall = new SimpleBooleanProperty(false);
+        this.numOfChips = new SimpleStringProperty(Integer.toString(model.GetPlayerPot(id)) + " Chips");
+        this.numOfBuy = new SimpleStringProperty(Integer.toString(model.GetPlayerNumOfBuy(id)) + " Buys");
+        this.numOfWins = new SimpleStringProperty(Integer.toString(model.GetPlayerNumOfWins(id)) + " Wins");
+        this.isDealer = new SimpleBooleanProperty(model.GetPlayerIsDealer(id));
+        this.isBig = new SimpleBooleanProperty(model.GetPlayerIsBig(id));
+        this.isSmall = new SimpleBooleanProperty(model.GetPlayerIsSmall(id));
+//        this.numOfChips = new SimpleIntegerProperty(0);
+//        this.numOfBuy = new SimpleIntegerProperty(0);
+//        this.numOfWins = new SimpleIntegerProperty(0);
+//        this.isDealer = new SimpleBooleanProperty(false);
+//        this.isBig = new SimpleBooleanProperty(false);
+//        this.isSmall = new SimpleBooleanProperty(false);
         this.isHuman = new SimpleBooleanProperty(model.GetPlayerIsHuman(id));
         this.playerName = new SimpleStringProperty(model.GetPlayerName(id));
         //this.playerCards = model.GetPlayersCards(id);
@@ -66,11 +68,11 @@ public class PlayerData {
 
     public SimpleStringProperty playerNameProperty() { return playerName; }
 
-    public void setNumOfChips() { this.numOfChips.set(model.GetPlayerPot(this.id.get())); }
+    public void setNumOfChips() { this.numOfChips.set(Integer.toString(model.GetPlayerPot(this.id.get())) + " Chips"); }
 
-    public void setNumOfBuy() { this.numOfBuy.set(model.GetPlayerNumOfBuy(this.id.get()));}
+    public void setNumOfBuy() { this.numOfChips.set(Integer.toString(model.GetPlayerNumOfBuy(this.id.get())) + " Buys");}
 
-    public void setNumOfWins() { this.numOfWins.set(model.GetPlayerNumOfWins(this.id.get())); }
+    public void setNumOfWins() { this.numOfChips.set(Integer.toString(model.GetPlayerNumOfWins(this.id.get())) + " Wins"); }
 
     public void setIsDealer() { this.isDealer.set(model.GetPlayerIsDealer(this.id.get())); }
 
@@ -111,26 +113,22 @@ public class PlayerData {
     }
 
     public int getNumOfChips() {
-        return numOfChips.get();
+        return model.GetPlayerPot(this.id.get()); }
+
+    public int getNumOfBuy() { return model.GetPlayerNumOfBuy(this.id.get()); }
+    public int getNumOfWins() {
+        return model.GetPlayerNumOfWins(this.id.get());
     }
 
-    public SimpleIntegerProperty numOfChipsProperty() {
+    public SimpleStringProperty numOfChipsProperty() {
         return numOfChips;
     }
 
-    public int getNumOfBuy() {
-        return numOfBuy.get();
-    }
-
-    public SimpleIntegerProperty numOfBuyProperty() {
+    public SimpleStringProperty numOfBuyProperty() {
         return numOfBuy;
     }
 
-    public int getNumOfWins() {
-        return numOfWins.get();
-    }
-
-    public SimpleIntegerProperty numOfWinsProperty() {
+    public SimpleStringProperty numOfWinsProperty() {
         return numOfWins;
     }
 
