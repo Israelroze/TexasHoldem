@@ -1,6 +1,7 @@
 package GameScene.GameData;
 
 import API.InterfaceAPI;
+import GameScene.PlayerCube.PlayerCubeController;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -30,27 +31,7 @@ public class GameData {
     }
 
 
-    public PlayerData GetPlayerData(int id) {
-        for( PlayerData pd:this.playerData)
-        {
-            if(pd.getId()==id)
-            {
-                return pd;
-            }
-        }
-        return null;
-    }
-
     //Setters
-    public void setCurrentHandNumber() { this.currentHandNumber.set((Integer.toString(model.GetCurrentHandNumber()) + " Hand Number")); }
-
-    public HandData getCurrentHand() {
-        return this.currentHand;
-    }
-
-    public void setCurrentHand() {
-        this.currentHand=new HandData(this.model);
-    }
 
     public void setMaxPot() { this.maxPot.set((Integer.toString(model.GetMaxBuys()) + " Game Money")); }
 
@@ -63,38 +44,52 @@ public class GameData {
         this.currentHand.setCurrent_player_id();
     }
 
+    public void setCurrentHandNumber() { this.currentHandNumber.set((Integer.toString(model.GetCurrentHandNumber()) + " Hand Number")); }
+
+    public void setCurrentHand() {
+        this.currentHand=new HandData(this.model);
+    }
+
 
     //Getters
+    public PlayerData GetPlayerData(int id) {
+        for( PlayerData pd:this.playerData)
+        {
+            if(pd.getId()==id)
+            {
+                return pd;
+            }
+        }
+        return null;
+    }
+
+    public HandData getCurrentHand() {
+        return this.currentHand;
+    }
 
     public int getMaxPot() { return model.GetMaxBuys();}
 
-    public SimpleStringProperty maxPotProperty() { return maxPot; }
-
-
     public int getBig() { return model.GetBig(); }
-
-    public SimpleStringProperty bigProperty() { return big; }
-
 
     public int getSmall() { return model.GetSmall(); }
 
+    public int getCurrentHandNumber() { return model.GetCurrentHandNumber(); }
+
+    public int getCurrentPlayerId() { return currentPlayerId.get(); }
+
+    public int getNumberOfPlayers() {return this.playerData.size();}
+
+    public SimpleStringProperty bigProperty() { return big; }
+
     public SimpleStringProperty smallProperty() { return small; }
 
-
-    public int getCurrentHandNumber() { return model.GetCurrentHandNumber(); }
+    public SimpleStringProperty maxPotProperty() { return maxPot; }
 
     public SimpleStringProperty currentHandNumberProperty() {
         return currentHandNumber;
     }
 
-
-    public int getCurrentPlayerId() { return currentPlayerId.get(); }
-
     public SimpleIntegerProperty currentPlayerIdProperty() { return this.currentPlayerId; }
-
-
-    public int getNumberOfPlayers() {return this.playerData.size();}
-
 
     public PlayerData getOnePlayerDataForBinding(int playerIndex) { return  playerData.get(playerIndex); }
 
@@ -108,6 +103,19 @@ public class GameData {
             current_id=model.GetNextPlayerID(current_id);
         }
     }
+    
+    public void UpdatePlayers(){
+        for(PlayerData p_date:this.playerData)
+        {
+            p_date.UpdatePlayer();
+        }
+    }
 
+    public void UpdateAll(){
+        this.UpdatePlayers();
+        this.currentHand.UpdateHand();
+        this.setCurrentPlayerId();
+        this.setCurrentHandNumber();
+    }
 }
 

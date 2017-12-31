@@ -154,8 +154,7 @@ public class GameController implements Initializable {
         this.gameData.getCurrentHand().UpdateHand();
     }
 
-    private void SetMoveAndUpdate(Move move)
-    {
+    private void SetMoveAndUpdate(Move move) {
         try {
             this.model.SetNewMove(move);
             this.gameData.getCurrentHand().UpdateHand();
@@ -200,11 +199,6 @@ public class GameController implements Initializable {
     }
 
     public void OnClickHand() {
-        /* List<MoveType> moves=new LinkedList<MoveType>();
-        moves.add(MoveType.CHECK);
-        moves.add(MoveType.BET);
-        moves.add(MoveType.CALL);
-        this.GetHumanNaxtMoveFromGUI(moves);*/
         this.PlayOneHand();
     }
 
@@ -219,10 +213,11 @@ public class GameController implements Initializable {
     private void PlayOneHand(){
         if (this.model.IsAnyPlayerOutOfMoney()) {
             this.IsGameEnded = true;
-            //this.PrintTheWinners();
         }
         else {
             this.model.StartNewHand();
+
+
             //init a new bid round
             try {
                 this.model.StartNewBidCycle();
@@ -241,17 +236,12 @@ public class GameController implements Initializable {
     private void HandEventshandler(HandData hand)
     {
 
+        // cycke moved to next player listener
         hand.current_player_idProperty().addListener((observable, oldValue, newValue) -> {
             System.out.println("Player Moved!!!");
             this.GetPlayerMove();
         });
 
-    /*    hand.current_player_idProperty().addListener(new ChangeListener(){
-            @Override public void changed(ObservableValue o, Object oldVal,
-                                          Object newVal){
-                System.out.println("Electric bill has changed!");
-            }
-        });*/
 
         //current bid cycle finished listener
         hand.is_current_bid_cycle_finishedProperty().addListener((observable, oldValue, newValue) -> {
@@ -261,98 +251,8 @@ public class GameController implements Initializable {
 
         this.GetPlayerMove();
 
-        hand.setCurrent_player_id();
-        //cycle moved to next player listener
-        //SimpleIntegerProperty test=this.gameData.getCurrentHand().current_player_idProperty();
-
         //hand.setCurrent_player_id();
-//        //current player folded listener
-//        this.gameData.GetPlayerData(this.gameData.getCurrentPlayerId()).isFoldedProperty().addListener((observable, oldValue, newValue) -> {
-//            this.MoveToNextPlayerAndUpdate();
-//        });
-    }
 
-    private void StartBidCycle() {
-
-        //init a new bid round
-        try {
-            this.model.StartNewBidCycle();
-        } catch (NoSufficientMoneyException e) {
-            //it means one of the players do not enough to put the big or small blind
-            this.IsGameEnded = true;
-        }
-
-        this.gameData.setCurrentHand();
-        this.gameData.setCurrentPlayerId();
-
-        //boolean  is_round_finished=false;
-
- /*       //cycle moved to next player listener
-        SimpleIntegerProperty test=this.gameData.getCurrentHand().current_player_idProperty();
-        this.gameData.get.addListener((observable, oldValue, newValue) -> {
-            System.out.println("Player Moved!!!");
-            this.GetPlayerMove();
-        });
-
-        //current bid cycle finished listener
-        this.gameData.getCurrentHand().is_current_bid_cycle_finishedProperty().addListener((observable, oldValue, newValue) -> {
-            //TBD
-            System.out.println("current bid finished");
-        });
-
-        //current player folded listener
-        this.gameData.GetPlayerData(this.gameData.getCurrentPlayerId()).isFoldedProperty().addListener((observable, oldValue, newValue) -> {
-            this.MoveToNextPlayerAndUpdate();
-        });
-*/
-
-       /* while(!this.model.IsCurrentBidCycleFinished())
-        {
-            if(this.model.IsCurrentPlayerFolded() *//*|| this.model.IsCurrentPlayerNoMoney()*//*)
-            {
-                this.model.MoveToNextPlayer();
-                this.model.CheckBidStatus();
-            }
-            else
-            {
-                Move currentMove = this.GetPlayerMove();
-
-                //if (currentMove != null) {
-
-                //if(TexasHoldem.ENABLE_LOG) System.out.println("Player Type:"+this.model.GetCurrentPlayerInfo().GetType() +" ID:"+this.model.GetCurrentPlayerInfo().GetID()+" Move:" + currentMove.GetMoveType().toString() + "   ");
-                //System.out.print(currentMove.GetValue());
-
-                try {
-                    this.model.SetNewMove(currentMove);
-                    //TBD -- HANDLE
-                } catch (StakeNotInRangeException e) {
-                    System.out.println("Stake value not in range!");
-                } catch (PlayerFoldedException e) {
-                    System.out.println("Player Folded 11");
-                    //this.model.MoveToNextPlayer();
-                } catch (MoveNotAllowdedException e) {
-                    System.out.println("Move Not allowed 22");
-                } catch (ChipLessThanPotException e) {
-                    System.out.println("Chip less than Pot 33");
-                } catch (NoSufficientMoneyException e) {
-                    System.out.println("No sufficient Money");
-                } catch (PlayerAlreadyBetException e) {
-                    System.out.println("Player already bet");
-                    this.model.MoveToNextPlayer();
-                    this.model.CheckBidStatus();
-                }
-                finally{
-                    is_round_finished=this.model.IsCurrentBidCycleFinished();
-                    //if(TexasHoldem.ENABLE_LOG) System.out.println("is finished:"+is_round_finished);
-                }
-                //}
-                // else {
-                //    this.engine.MoveToNextPlayer();
-                //    this.engine.CheckBidStatus();
-                //}
-            }
-
-        }*/
     }
 
     private void GetPlayerMove() {
@@ -393,7 +293,6 @@ public class GameController implements Initializable {
                 this.GetHumanNaxtMoveFromGUI(moves);
             }
         }
-
     }
 
     public void setHumanMove(Move move){
