@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 
 import API.InterfaceAPI;
 import FileLoding.FileLoading;
+import GameLogic.GameLogic;
 import GameScene.GameController;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -38,9 +39,10 @@ public class WelcomeController implements Initializable {
     private FXMLLoader loader;
     private SimpleStringProperty selectedFileProperty;
     private SimpleBooleanProperty isFileSelected;
-
+    private GameLogic gameLogic;
     private SimpleBooleanProperty isXMLFileLoaded;
     private InterfaceAPI model;
+
 
     private Task<Boolean> currentRunningTask;
     public void setModel(InterfaceAPI model) {
@@ -50,6 +52,9 @@ public class WelcomeController implements Initializable {
         this.primaryStage = primaryStage;
     }
     public void serLoader (FXMLLoader loader) {this.loader = loader;}
+    public void setGameLogic (GameLogic gl){
+        this.gameLogic=gl;
+    }
 
     public WelcomeController()
     {
@@ -129,6 +134,7 @@ public class WelcomeController implements Initializable {
             Parent root1 = n.load();
             GameController gameController = n.getController();
             gameController.setModel(model);
+            gameController.SetGameLogic(this.gameLogic);
             model.StartGame();
 
             gameController.StartGameView();

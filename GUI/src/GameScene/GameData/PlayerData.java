@@ -18,18 +18,18 @@ public class PlayerData {
     private SimpleStringProperty numOfChips;
     private SimpleStringProperty numOfBuy;
     private SimpleStringProperty numOfWins;
-
     private SimpleIntegerProperty id;
-
     private SimpleBooleanProperty isDealer;
     private SimpleBooleanProperty isBig;
     private SimpleBooleanProperty isSmall;
     private SimpleBooleanProperty isHuman;
+
+    private SimpleBooleanProperty isFolded;
+
     private SimpleStringProperty Card1;
     private SimpleStringProperty Card2;
     private List<Card> playerCards;
     private SimpleStringProperty playerName;
-
     private final String UnknownCardImageName ="UU.png";
 
 
@@ -44,6 +44,7 @@ public class PlayerData {
         this.isDealer = new SimpleBooleanProperty(model.GetPlayerIsDealer(id));
         this.isBig = new SimpleBooleanProperty(model.GetPlayerIsBig(id));
         this.isSmall = new SimpleBooleanProperty(model.GetPlayerIsSmall(id));
+        this.isFolded = new SimpleBooleanProperty(model.GetPlayerIsFolded(id));
 //        this.numOfChips = new SimpleIntegerProperty(0);
 //        this.numOfBuy = new SimpleIntegerProperty(0);
 //        this.numOfWins = new SimpleIntegerProperty(0);
@@ -116,10 +117,10 @@ public class PlayerData {
         return model.GetPlayerPot(this.id.get()); }
 
     public int getNumOfBuy() { return model.GetPlayerNumOfBuy(this.id.get()); }
+
     public int getNumOfWins() {
         return model.GetPlayerNumOfWins(this.id.get());
     }
-
     public SimpleStringProperty numOfChipsProperty() {
         return numOfChips;
     }
@@ -135,18 +136,18 @@ public class PlayerData {
     public int getId() { return id.get(); }
 
     public SimpleIntegerProperty idProperty() { return id; }
+
     public String getCard1() { return Card1.get(); }
     public SimpleStringProperty card1Property() { return Card1; }
     public String getCard2() { return Card2.get(); }
     public SimpleStringProperty card2Property() { return Card2; }
 
 
-
     private void SetRealCard1() { this.Card1.set(this.playerCards.get(0).toString()); }
+
     private void SetRealCard2() { this.Card2.set(this.playerCards.get(0).toString()); }
     private void HideCard1() { this.Card1.set(this.UnknownCardImageName); }
     private void HideCard2() { this.Card2.set(this.UnknownCardImageName); }
-
     public void ShowCard()
     {
         SetRealCard1();
@@ -156,6 +157,18 @@ public class PlayerData {
     public void HideCards(){
         HideCard1();
         HideCard2();
+    }
+
+    public boolean isIsFolded() {
+        return isFolded.get();
+    }
+
+    public SimpleBooleanProperty isFoldedProperty() {
+        return isFolded;
+    }
+
+    public void setIsFolded(boolean isFolded) {
+        this.isFolded.set(this.model.GetPlayerIsFolded(this.getId()));
     }
 
 }

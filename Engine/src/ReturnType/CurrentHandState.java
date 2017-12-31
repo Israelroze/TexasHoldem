@@ -45,6 +45,7 @@ public class CurrentHandState {
     public List<Card> getCommunityCard() {
         return communityCard;
     }
+
     public String getStringOfCommunityCard() {
         String res = "";
         for (int i=0; i< communityCard.size(); i++)

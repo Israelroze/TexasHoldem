@@ -4,6 +4,7 @@ import GameScene.GameController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 
 public class MainOptionController {
 
@@ -11,6 +12,7 @@ public class MainOptionController {
     @FXML private Button BackButton;
     @FXML private Button StartNewHandButton;
     @FXML private Button ReplayButton;
+    @FXML private VBox MainOptionVBox;
 
     private Boolean isRequiredStartGameButton;
     private Boolean isRequiredBackButton;
@@ -59,18 +61,22 @@ public class MainOptionController {
     }
 
     @FXML void HandleBackButton(MouseEvent event) {
+        MainOptionVBox.getChildren().removeAll();
         this.mainGame.OnClickBack();
     }
 
     @FXML void HandleReplayButton(MouseEvent event) {
+        MainOptionVBox.getChildren().removeAll();
         this.mainGame.OnClickReplay();
     }
 
     @FXML void HandleStartGameButtom(MouseEvent event) {
+        MainOptionVBox.getChildren().removeAll();
         this.mainGame.OnClickStart();
     }
 
     @FXML void HandleStartNewHandButton(MouseEvent event) {
+        MainOptionVBox.getChildren().removeAll();
         this.mainGame.OnClickHand();
     }
 

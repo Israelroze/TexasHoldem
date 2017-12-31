@@ -16,7 +16,7 @@ public class GameData {
     private InterfaceAPI model;
     private List<PlayerData> playerData;
     private SimpleIntegerProperty currentPlayerId;
-
+    private HandData currentHand;
 
     public GameData (InterfaceAPI model) {
         this.model = model;
@@ -25,13 +25,32 @@ public class GameData {
         this.maxPot = new SimpleStringProperty("Game Money "+(Integer.toString(0)));
         this.currentHandNumber = new SimpleStringProperty("Hand Number "+(Integer.toString(model.GetCurrentHandNumber())));
         currentPlayerId = new SimpleIntegerProperty(-1);
-
+        //this.currentHand=new HandData(this.model);
         this.LoadPlayers();
     }
 
-    //Setters
 
+    public PlayerData GetPlayerData(int id) {
+        for( PlayerData pd:this.playerData)
+        {
+            if(pd.getId()==id)
+            {
+                return pd;
+            }
+        }
+        return null;
+    }
+
+    //Setters
     public void setCurrentHandNumber() { this.currentHandNumber.set((Integer.toString(model.GetCurrentHandNumber()) + " Hand Number")); }
+
+    public HandData getCurrentHand() {
+        return this.currentHand;
+    }
+
+    public void setCurrentHand() {
+        this.currentHand=new HandData(this.model);
+    }
 
     public void setMaxPot() { this.maxPot.set((Integer.toString(model.GetMaxBuys()) + " Game Money")); }
 
@@ -39,7 +58,10 @@ public class GameData {
 
     public void setSmall() { this.small.set((Integer.toString(model.GetSmall()) + " Small"));}
 
-    public void setCurrentPlayerId() { this.currentPlayerId.set(model.GetCurrentPlayerID()); }
+    public void setCurrentPlayerId() {
+        this.currentPlayerId.set(model.GetCurrentPlayerID());
+        this.currentHand.setCurrent_player_id();
+    }
 
 
     //Getters
@@ -68,7 +90,7 @@ public class GameData {
 
     public int getCurrentPlayerId() { return currentPlayerId.get(); }
 
-    public SimpleIntegerProperty currentPlayerIdProperty() { return currentPlayerId; }
+    public SimpleIntegerProperty currentPlayerIdProperty() { return this.currentPlayerId; }
 
 
     public int getNumberOfPlayers() {return this.playerData.size();}

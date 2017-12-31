@@ -240,8 +240,7 @@ public class Game implements InterfaceAPI {
     }
 
     @Override
-    public int GetMoneyInGame()
-    {
+    public int GetMoneyInGame() {
         return this.global_num_of_buys * this.configuration.getStructure().getBuy();
     }
 
@@ -344,25 +343,13 @@ public class Game implements InterfaceAPI {
 
     @Override
     public boolean GetPlayerIsHuman(int id){
-
-        //Avishay Changes
-//        for (APlayer player : players.GetPlayers())
-//        {
-//            if (player.getId() == id && player.GetType() == PlayerType.HUMAN)
-//                return true;
-//        }
         if(this.players.GetPlayer(id).GetType()==PlayerType.HUMAN) return true;
         return false;
     }
 
     @Override
     public int GetPlayerNumOfBuy(int id){
-
-        for (APlayer player : players.GetPlayers()) {
-            if (player.getId() == id ) return player.GetNumOfBuys();
-        }
-        //return this.players.GetPlayer(id).GetNumOfBuys();
-        return -1;
+        return this.players.GetPlayer(id).GetNumOfBuys();
     }
 
     @Override
@@ -378,7 +365,8 @@ public class Game implements InterfaceAPI {
     @Override
     public List<Card> GetPlayersCards(int id){
         List<Card> cards=new LinkedList<Card>();
-        for (APlayer player : players.GetPlayers())
+        Card[] arr=this.players.GetPlayer(id).GetCards();
+    /*    for (APlayer player : players.GetPlayers())
         {
             if (player.getId() == id ) {
                 cards.add(player.GetCards()[0]);
@@ -387,11 +375,16 @@ public class Game implements InterfaceAPI {
 
         }
 
+*/
 
-      // this.players.GetPlayer(id).GetCards();
-        //cards.add(arr[0]);
-        //cards.add(arr[1]);
+        cards.add(arr[0]);
+        cards.add(arr[1]);
         return cards;
+    }
+
+    @Override
+    public boolean GetPlayerIsFolded(int id){
+        return this.players.GetPlayer(id).GetIsFoldedFlag();
     }
 
     //Hand Methods
@@ -405,6 +398,7 @@ public class Game implements InterfaceAPI {
             player.setFoldedFlag(false);
         }
     }
+
 
     @Override
     public int GetCurrentPlayerID(){
@@ -439,6 +433,18 @@ public class Game implements InterfaceAPI {
     @Override
     public void Turn(){
         this.current_hand.Turn();
+    }
+
+    @Override
+    public List<Card> GetCommunityCards(){
+        List <Card> comCards = new LinkedList<Card>();
+        Card[] community=this.current_hand.GetCommunity();
+        if (community != null) {
+            for (int i = 0; i < 5; i++) {
+                if (community[i] != null) comCards.add(community[i]);
+            }
+        }
+        return comCards;
     }
 
     //Bid Cycle Methods
