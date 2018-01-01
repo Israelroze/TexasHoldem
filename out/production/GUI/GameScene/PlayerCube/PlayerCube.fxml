@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
 <HBox stylesheets="@PlayerCube.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameScene.PlayerCube.PlayerCubeController">
    <children>
@@ -29,14 +30,26 @@
             <Label fx:id="MoneyLabel" alignment="CENTER" text="Money" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
-      <Pane fx:id="Card1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMousePressed="#FirstCardPressedHandle" onMouseReleased="#FirstCardReleasedHandle" prefHeight="72.6" prefWidth="50.0">
+      <VBox>
+         <children>
+            <Pane fx:id="Jstate" prefHeight="50.0" prefWidth="50.0" />
+            <Pane fx:id="Card1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMousePressed="#FirstCardPressedHandle" onMouseReleased="#FirstCardReleasedHandle" prefHeight="72.6" prefWidth="50.0" />
+         </children>
+         <padding>
+            <Insets bottom="20.0" top="20.0" />
+         </padding>
+      </VBox>
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="50.0">
+         <children>
+            <Pane fx:id="Cstate" prefHeight="50.0" prefWidth="50.0" />
+            <Pane fx:id="Card2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMousePressed="#SecondCardPressedHandle" onMouseReleased="#SecondCardReleasedHandle" prefHeight="72.6" prefWidth="50.0" />
+         </children>
          <HBox.margin>
-            <Insets top="73.0" />
-         </HBox.margin></Pane>
-      <Pane fx:id="Card2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMousePressed="#SecondCardPressedHandle" onMouseReleased="#SecondCardReleasedHandle" prefHeight="72.6" prefWidth="50.0">
-         <HBox.margin>
-            <Insets top="73.0" />
+            <Insets />
          </HBox.margin>
-      </Pane>
+         <padding>
+            <Insets bottom="20.0" top="20.0" />
+         </padding>
+      </VBox>
    </children>
 </HBox>

@@ -59,36 +59,50 @@ public class BetOptionsController implements Initializable {
 
     public void updateOptions()
     {
-        if(!allowedMoves.contains(MoveType.FOLD))
-        {
-         this.foldButton.setVisible(false);
-         this.foldButton.setManaged(false);
+        if(allowedMoves!=null) {
+            if (!allowedMoves.contains(MoveType.FOLD)) {
+                this.foldButton.setVisible(false);
+                this.foldButton.setManaged(false);
 
+            }
+            if (!allowedMoves.contains(MoveType.BET)) {
+
+                this.betButton.setVisible(false);
+                this.betButton.setManaged(false);
+                this.betTextFiled.setVisible(false);
+                this.betTextFiled.setManaged(false);
+            }
+            if (!allowedMoves.contains(MoveType.CHECK)) {
+
+                this.checkButton.setVisible(false);
+                this.checkButton.setManaged(false);
+            }
+            if (!allowedMoves.contains(MoveType.RAISE)) {
+
+                this.raiseButton.setVisible(false);
+                this.raiseButton.setManaged(false);
+                this.raiseTextFiled.setVisible(false);
+                this.raiseTextFiled.setManaged(false);
+            }
+            if (!allowedMoves.contains(MoveType.CALL)) {
+                this.callButton.setVisible(false);
+                this.callButton.setManaged(false);
+            }
         }
-        if(!allowedMoves.contains(MoveType.BET))
+        else
         {
-
+            this.foldButton.setVisible(false);
+            this.foldButton.setManaged(false);
             this.betButton.setVisible(false);
             this.betButton.setManaged(false);
             this.betTextFiled.setVisible(false);
             this.betTextFiled.setManaged(false);
-        }
-        if(!allowedMoves.contains(MoveType.CHECK))
-        {
-
             this.checkButton.setVisible(false);
             this.checkButton.setManaged(false);
-        }
-        if(!allowedMoves.contains(MoveType.RAISE))
-        {
-
             this.raiseButton.setVisible(false);
             this.raiseButton.setManaged(false);
             this.raiseTextFiled.setVisible(false);
             this.raiseTextFiled.setManaged(false);
-        }
-        if(!allowedMoves.contains(MoveType.CALL))
-        {
             this.callButton.setVisible(false);
             this.callButton.setManaged(false);
         }

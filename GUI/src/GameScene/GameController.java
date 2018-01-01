@@ -11,6 +11,7 @@ import GameScene.GameData.PlayerData;
 import GameScene.GameStatusBox.GameStatusBoxController;
 import GameScene.MainOption.MainOptionController;
 import GameScene.PlayerCube.PlayerCubeController;
+import ReturnType.CurrentHandState;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
@@ -104,6 +105,8 @@ public class GameController implements Initializable {
         }
     }
 
+
+
     private void BuildPlayersPane () {
         this.playersControllers = new LinkedList<>();
         this.PlayersNode = new LinkedList<>();
@@ -111,6 +114,14 @@ public class GameController implements Initializable {
         {
             this.BuildSinglePlayerPane(i,gameData.getOnePlayerDataForBinding(i));
         }
+    }
+
+    private void UpdatePlayerState(PlayerData playerData, PlayerCubeController singleController ){
+
+        if (playerData.isIsDealer()) singleController.getTypeLabel().setText("Dealer");
+        else if (playerData.isIsBig()) singleController.getTypeLabel().setText("Big");
+        else if (playerData.isIsSmall()) singleController.getTypeLabel().setText("Small");
+        else singleController.getTypeLabel().setText("");
     }
 
     private void BuildSinglePlayerPane (int playerIndex, PlayerData playerData) {
@@ -128,16 +139,16 @@ public class GameController implements Initializable {
             singleController.getMoneyLabel().textProperty().bind(playerData.numOfChipsProperty());
             singleController.getNumberOfBuyLabel().textProperty().bind(playerData.numOfBuyProperty());
             singleController.getNumberOfWinsLabel().textProperty().bind(playerData.numOfWinsProperty());
+            singleController.getTypeLabel().textProperty().bind(playerData.playerStateProperty());
 
-
-            if (playerData.isIsDealer()) singleController.getTypeLabel().setText("Dealer");
-            else if (playerData.isIsBig()) singleController.getTypeLabel().setText("Big");
-            else if (playerData.isIsSmall()) singleController.getTypeLabel().setText("Small");
-            else singleController.getTypeLabel().setText("");
+//            if (playerData.isIsDealer()) singleController.getTypeLabel().setText("Dealer");
+//            else if (playerData.isIsBig()) singleController.getTypeLabel().setText("Big");
+//            else if (playerData.isIsSmall()) singleController.getTypeLabel().setText("Small");
+//            else singleController.getTypeLabel().setText("");
 
 
             singleController.currentPlayerIdProperty().bind(gameData.currentPlayerIdProperty());
-            singleController.setCards(playerData.getCard1(), playerData.getCard2());
+            //singleController.setCards(playerData.getCard1(), playerData.getCard2());
             singleController.setPlayerId(playerData.getId());
 
             playersControllers.add(singleController);
@@ -147,17 +158,20 @@ public class GameController implements Initializable {
         }
     }
 
-
     private void MoveToNextPlayerAndUpdate(){
         this.model.MoveToNextPlayer();
         this.model.CheckBidStatus();
-        this.gameData.getCurrentHand().UpdateHand();
+        this.gameData.UpdateAll();
+        //this.gameData.getCurrentHand().UpdateHand();
     }
 
     private void SetMoveAndUpdate(Move move) {
         try {
             this.model.SetNewMove(move);
-            this.gameData.getCurrentHand().UpdateHand();
+            this.model.CheckBidStatus();
+            this.gameData.UpdateAll();
+            //this.gameData.getCurrentHand().UpdateHand();
+            //this.gameData.UpdatePlayers();
         } catch (StakeNotInRangeException e) {
             e.printStackTrace();
         } catch (PlayerFoldedException e) {
@@ -178,6 +192,7 @@ public class GameController implements Initializable {
     public void setModel(InterfaceAPI model) {
         this.model = model;
     }
+
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
@@ -210,17 +225,30 @@ public class GameController implements Initializable {
 
     }
 
+    private void UpdateCardsForPlayerInControllers()
+    {
+        this.gameData.UpdatePlayersCards();
+        int index=0;
+         for (PlayerCubeController controller: this.playersControllers)
+         {
+             controller.setCards(this.gameData.getOnePlayerDataForBinding(index).getCard1(),this.gameData.getOnePlayerDataForBinding(index).getCard2());
+             index++;
+         }
+    }
+
     private void PlayOneHand(){
+
         if (this.model.IsAnyPlayerOutOfMoney()) {
             this.IsGameEnded = true;
         }
         else {
             this.model.StartNewHand();
-
+            this.UpdateCardsForPlayerInControllers();
 
             //init a new bid round
             try {
                 this.model.StartNewBidCycle();
+
             } catch (NoSufficientMoneyException e) {
                 //it means one of the players do not enough to put the big or small blind
                 this.IsGameEnded = true;
@@ -229,25 +257,38 @@ public class GameController implements Initializable {
             this.gameData.setCurrentHand();
             this.gameData.getCurrentHand().UpdateHand();
             this.gameData.setCurrentPlayerId();
+            this.gameData.UpdatePlayers();
             this.HandEventshandler(this.gameData.getCurrentHand());
+
         }
     }
 
-    private void HandEventshandler(HandData hand)
-    {
 
-        // cycke moved to next player listener
-        hand.current_player_idProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("Player Moved!!!");
-            this.GetPlayerMove();
-        });
-
+    private void HandEventshandler(HandData hand) {
 
         //current bid cycle finished listener
         hand.is_current_bid_cycle_finishedProperty().addListener((observable, oldValue, newValue) -> {
             //TBD
             System.out.println("current bid finished");
+            return;
         });
+
+        // cycle moved to next player listener
+        hand.current_player_idProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println("Player Moved!!!");
+            this.model.CheckBidStatus();
+            this.gameData.getCurrentHand().UpdateHand();
+            if(this.gameData.getCurrentHand().isIs_current_bid_cycle_finished()) {
+                return;
+            }
+            else
+            {
+                this.GetPlayerMove();
+            }
+        });
+
+
+        gameData.currentPlayerIdProperty();
 
         this.GetPlayerMove();
 
@@ -255,7 +296,79 @@ public class GameController implements Initializable {
 
     }
 
+
+    public  void PrintGame(CurrentHandState curHandState){
+
+
+//        System.out.format("%s",curHandState.getPlayersState().get(0).getCard().toString());
+//        System.out.format("%s",curHandState.getPlayersState().get(0).getCard().toString());
+//        System.out.format("%s",curHandState.getPlayersState().get(1).IsHuman() ?"": "Cards: ");
+//        System.out.format("%s",curHandState.getPlayersState().get(1).getCard().toString());
+
+
+        System.out.format("%-9s  %-4d  %s       %-9s  %-4d  %s\n",curHandState.getPlayersState().get(0).getName(),curHandState.getPlayersState().get(0).getId(),curHandState.getCurrentPlayer() == 0 ? "***": "   ",curHandState.getPlayersState().get(3).getName(),curHandState.getPlayersState().get(3).getId(),curHandState.getCurrentPlayer() == 3 ? "***": "   ");
+        System.out.format("*****************%s       *****************%s\n",curHandState.getCurrentPlayer() == 0 ? "***": "** ",curHandState.getCurrentPlayer() == 3 ? "***": "** ");
+        System.out.format("* Type: %1s        %s       * Type: %1s        %s\n",curHandState.getPlayersState().get(0).GetType().toString(),curHandState.getCurrentPlayer() == 0 ? "***": " * ",curHandState.getPlayersState().get(3).GetType().toString(),curHandState.getCurrentPlayer() == 3 ? "***": " * ");
+        System.out.format("* State %1s         *        * State %1s         *\n",curHandState.getPlayersState().get(0).getState().toString(),curHandState.getPlayersState().get(3).getState().toString());
+        System.out.format("* Chips: %-8d *        * Chips: %-8d *\n",curHandState.getPlayersState().get(0).getChips(),curHandState.getPlayersState().get(3).getChips());
+        System.out.format("* Bets: %-8d  *        * Bets: %-8d  *\n",curHandState.getPlayersState().get(0).getBet(),curHandState.getPlayersState().get(3).getBet());
+        if(curHandState.getPlayersState().get(0).IsHuman() ){
+            System.out.format("* %6s %-3s%3s  *        ",
+                    "Cards: ",curHandState.getPlayersState().get(0).getCard().get(0).toString(),curHandState.getPlayersState().get(0).getCard().get(1).toString());
+        }
+        else{
+            System.out.format("*                 *        ");
+
+        }
+        if(curHandState.getPlayersState().get(3).IsHuman() ){
+            System.out.format("* %6s %-3s%3s  *\n",
+                    "Cards: ",curHandState.getPlayersState().get(3).getCard().get(0).toString(),curHandState.getPlayersState().get(3).getCard().get(1).toString());
+        }else
+        {
+            System.out.format("*                 *\n");
+        }
+
+        System.out.format("*******************        *******************\n");
+        System.out.format("\n");
+        System.out.format("     %s            ***POT: %d *** \n", curHandState.getStringOfCommunityCard(),curHandState.getPot());
+        System.out.format("Big Blind: %-5d   Small Blind : %-5d \n", curHandState.getBigBlind(), curHandState.getSmallBlind());
+        System.out.format("\n");
+        System.out.format("%-9s  %-4d  %s       %-9s %4d  %s\n",curHandState.getPlayersState().get(1).getName(),curHandState.getPlayersState().get(1).getId(),curHandState.getCurrentPlayer() == 1 ? "***": "   ",curHandState.getPlayersState().get(2).getName(),curHandState.getPlayersState().get(2).getId(),curHandState.getCurrentPlayer() == 2 ? "***": "   ");
+        System.out.format("*****************%s       *****************%s\n",curHandState.getCurrentPlayer() == 1 ? "***": "** ",curHandState.getCurrentPlayer() == 2 ? "***": "** ");
+        System.out.format("* Type: %1s        %s       * Type: %1s        %s\n",curHandState.getPlayersState().get(1).GetType().toString(),curHandState.getCurrentPlayer() == 1 ? "***": " * ",curHandState.getPlayersState().get(2).GetType().toString(),curHandState.getCurrentPlayer() == 2 ? "***": " * ");
+        System.out.format("* State %1s         *        * State %1s         *\n",curHandState.getPlayersState().get(1).getState().toString(),curHandState.getPlayersState().get(2).getState().toString());
+        System.out.format("* Chips: %-8d *        * Chips: %-8d *\n",curHandState.getPlayersState().get(1).getChips(),curHandState.getPlayersState().get(2).getChips());
+        System.out.format("* Bets: %-8d  *        * Bets: %-8d  *\n",curHandState.getPlayersState().get(1).getBet(),curHandState.getPlayersState().get(2).getBet());
+        if(curHandState.getPlayersState().get(1).IsHuman() ){
+            System.out.format("* %6s %-3s%3s  *        ",
+                    "Cards: ",curHandState.getPlayersState().get(1).getCard().get(0).toString(),curHandState.getPlayersState().get(1).getCard().get(1).toString());
+        }
+        else{
+            System.out.format("*                 *        ");
+
+        }
+        if(curHandState.getPlayersState().get(2).IsHuman() ){
+            System.out.format("* %6s %-3s%3s  *\n",
+                    "Cards: ",curHandState.getPlayersState().get(2).getCard().get(0).toString(),curHandState.getPlayersState().get(2).getCard().get(1).toString());
+        }else
+        {
+            System.out.format("*                 *\n");
+        }
+        System.out.format("*******************        *******************\n");
+
+
+    }
+
+
+
+
+
+
+
     private void GetPlayerMove() {
+        System.out.println("INSIDE GetPlayerMove, player id"+this.gameData.getCurrentHand().getCurrent_player_id());
+        this.PrintGame(model.GetCurrentHandState());
+
         Move move=null;
         //if computer
         if (this.model.IsCurrentPlayerComputer()) {
@@ -270,6 +383,7 @@ public class GameController implements Initializable {
         }
         else //if human
         {
+            System.out.println("getting human move");
             if (this.model.IsCurrentPlayerHuman()) {
 
                 List<MoveType> moves=null;

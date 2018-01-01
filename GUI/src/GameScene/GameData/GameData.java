@@ -111,11 +111,20 @@ public class GameData {
         }
     }
 
+    public void UpdatePlayersCards()
+    {
+        for(PlayerData p_date:this.playerData)
+        {
+            p_date.SetCards();
+        }
+    }
     public void UpdateAll(){
         this.UpdatePlayers();
-        this.currentHand.UpdateHand();
+        if (this.currentHand != null) this.currentHand.UpdateHand();
         this.setCurrentPlayerId();
         this.setCurrentHandNumber();
     }
+
+
 }
 

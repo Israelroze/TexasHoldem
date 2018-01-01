@@ -46,6 +46,9 @@ public class Hand {
         this.small = structure.getBlindes().getSmall();
         this.deck = new Deck();
         this.winners = new LinkedList<>();
+
+        //deal cards
+        this.DealCards();
     }
 
     //Private Methods
@@ -227,9 +230,6 @@ public class Hand {
 
         //init players flags
         this.InitPlayerFlags();
-
-        //deal cards
-        this.DealCards();
 
         //forward states
         this.players.ForwardStates();

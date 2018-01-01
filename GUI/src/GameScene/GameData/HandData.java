@@ -75,7 +75,14 @@ public class HandData {
     {
         this.setCurrent_player_id();
         this.setIs_current_bid_cycle_finished();
-        System.out.println("Hand Updated");
+        if(this.is_current_bid_cycle_finished.get())
+        {
+            System.out.println("Hand Updated, current bid cycle status:true");
+        }
+        else
+        {
+            System.out.println("Hand Updated, current bid cycle status:false");
+        }
     }
 
 }

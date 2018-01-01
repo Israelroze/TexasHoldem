@@ -2,6 +2,7 @@ package GameScene.GameData;
 
 import API.InterfaceAPI;
 import Card.Card;
+import Player.PlayerState;
 import Utils.ImageUtils;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -29,6 +30,19 @@ public class PlayerData {
     private SimpleBooleanProperty isHuman;
     private SimpleBooleanProperty isFolded;
 
+    public String getPlayerState() { return playerState.get(); }
+
+    public SimpleStringProperty playerStateProperty() { return playerState; }
+
+    public void setPlayerState() {
+        if (isIsDealer()) playerState.set("Dealer");
+        else if (isIsBig()) playerState.set("Big");
+        else if (isIsSmall()) playerState.set("Small");
+        else  playerState.set("");
+    }
+
+    private SimpleStringProperty playerState;
+
 
 
     public PlayerData(InterfaceAPI model, int placeInTable, int id) {
@@ -47,20 +61,31 @@ public class PlayerData {
         this.isSmall = new SimpleBooleanProperty(model.GetPlayerIsSmall(id));
         this.isFolded = new SimpleBooleanProperty(model.GetPlayerIsFolded(id));
         this.isHuman = new SimpleBooleanProperty(model.GetPlayerIsHuman(id));
+        this.playerState = new SimpleStringProperty("" );
+
+
     }
 
-    private void SetRealCard1() { this.Card1.set(this.playerCards.get(0).toString()); }
-    private void SetRealCard2() { this.Card2.set(this.playerCards.get(0).toString()); }
-    private void HideCard1() { this.Card1.set(this.UnknownCardImageName); }
-    private void HideCard2() { this.Card2.set(this.UnknownCardImageName); }
+    public void SetCards()
+    {
+        this.playerCards = this.model.GetPlayersCards(this.getId());
+        this.Card1.set(this.playerCards.get(0).toString());
+        this.Card2.set(this.playerCards.get(1).toString());
+    }
+   // public void SetRealCards () {this.}
+//    private void SetRealCard1() { this.Card1.set(this.playerCards.get(0).toString()); }
+//    private void SetRealCard2() { this.Card2.set(this.playerCards.get(1).toString()); }
+//    private void HideCard1() { this.Card1.set(this.UnknownCardImageName); }
+//    private void HideCard2() { this.Card2.set(this.UnknownCardImageName); }
+
 
 
     //set
     public void setNumOfChips() { this.numOfChips.set(Integer.toString(model.GetPlayerPot(this.id.get())) + " Chips"); }
 
-    public void setNumOfBuy() { this.numOfChips.set(Integer.toString(model.GetPlayerNumOfBuy(this.id.get())) + " Buys");}
+    public void setNumOfBuy() { this.numOfBuy.set(Integer.toString(model.GetPlayerNumOfBuy(this.id.get())) + " Buys");}
 
-    public void setNumOfWins() { this.numOfChips.set(Integer.toString(model.GetPlayerNumOfWins(this.id.get())) + " Wins"); }
+    public void setNumOfWins() { this.numOfWins.set(Integer.toString(model.GetPlayerNumOfWins(this.id.get())) + " Wins"); }
 
     public void setIsDealer() { this.isDealer.set(model.GetPlayerIsDealer(this.id.get())); }
 
@@ -153,6 +178,7 @@ public class PlayerData {
         return isFolded;
     }
 
+/*
     public void ShowCard() {
         SetRealCard1();
         SetRealCard2();
@@ -162,6 +188,7 @@ public class PlayerData {
         HideCard1();
         HideCard2();
     }
+*/
 
     public void UpdatePlayer() {
         this.setNumOfChips();
@@ -171,6 +198,7 @@ public class PlayerData {
         this.setIsBig();
         this.setIsSmall();
         this.setIsFolded();
+        this.setPlayerState();
     }
 
 }

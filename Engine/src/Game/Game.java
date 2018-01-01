@@ -18,7 +18,7 @@ import Move.*;
 
 public class Game implements InterfaceAPI {
 
-    final static Boolean ENABLE_LOG = false;
+    final static Boolean ENABLE_LOG = true;
     //members
     private GameDescriptor configuration;
     private CurrentHandState state;
@@ -376,7 +376,6 @@ public class Game implements InterfaceAPI {
         }
 
 */
-
         cards.add(arr[0]);
         cards.add(arr[1]);
         return cards;

@@ -38,13 +38,15 @@ public class PlayerCubeController implements Initializable {
     public void setCards(String card1, String card2) {
         firstCardName = card1 + ".png";
         secondCardName= card2+ ".png";
+        Card1View = ImageUtils.getImageView(firstCardName);
         Card1View.fitHeightProperty().bind(Card1.heightProperty());
         Card1View.fitWidthProperty().bind(Card1.widthProperty());
-        Card2View = ImageUtils.getImageView(this.UnknownCardImageName);
+        Card2View = ImageUtils.getImageView(secondCardName);
         Card2View.fitHeightProperty().bind(Card2.heightProperty());
         Card2View.fitWidthProperty().bind(Card2.widthProperty());
         Card1.getChildren().add(Card1View);
         Card2.getChildren().add(Card2View);
+        this.HideCards();
     }
 
     public void setPlayerId(int id) { this.PlayerId = id; }
@@ -86,8 +88,11 @@ public class PlayerCubeController implements Initializable {
     }
 
     private void HideCards() {
-        Card1View = ImageUtils.getImageView(this.UnknownCardImageName);
-        Card2View = ImageUtils.getImageView(this.UnknownCardImageName);
+
+        Card1View.setImage(ImageUtils.getImage(this.UnknownCardImageName));
+        Card2View.setImage(ImageUtils.getImage(this.UnknownCardImageName));
+
+
     }
 
     @FXML
@@ -105,7 +110,7 @@ public class PlayerCubeController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         CurrentPlayerId = new SimpleIntegerProperty(0);
-        HideCards();
+        //HideCards();
     }
 
     public void AllUnbind() {
