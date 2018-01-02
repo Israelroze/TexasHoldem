@@ -3,7 +3,10 @@ package GameScene.GameData;
 import API.InterfaceAPI;
 import GameScene.PlayerCube.PlayerCubeController;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -19,6 +22,8 @@ public class GameData {
     private SimpleIntegerProperty currentPlayerId;
     private HandData currentHand;
 
+
+
     public GameData (InterfaceAPI model) {
         this.model = model;
         this.big = new SimpleStringProperty("Big "+(Integer.toString(model.GetBig())));
@@ -26,6 +31,7 @@ public class GameData {
         this.maxPot = new SimpleStringProperty("Game Money "+(Integer.toString(0)));
         this.currentHandNumber = new SimpleStringProperty("Hand Number "+(Integer.toString(model.GetCurrentHandNumber())));
         currentPlayerId = new SimpleIntegerProperty(-1);
+
         //this.currentHand=new HandData(this.model);
         this.LoadPlayers();
     }

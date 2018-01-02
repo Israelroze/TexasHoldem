@@ -3,6 +3,7 @@ package GameScene;
 import API.InterfaceAPI;
 import Exceptions.*;
 import GameScene.BetOptions.BetOptionsController;
+import GameScene.Community.CommunityController;
 import GameScene.GameData.HandData;
 import Move.*;
 import GameLogic.GameLogic;
@@ -36,13 +37,16 @@ public class GameController implements Initializable {
     private Stage primaryStage;
     private InterfaceAPI model;
     private GameData gameData;
+    private HandData handData;
     private GameLogic gameLogic;
     private int numOfPlayers;
     private List<PlayerCubeController> playersControllers;
+    private CommunityController communityController;
     private List<Node> PlayersNode;
     private Boolean IsGameStarted = false;
     private Boolean IsGameEnded = false;
     private MoveType currentMove;
+    @FXML private StackPane StackMainBoard;
 
     @FXML private VBox StatusPane;
     @FXML private BorderPane gameBorderPane;
@@ -50,6 +54,7 @@ public class GameController implements Initializable {
     @FXML private GridPane playerGrid;
     @FXML private HBox BetOptionsAnchor;
     @FXML private VBox MainOptionVbox;
+
 
 
     //private
@@ -82,6 +87,32 @@ public class GameController implements Initializable {
         }
     }
 
+    private void BuildCommunityArea() {
+        FXMLLoader loader = new FXMLLoader();
+        URL url =getClass().getResource("/GameScene/Community/Community.fxml");
+        loader.setLocation(url);
+
+        try {
+            Node CommArea = loader.load();
+
+            this.communityController  = loader.getController();
+            //communityController.UpdateCommunityCards();
+            this.communityController.SetHandData(this.gameData.getCurrentHand());
+            this.communityController.getPotLabel().textProperty().bind(this.gameData.getCurrentHand().potProperty());
+
+            this.StackMainBoard.getChildren().add(CommArea);
+            
+            this.StackMainBoard.setAlignment(Pos.CENTER);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+    }
+
     private void BuildStatusBox(){
         FXMLLoader loader = new FXMLLoader();
         URL url =getClass().getResource("/GameScene/GameStatusBox/GameStatusBox.fxml");
@@ -104,8 +135,6 @@ public class GameController implements Initializable {
             e.printStackTrace();
         }
     }
-
-
 
     private void BuildPlayersPane () {
         this.playersControllers = new LinkedList<>();
@@ -225,8 +254,7 @@ public class GameController implements Initializable {
 
     }
 
-    private void UpdateCardsForPlayerInControllers()
-    {
+    private void UpdateCardsForPlayerInControllers() {
         this.gameData.UpdatePlayersCards();
         int index=0;
          for (PlayerCubeController controller: this.playersControllers)
@@ -243,11 +271,14 @@ public class GameController implements Initializable {
         }
         else {
             this.model.StartNewHand();
+
             this.UpdateCardsForPlayerInControllers();
+
 
             //init a new bid round
             try {
                 this.model.StartNewBidCycle();
+
 
             } catch (NoSufficientMoneyException e) {
                 //it means one of the players do not enough to put the big or small blind
@@ -259,10 +290,11 @@ public class GameController implements Initializable {
             this.gameData.setCurrentPlayerId();
             this.gameData.UpdatePlayers();
             this.HandEventshandler(this.gameData.getCurrentHand());
+            BuildCommunityArea();
+            communityController.UpdateCommunityCards();
 
         }
     }
-
 
     private void HandEventshandler(HandData hand) {
 
@@ -295,7 +327,6 @@ public class GameController implements Initializable {
         //hand.setCurrent_player_id();
 
     }
-
 
     public  void PrintGame(CurrentHandState curHandState){
 
@@ -358,12 +389,6 @@ public class GameController implements Initializable {
 
 
     }
-
-
-
-
-
-
 
     private void GetPlayerMove() {
         System.out.println("INSIDE GetPlayerMove, player id"+this.gameData.getCurrentHand().getCurrent_player_id());
@@ -491,8 +516,5 @@ public class GameController implements Initializable {
         }
     }
 
-    public void ShowGameToPlayer(){
 
-
-    }
 }

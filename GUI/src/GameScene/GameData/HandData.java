@@ -3,7 +3,10 @@ import API.InterfaceAPI;
 import Card.Card;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -19,12 +22,29 @@ public class HandData {
     public HandData(InterfaceAPI model) {
         this.model=model;
         this.community=new LinkedList<Card>();
-        this.pot=new SimpleStringProperty(Integer.toString(model.GetPot()));
+        this.pot=new SimpleStringProperty("Pot " + Integer.toString(model.GetPot()));
         this.current_player_id=new SimpleIntegerProperty(-1);
         this.is_current_bid_cycle_finished=new SimpleBooleanProperty(false);
         communityAsString = new LinkedList<>();
-
+        this.communityCards = new SimpleListProperty<>();
     }
+
+
+    public SimpleListProperty<String> communityCardsProperty() {
+        return communityCards;
+    }
+
+    public void setCommunityCard() {
+        ObservableList<String> commTemp = FXCollections.observableArrayList();
+        for (Card card : model.GetCommunityCards()){
+            commTemp.add(card.toString() + ".png");
+        }
+        this.communityCards.set(commTemp);
+    }
+
+    public ObservableList<String> getCommunityCards() { return communityCards; }
+
+    private SimpleListProperty<String> communityCards;
 
     public int getPot() {
         return model.GetPot();
@@ -34,8 +54,8 @@ public class HandData {
         return pot;
     }
 
-    public void setPot(int pot) {
-        this.pot.set(Integer.toString(model.GetPot()));
+    public void setPot() {
+        this.pot.set("Pot " +Integer.toString(model.GetPot()));
     }
 
     public void setCommunityCards() {
@@ -75,6 +95,8 @@ public class HandData {
     {
         this.setCurrent_player_id();
         this.setIs_current_bid_cycle_finished();
+        this.setCommunityCards();
+        this.setPot();
         if(this.is_current_bid_cycle_finished.get())
         {
             System.out.println("Hand Updated, current bid cycle status:true");
