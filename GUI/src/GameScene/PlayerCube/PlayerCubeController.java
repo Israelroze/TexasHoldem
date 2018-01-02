@@ -1,21 +1,24 @@
 package GameScene.PlayerCube;
 
-import Card.Card;
+
 import Utils.ImageUtils;
-import javafx.beans.property.ReadOnlyDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.effect.Effect;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-
+import javafx.scene.layout.*;
 
 
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
+import javax.naming.Binding;
 
 
 public class PlayerCubeController implements Initializable {
@@ -27,12 +30,20 @@ public class PlayerCubeController implements Initializable {
     @FXML private Label NumberOfWinsLabel;
     @FXML private Label MoneyLabel;
 
+
+
+    @FXML private HBox PlayerHbox;
+
     private ImageView Card1View;
     private ImageView Card2View;
     private final String UnknownCardImageName ="UU.png";
     private String firstCardName;
     private String secondCardName;
     private int PlayerId;
+
+
+
+    private SimpleBooleanProperty CurrentPlayerId;
 
 
     public void setCards(String card1, String card2) {
@@ -51,12 +62,9 @@ public class PlayerCubeController implements Initializable {
 
     public void setPlayerId(int id) { this.PlayerId = id; }
 
-    public int getCurrentPlayerId() { return CurrentPlayerId.get(); }
+    public boolean isCurrentPlayerId() { return CurrentPlayerId.get(); }
 
-    public SimpleIntegerProperty currentPlayerIdProperty() { return CurrentPlayerId; }
-
-    private SimpleIntegerProperty CurrentPlayerId;
-
+    public SimpleBooleanProperty currentPlayerIdProperty() { return CurrentPlayerId;}
 
     public Label getNameLable() {
         return NameLable;
@@ -79,7 +87,7 @@ public class PlayerCubeController implements Initializable {
     }
 
     private void ShowCards() {
-        if (this.CurrentPlayerId.get() == this.PlayerId)
+        if (this.CurrentPlayerId.get())
         {
             Card1View.setImage(ImageUtils.getImage(this.firstCardName));
             Card2View.setImage(ImageUtils.getImage(this.secondCardName));
@@ -109,9 +117,25 @@ public class PlayerCubeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        CurrentPlayerId = new SimpleIntegerProperty(0);
+        CurrentPlayerId = new SimpleBooleanProperty(false);
+        CurrentPlayerId.addListener((observable, oldValue, newValue) -> {
+            if(CurrentPlayerId.get()) {
+                NameLable.setTextFill(Color.BLUE);
+
+            }
+            else {
+                NameLable.setTextFill(Color.WHITE);
+            }
+
+        });
+        //PlayerHbox.backgroundProperty().bind(Bindings.when(this.CurrentPlayerId).then();
+        //PlayerHbox.setBorder().setValue(new Background(new BackgroundFill(Color.BLUE.brighter())));
+
+               // new Border(new BorderStroke(Color.LIGHTCORAL, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         //HideCards();
+
     }
+
 
     public void AllUnbind() {
 

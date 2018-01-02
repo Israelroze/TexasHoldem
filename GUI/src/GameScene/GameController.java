@@ -147,7 +147,7 @@ public class GameController implements Initializable {
 //            else singleController.getTypeLabel().setText("");
 
 
-            singleController.currentPlayerIdProperty().bind(gameData.currentPlayerIdProperty());
+            singleController.currentPlayerIdProperty().bind(gameData.currentPlayerIdProperty().isEqualTo(playerData.getId()));
             //singleController.setCards(playerData.getCard1(), playerData.getCard2());
             singleController.setPlayerId(playerData.getId());
 

@@ -85,8 +85,8 @@ public class WelcomeController implements Initializable {
         //LoadXMLFile(absolutePath);
 
         // /for testing
-       LoadXMLFile("C:\\Users\\israe\\Google Drive\\Study\\JavaCourse\\TexasHoldem\\Engine\\Resource\\ex1-basic.xml");
-
+       //LoadXMLFile("C:\\Users\\israe\\Google Drive\\Study\\JavaCourse\\TexasHoldem\\Engine\\Resource\\ex1-basic.xml");
+       LoadXMLFile("C:\\Users\\Avishay\\Desktop\\ex1-basic.xml");
     }
 
 
