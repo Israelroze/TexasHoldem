@@ -10,3 +10,9 @@
     -fx-background-size: stretch;
     -fx-background-repeat: no-repeat;
 }
+
+.GridRow2{
+
+    -fx-row-valignment: bottom;
+
+}

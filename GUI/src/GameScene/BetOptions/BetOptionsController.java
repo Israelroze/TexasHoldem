@@ -28,8 +28,23 @@ public class BetOptionsController implements Initializable {
     @FXML private Button foldButton;
 
 
+    private boolean isInteger(String s, int radix) {
+        if (s.isEmpty()) return false;
+        for (int i = 0; i < s.length(); i++) {
+            if (i == 0 && s.charAt(i) == '-') {
+                if (s.length() == 1) return false;
+                else continue;
+            }
+            if (Character.digit(s.charAt(i), radix) < 0) return false;
+        }
+        return true;
+    }
+
     @FXML void HandleHumanBet(MouseEvent event) {
-        this.mainGame.setHumanMove(new Move(MoveType.BET,0));
+
+        String text = betTextFiled.getText();
+        if(isInteger(text,10))
+            this.mainGame.setHumanMove(new Move(MoveType.BET,Integer.parseInt(text)));
     }
 
     @FXML void HandleHumanCall(MouseEvent event) {
@@ -40,9 +55,13 @@ public class BetOptionsController implements Initializable {
         this.mainGame.setHumanMove(new Move(MoveType.FOLD,0));
     }
 
+
+
     @FXML
     void HandleHumanRaise(MouseEvent event) {
-        this.mainGame.setHumanMove(new Move(MoveType.RAISE,0));
+
+        String text = raiseTextFiled.getText();
+        if(isInteger(text,10)) this.mainGame.setHumanMove(new Move(MoveType.RAISE, Integer.parseInt(text)));
     }
 
     @FXML void HandleHumanCheck(MouseEvent event) {

@@ -106,7 +106,7 @@ public interface  InterfaceAPI {
     public String GetPlayerName(int id);
     public List<Card> GetPlayersCards(int id);
     public List<Card> GetCommunityCards();
-
+    public boolean IsCurrentHandOver();
 
 
 

@@ -14,9 +14,13 @@ import java.util.List;
 public class HandData {
     private List<Card> community;
     private List<String> communityAsString;
+
     private SimpleStringProperty pot;
+
     private SimpleBooleanProperty is_current_bid_cycle_finished;
     private SimpleIntegerProperty current_player_id;
+    private SimpleIntegerProperty current_bid_number;
+
     private InterfaceAPI model;
 
     public HandData(InterfaceAPI model) {
@@ -27,14 +31,31 @@ public class HandData {
         this.is_current_bid_cycle_finished=new SimpleBooleanProperty(false);
         communityAsString = new LinkedList<>();
         this.communityCards = new SimpleListProperty<>();
+        this.current_bid_number=new SimpleIntegerProperty(0);
     }
 
+    public int getCurrent_bid_number() {
+        return this.current_bid_number.get();
+    }
+
+    public SimpleIntegerProperty current_bid_numberProperty() {
+        return this.current_bid_number;
+    }
+
+    public void setCurrent_bid_number(int current_bid_number) {
+        this.current_bid_number.set(current_bid_number);
+    }
+
+    public void IncBidNumber()
+    {
+        this.current_bid_number.set(this.current_bid_number.get()+1);
+    }
 
     public SimpleListProperty<String> communityCardsProperty() {
         return communityCards;
     }
 
-    public void setCommunityCard() {
+    public void setCommunityCards() {
         ObservableList<String> commTemp = FXCollections.observableArrayList();
         for (Card card : model.GetCommunityCards()){
             commTemp.add(card.toString() + ".png");
@@ -58,7 +79,11 @@ public class HandData {
         this.pot.set("Pot " +Integer.toString(model.GetPot()));
     }
 
-    public void setCommunityCards() {
+    public void setPot(String pot) {
+        this.pot.set(pot);
+    }
+
+    public void setCommunityCards5() {
         this.community=this.model.GetCommunityCards();
         this.communityAsString.clear();
 

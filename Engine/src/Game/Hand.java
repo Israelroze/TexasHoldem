@@ -30,6 +30,11 @@ public class Hand {
     //bet stats
     private int higest_stake;
     private int poorest_player_chips;
+
+    public void setPot(int pot) {
+        this.pot = pot;
+    }
+
     //money
     private int pot;
     //bets
@@ -197,6 +202,7 @@ public class Hand {
 //        }
        //return min;
     //}
+    public boolean GetIsHandOver(){return this.is_hand_over;}
 
     public void SetIsBetCycleFinished() {
         if(this.IsAllPlayersPlacedBet()) this.is_bets_finished=true;
@@ -606,6 +612,8 @@ public class Hand {
 
         //devide the pot between the winners
         this.PassPot();
+
+        this.is_hand_over=true;
     }
 
     private void SetWinnersCounter() {
@@ -631,6 +639,8 @@ public class Hand {
             } else {//only one
                 this.players.GetPlayers().get(this.winners.get(0)).AddMoney(this.pot);
             }
+
+            this.pot=0;
         }
     }
 

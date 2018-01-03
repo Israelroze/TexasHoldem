@@ -118,21 +118,7 @@ public class PlayerCubeController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         CurrentPlayerId = new SimpleBooleanProperty(false);
-        CurrentPlayerId.addListener((observable, oldValue, newValue) -> {
-            if(CurrentPlayerId.get()) {
-                NameLable.setTextFill(Color.BLUE);
 
-            }
-            else {
-                NameLable.setTextFill(Color.WHITE);
-            }
-
-        });
-        //PlayerHbox.backgroundProperty().bind(Bindings.when(this.CurrentPlayerId).then();
-        //PlayerHbox.setBorder().setValue(new Background(new BackgroundFill(Color.BLUE.brighter())));
-
-               // new Border(new BorderStroke(Color.LIGHTCORAL, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-        //HideCards();
 
     }
 

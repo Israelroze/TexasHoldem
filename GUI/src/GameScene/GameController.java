@@ -13,18 +13,22 @@ import GameScene.GameStatusBox.GameStatusBoxController;
 import GameScene.MainOption.MainOptionController;
 import GameScene.PlayerCube.PlayerCubeController;
 import ReturnType.CurrentHandState;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+
+
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.HPos;
+import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
 
 import java.io.IOException;
 import java.net.URL;
@@ -99,10 +103,11 @@ public class GameController implements Initializable {
             //communityController.UpdateCommunityCards();
             this.communityController.SetHandData(this.gameData.getCurrentHand());
             this.communityController.getPotLabel().textProperty().bind(this.gameData.getCurrentHand().potProperty());
+            this.StackMainBoard.getChildren().add(0,CommArea);
+            //this.StackMainBoard.getChildren().add(CommArea);
 
-            this.StackMainBoard.getChildren().add(CommArea);
-            
             this.StackMainBoard.setAlignment(Pos.CENTER);
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -165,6 +170,10 @@ public class GameController implements Initializable {
             PlayerCubeController singleController = loader.getController();
 
             singleController.getNameLable().textProperty().bind(playerData.playerNameProperty());
+            singleController.getNameLable().textFillProperty().bind(Bindings.
+                    when(singleController.currentPlayerIdProperty())
+                    .then(Color.BLUE)
+                    .otherwise(Color.WHITE));
             singleController.getMoneyLabel().textProperty().bind(playerData.numOfChipsProperty());
             singleController.getNumberOfBuyLabel().textProperty().bind(playerData.numOfBuyProperty());
             singleController.getNumberOfWinsLabel().textProperty().bind(playerData.numOfWinsProperty());
@@ -266,44 +275,105 @@ public class GameController implements Initializable {
 
     private void PlayOneHand(){
 
+        // Deleting the Option box
+        this.MainOptionVbox.getChildren().removeAll();
+        this.MainOptionVbox.getChildren().clear();
+
+
+
         if (this.model.IsAnyPlayerOutOfMoney()) {
             this.IsGameEnded = true;
         }
         else {
             this.model.StartNewHand();
 
+            //update properties
             this.UpdateCardsForPlayerInControllers();
+            this.gameData.setCurrentHand();
 
+            //Hand over listener
+            this.gameData.isCurrentHandFinishedProperty().addListener((observable, oldValue, newValue) -> {
+                this.BuildMainOption();
+                this.BetOptionsAnchor.getChildren().removeAll();
+                this.BetOptionsAnchor.getChildren().clear();
+                this.gameData.getCurrentHand().setPot("0");
 
-            //init a new bid round
+                //Show Winner TBD
+
+                return;
+            });
+
+            //current bid cycle finished listener
+            this.gameData.getCurrentHand().is_current_bid_cycle_finishedProperty().addListener((observable, oldValue, newValue) -> {
+                if(newValue == true)
+                {
+                    this.gameData.getCurrentHand().IncBidNumber();
+                    RunCommunity();
+                    //init a new bid round
+                    if(this.gameData.getCurrentHand().getCurrent_bid_number()<4) {
+                        try {
+                            this.model.StartNewBidCycle();
+                        } catch (NoSufficientMoneyException e) {
+                            //it means one of the players do not enough to put the big or small blind
+                            this.IsGameEnded = true;
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                else
+                {
+                    this.HandEventshandler(this.gameData.getCurrentHand());
+                }
+            });
             try {
                 this.model.StartNewBidCycle();
-
-
             } catch (NoSufficientMoneyException e) {
                 //it means one of the players do not enough to put the big or small blind
                 this.IsGameEnded = true;
+                return;
             }
-
-            this.gameData.setCurrentHand();
             this.gameData.getCurrentHand().UpdateHand();
             this.gameData.setCurrentPlayerId();
             this.gameData.UpdatePlayers();
-            this.HandEventshandler(this.gameData.getCurrentHand());
             BuildCommunityArea();
-            communityController.UpdateCommunityCards();
+            this.HandEventshandler(this.gameData.getCurrentHand());
+        }
+    }
 
+
+    private void RunCommunity()
+    {
+        switch(this.gameData.getCurrentHand().getCurrent_bid_number())
+        {
+            case 1:
+                this.model.Flop();
+                this.gameData.getCurrentHand().UpdateHand();
+                this.communityController.UpdateCommunityCards();
+                break;
+            case 2:
+                this.model.River();
+                this.gameData.getCurrentHand().UpdateHand();
+                this.communityController.UpdateCommunityCards();
+                break;
+            case 3:
+                this.model.Turn();
+                this.gameData.getCurrentHand().UpdateHand();
+                this.communityController.UpdateCommunityCards();
+                break;
+            case 4:
+                this.model.SetWinner();
+                this.gameData.setIsCurrentHandFinished();
+                this.gameData.UpdateAll();
+
+                break;
         }
     }
 
     private void HandEventshandler(HandData hand) {
-
-        //current bid cycle finished listener
-        hand.is_current_bid_cycle_finishedProperty().addListener((observable, oldValue, newValue) -> {
-            //TBD
-            System.out.println("current bid finished");
-            return;
-        });
 
         // cycle moved to next player listener
         hand.current_player_idProperty().addListener((observable, oldValue, newValue) -> {
@@ -319,13 +389,9 @@ public class GameController implements Initializable {
             }
         });
 
-
-        gameData.currentPlayerIdProperty();
-
         this.GetPlayerMove();
 
         //hand.setCurrent_player_id();
-
     }
 
     public  void PrintGame(CurrentHandState curHandState){
@@ -486,11 +552,10 @@ public class GameController implements Initializable {
 
     private void PrintAllPlayers() {
 
-
-        playerGrid.add(PlayersNode.get(0),0,0);
-        playerGrid.add(PlayersNode.get(1),0,1);
-        playerGrid.add(PlayersNode.get(2),2,1);
-        playerGrid.add(PlayersNode.get(3),2,0);
+        playerGrid.add(PlayersNode.get(0), 0, 0);
+        playerGrid.add(PlayersNode.get(1), 0, 1);
+        playerGrid.add(PlayersNode.get(2), 2, 1);
+        playerGrid.add(PlayersNode.get(3), 2, 0);
 
     }
 

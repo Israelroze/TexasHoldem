@@ -398,6 +398,11 @@ public class Game implements InterfaceAPI {
         }
     }
 
+    @Override
+    public boolean IsCurrentHandOver(){
+        return this.current_hand.GetIsHandOver();
+    }
+
 
     @Override
     public int GetCurrentPlayerID(){

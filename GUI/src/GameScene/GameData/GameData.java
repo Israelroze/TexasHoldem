@@ -2,6 +2,7 @@ package GameScene.GameData;
 
 import API.InterfaceAPI;
 import GameScene.PlayerCube.PlayerCubeController;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -22,6 +23,7 @@ public class GameData {
     private SimpleIntegerProperty currentPlayerId;
     private HandData currentHand;
 
+    private SimpleBooleanProperty IsCurrentHandFinished;
 
 
     public GameData (InterfaceAPI model) {
@@ -31,11 +33,22 @@ public class GameData {
         this.maxPot = new SimpleStringProperty("Game Money "+(Integer.toString(0)));
         this.currentHandNumber = new SimpleStringProperty("Hand Number "+(Integer.toString(model.GetCurrentHandNumber())));
         currentPlayerId = new SimpleIntegerProperty(-1);
-
+        this.IsCurrentHandFinished=new SimpleBooleanProperty(false);
         //this.currentHand=new HandData(this.model);
         this.LoadPlayers();
     }
 
+    public boolean isIsCurrentHandFinished() {
+        return this.IsCurrentHandFinished.get();
+    }
+
+    public SimpleBooleanProperty isCurrentHandFinishedProperty() {
+        return this.IsCurrentHandFinished;
+    }
+
+    public void setIsCurrentHandFinished() {
+        this.IsCurrentHandFinished.set(this.model.IsCurrentHandOver());
+    }
 
     //Setters
 
@@ -129,6 +142,7 @@ public class GameData {
         if (this.currentHand != null) this.currentHand.UpdateHand();
         this.setCurrentPlayerId();
         this.setCurrentHandNumber();
+        this.setIsCurrentHandFinished();
     }
 
 
