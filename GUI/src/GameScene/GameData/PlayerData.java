@@ -30,6 +30,12 @@ public class PlayerData {
     private SimpleBooleanProperty isHuman;
     private SimpleBooleanProperty isFolded;
 
+    public boolean isIsQuit() { return isQuit.get(); }
+    public SimpleBooleanProperty isQuitProperty() { return isQuit; }
+    public void setIsQuit(boolean isQuit) { this.isQuit.set(isQuit); }
+
+    private SimpleBooleanProperty isQuit;
+
     public String getPlayerState() { return playerState.get(); }
 
     public SimpleStringProperty playerStateProperty() { return playerState; }
@@ -55,7 +61,7 @@ public class PlayerData {
         this.numOfWins = new SimpleStringProperty(Integer.toString(model.GetPlayerNumOfWins(id)) + " Wins");
         this.Card2 = new SimpleStringProperty(UnknownCardImageName);
         this.Card1 = new SimpleStringProperty(UnknownCardImageName);
-
+        this.isQuit = new SimpleBooleanProperty(false);
         this.isDealer = new SimpleBooleanProperty(model.GetPlayerIsDealer(id));
         this.isBig = new SimpleBooleanProperty(model.GetPlayerIsBig(id));
         this.isSmall = new SimpleBooleanProperty(model.GetPlayerIsSmall(id));

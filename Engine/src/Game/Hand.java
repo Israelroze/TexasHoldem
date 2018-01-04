@@ -169,39 +169,6 @@ public class Hand {
         return min.intValue();
     }
 
-//        int a;
-//        this.players.GetPlayers();
-//        for(APlayer player : this.players.GetPlayers())
-//        {
-//            if(this.higest_stake==0) //round only started
-//            {
-//                if(Game.ENABLE_LOG) System.out.println("all stakes are o, calculating poorest between all.");
-//                if (min == 0) {
-//                    min = player.GetMoney();
-//                } else {
-//                    if (min > player.GetMoney()) {
-//                       // if (player.getStake() < this.higest_stake) {
-//                            min = player.GetMoney();
-//                        //}
-//                    }
-//                }
-//            }
-//            else {
-//              //  if (player.getStake() != this.higest_stake) {
-//                    if (min == 0) {
-//                        min = player.GetMoney();
-//                    } else {
-//                        if (min >  player.GetMoney()) {
-//                            if (player.getStake() < this.higest_stake) {
-//                                min = player.GetMoney();
-//                            }
-//                        }
-//                    }
-//                //}
-//            }
-//        }
-       //return min;
-    //}
     public boolean GetIsHandOver(){return this.is_hand_over;}
 
     public void SetIsBetCycleFinished() {
@@ -400,14 +367,14 @@ public class Hand {
         return false;
     }
 
-    public void CheckHandStatus()
-    {
+    public void CheckHandStatus() {
         if(this.IsOnlyOnePlayerActive())
         {
             this.SetTechincalWinner();
             return;
         }
     }
+
     public void ImplementMove(MoveType move,int stake) throws NoSufficientMoneyException, PlayerFoldedException, ChipLessThanPotException, MoveNotAllowdedException, StakeNotInRangeException, PlayerAlreadyBetException {
 
 
@@ -537,8 +504,7 @@ public class Hand {
        return this.players.GetNextPlayer(this.current_player);
     }
 
-    public void SetTechincalWinner()
-    {
+    public void SetTechincalWinner() {
         int index=0;
         for( APlayer player :this.players.GetPlayers())
         {
@@ -711,6 +677,5 @@ public class Hand {
         if(num_of_active_players<1) return true;
         return false;
     }
-
 
 }

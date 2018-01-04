@@ -421,10 +421,12 @@ public class Game implements InterfaceAPI {
     //////////////////////TBD////////////////////////
     @Override
     public void PlayerPerformQuitFromGame(int id) {
-
+        this.players.DeletePlayerById(id);
     }
-
-
+    @Override
+    public boolean IsPlayerExist(int id){
+        return this.players.IsPlayerExist(id);
+    }
     @Override
     public int GetCurrentPlayerID(){
        return this.current_hand.GetCurrentPlayer().getId();

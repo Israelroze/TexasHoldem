@@ -53,6 +53,28 @@ public class APlayers {
         }
     }
 
+    public void DeletePlayerById(int id){
+
+        for(APlayer player: this.aplayers)
+        {
+            if(player.getId()==id)
+            {
+                this.aplayers.remove(player);
+            }
+        }
+    }
+
+    public boolean IsPlayerExist(int id){
+        for(APlayer player: this.aplayers)
+        {
+            if(player.getId()==id)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public int GetSize()
     {
         return aplayers.size();

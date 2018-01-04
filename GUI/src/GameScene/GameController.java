@@ -84,15 +84,17 @@ public GameController(){}
                 MenuContorller.SetRequiredButton(false, false, true, true);
             }
 
-            if(this.gameData.getCurrentHand() != null)
-            {
-                //if(0 < this.gameData.getCurrentHand().getCurrent_bid_number() &&  this.gameData.getCurrentHand().getCurrent_bid_number()>0)
-            }
+
+
+
+
 
             MenuContorller.HideButton();
             this.MainOptionVbox.getChildren().removeAll();
             this.MainOptionVbox.getChildren().clear();
             this.MainOptionVbox.getChildren().add(MenuBox);
+            MenuContorller.setGameData(this.gameData);
+            MenuContorller.SetBuyButton();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -284,6 +286,8 @@ public GameController(){}
     private void PlayOneHand(){
 
         // Deleting the Option box
+        this.gameData.RemoveDeletedPlayers();
+        //PrintAllPlayers();
         this.MainOptionVbox.getChildren().removeAll();
         this.MainOptionVbox.getChildren().clear();
 
@@ -561,6 +565,9 @@ public GameController(){}
     }
 
     private void PrintAllPlayers() {
+
+        this.playerGrid.getChildren().removeAll();
+
         if(PlayersNode.size() == 3 ) {
             playerGrid.add(PlayersNode.get(0), 1, 0);
             playerGrid.add(PlayersNode.get(1), 0, 1);
