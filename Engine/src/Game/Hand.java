@@ -223,7 +223,7 @@ public class Hand {
         this.is_bets_started=true;
         this.is_bets_finished=false;
 
-        for(APlayer player: this.players.GetPlayers())
+        /*for(APlayer player: this.players.GetPlayers())
         {
             if(player.GetType()==PlayerType.HUMAN)
             {
@@ -232,7 +232,7 @@ public class Hand {
                     this.is_bets_finished=true;
                 }
             }
-        }
+        }*/
 
         //init players flags
         this.InitPlayerFlags();
@@ -400,7 +400,17 @@ public class Hand {
         return false;
     }
 
+    public void CheckHandStatus()
+    {
+        if(this.IsOnlyOnePlayerActive())
+        {
+            this.SetTechincalWinner();
+            return;
+        }
+    }
     public void ImplementMove(MoveType move,int stake) throws NoSufficientMoneyException, PlayerFoldedException, ChipLessThanPotException, MoveNotAllowdedException, StakeNotInRangeException, PlayerAlreadyBetException {
+
+
 
         if(move==null)
         {
@@ -527,6 +537,28 @@ public class Hand {
        return this.players.GetNextPlayer(this.current_player);
     }
 
+    public void SetTechincalWinner()
+    {
+        int index=0;
+        for( APlayer player :this.players.GetPlayers())
+        {
+            if(player.GetIsFoldedFlag()==false)
+            {
+                this.winners.add(index);
+            }
+            index++;
+        }
+
+        //set the number of wins for the players
+        this.SetWinnersCounter();
+
+        //devide the pot between the winners
+        this.PassPot();
+
+        this.is_hand_over=true;
+
+    }
+
     public void SetWinner() {
         int[] winner_indexs=new int[4];
         EquityCalculator calculator = new EquityCalculator();
@@ -651,4 +683,34 @@ public class Hand {
         }
         return win_names;
     }
+
+    public boolean IsOnlyOnePlayerActive(){
+        int num_of_active_players=this.players.GetSize();
+        for( APlayer player :this.players.GetPlayers())
+        {
+            if(player.GetIsFoldedFlag()==true)
+            {
+                num_of_active_players--;
+            }
+        }
+
+        if(num_of_active_players==1) return true;
+        return false;
+    }
+
+    public boolean IsNoPlayerActive(){
+        int num_of_active_players=this.players.GetSize();
+        for( APlayer player :this.players.GetPlayers())
+        {
+            if(player.GetIsFoldedFlag()==true)
+            {
+                num_of_active_players--;
+            }
+        }
+
+        if(num_of_active_players<1) return true;
+        return false;
+    }
+
+
 }

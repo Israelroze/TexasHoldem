@@ -18,7 +18,7 @@ import Move.*;
 
 public class Game implements InterfaceAPI {
 
-    final static Boolean ENABLE_LOG = true;
+    final static Boolean ENABLE_LOG = false;
     //members
     private GameDescriptor configuration;
     private CurrentHandState state;
@@ -401,6 +401,27 @@ public class Game implements InterfaceAPI {
     @Override
     public boolean IsCurrentHandOver(){
         return this.current_hand.GetIsHandOver();
+    }
+
+    @Override
+    public void PlayerPerformBuy(int id) {
+        //Written by avishay
+        for (APlayer player : players.GetPlayers()) {
+            if (player.getId() == id) player.BuyMoney(this.configuration.getStructure().getBuy());
+            //MUST TO BE UPDATE, Changing bilnds
+            this.global_num_of_buys++;
+        }
+
+    }
+
+    @Override
+    public void CheckCurrentHandStatus(){
+        this.current_hand.CheckHandStatus();
+    }
+    //////////////////////TBD////////////////////////
+    @Override
+    public void PlayerPerformQuitFromGame(int id) {
+
     }
 
 

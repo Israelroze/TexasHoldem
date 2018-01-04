@@ -107,6 +107,9 @@ public interface  InterfaceAPI {
     public List<Card> GetPlayersCards(int id);
     public List<Card> GetCommunityCards();
     public boolean IsCurrentHandOver();
+    public void CheckCurrentHandStatus();
+    public void PlayerPerformBuy(int id);
+    public void PlayerPerformQuitFromGame(int id);
 
 
 

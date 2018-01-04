@@ -9,8 +9,12 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import javax.print.attribute.standard.MediaSize;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Consumer;
 
 public class GameData {
 
@@ -144,7 +148,25 @@ public class GameData {
         this.setCurrentHandNumber();
         this.setIsCurrentHandFinished();
     }
+    public List<String> GetNameOfPlayers(){
+        List<String> Names= new LinkedList<>();
 
+        for (PlayerData player : this.playerData)
+        {
+            Names.add(player.getPlayerName());
+        }
+        return Names;
+    }
+    public List<Runnable> GetBuyFunctions()
+    {
+        List<Runnable> res = new LinkedList<>();
+        for (PlayerData player : this.playerData)
+        {
+            res.add( ()-> {player.MakeABuy();});
+        }
+        return res;
+
+    }
 
 }
 

@@ -72,6 +72,8 @@ public class PlayerData {
         this.Card1.set(this.playerCards.get(0).toString());
         this.Card2.set(this.playerCards.get(1).toString());
     }
+
+
    // public void SetRealCards () {this.}
 //    private void SetRealCard1() { this.Card1.set(this.playerCards.get(0).toString()); }
 //    private void SetRealCard2() { this.Card2.set(this.playerCards.get(1).toString()); }
@@ -178,6 +180,7 @@ public class PlayerData {
         return isFolded;
     }
 
+    public void MakeABuy() { model.PlayerPerformBuy(this.id.get());}
 /*
     public void ShowCard() {
         SetRealCard1();
@@ -200,6 +203,7 @@ public class PlayerData {
         this.setIsFolded();
         this.setPlayerState();
     }
+
 
 }
 

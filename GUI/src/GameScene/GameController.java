@@ -61,6 +61,8 @@ public class GameController implements Initializable {
 
 
 
+public GameController(){}
+
     //private
     private void BuildMainOption(){
         FXMLLoader loader = new FXMLLoader();
@@ -81,6 +83,12 @@ public class GameController implements Initializable {
             else {
                 MenuContorller.SetRequiredButton(false, false, true, true);
             }
+
+            if(this.gameData.getCurrentHand() != null)
+            {
+                //if(0 < this.gameData.getCurrentHand().getCurrent_bid_number() &&  this.gameData.getCurrentHand().getCurrent_bid_number()>0)
+            }
+
             MenuContorller.HideButton();
             this.MainOptionVbox.getChildren().removeAll();
             this.MainOptionVbox.getChildren().clear();
@@ -199,14 +207,16 @@ public class GameController implements Initializable {
     private void MoveToNextPlayerAndUpdate(){
         this.model.MoveToNextPlayer();
         this.model.CheckBidStatus();
+        this.model.CheckCurrentHandStatus();
         this.gameData.UpdateAll();
         //this.gameData.getCurrentHand().UpdateHand();
     }
 
-    private void SetMoveAndUpdate(Move move) {
+        private void SetMoveAndUpdate(Move move) {
         try {
             this.model.SetNewMove(move);
             this.model.CheckBidStatus();
+            this.model.CheckCurrentHandStatus();
             this.gameData.UpdateAll();
             //this.gameData.getCurrentHand().UpdateHand();
             //this.gameData.UpdatePlayers();
@@ -223,9 +233,7 @@ public class GameController implements Initializable {
         } catch (PlayerAlreadyBetException e) {
             e.printStackTrace();
         }
-    }
-
-    public GameController(){};
+    };
 
     public void setModel(InterfaceAPI model) {
         this.model = model;
@@ -279,8 +287,6 @@ public class GameController implements Initializable {
         this.MainOptionVbox.getChildren().removeAll();
         this.MainOptionVbox.getChildren().clear();
 
-
-
         if (this.model.IsAnyPlayerOutOfMoney()) {
             this.IsGameEnded = true;
         }
@@ -307,6 +313,7 @@ public class GameController implements Initializable {
             this.gameData.getCurrentHand().is_current_bid_cycle_finishedProperty().addListener((observable, oldValue, newValue) -> {
                 if(newValue == true)
                 {
+                    System.out.println("Current Bid Finished");
                     this.gameData.getCurrentHand().IncBidNumber();
                     RunCommunity();
                     //init a new bid round
@@ -344,9 +351,7 @@ public class GameController implements Initializable {
         }
     }
 
-
-    private void RunCommunity()
-    {
+    private void RunCommunity() {
         switch(this.gameData.getCurrentHand().getCurrent_bid_number())
         {
             case 1:
@@ -379,6 +384,7 @@ public class GameController implements Initializable {
         hand.current_player_idProperty().addListener((observable, oldValue, newValue) -> {
             System.out.println("Player Moved!!!");
             this.model.CheckBidStatus();
+            this.model.CheckCurrentHandStatus();
             this.gameData.getCurrentHand().UpdateHand();
             if(this.gameData.getCurrentHand().isIs_current_bid_cycle_finished()) {
                 return;
@@ -394,108 +400,112 @@ public class GameController implements Initializable {
         //hand.setCurrent_player_id();
     }
 
-    public  void PrintGame(CurrentHandState curHandState){
-
-
-//        System.out.format("%s",curHandState.getPlayersState().get(0).getCard().toString());
-//        System.out.format("%s",curHandState.getPlayersState().get(0).getCard().toString());
-//        System.out.format("%s",curHandState.getPlayersState().get(1).IsHuman() ?"": "Cards: ");
-//        System.out.format("%s",curHandState.getPlayersState().get(1).getCard().toString());
-
-
-        System.out.format("%-9s  %-4d  %s       %-9s  %-4d  %s\n",curHandState.getPlayersState().get(0).getName(),curHandState.getPlayersState().get(0).getId(),curHandState.getCurrentPlayer() == 0 ? "***": "   ",curHandState.getPlayersState().get(3).getName(),curHandState.getPlayersState().get(3).getId(),curHandState.getCurrentPlayer() == 3 ? "***": "   ");
-        System.out.format("*****************%s       *****************%s\n",curHandState.getCurrentPlayer() == 0 ? "***": "** ",curHandState.getCurrentPlayer() == 3 ? "***": "** ");
-        System.out.format("* Type: %1s        %s       * Type: %1s        %s\n",curHandState.getPlayersState().get(0).GetType().toString(),curHandState.getCurrentPlayer() == 0 ? "***": " * ",curHandState.getPlayersState().get(3).GetType().toString(),curHandState.getCurrentPlayer() == 3 ? "***": " * ");
-        System.out.format("* State %1s         *        * State %1s         *\n",curHandState.getPlayersState().get(0).getState().toString(),curHandState.getPlayersState().get(3).getState().toString());
-        System.out.format("* Chips: %-8d *        * Chips: %-8d *\n",curHandState.getPlayersState().get(0).getChips(),curHandState.getPlayersState().get(3).getChips());
-        System.out.format("* Bets: %-8d  *        * Bets: %-8d  *\n",curHandState.getPlayersState().get(0).getBet(),curHandState.getPlayersState().get(3).getBet());
-        if(curHandState.getPlayersState().get(0).IsHuman() ){
-            System.out.format("* %6s %-3s%3s  *        ",
-                    "Cards: ",curHandState.getPlayersState().get(0).getCard().get(0).toString(),curHandState.getPlayersState().get(0).getCard().get(1).toString());
-        }
-        else{
-            System.out.format("*                 *        ");
-
-        }
-        if(curHandState.getPlayersState().get(3).IsHuman() ){
-            System.out.format("* %6s %-3s%3s  *\n",
-                    "Cards: ",curHandState.getPlayersState().get(3).getCard().get(0).toString(),curHandState.getPlayersState().get(3).getCard().get(1).toString());
-        }else
-        {
-            System.out.format("*                 *\n");
-        }
-
-        System.out.format("*******************        *******************\n");
-        System.out.format("\n");
-        System.out.format("     %s            ***POT: %d *** \n", curHandState.getStringOfCommunityCard(),curHandState.getPot());
-        System.out.format("Big Blind: %-5d   Small Blind : %-5d \n", curHandState.getBigBlind(), curHandState.getSmallBlind());
-        System.out.format("\n");
-        System.out.format("%-9s  %-4d  %s       %-9s %4d  %s\n",curHandState.getPlayersState().get(1).getName(),curHandState.getPlayersState().get(1).getId(),curHandState.getCurrentPlayer() == 1 ? "***": "   ",curHandState.getPlayersState().get(2).getName(),curHandState.getPlayersState().get(2).getId(),curHandState.getCurrentPlayer() == 2 ? "***": "   ");
-        System.out.format("*****************%s       *****************%s\n",curHandState.getCurrentPlayer() == 1 ? "***": "** ",curHandState.getCurrentPlayer() == 2 ? "***": "** ");
-        System.out.format("* Type: %1s        %s       * Type: %1s        %s\n",curHandState.getPlayersState().get(1).GetType().toString(),curHandState.getCurrentPlayer() == 1 ? "***": " * ",curHandState.getPlayersState().get(2).GetType().toString(),curHandState.getCurrentPlayer() == 2 ? "***": " * ");
-        System.out.format("* State %1s         *        * State %1s         *\n",curHandState.getPlayersState().get(1).getState().toString(),curHandState.getPlayersState().get(2).getState().toString());
-        System.out.format("* Chips: %-8d *        * Chips: %-8d *\n",curHandState.getPlayersState().get(1).getChips(),curHandState.getPlayersState().get(2).getChips());
-        System.out.format("* Bets: %-8d  *        * Bets: %-8d  *\n",curHandState.getPlayersState().get(1).getBet(),curHandState.getPlayersState().get(2).getBet());
-        if(curHandState.getPlayersState().get(1).IsHuman() ){
-            System.out.format("* %6s %-3s%3s  *        ",
-                    "Cards: ",curHandState.getPlayersState().get(1).getCard().get(0).toString(),curHandState.getPlayersState().get(1).getCard().get(1).toString());
-        }
-        else{
-            System.out.format("*                 *        ");
-
-        }
-        if(curHandState.getPlayersState().get(2).IsHuman() ){
-            System.out.format("* %6s %-3s%3s  *\n",
-                    "Cards: ",curHandState.getPlayersState().get(2).getCard().get(0).toString(),curHandState.getPlayersState().get(2).getCard().get(1).toString());
-        }else
-        {
-            System.out.format("*                 *\n");
-        }
-        System.out.format("*******************        *******************\n");
-
-
-    }
+//    public  void PrintGame(CurrentHandState curHandState){
+//
+//
+////        System.out.format("%s",curHandState.getPlayersState().get(0).getCard().toString());
+////        System.out.format("%s",curHandState.getPlayersState().get(0).getCard().toString());
+////        System.out.format("%s",curHandState.getPlayersState().get(1).IsHuman() ?"": "Cards: ");
+////        System.out.format("%s",curHandState.getPlayersState().get(1).getCard().toString());
+//
+//
+//        System.out.format("%-9s  %-4d  %s       %-9s  %-4d  %s\n",curHandState.getPlayersState().get(0).getName(),curHandState.getPlayersState().get(0).getId(),curHandState.getCurrentPlayer() == 0 ? "***": "   ",curHandState.getPlayersState().get(3).getName(),curHandState.getPlayersState().get(3).getId(),curHandState.getCurrentPlayer() == 3 ? "***": "   ");
+//        System.out.format("*****************%s       *****************%s\n",curHandState.getCurrentPlayer() == 0 ? "***": "** ",curHandState.getCurrentPlayer() == 3 ? "***": "** ");
+//        System.out.format("* Type: %1s        %s       * Type: %1s        %s\n",curHandState.getPlayersState().get(0).GetType().toString(),curHandState.getCurrentPlayer() == 0 ? "***": " * ",curHandState.getPlayersState().get(3).GetType().toString(),curHandState.getCurrentPlayer() == 3 ? "***": " * ");
+//        System.out.format("* State %1s         *        * State %1s         *\n",curHandState.getPlayersState().get(0).getState().toString(),curHandState.getPlayersState().get(3).getState().toString());
+//        System.out.format("* Chips: %-8d *        * Chips: %-8d *\n",curHandState.getPlayersState().get(0).getChips(),curHandState.getPlayersState().get(3).getChips());
+//        System.out.format("* Bets: %-8d  *        * Bets: %-8d  *\n",curHandState.getPlayersState().get(0).getBet(),curHandState.getPlayersState().get(3).getBet());
+//        if(curHandState.getPlayersState().get(0).IsHuman() ){
+//            System.out.format("* %6s %-3s%3s  *        ",
+//                    "Cards: ",curHandState.getPlayersState().get(0).getCard().get(0).toString(),curHandState.getPlayersState().get(0).getCard().get(1).toString());
+//        }
+//        else{
+//            System.out.format("*                 *        ");
+//
+//        }
+//        if(curHandState.getPlayersState().get(3).IsHuman() ){
+//            System.out.format("* %6s %-3s%3s  *\n",
+//                    "Cards: ",curHandState.getPlayersState().get(3).getCard().get(0).toString(),curHandState.getPlayersState().get(3).getCard().get(1).toString());
+//        }else
+//        {
+//            System.out.format("*                 *\n");
+//        }
+//
+//        System.out.format("*******************        *******************\n");
+//        System.out.format("\n");
+//        System.out.format("     %s            ***POT: %d *** \n", curHandState.getStringOfCommunityCard(),curHandState.getPot());
+//        System.out.format("Big Blind: %-5d   Small Blind : %-5d \n", curHandState.getBigBlind(), curHandState.getSmallBlind());
+//        System.out.format("\n");
+//        System.out.format("%-9s  %-4d  %s       %-9s %4d  %s\n",curHandState.getPlayersState().get(1).getName(),curHandState.getPlayersState().get(1).getId(),curHandState.getCurrentPlayer() == 1 ? "***": "   ",curHandState.getPlayersState().get(2).getName(),curHandState.getPlayersState().get(2).getId(),curHandState.getCurrentPlayer() == 2 ? "***": "   ");
+//        System.out.format("*****************%s       *****************%s\n",curHandState.getCurrentPlayer() == 1 ? "***": "** ",curHandState.getCurrentPlayer() == 2 ? "***": "** ");
+//        System.out.format("* Type: %1s        %s       * Type: %1s        %s\n",curHandState.getPlayersState().get(1).GetType().toString(),curHandState.getCurrentPlayer() == 1 ? "***": " * ",curHandState.getPlayersState().get(2).GetType().toString(),curHandState.getCurrentPlayer() == 2 ? "***": " * ");
+//        System.out.format("* State %1s         *        * State %1s         *\n",curHandState.getPlayersState().get(1).getState().toString(),curHandState.getPlayersState().get(2).getState().toString());
+//        System.out.format("* Chips: %-8d *        * Chips: %-8d *\n",curHandState.getPlayersState().get(1).getChips(),curHandState.getPlayersState().get(2).getChips());
+//        System.out.format("* Bets: %-8d  *        * Bets: %-8d  *\n",curHandState.getPlayersState().get(1).getBet(),curHandState.getPlayersState().get(2).getBet());
+//        if(curHandState.getPlayersState().get(1).IsHuman() ){
+//            System.out.format("* %6s %-3s%3s  *        ",
+//                    "Cards: ",curHandState.getPlayersState().get(1).getCard().get(0).toString(),curHandState.getPlayersState().get(1).getCard().get(1).toString());
+//        }
+//        else{
+//            System.out.format("*                 *        ");
+//
+//        }
+//        if(curHandState.getPlayersState().get(2).IsHuman() ){
+//            System.out.format("* %6s %-3s%3s  *\n",
+//                    "Cards: ",curHandState.getPlayersState().get(2).getCard().get(0).toString(),curHandState.getPlayersState().get(2).getCard().get(1).toString());
+//        }else
+//        {
+//            System.out.format("*                 *\n");
+//        }
+//        System.out.format("*******************        *******************\n");
+//
+//
+//    }
 
     private void GetPlayerMove() {
         System.out.println("INSIDE GetPlayerMove, player id"+this.gameData.getCurrentHand().getCurrent_player_id());
-        this.PrintGame(model.GetCurrentHandState());
+//        this.PrintGame(model.GetCurrentHandState());
 
         Move move=null;
-        //if computer
-        if (this.model.IsCurrentPlayerComputer()) {
-            try {
-                move=this.model.GetAutoMove();
-            } catch (PlayerFoldedException e) {
-                e.printStackTrace();
-            } catch (ChipLessThanPotException e) {
-                e.printStackTrace();
-            }
-            this.SetMoveAndUpdate(move);
+        if(this.model.IsCurrentPlayerFolded()) {
+            System.out.println("current player"+this.gameData.GetPlayerData(this.model.GetCurrentPlayerID()).getPlayerName()+" already folded, moving to next player");
+            this.MoveToNextPlayerAndUpdate();
         }
-        else //if human
-        {
-            System.out.println("getting human move");
-            if (this.model.IsCurrentPlayerHuman()) {
-
-                List<MoveType> moves=null;
-                MoveType moveType;
-                Move res;
-
-                //Get Allowded moves
+        else {
+            //if computer
+            if (this.model.IsCurrentPlayerComputer()) {
                 try {
-                    moves= this.model.GetAllowdedMoves();
+                    move = this.model.GetAutoMove();
                 } catch (PlayerFoldedException e) {
-                    this.MoveToNextPlayerAndUpdate();
+                    e.printStackTrace();
                 } catch (ChipLessThanPotException e) {
-                    System.out.println("Chips is less than the Pot, number of chip is: "+ e.GetMaxChips());
+                    e.printStackTrace();
                 }
-                if(moves == null)
-                {
-                    System.out.println("Moves not avaliable");
-                }
+                this.SetMoveAndUpdate(move);
+            } else //if human
+            {
+                System.out.println("getting human move");
+                if (this.model.IsCurrentPlayerHuman()) {
 
-                //Get move
-                this.GetHumanNaxtMoveFromGUI(moves);
+                    List<MoveType> moves = null;
+                    MoveType moveType;
+                    Move res;
+
+                    //Get Allowded moves
+                    try {
+                        moves = this.model.GetAllowdedMoves();
+                    } catch (PlayerFoldedException e) {
+                        this.MoveToNextPlayerAndUpdate();
+                    } catch (ChipLessThanPotException e) {
+                        System.out.println("Chips is less than the Pot, number of chip is: " + e.GetMaxChips());
+                    }
+                    if (moves == null) {
+                        System.out.println("Moves not avaliable");
+                    }
+
+                    //Get move
+                    this.GetHumanNaxtMoveFromGUI(moves);
+                }
             }
         }
     }
@@ -551,12 +561,33 @@ public class GameController implements Initializable {
     }
 
     private void PrintAllPlayers() {
+        if(PlayersNode.size() == 3 ) {
+            playerGrid.add(PlayersNode.get(0), 1, 0);
+            playerGrid.add(PlayersNode.get(1), 0, 1);
+            playerGrid.add(PlayersNode.get(2), 2, 1);
+        }
+        else if(PlayersNode.size() == 4) {
+            playerGrid.add(PlayersNode.get(0), 0, 0);
+            playerGrid.add(PlayersNode.get(1), 0, 1);
+            playerGrid.add(PlayersNode.get(2), 2, 1);
+            playerGrid.add(PlayersNode.get(3), 2, 0);
+        }
+        else if(PlayersNode.size() == 5) {
+            playerGrid.add(PlayersNode.get(0), 0, 0);
+            playerGrid.add(PlayersNode.get(1), 0, 1);
+            playerGrid.add(PlayersNode.get(4), 1, 1);
+            playerGrid.add(PlayersNode.get(3), 2, 1);
+            playerGrid.add(PlayersNode.get(4), 2, 0);
 
-        playerGrid.add(PlayersNode.get(0), 0, 0);
-        playerGrid.add(PlayersNode.get(1), 0, 1);
-        playerGrid.add(PlayersNode.get(2), 2, 1);
-        playerGrid.add(PlayersNode.get(3), 2, 0);
+        }else if(PlayersNode.size() == 6) {
+            playerGrid.add(PlayersNode.get(0), 0, 0);
+            playerGrid.add(PlayersNode.get(1), 0, 1);
+            playerGrid.add(PlayersNode.get(4), 1, 1);
+            playerGrid.add(PlayersNode.get(3), 2, 1);
+            playerGrid.add(PlayersNode.get(4), 2, 0);
+            playerGrid.add(PlayersNode.get(5), 1, 0);
 
+        }
     }
 
     private void GetHumanNaxtMoveFromGUI(List<MoveType> AllowedMove) {

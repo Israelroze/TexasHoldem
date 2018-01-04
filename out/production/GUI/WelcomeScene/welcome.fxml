@@ -39,7 +39,7 @@
                   <VBox spacing="20.0">
                      <children>
                         <Button fx:id="loadFromXmlFileButton" alignment="CENTER_RIGHT" contentDisplay="RIGHT" onAction="#handleLoadFromXmlFileButtonAction" text="Load XML File" />
-                        <Label fx:id="XMLErrorMessageLabel" alignment="CENTER" />
+                        <Label fx:id="XMLErrorMessageLabel" alignment="CENTER" textAlignment="CENTER" />
                      </children>
                   </VBox>
                </children>
