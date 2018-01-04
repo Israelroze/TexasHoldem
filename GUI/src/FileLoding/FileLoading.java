@@ -15,9 +15,12 @@ public class FileLoading extends Task<Boolean>  {
     private InterfaceAPI model;
     String fullPath;
     SimpleBooleanProperty isFileLoadingSucceed;
-    SimpleBooleanProperty isErrorHappend;
     SimpleStringProperty errorMessage;
-    Optional<Runnable> onFinish;
+    SimpleBooleanProperty isErrorHappend;
+
+
+
+
 
 
 
@@ -106,4 +109,13 @@ public class FileLoading extends Task<Boolean>  {
         Utils.sleepForAWhile(500);
         return true;
     }
+
+
+    public boolean isIsErrorHappend() { return isErrorHappend.get(); }
+    public SimpleBooleanProperty isErrorHappendProperty() { return isErrorHappend; }
+    public String getErrorMessage() {return errorMessage.get(); }
+    public SimpleStringProperty errorMessageProperty() { return errorMessage; }
+
+
+
 }

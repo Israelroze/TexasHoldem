@@ -11,6 +11,7 @@ import API.InterfaceAPI;
 import FileLoding.FileLoading;
 import GameLogic.GameLogic;
 import GameScene.GameController;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.concurrent.Task;
@@ -22,11 +23,13 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javax.naming.Binding;
 import javax.rmi.CORBA.Util;
 
 public class WelcomeController implements Initializable {
@@ -34,6 +37,7 @@ public class WelcomeController implements Initializable {
     @FXML private Button loadFromXmlFileButton;
     @FXML private ProgressBar taskProgressBar;
     @FXML private VBox welcomeVbox;
+    @FXML private Label XMLErrorMessageLabel;
 
     private Stage primaryStage;
     private FXMLLoader loader;
@@ -44,7 +48,7 @@ public class WelcomeController implements Initializable {
     private InterfaceAPI model;
 
 
-    private Task<Boolean> currentRunningTask;
+    private FileLoading currentRunningTask;
     public void setModel(InterfaceAPI model) {
         this.model = model;
     }
@@ -70,23 +74,26 @@ public class WelcomeController implements Initializable {
     }
 
     @FXML protected void handleLoadFromXmlFileButtonAction(ActionEvent event) {
-//        FileChooser fileChooser = new FileChooser();
-//        fileChooser.setTitle("Select XML file");
-//        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("xml files", "*.xml"));
-//        File selectedFile = fileChooser.showOpenDialog(primaryStage);
-//        if (selectedFile == null) {
-//            return;
-//        }
-//        String absolutePath = selectedFile.getAbsolutePath();
-//        System.out.println(absolutePath);
-//        selectedFileProperty.set(absolutePath);
-//        isFileSelected.set(true);
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select XML file");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("xml files", "*.xml"));
+        File selectedFile = fileChooser.showOpenDialog(primaryStage);
+        if (selectedFile == null) {
+            return;
+        }
+        String absolutePath = selectedFile.getAbsolutePath();
+        System.out.println(absolutePath);
+        selectedFileProperty.set(absolutePath);
 
-        //LoadXMLFile(absolutePath);
+        LoadXMLFile(absolutePath);
+
+        //isFileSelected.set(false);
+
+
 
         // /for testing
        //LoadXMLFile("C:\\Users\\israe\\Google Drive\\Study\\JavaCourse\\TexasHoldem\\Engine\\Resource\\ex1-basic.xml");
-       LoadXMLFile("C:\\Users\\Avishay\\Desktop\\ex1-basic.xml");
+       //LoadXMLFile("C:\\Users\\Avishay\\Desktop\\ex1-basic.xml");
     }
 
 
@@ -95,7 +102,13 @@ public class WelcomeController implements Initializable {
         currentRunningTask = new FileLoading(model,filePath);
         //controller.bindTaskToUIComponents(currentRunningTask, onFinish);
 
-        bindTaskToUIComponents(currentRunningTask, () -> {});
+        bindTaskToUIComponents(currentRunningTask, () -> {
+            this.XMLErrorMessageLabel.textProperty().bind(Bindings
+                    .when(currentRunningTask.isErrorHappendProperty())
+                    .then(currentRunningTask.errorMessageProperty().get())
+                    .otherwise(""));
+
+        });
         taskProgressBar.setVisible(true);
         new Thread(currentRunningTask).start();
         log("Loading finished");
@@ -122,6 +135,7 @@ public class WelcomeController implements Initializable {
     //    this.progressPercentLabel.textProperty().unbind();
         this.taskProgressBar.progressProperty().unbind();
         onFinish.ifPresent(Runnable::run);
+        if(!currentRunningTask.isIsErrorHappend())
         StartGameScene();
     }
 
