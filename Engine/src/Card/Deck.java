@@ -18,9 +18,11 @@ public class Deck {
         cards=new LinkedList<Card>();
         for( CardSuit suit : CardSuit.values())
         {
-            for(CardNumber number:CardNumber.values())
-            {
-                cards.add(new Card(number,suit));
+            if(suit != CardSuit.UnknownSuit) {
+                for (CardNumber number : CardNumber.values()) {
+                    if (number != CardNumber.UNKNOWN_NUMBER)
+                        cards.add(new Card(number, suit));
+                }
             }
         }
     }

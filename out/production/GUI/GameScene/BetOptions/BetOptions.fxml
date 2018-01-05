@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<Pane xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameScene.BetOptions.BetOptionsController">
+   <children>
+      <HBox>
+         <children>
+            <VBox prefWidth="100.0">
+               <children>
+                  <Button fx:id="raiseButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#HandleHumanRaise" text="Raise" />
+                  <TextField fx:id="raiseTextFiled" />
+               </children>
+            </VBox>
+            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0">
+               <children>
+                  <Button fx:id="betButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#HandleHumanBet" text="Bet" />
+                  <TextField fx:id="betTextFiled" />
+               </children>
+            </VBox>
+            <VBox prefWidth="100.0">
+               <children>
+                  <Button fx:id="foldButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#HandleHumanFold" text="Fold" />
+               </children>
+            </VBox>
+            <VBox prefWidth="100.0">
+               <children>
+                  <Button fx:id="checkButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#HandleHumanCheck" text="Check" />
+               </children>
+            </VBox>
+            <VBox prefWidth="100.0">
+               <children>
+                  <Button fx:id="callButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#HandleHumanCall" text="Call" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</Pane>

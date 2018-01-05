@@ -24,6 +24,7 @@ public class APlayer{
     private boolean is_folded;
     private int stake;
 
+
     //Ctors
     public APlayer(String name, PlayerType type, int ID)
     {
@@ -64,6 +65,10 @@ public class APlayer{
     }
 
     //Getters Setters
+    public void IncWinner()
+    {
+        this.num_of_wins++;
+    }
     public int getId() { return id; }
 
     public boolean isPlacedBet() {return is_placed_bet; }
