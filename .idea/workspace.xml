@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
       <artifact name="TexasHoldem:jar" />
@@ -12,6 +13,8 @@
     <bookmark url="file://$PROJECT_DIR$/GUI/src/GameScene/GameController.java" line="64" />
     <bookmark url="file://$PROJECT_DIR$/GUI/src/GameScene/GameData/PlayerData.java" line="65" />
   </component>
+=======
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
   <component name="ChangeListManager">
     <list default="true" id="be5ebfd0-ae6a-48ba-bc14-48c8715af483" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -22,29 +25,31 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ChangesViewManager" flattened_view="false" />
-  <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/TexasHoldem$Main__1_.coverage" NAME="Main (1) Coverage Results" MODIFIED="1514634647779" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>WelcomeScene.*</FILTER>
-    </SUITE>
-  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+<<<<<<< HEAD
       <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Engine/src/Game/Game.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="397">
               <caret line="406" column="9" lean-forward="true" selection-start-line="406" selection-start-column="9" selection-end-line="406" selection-end-column="9" />
               <folding>
+=======
+      <file leaf-file-name="Game.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Engine/src/Game/Game.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="575">
+              <caret line="262" column="30" lean-forward="true" selection-start-line="262" selection-start-column="30" selection-end-line="262" selection-end-column="30" />
+              <folding>
+                <element signature="imports" expanded="true" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
                 <element signature="method#SetPlayersChips#0;class#Game#0" expanded="false" />
-                <element signature="method#GetPlayers#0;class#Game#0" expanded="false" />
-                <element signature="method#ValidateXML#0;class#Game#0" expanded="false" />
-                <element signature="method#Init4Players#0;class#Game#0" expanded="false" />
                 <element signature="method#GetConsoleMove#0;class#Game#0" expanded="false" />
                 <element signature="method#PringCurrentAvailable#0;class#Game#0" expanded="false" />
                 <element signature="method#NewHumanMove#0;class#Game#0" expanded="false" />
                 <element signature="method#LoadFromXML#0;class#Game#0" expanded="false" />
                 <element signature="method#StartGame#0;class#Game#0" expanded="false" />
+<<<<<<< HEAD
                 <element signature="method#AddNewPlayer#0;class#Game#0" expanded="false" />
                 <element signature="method#GetNextPlayerID#0;class#Game#0" expanded="false" />
                 <element signature="method#GetPlayerNumOfWins#0;class#Game#0" expanded="false" />
@@ -60,14 +65,16 @@
                 <element signature="e#13442#13443#0" expanded="true" />
                 <element signature="e#13508#13509#0" expanded="true" />
                 <element signature="method#GetCommunityCards#0;class#Game#0" expanded="false" />
+=======
+                <element signature="method#StartNewHand#0;class#Game#0" expanded="false" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
                 <element signature="method#StartNewBidCycle#0;class#Game#0" expanded="false" />
                 <element signature="method#IsCurrentPlayerHuman#0;class#Game#0" expanded="false" />
-                <element signature="method#IsCurrentPlayerFolded#0;class#Game#0" expanded="false" />
-                <element signature="method#IsCurrentPlayerNoMoney#0;class#Game#0" expanded="false" />
+                <element signature="method#IsCurrentPlayerComputer#0;class#Game#0" expanded="false" />
                 <element signature="method#GetAllowdedMoves#0;class#Game#0" expanded="false" />
                 <element signature="method#SetNewMove#0;class#Game#0" expanded="false" />
-                <element signature="method#GetCurrentPlayerInfo#0;class#Game#0" expanded="false" />
                 <element signature="method#GetAutoMove#0;class#Game#0" expanded="false" />
+<<<<<<< HEAD
                 <element signature="method#IsCurrentPlayerComputer#0;class#Game#0" expanded="false" />
                 <element signature="method#Buy#0;class#Game#0" expanded="false" />
                 <element signature="method#IsHumanPlayerFolded#0;class#Game#0" expanded="false" />
@@ -84,16 +91,39 @@
                 <element signature="e#24012#24013#0" expanded="true" />
                 <element signature="e#24234#24235#0" expanded="true" />
                 <element signature="e#24288#24289#0" expanded="true" />
+=======
+                <element signature="e#8017#8018#0" expanded="true" />
+                <element signature="method#GetPlayersInfo#0;class#Game#0" expanded="false" />
+                <element signature="method#GetCurrentHandState#0;class#Game#0" expanded="false" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
               </folding>
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="MainOptionController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GUI/src/GameScene/MainOption/MainOptionController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="194">
               <caret line="87" column="0" lean-forward="false" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
+=======
+      <file leaf-file-name="APlayers.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Engine/src/Player/APlayers.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="646">
+              <caret line="60" column="43" lean-forward="false" selection-start-line="60" selection-start-column="28" selection-end-line="60" selection-end-column="43" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InterfaceAPI.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Engine/src/API/InterfaceAPI.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="510">
+              <caret line="40" column="69" lean-forward="true" selection-start-line="40" selection-start-column="69" selection-end-line="40" selection-end-column="69" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
               <folding />
             </state>
           </provider>
@@ -102,27 +132,41 @@
       <file leaf-file-name="Hand.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Engine/src/Game/Hand.java">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="312">
               <caret line="76" column="0" lean-forward="true" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
               <folding>
                 <element signature="method#Hand#0;class#Hand#0" expanded="false" />
+=======
+            <state relative-caret-position="811">
+              <caret line="220" column="26" lean-forward="false" selection-start-line="220" selection-start-column="26" selection-end-line="220" selection-end-column="26" />
+              <folding>
+                <element signature="method#Hand#0;class#Hand#0" expanded="false" />
+                <element signature="method#GetFirstPlayer#0;class#Hand#0" expanded="false" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
                 <element signature="method#SetBlinds#0;class#Hand#0" expanded="false" />
                 <element signature="method#DealCards#0;class#Hand#0" expanded="false" />
-                <element signature="method#InitNotFinishedPlayers#0;class#Hand#0" expanded="false" />
                 <element signature="method#IsAllStakesEqual#0;class#Hand#0" expanded="false" />
                 <element signature="method#IsAllPlayersPlacedBet#0;class#Hand#0" expanded="false" />
                 <element signature="method#IsAllFolded#0;class#Hand#0" expanded="false" />
                 <element signature="method#InitPlayersBetFlag#0;class#Hand#0" expanded="false" />
+                <element signature="method#IsBetCycleFinished#0;class#Hand#0" expanded="false" />
                 <element signature="method#GetPoorestChipsValue#0;class#Hand#0" expanded="false" />
+<<<<<<< HEAD
                 <element signature="method#GetIsHandOver#0;class#Hand#0" expanded="false" />
                 <element signature="method#GetAllowdedStakeRange#0;class#Hand#0" expanded="false" />
                 <element signature="method#IsOneOfPlayersOutOfMoney#0;class#Hand#0" expanded="false" />
                 <element signature="method#GetAllowdedMoves#0;class#Hand#0" expanded="false" />
                 <element signature="e#8598#8642#0" expanded="false" />
+=======
+                <element signature="method#StartNewBidCycle#0;class#Hand#0" expanded="false" />
+                <element signature="method#GetAllowdedStakeRange#0;class#Hand#0" expanded="false" />
+                <element signature="method#GetAllowdedMoves#0;class#Hand#0" expanded="false" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
                 <element signature="method#IsMoveAllowded#0;class#Hand#0" expanded="false" />
                 <element signature="method#IsStakeInRange#0;class#Hand#0" expanded="false" />
-                <element signature="method#CheckHandStatus#0;class#Hand#0" expanded="false" />
                 <element signature="method#ImplementMove#0;class#Hand#0" expanded="false" />
+<<<<<<< HEAD
                 <element signature="e#12631#12667#0" expanded="false" />
                 <element signature="method#Flop#0;class#Hand#0" expanded="false" />
                 <element signature="method#River#0;class#Hand#0" expanded="false" />
@@ -196,21 +240,33 @@
                 <element signature="e#1725#1726#0" expanded="true" />
                 <element signature="e#1773#1774#0" expanded="true" />
                 <element signature="e#1825#1826#0" expanded="true" />
+=======
+                <element signature="method#Flop#0;class#Hand#0" expanded="false" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
               </folding>
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="InterfaceAPI.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Engine/src/API/InterfaceAPI.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="779">
               <caret line="120" column="45" lean-forward="false" selection-start-line="120" selection-start-column="45" selection-end-line="120" selection-end-column="45" />
+=======
+      <file leaf-file-name="ErrorTypes.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Engine/src/ReturnType/ErrorTypes.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="APlayers.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Engine/src/Player/APlayers.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -255,6 +311,14 @@
                 <element signature="method#GetHumanNaxtMoveFromGUI#0;class#GameController#0" expanded="false" />
                 <element signature="method#BuildRaplayMenu#0;class#GameController#0" expanded="false" />
               </folding>
+=======
+      <file leaf-file-name="ConsoleUI.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/UserInterface/src/ConsoleUI.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="512">
+              <caret line="87" column="0" lean-forward="true" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
+              <folding />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
             </state>
           </provider>
         </entry>
@@ -264,15 +328,19 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+<<<<<<< HEAD
         <option value="Enum" />
         <option value="FxmlFile" />
         <option value="CSS File" />
+=======
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
         <option value="Class" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
+<<<<<<< HEAD
       <find>TableView</find>
       <find>gridPane</find>
       <find>gridP</find>
@@ -303,63 +371,25 @@
       <find>CheckCurrentHandStatus</find>
       <find>CheckHandStatus</find>
       <find>Forward</find>
+=======
+      <find>RandomPlayerSeats</find>
+      <find>RandomPlayerSeats()</find>
+      <find>game</find>
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
     </findStrings>
     <replaceStrings>
-      <replace>System.out.println</replace>
       <replace>this</replace>
+<<<<<<< HEAD
       <replace>this.model</replace>
       <replace>this.</replace>
       <replace>Return_msg=</replace>
       <replace>this.events.get(this.current_event_index).GetCards()</replace>
+=======
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
     </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="Console-Version" />
-      </map>
-    </option>
-    <favorite-branches>
-      <branch-storage>
-        <map>
-          <entry type="LOCAL">
-            <value>
-              <list>
-                <branch-info repo="$PROJECT_DIR$" source="Console-Version" />
-              </list>
-            </value>
-          </entry>
-          <entry type="REMOTE">
-            <value>
-              <list>
-                <branch-info repo="$PROJECT_DIR$" source="origin/Console-Version" />
-              </list>
-            </value>
-          </entry>
-        </map>
-      </branch-storage>
-    </favorite-branches>
-    <excluded-from-favorite>
-      <branch-storage>
-        <map>
-          <entry type="LOCAL">
-            <value>
-              <list>
-                <branch-info repo="$PROJECT_DIR$" source="master" />
-              </list>
-            </value>
-          </entry>
-          <entry type="REMOTE">
-            <value>
-              <list>
-                <branch-info repo="$PROJECT_DIR$" source="origin/master" />
-              </list>
-            </value>
-          </entry>
-        </map>
-      </branch-storage>
-    </excluded-from-favorite>
   </component>
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
@@ -369,6 +399,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/Engine/src/ReturnType/PlayerHandState.java" />
         <option value="$PROJECT_DIR$/Engine/src/ReturnType/PlayerStats.java" />
         <option value="$PROJECT_DIR$/Engine/src/Generated/JAXB_Generator.java" />
@@ -420,6 +451,25 @@
         <option value="$PROJECT_DIR$/GUI/src/GameScene/GameController.java" />
         <option value="$PROJECT_DIR$/Engine/src/Game/Game.java" />
         <option value="$PROJECT_DIR$/Engine/src/Game/Hand.java" />
+=======
+        <option value="$PROJECT_DIR$/Engine/src/Player/PlayerType.java" />
+        <option value="$PROJECT_DIR$/Engine/src/Exceptions/NoPlayerTypeProvidedException.java" />
+        <option value="$PROJECT_DIR$/Engine/src/Exceptions/PlayerDataMissingException.java" />
+        <option value="$PROJECT_DIR$/Engine/src/Player/APlayers.java" />
+        <option value="$PROJECT_DIR$/Engine/src/Player/APlayer.java" />
+        <option value="$PROJECT_DIR$/Engine/src/Exceptions/PlayerFoldedException.java" />
+        <option value="$PROJECT_DIR$/Engine/src/Exceptions/ChipLessThanPotException.java" />
+        <option value="$PROJECT_DIR$/Engine/src/Exceptions/MoveNotAllowdedException.java" />
+        <option value="$PROJECT_DIR$/Engine/src/Move/Moves.java" />
+        <option value="$PROJECT_DIR$/Engine/src/Exceptions/StakeNotInRangeException.java" />
+        <option value="$PROJECT_DIR$/Engine/src/Tester.java" />
+        <option value="$PROJECT_DIR$/UserInterface/src/ConsoleUI.java" />
+        <option value="$PROJECT_DIR$/Engine/src/API/InterfaceAPI.java" />
+        <option value="$PROJECT_DIR$/Engine/src/API/API.java" />
+        <option value="$PROJECT_DIR$/Engine/src/ReturnType/PlayerStats.java" />
+        <option value="$PROJECT_DIR$/Engine/src/Game/Hand.java" />
+        <option value="$PROJECT_DIR$/Engine/src/Game/Game.java" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
       </list>
     </option>
   </component>
@@ -430,14 +480,13 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="300" />
-    <option name="y" value="-18" />
-    <option name="width" value="649" />
-    <option name="height" value="693" />
+    <option name="x" value="957" />
+    <option name="width" value="1152" />
+    <option name="height" value="504" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
-    <navigator currentView="PackagesPane" proportions="" version="1">
+    <navigator currentView="AndroidView" proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -451,6 +500,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+<<<<<<< HEAD
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -564,6 +614,8 @@
           <select />
         </subPane>
       </pane>
+=======
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -574,24 +626,13 @@
             <path>
               <item name="TexasHoldem" type="b2602c69:ProjectViewProjectNode" />
               <item name="Engine" type="462c0819:PsiDirectoryNode" />
-              <item name="Resource" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TexasHoldem" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Engine" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="TexasHoldem" type="b2602c69:ProjectViewProjectNode" />
               <item name="Engine" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="API" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TexasHoldem" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Engine" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Card" type="462c0819:PsiDirectoryNode" />
+              <item name="Exceptions" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="TexasHoldem" type="b2602c69:ProjectViewProjectNode" />
@@ -625,39 +666,94 @@
             </path>
             <path>
               <item name="TexasHoldem" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GUI" type="462c0819:PsiDirectoryNode" />
+              <item name="UserInterface" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="TexasHoldem" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GUI" type="462c0819:PsiDirectoryNode" />
+              <item name="UserInterface" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TexasHoldem" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="Scratches" />
+<<<<<<< HEAD
+=======
+      <pane id="PackagesPane" />
+      <pane id="AndroidView">
+        <subPane>
+          <expand>
+            <path>
+              <item name="TexasHoldem" type="1abcf292:AndroidViewProjectNode" />
+              <item name="Engine" type="1039202d:NonAndroidModuleNode" />
+            </path>
+            <path>
+              <item name="TexasHoldem" type="1abcf292:AndroidViewProjectNode" />
+              <item name="Engine" type="1039202d:NonAndroidModuleNode" />
+              <item name="java" type="b5c1fe26:NonAndroidSourceTypeNode" />
+            </path>
+            <path>
+              <item name="TexasHoldem" type="1abcf292:AndroidViewProjectNode" />
+              <item name="Engine" type="1039202d:NonAndroidModuleNode" />
+              <item name="java" type="b5c1fe26:NonAndroidSourceTypeNode" />
+              <item name="API" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TexasHoldem" type="1abcf292:AndroidViewProjectNode" />
+              <item name="Engine" type="1039202d:NonAndroidModuleNode" />
+              <item name="java" type="b5c1fe26:NonAndroidSourceTypeNode" />
+              <item name="Exceptions" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TexasHoldem" type="1abcf292:AndroidViewProjectNode" />
+              <item name="Engine" type="1039202d:NonAndroidModuleNode" />
+              <item name="java" type="b5c1fe26:NonAndroidSourceTypeNode" />
+              <item name="Game" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TexasHoldem" type="1abcf292:AndroidViewProjectNode" />
+              <item name="Engine" type="1039202d:NonAndroidModuleNode" />
+              <item name="java" type="b5c1fe26:NonAndroidSourceTypeNode" />
+              <item name="Generated" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TexasHoldem" type="1abcf292:AndroidViewProjectNode" />
+              <item name="Engine" type="1039202d:NonAndroidModuleNode" />
+              <item name="java" type="b5c1fe26:NonAndroidSourceTypeNode" />
+              <item name="Move" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TexasHoldem" type="1abcf292:AndroidViewProjectNode" />
+              <item name="Engine" type="1039202d:NonAndroidModuleNode" />
+              <item name="java" type="b5c1fe26:NonAndroidSourceTypeNode" />
+              <item name="Player" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TexasHoldem" type="1abcf292:AndroidViewProjectNode" />
+              <item name="Engine" type="1039202d:NonAndroidModuleNode" />
+              <item name="java" type="b5c1fe26:NonAndroidSourceTypeNode" />
+              <item name="ReturnType" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+<<<<<<< HEAD
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+=======
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/HandRank.jar!/" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
     <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="ChangesBrowser.SHOW_FLATTEN" value="false" />
-    <property name="list.type.of.created.stylesheet" value="CSS" />
-    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/israe/Google Drive/Study/JavaCourse/TexasHoldem/GUI/src/GameScene/GameData/HandData.java" />
-  </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\israe\Google Drive\Study\JavaCourse\TexasHoldem\GUI\src\GameScene" />
-    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -671,7 +767,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main (1)">
+  <component name="RunManager" selected="Application.ConsoleUI">
     <configuration name="ConsoleUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="ConsoleUI" />
@@ -684,25 +780,6 @@
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="UserInterface" />
-      <envs />
-    </configuration>
-    <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="GameLogic.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="GameLogic.Main" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="GUI" />
       <envs />
     </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
@@ -721,25 +798,6 @@
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
     </configuration>
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="GameLogic.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="GameLogic.Main" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="GUI" />
-      <envs />
-    </configuration>
     <configuration name="Tester" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="Tester" />
@@ -752,20 +810,6 @@
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="Engine" />
-      <envs />
-    </configuration>
-    <configuration name="TexasHoldem" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" value="TexasHoldem" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="UserInterface" />
       <envs />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -783,19 +827,15 @@
       <envs />
       <method />
     </configuration>
-    <list size="5">
+    <list size="3">
       <item index="0" class="java.lang.String" itemvalue="Application.Main" />
       <item index="1" class="java.lang.String" itemvalue="Application.Tester" />
       <item index="2" class="java.lang.String" itemvalue="Application.ConsoleUI" />
-      <item index="3" class="java.lang.String" itemvalue="Application.TexasHoldem" />
-      <item index="4" class="java.lang.String" itemvalue="Application.Main (1)" />
     </list>
     <recent_temporary>
-      <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="Application.Main (1)" />
-        <item index="1" class="java.lang.String" itemvalue="Application.TexasHoldem" />
-        <item index="2" class="java.lang.String" itemvalue="Application.ConsoleUI" />
-        <item index="3" class="java.lang.String" itemvalue="Application.Tester" />
+      <list size="2">
+        <item index="0" class="java.lang.String" itemvalue="Application.ConsoleUI" />
+        <item index="1" class="java.lang.String" itemvalue="Application.Tester" />
       </list>
     </recent_temporary>
   </component>
@@ -819,6 +859,7 @@
       <workItem from="1512498965970" duration="1239000" />
       <workItem from="1512502287016" duration="4341000" />
       <workItem from="1512507268612" duration="4884000" />
+<<<<<<< HEAD
       <workItem from="1512562882625" duration="4121000" />
       <workItem from="1512585833228" duration="22493000" />
       <workItem from="1512645638865" duration="10984000" />
@@ -849,108 +890,70 @@
       <workItem from="1515008290502" duration="14822000" />
       <workItem from="1515076954631" duration="21824000" />
       <workItem from="1515158768036" duration="42496000" />
+=======
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="382806000" />
+=======
+    <option name="totallyTimeSpent" value="34348000" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3217768" sideWeight="0.49707174" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+<<<<<<< HEAD
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="1.0" sideWeight="0.50292826" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29586425" sideWeight="0.65812594" order="5" side_tool="false" content_ui="tabs" />
+=======
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.06861063" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12916666" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22864583" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+<<<<<<< HEAD
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.04559915" sideWeight="0.49707174" order="6" side_tool="false" content_ui="tabs" x="1691" y="648" width="1361" height="499" />
+=======
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3997879" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+<<<<<<< HEAD
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="10" side_tool="false" content_ui="combo" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" x="38" y="300" width="1182" height="544" />
+=======
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296875" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2757158" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
     </layout>
-    <layout-to-restore>
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="1.0" sideWeight="0.50292826" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="10" side_tool="false" content_ui="combo" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31914893" sideWeight="0.49707174" order="6" side_tool="false" content_ui="tabs" x="1691" y="648" width="1361" height="499" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32242227" sideWeight="0.49707174" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" x="38" y="300" width="1182" height="544" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0" sideWeight="0.65812594" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296875" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12916666" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2757158" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
-  </component>
-  <component name="UnknownFeatures">
-    <option featureType="com.intellij.fileTypeFactory" implementationName="*.ini" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State>
-              <option name="RECENTLY_FILTERED_USER_GROUPS">
-                <collection />
-              </option>
-              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
-                <collection />
-              </option>
-              <option name="COLUMN_ORDER">
-                <list>
-                  <option value="0" />
-                  <option value="1" />
-                  <option value="2" />
-                  <option value="3" />
-                </list>
-              </option>
-            </State>
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -959,21 +962,15 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/Engine/src/Generated/JAXB_Generator.java</url>
-          <line>111</line>
+          <url>file://$PROJECT_DIR$/Engine/src/ReturnType/PlayerReturnType.java</url>
+          <line>32</line>
           <properties />
-          <option name="timeStamp" value="116" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/Engine/src/Generated/JAXB_Generator.java</url>
-          <line>50</line>
+          <url>file://$PROJECT_DIR$/UserInterface/src/ConsoleUI.java</url>
+          <line>22</line>
           <properties />
-          <option name="timeStamp" value="118" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/Engine/src/Generated/JAXB_Generator.java</url>
-          <line>108</line>
-          <properties />
+<<<<<<< HEAD
           <option name="timeStamp" value="120" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
@@ -1041,6 +1038,9 @@
           <line>99</line>
           <properties />
           <option name="timeStamp" value="268" />
+=======
+          <option name="timeStamp" value="1" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/Engine/src/Game/Hand.java</url>
@@ -1076,6 +1076,7 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
+<<<<<<< HEAD
       <option name="time" value="301" />
     </breakpoint-manager>
     <watches-manager>
@@ -1093,25 +1094,53 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+=======
+      <option name="time" value="20" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/Engine/src/Generated/Structure.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="799">
+          <caret line="56" column="7" lean-forward="true" selection-start-line="56" selection-start-column="7" selection-end-line="56" selection-end-column="7" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/GUI/src/GameScene/Community/Community.fxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="8" column="77" lean-forward="false" selection-start-line="8" selection-start-column="77" selection-end-line="8" selection-end-column="77" />
           <folding />
+=======
+    <entry file="file://$PROJECT_DIR$/Engine/src/ReturnType/PlayerReturnType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding>
+            <element signature="e#479#480#0" expanded="true" />
+            <element signature="e#506#507#0" expanded="true" />
+            <element signature="e#535#536#0" expanded="true" />
+            <element signature="e#563#564#0" expanded="true" />
+          </folding>
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
         </state>
       </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/GUI/src/GameScene/PlayerCube/PlayerCube.fxml">
       <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+=======
+    <entry file="file://$PROJECT_DIR$/Engine/src/ReturnType/PlayerStats.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
           <folding />
         </state>
       </provider>
@@ -1119,6 +1148,7 @@
         <state />
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_151/javafx-src.zip!/javafx/beans/property/ObjectPropertyBase.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="92">
@@ -1138,10 +1168,25 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3213">
           <caret line="237" column="0" lean-forward="false" selection-start-line="237" selection-start-column="0" selection-end-line="237" selection-end-column="0" />
+=======
+    <entry file="file://$PROJECT_DIR$/Engine/src/ReturnType/CurrentHandState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="29" column="51" lean-forward="false" selection-start-line="29" selection-start-column="51" selection-end-line="29" selection-end-column="51" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/src/Player/APlayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1513">
+          <caret line="113" column="0" lean-forward="true" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_151/javafx-src.zip!/com/sun/javafx/event/EventDispatchChainImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="103">
@@ -1185,10 +1230,78 @@
           <folding>
             <element signature="e#2674#2675#0" expanded="false" />
             <element signature="e#2736#2737#0" expanded="false" />
+=======
+    <entry file="file://$PROJECT_DIR$/Engine/src/Game/Hand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2890">
+          <caret line="182" column="4" lean-forward="false" selection-start-line="182" selection-start-column="4" selection-end-line="182" selection-end-column="4" />
+          <folding>
+            <element signature="method#Hand#0;class#Hand#0" expanded="false" />
+            <element signature="method#GetFirstPlayer#0;class#Hand#0" expanded="false" />
+            <element signature="method#SetBlinds#0;class#Hand#0" expanded="false" />
+            <element signature="method#DealCards#0;class#Hand#0" expanded="false" />
+            <element signature="method#IsAllStakesEqual#0;class#Hand#0" expanded="false" />
+            <element signature="method#IsAllPlayersPlacedBet#0;class#Hand#0" expanded="false" />
+            <element signature="method#IsAllFolded#0;class#Hand#0" expanded="false" />
+            <element signature="method#InitPlayerFlags#0;class#Hand#0" expanded="false" />
+            <element signature="method#InitPlayersBetFlag#0;class#Hand#0" expanded="false" />
+            <element signature="method#IsBetCycleFinished#0;class#Hand#0" expanded="false" />
+            <element signature="method#GetPoorestChipsValue#0;class#Hand#0" expanded="false" />
+            <element signature="method#StartNewBidCycle#0;class#Hand#0" expanded="false" />
+            <element signature="method#GetAllowdedStakeRange#0;class#Hand#0" expanded="false" />
+            <element signature="method#GetAllowdedMoves#0;class#Hand#0" expanded="false" />
+            <element signature="method#IsMoveAllowded#0;class#Hand#0" expanded="false" />
+            <element signature="method#IsStakeInRange#0;class#Hand#0" expanded="false" />
+            <element signature="method#ImplementMove#0;class#Hand#0" expanded="false" />
+            <element signature="method#Flop#0;class#Hand#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/UserInterface/src/ConsoleUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3009">
+          <caret line="177" column="9" lean-forward="false" selection-start-line="177" selection-start-column="9" selection-end-line="177" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/src/Tester.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="21" column="28" lean-forward="false" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/src/Game/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="952">
+          <caret line="67" column="9" lean-forward="true" selection-start-line="67" selection-start-column="9" selection-end-line="67" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#SetPlayersChips#0;class#Game#0" expanded="false" />
+            <element signature="method#GetConsoleMove#0;class#Game#0" expanded="false" />
+            <element signature="method#PringCurrentAvailable#0;class#Game#0" expanded="false" />
+            <element signature="method#NewHumanMove#0;class#Game#0" expanded="false" />
+            <element signature="method#LoadFromXML#0;class#Game#0" expanded="false" />
+            <element signature="method#StartGame#0;class#Game#0" expanded="false" />
+            <element signature="method#StartNewHand#0;class#Game#0" expanded="false" />
+            <element signature="method#StartNewBidCycle#0;class#Game#0" expanded="false" />
+            <element signature="method#IsCurrentPlayerHuman#0;class#Game#0" expanded="false" />
+            <element signature="method#IsCurrentPlayerComputer#0;class#Game#0" expanded="false" />
+            <element signature="method#GetAllowdedMoves#0;class#Game#0" expanded="false" />
+            <element signature="method#SetNewMove#0;class#Game#0" expanded="false" />
+            <element signature="method#GetAutoMove#0;class#Game#0" expanded="false" />
+            <element signature="e#8017#8018#0" expanded="true" />
+            <element signature="method#GetPlayersInfo#0;class#Game#0" expanded="false" />
+            <element signature="method#GetCurrentHandState#0;class#Game#0" expanded="false" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
+          </folding>
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/GUI/src/GameScene/Game.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -1201,20 +1314,49 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="192">
           <caret line="20" column="15" lean-forward="false" selection-start-line="20" selection-start-column="15" selection-end-line="20" selection-end-column="15" />
+=======
+    <entry file="file://$PROJECT_DIR$/Engine/src/ReturnType/PlayerReturnType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding>
+            <element signature="e#479#480#0" expanded="true" />
+            <element signature="e#506#507#0" expanded="true" />
+            <element signature="e#535#536#0" expanded="true" />
+            <element signature="e#563#564#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/src/Player/PlayerType.java" />
+    <entry file="file://$PROJECT_DIR$/Engine/src/ReturnType/CurrentHandState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="29" column="51" lean-forward="true" selection-start-line="29" selection-start-column="51" selection-end-line="29" selection-end-column="51" />
+          <folding />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
         </state>
       </provider>
       <provider editor-type-id="JavaFX-Scene-Builder">
         <state />
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_151/javafx-src.zip!/javafx/scene/Node.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="200">
           <caret line="8413" column="0" lean-forward="false" selection-start-line="8413" selection-start-column="0" selection-end-line="8413" selection-end-column="0" />
+=======
+    <entry file="file://$PROJECT_DIR$/Engine/src/Player/APlayers.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="24" column="36" lean-forward="false" selection-start-line="24" selection-start-column="36" selection-end-line="24" selection-end-column="36" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_151/javafx-src.zip!/javafx/scene/control/Button.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="200">
@@ -1245,10 +1387,53 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1275">
           <caret line="110" column="11" lean-forward="false" selection-start-line="110" selection-start-column="11" selection-end-line="110" selection-end-column="11" />
+=======
+    <entry file="file://$PROJECT_DIR$/Engine/src/Player/APlayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1581">
+          <caret line="109" column="21" lean-forward="false" selection-start-line="109" selection-start-column="21" selection-end-line="109" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/src/Exceptions/PlayerDataMissingException.java" />
+    <entry file="file://$PROJECT_DIR$/Engine/src/Game/Hand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1309">
+          <caret line="85" column="54" lean-forward="true" selection-start-line="85" selection-start-column="54" selection-end-line="85" selection-end-column="54" />
+          <folding>
+            <element signature="method#Hand#0;class#Hand#0" expanded="false" />
+            <element signature="method#GetFirstPlayer#0;class#Hand#0" expanded="false" />
+            <element signature="method#SetBlinds#0;class#Hand#0" expanded="false" />
+            <element signature="method#DealCards#0;class#Hand#0" expanded="false" />
+            <element signature="method#IsAllStakesEqual#0;class#Hand#0" expanded="false" />
+            <element signature="method#IsAllPlayersPlacedBet#0;class#Hand#0" expanded="false" />
+            <element signature="method#IsAllFolded#0;class#Hand#0" expanded="false" />
+            <element signature="method#InitPlayerFlags#0;class#Hand#0" expanded="false" />
+            <element signature="method#InitPlayersBetFlag#0;class#Hand#0" expanded="false" />
+            <element signature="method#IsBetCycleFinished#0;class#Hand#0" expanded="false" />
+            <element signature="method#GetPoorestChipsValue#0;class#Hand#0" expanded="false" />
+            <element signature="method#StartNewBidCycle#0;class#Hand#0" expanded="false" />
+            <element signature="method#GetAllowdedStakeRange#0;class#Hand#0" expanded="false" />
+            <element signature="method#GetAllowdedMoves#0;class#Hand#0" expanded="false" />
+            <element signature="method#IsMoveAllowded#0;class#Hand#0" expanded="false" />
+            <element signature="method#IsStakeInRange#0;class#Hand#0" expanded="false" />
+            <element signature="method#ImplementMove#0;class#Hand#0" expanded="false" />
+            <element signature="method#Flop#0;class#Hand#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/src/ReturnType/PlayerStats.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="18" column="38" lean-forward="false" selection-start-line="18" selection-start-column="38" selection-end-line="18" selection-end-column="38" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_151/javafx-src.zip!/javafx/concurrent/Task.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="23358">
@@ -1261,10 +1446,25 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" column="1" lean-forward="true" selection-start-line="3" selection-start-column="1" selection-end-line="23" selection-end-column="5" />
+=======
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/src/API/InterfaceAPI.java" />
+    <entry file="file://$PROJECT_DIR$/Engine/src/Move/Moves.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/Engine/src/Move/Move.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -1293,10 +1493,39 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+=======
+    <entry file="file://$PROJECT_DIR$/Engine/src/API/API.java" />
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/src/Card/Card.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/src/Card/Deck.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="21" column="13" lean-forward="true" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/src/Exceptions/NullObjectException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="12" column="1" lean-forward="true" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/GUI/src/GameScene/GameData/PlayerData.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="691">
@@ -1316,36 +1545,76 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
           <caret line="432" column="0" lean-forward="false" selection-start-line="432" selection-start-column="0" selection-end-line="432" selection-end-column="0" />
+=======
+    <entry file="file://$PROJECT_DIR$/Engine/src/Game/API.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="18" lean-forward="false" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/src/Generated/GameDescriptor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-31">
+          <caret line="47" column="13" lean-forward="false" selection-start-line="47" selection-start-column="13" selection-end-line="47" selection-end-column="13" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/GUI/src/GameScene/MainOption/MainOption.fxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="3" column="38" lean-forward="true" selection-start-line="3" selection-start-column="38" selection-end-line="3" selection-end-column="38" />
+=======
+    <entry file="file://$PROJECT_DIR$/Engine/src/Exceptions/NoPlayerTypeProvidedException.java" />
+    <entry file="file://$PROJECT_DIR$/Engine/src/Exceptions/PlayerDataMissingException.java" />
+    <entry file="file://$PROJECT_DIR$/Engine/src/Generated/JAXB_Generator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="56" column="0" lean-forward="false" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
           <folding />
         </state>
       </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/GUI/src/GameScene/GameStatusBox/GameStatusBox.fxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+=======
+    <entry file="file://$PROJECT_DIR$/Engine/src/ReturnType/PlayerReturnType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding>
+            <element signature="e#479#480#0" expanded="true" />
+            <element signature="e#506#507#0" expanded="true" />
+            <element signature="e#535#536#0" expanded="true" />
+            <element signature="e#563#564#0" expanded="true" />
+          </folding>
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
         </state>
       </provider>
       <provider editor-type-id="JavaFX-Scene-Builder">
         <state />
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/GUI/src/GameScene/ReplayBox/ReplayBox.fxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="25" column="72" lean-forward="true" selection-start-line="25" selection-start-column="72" selection-end-line="25" selection-end-column="72" />
+=======
+    <entry file="file://$PROJECT_DIR$/Engine/src/Generated/Structure.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="799">
+          <caret line="56" column="7" lean-forward="false" selection-start-line="56" selection-start-column="7" selection-end-line="56" selection-end-column="7" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
           <folding />
         </state>
       </provider>
@@ -1353,6 +1622,7 @@
         <state />
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="jar://$PROJECT_DIR$/Engine/src/HandRank.jar!/com/rundef/poker/EquityCalculator.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-25">
@@ -1367,18 +1637,37 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="578">
           <caret line="40" column="37" lean-forward="true" selection-start-line="40" selection-start-column="37" selection-end-line="40" selection-end-column="37" />
+=======
+    <entry file="file://$PROJECT_DIR$/Engine/src/Player/PlayerType.java" />
+    <entry file="file://$PROJECT_DIR$/Engine/src/ReturnType/CurrentHandState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="29" column="51" lean-forward="false" selection-start-line="29" selection-start-column="51" selection-end-line="29" selection-end-column="51" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_151/src.zip!/java/util/List.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="313">
           <caret line="110" column="17" lean-forward="false" selection-start-line="110" selection-start-column="17" selection-end-line="110" selection-end-column="17" />
+=======
+    <entry file="file://$PROJECT_DIR$/Engine/src/Exceptions/PlayerFoldedException.java" />
+    <entry file="file://$PROJECT_DIR$/Engine/src/Exceptions/ChipLessThanPotException.java" />
+    <entry file="file://$PROJECT_DIR$/Engine/src/Exceptions/MoveNotAllowdedException.java" />
+    <entry file="file://$PROJECT_DIR$/Engine/src/Exceptions/StakeNotInRangeException.java" />
+    <entry file="file://$PROJECT_DIR$/Engine/src/Move/Moves.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="49" column="5" lean-forward="false" selection-start-line="49" selection-start-column="5" selection-end-line="49" selection-end-column="5" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/GUI/src/GameScene/Community/CommunityController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="729">
@@ -1435,18 +1724,55 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="441">
           <caret line="198" column="0" lean-forward="false" selection-start-line="198" selection-start-column="0" selection-end-line="198" selection-end-column="0" />
+=======
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_151/jre/lib/rt.jar!/java/lang/Enum.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="30" column="28" lean-forward="false" selection-start-line="30" selection-start-column="28" selection-end-line="30" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/src/Player/APlayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1904">
+          <caret line="136" column="0" lean-forward="false" selection-start-line="136" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/src/Tester.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="17" column="42" lean-forward="false" selection-start-line="17" selection-start-column="42" selection-end-line="17" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/src/API/API.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="12" lean-forward="true" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="12" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_151/javafx-src.zip!/javafx/scene/Scene.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="685">
           <caret line="3785" column="0" lean-forward="false" selection-start-line="3785" selection-start-column="0" selection-end-line="3785" selection-end-column="0" />
+=======
+    <entry file="file://$PROJECT_DIR$/Engine/src/API/InterfaceAPI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="40" column="69" lean-forward="true" selection-start-line="40" selection-start-column="69" selection-end-line="40" selection-end-column="69" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/Engine/src/Player/APlayer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="406">
@@ -1464,28 +1790,55 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="182">
           <caret line="497" column="0" lean-forward="false" selection-start-line="497" selection-start-column="0" selection-end-line="497" selection-end-column="0" />
+=======
+    <entry file="file://$PROJECT_DIR$/Engine/src/ReturnType/PlayerStats.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="37" column="5" lean-forward="false" selection-start-line="37" selection-start-column="5" selection-end-line="37" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/src/Move/Move.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="13" lean-forward="true" selection-start-line="0" selection-start-column="13" selection-end-line="1" selection-end-column="0" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/Engine/src/API/InterfaceAPI.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="779">
           <caret line="120" column="45" lean-forward="false" selection-start-line="120" selection-start-column="45" selection-end-line="120" selection-end-column="45" />
+=======
+    <entry file="file://$PROJECT_DIR$/UserInterface/src/ConsoleUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="512">
+          <caret line="87" column="0" lean-forward="true" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GUI/src/GameScene/MainOption/MainOptionController.java">
+    <entry file="file://$PROJECT_DIR$/Engine/src/ReturnType/ErrorTypes.java">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="194">
           <caret line="87" column="0" lean-forward="false" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
+=======
+        <state relative-caret-position="187">
+          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Engine/src/Replay/GameEvent.java">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="1258">
           <caret line="82" column="15" lean-forward="false" selection-start-line="82" selection-start-column="15" selection-end-line="82" selection-end-column="15" />
           <folding>
@@ -1498,10 +1851,34 @@
             <element signature="e#1725#1726#0" expanded="true" />
             <element signature="e#1773#1774#0" expanded="true" />
             <element signature="e#1825#1826#0" expanded="true" />
+=======
+        <state relative-caret-position="811">
+          <caret line="220" column="26" lean-forward="false" selection-start-line="220" selection-start-column="26" selection-end-line="220" selection-end-column="26" />
+          <folding>
+            <element signature="method#Hand#0;class#Hand#0" expanded="false" />
+            <element signature="method#GetFirstPlayer#0;class#Hand#0" expanded="false" />
+            <element signature="method#SetBlinds#0;class#Hand#0" expanded="false" />
+            <element signature="method#DealCards#0;class#Hand#0" expanded="false" />
+            <element signature="method#IsAllStakesEqual#0;class#Hand#0" expanded="false" />
+            <element signature="method#IsAllPlayersPlacedBet#0;class#Hand#0" expanded="false" />
+            <element signature="method#IsAllFolded#0;class#Hand#0" expanded="false" />
+            <element signature="method#InitPlayerFlags#0;class#Hand#0" expanded="false" />
+            <element signature="method#InitPlayersBetFlag#0;class#Hand#0" expanded="false" />
+            <element signature="method#IsBetCycleFinished#0;class#Hand#0" expanded="false" />
+            <element signature="method#GetPoorestChipsValue#0;class#Hand#0" expanded="false" />
+            <element signature="method#StartNewBidCycle#0;class#Hand#0" expanded="false" />
+            <element signature="method#GetAllowdedStakeRange#0;class#Hand#0" expanded="false" />
+            <element signature="method#GetAllowdedMoves#0;class#Hand#0" expanded="false" />
+            <element signature="method#IsMoveAllowded#0;class#Hand#0" expanded="false" />
+            <element signature="method#IsStakeInRange#0;class#Hand#0" expanded="false" />
+            <element signature="method#ImplementMove#0;class#Hand#0" expanded="false" />
+            <element signature="method#Flop#0;class#Hand#0" expanded="false" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/Engine/src/Replay/EventTypes.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
@@ -1514,6 +1891,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="261">
           <caret line="114" column="0" lean-forward="true" selection-start-line="114" selection-start-column="0" selection-end-line="114" selection-end-column="0" />
+=======
+    <entry file="file://$PROJECT_DIR$/Engine/src/Player/APlayers.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="60" column="43" lean-forward="false" selection-start-line="60" selection-start-column="28" selection-end-line="60" selection-end-column="43" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
           <folding />
         </state>
       </provider>
@@ -1562,18 +1945,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Engine/src/Game/Game.java">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="397">
           <caret line="406" column="9" lean-forward="true" selection-start-line="406" selection-start-column="9" selection-end-line="406" selection-end-column="9" />
           <folding>
+=======
+        <state relative-caret-position="575">
+          <caret line="262" column="30" lean-forward="true" selection-start-line="262" selection-start-column="30" selection-end-line="262" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
             <element signature="method#SetPlayersChips#0;class#Game#0" expanded="false" />
-            <element signature="method#GetPlayers#0;class#Game#0" expanded="false" />
-            <element signature="method#ValidateXML#0;class#Game#0" expanded="false" />
-            <element signature="method#Init4Players#0;class#Game#0" expanded="false" />
             <element signature="method#GetConsoleMove#0;class#Game#0" expanded="false" />
             <element signature="method#PringCurrentAvailable#0;class#Game#0" expanded="false" />
             <element signature="method#NewHumanMove#0;class#Game#0" expanded="false" />
             <element signature="method#LoadFromXML#0;class#Game#0" expanded="false" />
             <element signature="method#StartGame#0;class#Game#0" expanded="false" />
+<<<<<<< HEAD
             <element signature="method#AddNewPlayer#0;class#Game#0" expanded="false" />
             <element signature="method#GetNextPlayerID#0;class#Game#0" expanded="false" />
             <element signature="method#GetPlayerNumOfWins#0;class#Game#0" expanded="false" />
@@ -1589,14 +1977,16 @@
             <element signature="e#13442#13443#0" expanded="true" />
             <element signature="e#13508#13509#0" expanded="true" />
             <element signature="method#GetCommunityCards#0;class#Game#0" expanded="false" />
+=======
+            <element signature="method#StartNewHand#0;class#Game#0" expanded="false" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
             <element signature="method#StartNewBidCycle#0;class#Game#0" expanded="false" />
             <element signature="method#IsCurrentPlayerHuman#0;class#Game#0" expanded="false" />
-            <element signature="method#IsCurrentPlayerFolded#0;class#Game#0" expanded="false" />
-            <element signature="method#IsCurrentPlayerNoMoney#0;class#Game#0" expanded="false" />
+            <element signature="method#IsCurrentPlayerComputer#0;class#Game#0" expanded="false" />
             <element signature="method#GetAllowdedMoves#0;class#Game#0" expanded="false" />
             <element signature="method#SetNewMove#0;class#Game#0" expanded="false" />
-            <element signature="method#GetCurrentPlayerInfo#0;class#Game#0" expanded="false" />
             <element signature="method#GetAutoMove#0;class#Game#0" expanded="false" />
+<<<<<<< HEAD
             <element signature="method#IsCurrentPlayerComputer#0;class#Game#0" expanded="false" />
             <element signature="method#Buy#0;class#Game#0" expanded="false" />
             <element signature="method#IsHumanPlayerFolded#0;class#Game#0" expanded="false" />
@@ -1673,6 +2063,11 @@
             <element signature="e#27674#27742#0" expanded="false" />
             <element signature="e#28014#28082#0" expanded="false" />
             <element signature="method#CalculateWinChance#0;class#Hand#0" expanded="false" />
+=======
+            <element signature="e#8017#8018#0" expanded="true" />
+            <element signature="method#GetPlayersInfo#0;class#Game#0" expanded="false" />
+            <element signature="method#GetCurrentHandState#0;class#Game#0" expanded="false" />
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
           </folding>
         </state>
       </provider>
@@ -1683,12 +2078,10 @@
       <state key="ArtifactsStructureConfigurable.UI">
         <settings>
           <artifact-editor />
-          <last-edited>TexasHoldem:jar</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
                 <option value="0.2" />
-                <option value="0.5" />
               </list>
             </option>
           </splitter-proportions>
@@ -1731,7 +2124,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>GUI</last-edited>
+          <last-edited>UserInterface</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

@@ -17,15 +17,8 @@ public class  PlayerHandState extends PlayerReturnType {
     private int bet;
     private List<Card> cards;
 
-    public PlayerHandState(PlayerType type, PlayerState state, int chips, int bet, List<Card> cards)
-    {
-        this(type,state,chips,bet,cards,"anonymous",0);
-
-    }
-
-
-    public PlayerHandState(PlayerType type, PlayerState state, int chips, int bet, List<Card> cards, String name, int id) {
-        super(type, state, chips,name,id);
+    public PlayerHandState(PlayerType type, PlayerState state, int chips, int bet, List<Card> cards) {
+        super(type, state, chips);
         this.bet = bet;
         this.cards= cards;
         if (type == COMPUTER ){

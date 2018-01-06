@@ -24,10 +24,13 @@ public class APlayer{
     private boolean is_folded;
     private int stake;
 
+<<<<<<< HEAD
     //for replay
     private String win_chance;
 
 
+=======
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
     //Ctors
     public APlayer(String name, PlayerType type, int ID)
     {
@@ -79,6 +82,7 @@ public class APlayer{
     }
 
     //Getters Setters
+<<<<<<< HEAD
     public void IncWinner()
     {
         this.num_of_wins++;
@@ -89,6 +93,8 @@ public class APlayer{
     }
 
 
+=======
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
     public int getId() { return id; }
 
     public boolean isPlacedBet() {return is_placed_bet; }

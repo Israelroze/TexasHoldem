@@ -7,30 +7,17 @@ public class PlayerReturnType {
     private PlayerType type;
     private PlayerState state;
     private int chips;
-    private String name;
-    private int id;
-    public PlayerReturnType(PlayerType type, PlayerState state, int chips ,String name, int id)
-    {
+
+
+    public PlayerReturnType(PlayerType type, PlayerState state, int chips) {
         this.type = type;
         this.state = state;
         this.chips = chips;
-        this.name = name;
-        this.id = id;
     }
-
-    public PlayerReturnType(PlayerType type, PlayerState state, int chips) {
-        this(type,state,chips,"anonymous", 0);
-    }
-
 
     @Override
     public String toString() {
         return this.type.toString();
-    }
-
-
-    public String getName() {
-        return name;
     }
 
     public PlayerType GetType() {
@@ -40,9 +27,6 @@ public class PlayerReturnType {
     public int getChips() {
         return chips;
     }
-
-    public int getId() { return id; }
-
 
 
     public String getState() {

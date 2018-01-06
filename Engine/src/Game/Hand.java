@@ -6,34 +6,44 @@ import Exceptions.*;
 import Generated.Structure;
 import Player.*;
 import Move.*;
+<<<<<<< HEAD
 import Replay.EventTypes;
 import Replay.GameEvent;
 import com.rundef.poker.EquityCalculator;
 import com.rundef.poker.HandEquity;
 
 import java.util.*;
+=======
+import java.util.LinkedList;
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
 import java.util.List;
 
 public class Hand {
 
-    //winners
-    List<Integer> winners;
     //players data
     private APlayers players;
     private APlayer current_player;
+
     //cards
     private Card[] community;
     private Deck deck;
+
     //flags
     private boolean is_bets_started;
     private boolean is_bets_finished;
     private boolean is_hand_over;
+
     //bet stats
     private int higest_stake;
     private int poorest_player_chips;
+<<<<<<< HEAD
+=======
+
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
     //money
 
     private int pot;
+
     //bets
     private int bet_num;
     private int big;
@@ -41,6 +51,7 @@ public class Hand {
 
     //ctor
     public Hand(APlayers players, Structure structure) {
+<<<<<<< HEAD
         this.players = players;
         this.bet_num = 0;
         this.pot = 0;
@@ -62,14 +73,23 @@ public class Hand {
     public void SetReplayMode(boolean state)
     {
         this.IsReplay=state;
+=======
+        this.players=players;
+        this.bet_num=0;
+        this.pot=0;
+        this.big=structure.getBlindes().getBig();
+        this.small=structure.getBlindes().getSmall();
+        this.deck=new Deck();
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
     }
 
     //Private Methods
 
     private APlayer GetFirstPlayer() {
-        if (bet_num == 1) {
+        if(bet_num==1){
             return this.players.GetBigPlayer();
-        } else {
+        }
+        else{
             return this.players.GetSmallPlayer();
             //return this.players.GetDealer();
         }
@@ -77,48 +97,50 @@ public class Hand {
 
     private void SetBlinds() throws NoSufficientMoneyException {
         //for small
-        APlayer small = this.players.GetSmallPlayer();
+        APlayer small=this.players.GetSmallPlayer();
         small.DecMoney(this.small);
-        //small.setBetPlaceFlag(true);
+        small.setBetPlaceFlag(true);
         small.setStake(this.small);
+<<<<<<< HEAD
         this.current_player=small;
         LogHandEvent(new Move(MoveType.BET,this.small));
         this.higest_stake = this.small;
+=======
+        this.higest_stake=this.small;
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
 
 
         //for big
-        APlayer big = this.players.GetBigPlayer();
+        APlayer big=this.players.GetBigPlayer();
         big.DecMoney(this.big);
         big.setBetPlaceFlag(true);
         big.setStake(this.big);
+<<<<<<< HEAD
         this.current_player=big;
         LogHandEvent(new Move(MoveType.BET,this.big));
         this.higest_stake = this.big;
+=======
+        this.higest_stake=this.big;
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
 
         //set pot
-        this.pot = this.small + this.big;
+        this.pot=this.small+this.big;
 
-        this.current_player = this.players.GetNextPlayer(big);
+        this.current_player=this.players.GetNextPlayer(big);
     }
 
     private void DealCards() {
-        for (APlayer player : this.players.GetPlayers()) {
+        for(APlayer player:this.players.GetPlayers() )
+        {
             player.SetCards(new Card[]{this.deck.PopCard(), this.deck.PopCard()});
         }
     }
 
-    private void InitNotFinishedPlayers() {
-        for (APlayer player : this.players.GetPlayers()) {
-            if (player.getStake() < this.higest_stake) {
-                player.setFoldedFlag(false);
-            }
-        }
-    }
-
     private boolean IsAllStakesEqual() {
-        for (APlayer player : this.players.GetPlayers()) {
-            if (player.isPlacedBet() != true) {
-                this.InitNotFinishedPlayers();
+        for(APlayer player :this.players.GetPlayers())
+        {
+            if(player.isPlacedBet()!=true)
+            {
                 return false;
             }
         }
@@ -126,61 +148,77 @@ public class Hand {
     }
 
     private boolean IsAllPlayersPlacedBet() {
-        for (APlayer player : this.players.GetPlayers()) {
-            if (!player.isPlacedBet()) {
+        for(APlayer player : this.players.GetPlayers())
+        {
+            if(player.getStake()!=this.higest_stake)
+            {
                 return false;
             }
         }
         return true;
     }
 
-    private boolean IsAllFolded() {
-        int count = 0;
-        for (APlayer player : this.players.GetPlayers()) {
-            if (player.isFolded() == false) {
+    private boolean IsAllFolded(){
+        int count=0;
+        for(APlayer player :this.players.GetPlayers())
+        {
+            if(player.isFolded()==false)
+            {
                 count++;
             }
         }
-        if (count <= 1) return true;
+        if(count<=1) return true;
         return false;
     }
 
     private void InitPlayerFlags() {
-
         //init players flags
-        for (APlayer player : this.players.GetPlayers()) {
-            if (!player.isFolded()) {
-                player.ClearBidStats();
-            }
+        for(APlayer player:this.players.GetPlayers())
+        {
+            player.ClearBidStats();
         }
     }
 
     private void InitPlayersBetFlag(APlayer Cplayer) {
         //init players flags
-        for (APlayer player : this.players.GetPlayers()) {
-            if (Cplayer.getId() != player.getId() && !player.isFolded()) {
+        for(APlayer player:this.players.GetPlayers())
+        {
+            if(Cplayer.getId()!=player.getId())
+            {
                 player.setBetPlaceFlag(false);
             }
         }
     }
 
-    private void IncPot(int amount) {
-        this.pot = this.pot + amount;
+    private void IsBetCycleFinished() {
+        if(this.IsAllPlayersPlacedBet()&&this.IsAllStakesEqual()) this.is_bets_finished=true;
+    }
+
+    private void IncPot(int amount)
+    {
+        this.pot=this.pot+amount;
     }
 
 
     //Public Methods
+
     public int GetPoorestChipsValue() {
-        Integer min = null;
-        for (APlayer player : this.players.GetPlayers()) {
-            if (min == null) {
-                min = player.GetMoney()+player.getStake();
-            } else {
-                if (min > player.GetMoney()) {
-                    min = player.GetMoney()+player.getStake();
+        int min=0;
+        for(APlayer player : this.players.GetPlayers())
+        {
+            if(min==0)
+            {
+                min=player.GetMoney();
+            }
+            else
+            {
+                if(min>player.GetMoney())
+                {
+                    min=player.GetMoney();
                 }
             }
         }
+<<<<<<< HEAD
         return min.intValue();
     }
 
@@ -192,6 +230,9 @@ public class Hand {
 
     public void SetIsBetCycleFinished() {
         if(this.IsAllPlayersPlacedBet()) this.is_bets_finished=true;
+=======
+        return min;
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
     }
 
     public Card[] GetCommunity() {
@@ -210,6 +251,7 @@ public class Hand {
             this.is_bets_started = true;
             this.is_bets_finished = false;
 
+<<<<<<< HEAD
         /*for(APlayer player: this.players.GetPlayers())
         {
             if(player.GetType()==PlayerType.HUMAN)
@@ -226,6 +268,13 @@ public class Hand {
 
           /*  //forward states
             this.players.ForwardStates();*/
+=======
+        //init players flags
+        this.InitPlayerFlags();
+
+        //deal cards
+        this.DealCards();
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
 
             //set first playing player
             this.current_player = this.GetFirstPlayer();
@@ -238,14 +287,17 @@ public class Hand {
     }
 
     public int[] GetAllowdedStakeRange() {
-        if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"getting allowded stake range");
-        int low=this.higest_stake;
-        int high=0;
+        int low=0;
+        if(this.current_player.getStake()<this.higest_stake)
+        {
+            low=this.higest_stake;
+        }
 
-        //int by_poorest=low+this.GetPoorestChipsValue();
-        int by_poorest=this.GetPoorestChipsValue();
+        int high=this.higest_stake;
         int by_pot=this.pot;
+        int by_poorest=this.GetPoorestChipsValue();
 
+<<<<<<< HEAD
         if(by_poorest<by_pot)
         {
             high=by_poorest;
@@ -258,91 +310,50 @@ public class Hand {
         if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"the range is: low:"+low+" high:"+high+"....");
         return new int[]{low+1, high};
     }
+=======
+        if(by_pot>by_poorest){high=by_poorest;}
+        else{high=by_pot;}
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
 
-    public boolean IsOneOfPlayersOutOfMoney() {
-        for(APlayer player:this.players.GetPlayers())
-        {
-            if(player.GetMoney()==0) return true;
-        }
-        return false;
+        return new int[]{low, high};
     }
-
+    
     public List<MoveType> GetAllowdedMoves() throws PlayerFoldedException, ChipLessThanPotException {
 
-        if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"Getting  allowded moves...");
+
         List<MoveType> allowded_moves=new LinkedList<>();
-        int[] ranges=this.GetAllowdedStakeRange();
 
         if(this.current_player.GetIsFoldedFlag())
         {
             throw new PlayerFoldedException();
         }
-        if(this.current_player.GetMoney()<(this.higest_stake-this.current_player.getStake())) //not suppose to happen really
+        if(this.current_player.GetMoney()<this.higest_stake)
         {
             throw new ChipLessThanPotException(this.current_player.GetMoney());
         }
-
-        if(this.IsOneOfPlayersOutOfMoney() && this.higest_stake==this.current_player.getStake()) {//
-            if(Game.ENABLE_LOG)System.out.println("FROM HAND: player have no money but its ok, no one raised or bet.");
+        if(this.higest_stake==0) // no bet placed, the player can Check,Bet,Fold
+        {
+            allowded_moves.add(MoveType.BET);
             allowded_moves.add(MoveType.CHECK);
             allowded_moves.add(MoveType.FOLD);
-            if(Game.ENABLE_LOG)System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"allowded moves: check,fold");
+            //moves.AddMove(new Move(MoveType.CHECK,0));
+            //moves.AddMove(new Move(MoveType.FOLD,0));
         }
-        else {
-            if (this.higest_stake == 0) // no bet placed, the player can Check,Bet,Fold
+        else
+        {
+            if(this.current_player.getStake()<this.higest_stake)//player need to Call,Raise or Fold
             {
-                allowded_moves.add(MoveType.BET);
-                allowded_moves.add(MoveType.CHECK);
+                allowded_moves.add(MoveType.RAISE);
+                allowded_moves.add(MoveType.CALL);
                 allowded_moves.add(MoveType.FOLD);
-                //moves.AddMove(new Move(MoveType.CHECK,0));
-                //moves.AddMove(new Move(MoveType.FOLD,0));
-                if (Game.ENABLE_LOG) System.out.println("Player Type:" + this.current_player.GetType() + " ID:" + this.current_player.getId() + "allowded moves: bet,check,fold");
-            } else {
-                if (this.higest_stake >= ranges[1] ) ///If the current table stake is them maximum, only call or fold.
-                {
-                    if (Game.ENABLE_LOG) System.out.println("FROM HAND: highest stake is the maximum! can go higher");
-                    allowded_moves.add(MoveType.CALL);
-                    allowded_moves.add(MoveType.FOLD);
-                    if (Game.ENABLE_LOG) System.out.println("Player Type:" + this.current_player.GetType() + " ID:" + this.current_player.getId() + "allowded moves: call,fold");
-
-                } else {
-                    if (this.current_player.getStake() < this.higest_stake)//player need to Call,Raise or Fold
-                    {
-                        if (Game.ENABLE_LOG)
-                            if (Game.ENABLE_LOG) System.out.println("FROM HAND:current player stake less than highest stake");
-                        allowded_moves.add(MoveType.RAISE);
-                        allowded_moves.add(MoveType.CALL);
-                        allowded_moves.add(MoveType.FOLD);
-                        if (Game.ENABLE_LOG)
-                            if (Game.ENABLE_LOG) System.out.println("Player Type:" + this.current_player.GetType() + " ID:" + this.current_player.getId() + "allowded moves: raise,call,fold");
-                    } else {
-                        if (this.current_player.getStake() == this.higest_stake) {
-                            if (Game.ENABLE_LOG) System.out.println("FROM HAND:current player stake equal than highest stake");
-                            allowded_moves.add(MoveType.RAISE);
-                            allowded_moves.add(MoveType.CHECK);
-                            allowded_moves.add(MoveType.FOLD);
-                            if (Game.ENABLE_LOG) System.out.println("Player Type:" + this.current_player.GetType() + " ID:" + this.current_player.getId() + "allowded moves: raise,check,fold");
-
-                        } else //current player stake bigger than highest stake
-                        {
-                            if (Game.ENABLE_LOG) System.out.println("FROM HAND:current player stake bigger than highest stake");
-
-                        }
-                    }
-                }
-
-                if (Game.ENABLE_LOG) System.out.println("FROM HAND: highest stake:" + this.higest_stake + " poorest:" + ranges[1]);
             }
         }
         return allowded_moves;
     }
 
-    public int GetHigestStake() {
-        return this.higest_stake;
-    }
-
     public boolean IsMoveAllowded(MoveType mtype) throws PlayerFoldedException, ChipLessThanPotException {
-        for(MoveType move:this.GetAllowdedMoves())
+        List<MoveType> allowded_moves=this.GetAllowdedMoves();
+        for(MoveType move:allowded_moves)
         {
             if(mtype==move)
             {
@@ -362,6 +373,7 @@ public class Hand {
         return false;
     }
 
+<<<<<<< HEAD
     public void CheckHandStatus() {
         if(this.IsOnlyOnePlayerActive() && !this.is_hand_over)
         {
@@ -394,6 +406,9 @@ public class Hand {
             if (!this.IsMoveAllowded(move)) {
                 throw new MoveNotAllowdedException();
             }
+=======
+    public void ImplementMove(MoveType move,int stake) throws NoSufficientMoneyException, PlayerFoldedException, ChipLessThanPotException, MoveNotAllowdedException, StakeNotInRangeException {
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
 
             if (move == MoveType.BET /* || move==MoveType.RAISE*/) {
                 if (!this.IsStakeInRange(stake)) {
@@ -401,6 +416,7 @@ public class Hand {
                 }
             }
 
+<<<<<<< HEAD
             int delta;
             switch (move) {
                 case BET:
@@ -454,10 +470,53 @@ public class Hand {
                     LogHandEvent(new Move(move, 0));
                     this.current_player = this.players.GetNextPlayer(this.current_player);
                     break;
+=======
+        if(move==MoveType.BET || move==MoveType.RAISE){
+            if(!this.IsStakeInRange(stake))
+            {
+                throw new StakeNotInRangeException();
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
             }
 
+<<<<<<< HEAD
             this.SetIsBetCycleFinished();
         //}
+=======
+        switch(move){
+            case BET:
+                this.current_player.DecMoney(stake);
+                this.current_player.setStake(stake);
+                this.current_player.setBetPlaceFlag(true);
+                this.InitPlayersBetFlag(this.current_player);
+                this.current_player=this.players.GetNextPlayer(this.current_player);
+                this.higest_stake=stake;
+                break;
+            case RAISE:
+                this.current_player.DecMoney(stake);
+                this.current_player.setStake(stake);
+                this.current_player.setBetPlaceFlag(true);
+                this.InitPlayersBetFlag(this.current_player);
+                this.current_player=this.players.GetNextPlayer(this.current_player);
+                this.higest_stake=stake;
+                break;
+            case CALL:
+                this.current_player.DecMoney(this.higest_stake);
+                this.current_player.setStake(this.higest_stake);
+                this.current_player.setBetPlaceFlag(true);
+                this.current_player=this.players.GetNextPlayer(this.current_player);
+                break;
+            case CHECK:
+                this.current_player.setBetPlaceFlag(true);
+                this.current_player=this.players.GetNextPlayer(this.current_player);
+                break;
+            case FOLD:
+                this.current_player.setBetPlaceFlag(true);
+                this.current_player.setFoldedFlag(true);
+                this.current_player=this.players.GetNextPlayer(this.current_player);
+                break;
+        }
+        this.IsBetCycleFinished();
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
     }
 
     public void Flop() {
@@ -470,6 +529,7 @@ public class Hand {
         }
     }
 
+<<<<<<< HEAD
     public void River() {
         if(!this.is_hand_over) {
             this.community[3] = this.deck.PopCard();
@@ -482,6 +542,11 @@ public class Hand {
             this.community[4]=this.deck.PopCard();
             LogHandEvent(EventTypes.Turn);
         }
+=======
+    public void River()
+    {
+        this.community[3]=this.deck.PopCard();
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
     }
 
     public void MoveToNextPlayer()
@@ -512,6 +577,7 @@ public class Hand {
     public APlayer GetNextPlayer() {
         return this.players.GetNextPlayer(this.current_player);
     }
+<<<<<<< HEAD
 
     private String GetBoardForCalculation() {
         //boards cards to string
@@ -1004,4 +1070,6 @@ public class Hand {
             }*/
         }
     }
+=======
+>>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
 }

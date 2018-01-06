@@ -21,6 +21,11 @@ public enum CardNumber {
         public String toString() {
             return "K";
         }
+    },ONE{
+        @Override
+        public String toString() {
+            return "1";
+        }
     },TWO{
         @Override
         public String toString() {
@@ -72,9 +77,4 @@ public enum CardNumber {
             return "U";
         }
     }
-
-
-
-
-
 }
