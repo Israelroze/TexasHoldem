@@ -5,6 +5,7 @@ import Exceptions.*;
 import GameScene.BetOptions.BetOptionsController;
 import GameScene.Community.CommunityController;
 import GameScene.GameData.HandData;
+import GameScene.ReplayBox.ReplayBoxController;
 import Move.*;
 import GameLogic.GameLogic;
 import GameScene.GameData.GameData;
@@ -24,6 +25,7 @@ import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -46,12 +48,15 @@ public class GameController implements Initializable {
     private int numOfPlayers;
     private List<PlayerCubeController> playersControllers;
     private CommunityController communityController;
+    private ReplayBoxController replayContorller;
     private List<Node> PlayersNode;
     private Boolean IsGameStarted = false;
     private Boolean IsGameEnded = false;
+    private Boolean IsReplayMode=false;
     private MoveType currentMove;
-    @FXML private StackPane StackMainBoard;
 
+
+    @FXML private StackPane StackMainBoard;
     @FXML private VBox StatusPane;
     @FXML private BorderPane gameBorderPane;
     @FXML private ScrollPane scrollPaneForPlayers;
@@ -59,9 +64,7 @@ public class GameController implements Initializable {
     @FXML private HBox BetOptionsAnchor;
     @FXML private VBox MainOptionVbox;
 
-
-
-public GameController(){}
+    public GameController(){}
 
     //private
     private void BuildMainOption(){
@@ -160,14 +163,6 @@ public GameController(){}
         }
     }
 
-    private void UpdatePlayerState(PlayerData playerData, PlayerCubeController singleController ){
-
-        if (playerData.isIsDealer()) singleController.getTypeLabel().setText("Dealer");
-        else if (playerData.isIsBig()) singleController.getTypeLabel().setText("Big");
-        else if (playerData.isIsSmall()) singleController.getTypeLabel().setText("Small");
-        else singleController.getTypeLabel().setText("");
-    }
-
     private void BuildSinglePlayerPane (int playerIndex, PlayerData playerData) {
 
         try {
@@ -214,7 +209,15 @@ public GameController(){}
         //this.gameData.getCurrentHand().UpdateHand();
     }
 
-        private void SetMoveAndUpdate(Move move) {
+    private void UpdatePlayerState(PlayerData playerData, PlayerCubeController singleController ){
+
+        if (playerData.isIsDealer()) singleController.getTypeLabel().setText("Dealer");
+        else if (playerData.isIsBig()) singleController.getTypeLabel().setText("Big");
+        else if (playerData.isIsSmall()) singleController.getTypeLabel().setText("Small");
+        else singleController.getTypeLabel().setText("");
+    }
+
+    private void SetMoveAndUpdate(Move move) {
         try {
             this.model.SetNewMove(move);
             this.model.CheckBidStatus();
@@ -267,10 +270,6 @@ public GameController(){}
 
     public void OnClickBack() {
         gameLogic.StartNewWelcomeScene();
-    }
-
-    public void OnClickReplay(){
-
     }
 
     private void UpdateCardsForPlayerInControllers() {
@@ -619,5 +618,45 @@ public GameController(){}
         }
     }
 
+
+    ///for replay
+    private void  BuildRaplayMenu() {
+        FXMLLoader loader = new FXMLLoader();
+        URL url =getClass().getResource("/GameScene/ReplayBox/ReplayBox.fxml");
+        loader.setLocation(url);
+
+        try {
+            Node ReplayBox = loader.load();
+            this.replayContorller=loader.getController();
+            this.replayContorller.setGameData(this.gameData);
+            this.replayContorller.ConnectToMainGame(this);
+
+            this.replayContorller.InitChanceTable();
+
+            this.StatusPane.getChildren().add(ReplayBox);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void OnClickReplay(){
+        this.IsReplayMode=true;
+        this.BuildRaplayMenu();
+        this.model.ReverseHandToStart();
+        this.model.SetReplayMode(true);
+        this.gameData.UpdateAllReplayMode();
+        this.communityController.UpdateCommunityCards();
+    }
+
+    public void OnClickReplayBack() {
+        this.replayContorller.getEventTextBox().setText(this.model.GetPreviousEvent());
+        this.gameData.UpdateAllReplayMode();
+    }
+
+    public void OnClickReplayForward() {
+        this.replayContorller.getEventTextBox().setText(this.model.GetNextEvent());
+        this.gameData.UpdateAllReplayMode();
+    }
 
 }

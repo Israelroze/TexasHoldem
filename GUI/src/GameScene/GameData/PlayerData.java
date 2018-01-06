@@ -21,19 +21,21 @@ public class PlayerData {
     private SimpleStringProperty playerName;
     private SimpleStringProperty Card1;
     private SimpleStringProperty Card2;
+
+    private SimpleStringProperty WinChance;
+
     private List<Card> playerCards;
     private final String UnknownCardImageName ="UU.png";
-
     private SimpleBooleanProperty isDealer;
+
     private SimpleBooleanProperty isBig;
     private SimpleBooleanProperty isSmall;
     private SimpleBooleanProperty isHuman;
     private SimpleBooleanProperty isFolded;
-
     public boolean isIsQuit() { return isQuit.get(); }
+
     public SimpleBooleanProperty isQuitProperty() { return isQuit; }
     public void setIsQuit(boolean isQuit) { this.isQuit.set(isQuit); }
-
     private SimpleBooleanProperty isQuit;
 
     public String getPlayerState() { return playerState.get(); }
@@ -68,8 +70,7 @@ public class PlayerData {
         this.isFolded = new SimpleBooleanProperty(model.GetPlayerIsFolded(id));
         this.isHuman = new SimpleBooleanProperty(model.GetPlayerIsHuman(id));
         this.playerState = new SimpleStringProperty("" );
-
-
+        this.WinChance=new SimpleStringProperty(model.GetPlayerWinChance(id));
     }
 
     public void SetCards()
@@ -80,16 +81,29 @@ public class PlayerData {
     }
 
 
-   // public void SetRealCards () {this.}
-//    private void SetRealCard1() { this.Card1.set(this.playerCards.get(0).toString()); }
-//    private void SetRealCard2() { this.Card2.set(this.playerCards.get(1).toString()); }
-//    private void HideCard1() { this.Card1.set(this.UnknownCardImageName); }
-//    private void HideCard2() { this.Card2.set(this.UnknownCardImageName); }
 
+    // public void SetRealCards () {this.}
 
+    //    private void HideCard2() { this.Card2.set(this.UnknownCardImageName); }
 
+    //    private void HideCard1() { this.Card1.set(this.UnknownCardImageName); }
     //set
+
+    public String getWinChance() {
+        return WinChance.get();
+    }
+
+    public SimpleStringProperty winChanceProperty() {
+        return WinChance;
+    }
+
+    public void setWinChance() {
+        this.WinChance.set(model.GetPlayerWinChance(this.id.get()));
+    }
+
+    //    private void SetRealCard2() { this.Card2.set(this.playerCards.get(1).toString()); }
     public void setNumOfChips() { this.numOfChips.set(Integer.toString(model.GetPlayerPot(this.id.get())) + " Chips"); }
+    //    private void SetRealCard1() { this.Card1.set(this.playerCards.get(0).toString()); }
 
     public void setNumOfBuy() { this.numOfBuy.set(Integer.toString(model.GetPlayerNumOfBuy(this.id.get())) + " Buys");}
 
@@ -209,7 +223,5 @@ public class PlayerData {
         this.setIsFolded();
         this.setPlayerState();
     }
-
-
 }
 

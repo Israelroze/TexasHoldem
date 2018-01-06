@@ -24,6 +24,9 @@ public class APlayer{
     private boolean is_folded;
     private int stake;
 
+    //for replay
+    private String win_chance;
+
 
     //Ctors
     public APlayer(String name, PlayerType type, int ID)
@@ -35,7 +38,18 @@ public class APlayer{
         this.num_of_buys=0;
         this.num_of_wins=0;
         this.money=0;
+        this.win_chance="0%";
         this.state=PlayerState.NONE;
+    }
+
+    public void SetWinChance(String chance)
+    {
+        this.win_chance=chance;
+    }
+
+    public String GetWinChance()
+    {
+        return this.win_chance;
     }
 
     public APlayer(Player player) throws PlayerDataMissingException {
@@ -69,6 +83,12 @@ public class APlayer{
     {
         this.num_of_wins++;
     }
+    public void DecWinner()
+    {
+        this.num_of_wins--;
+    }
+
+
     public int getId() { return id; }
 
     public boolean isPlacedBet() {return is_placed_bet; }
