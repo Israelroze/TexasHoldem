@@ -38,6 +38,10 @@ public class PlayerData {
     private SimpleBooleanProperty isHuman;
     private SimpleBooleanProperty isFolded;
 
+    private SimpleIntegerProperty lowStake;
+    private SimpleIntegerProperty higeStake;
+
+
     public boolean isIsQuit() { return isQuit.get(); }
     public SimpleBooleanProperty isQuitProperty() { return isQuit; }
     public void setIsQuit(boolean isQuit) { this.isQuit.set(isQuit); }
@@ -85,6 +89,7 @@ public class PlayerData {
         this.isHuman = new SimpleBooleanProperty(model.GetPlayerIsHuman(id));
         this.playerState = new SimpleStringProperty("" );
         this.WinChance=new SimpleStringProperty(model.GetPlayerWinChance(id));
+
         SetTypeAsString();
 
 

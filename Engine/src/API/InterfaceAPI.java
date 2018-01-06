@@ -118,4 +118,5 @@ public interface  InterfaceAPI {
     public String GetNextEvent();
     public String GetPlayerWinChance(int id);
     public void SetReplayMode(boolean state);
+    public boolean IsReplayMode();
 }

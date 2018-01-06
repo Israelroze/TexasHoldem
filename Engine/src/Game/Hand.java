@@ -994,4 +994,9 @@ public class Hand {
             }*/
         }
     }
+
+    public boolean GetReplayMode()
+    {
+        return this.IsReplay;
+    }
 }

@@ -626,6 +626,7 @@ public class GameController implements Initializable {
         try {
             Node hbox= load.load();
             BetOptionsController optionsController = load.getController();
+            optionsController.setModel(this.model);
             optionsController.ConnectToMainGame(this);
             optionsController.setAllowedMoves(AllowedMove);
             optionsController.updateOptions();

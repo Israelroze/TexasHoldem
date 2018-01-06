@@ -1,15 +1,14 @@
 package GameScene.BetOptions;
 
+import API.InterfaceAPI;
 import GameScene.GameController;
 import Move.*;
-import javafx.event.ActionEvent;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.util.List;
@@ -19,6 +18,9 @@ public class BetOptionsController implements Initializable {
 
     private List<MoveType> allowedMoves;
     private GameController mainGame;
+    private InterfaceAPI model;
+    private SimpleIntegerProperty higeStake;
+    private SimpleIntegerProperty lowStake;
     @FXML private TextField betTextFiled;
     @FXML private Button betButton;
     @FXML private TextField raiseTextFiled;
@@ -28,7 +30,8 @@ public class BetOptionsController implements Initializable {
     @FXML private Button foldButton;
 
 
-    private boolean isInteger(String s, int radix) {
+
+    private boolean isIntegerAndInRange(String s, int radix) {
         if (s.isEmpty()) return false;
         for (int i = 0; i < s.length(); i++) {
             if (i == 0 && s.charAt(i) == '-') {
@@ -37,13 +40,18 @@ public class BetOptionsController implements Initializable {
             }
             if (Character.digit(s.charAt(i), radix) < 0) return false;
         }
+        int low = this.lowStake.get();
+        int high =  this.higeStake.get();
+        int asInt = Integer.parseInt(s);
+
+        if (asInt < low || asInt>high) return false;
         return true;
     }
 
     @FXML void HandleHumanBet(MouseEvent event) {
 
         String text = betTextFiled.getText();
-        if(isInteger(text,10))
+        if(isIntegerAndInRange(text,10))
             this.mainGame.setHumanMove(new Move(MoveType.BET,Integer.parseInt(text)));
     }
 
@@ -61,7 +69,7 @@ public class BetOptionsController implements Initializable {
     void HandleHumanRaise(MouseEvent event) {
 
         String text = raiseTextFiled.getText();
-        if(isInteger(text,10)) this.mainGame.setHumanMove(new Move(MoveType.RAISE, Integer.parseInt(text)));
+        if(isIntegerAndInRange(text,10)) this.mainGame.setHumanMove(new Move(MoveType.RAISE, Integer.parseInt(text)));
     }
 
     @FXML void HandleHumanCheck(MouseEvent event) {
@@ -76,61 +84,132 @@ public class BetOptionsController implements Initializable {
         this.allowedMoves = allowedMoves;
     }
 
+    private String PromptText() { return "From " + String.valueOf(this.lowStake.get())+ " to " + String.valueOf(this.higeStake.get()); }
+
     public void updateOptions()
     {
+
+        this.foldButton.setVisible(false);
+        this.foldButton.setManaged(false);
+        this.betButton.setVisible(false);
+        this.betButton.setManaged(false);
+        this.betTextFiled.setVisible(false);
+        this.betTextFiled.setManaged(false);
+        this.checkButton.setVisible(false);
+        this.checkButton.setManaged(false);
+        this.raiseButton.setVisible(false);
+        this.raiseButton.setManaged(false);
+        this.raiseTextFiled.setVisible(false);
+        this.raiseTextFiled.setManaged(false);
+        this.callButton.setVisible(false);
+        this.callButton.setManaged(false);
+
         if(allowedMoves!=null) {
-            if (!allowedMoves.contains(MoveType.FOLD)) {
-                this.foldButton.setVisible(false);
-                this.foldButton.setManaged(false);
+            if (allowedMoves.contains(MoveType.FOLD)) {
+                this.foldButton.setVisible(true);
+                this.foldButton.setManaged(true);
 
             }
-            if (!allowedMoves.contains(MoveType.BET)) {
+            if (allowedMoves.contains(MoveType.BET)) {
 
-                this.betButton.setVisible(false);
-                this.betButton.setManaged(false);
-                this.betTextFiled.setVisible(false);
-                this.betTextFiled.setManaged(false);
+                this.betButton.setVisible(true);
+                this.betButton.setManaged(true);
+                this.betTextFiled.setVisible(true);
+                this.betTextFiled.setManaged(true);
+                SetLowAndHighStake();
+                this.betTextFiled.setPromptText(PromptText());
             }
-            if (!allowedMoves.contains(MoveType.CHECK)) {
+            if (allowedMoves.contains(MoveType.CHECK)) {
 
-                this.checkButton.setVisible(false);
-                this.checkButton.setManaged(false);
+                this.checkButton.setVisible(true);
+                this.checkButton.setManaged(true);
             }
-            if (!allowedMoves.contains(MoveType.RAISE)) {
+            if (allowedMoves.contains(MoveType.RAISE)) {
 
-                this.raiseButton.setVisible(false);
-                this.raiseButton.setManaged(false);
-                this.raiseTextFiled.setVisible(false);
-                this.raiseTextFiled.setManaged(false);
+                this.raiseButton.setVisible(true);
+                this.raiseButton.setManaged(true);
+                this.raiseTextFiled.setVisible(true);
+                this.raiseTextFiled.setManaged(true);
+                SetLowAndHighStake();
+                this.raiseTextFiled.setPromptText(PromptText());
+
             }
-            if (!allowedMoves.contains(MoveType.CALL)) {
-                this.callButton.setVisible(false);
-                this.callButton.setManaged(false);
+            if (allowedMoves.contains(MoveType.CALL)) {
+                this.callButton.setVisible(true);
+                this.callButton.setManaged(true);
             }
-        }
-        else
-        {
-            this.foldButton.setVisible(false);
-            this.foldButton.setManaged(false);
-            this.betButton.setVisible(false);
-            this.betButton.setManaged(false);
-            this.betTextFiled.setVisible(false);
-            this.betTextFiled.setManaged(false);
-            this.checkButton.setVisible(false);
-            this.checkButton.setManaged(false);
-            this.raiseButton.setVisible(false);
-            this.raiseButton.setManaged(false);
-            this.raiseTextFiled.setVisible(false);
-            this.raiseTextFiled.setManaged(false);
-            this.callButton.setVisible(false);
-            this.callButton.setManaged(false);
         }
     }
+
+
+
+      //  if(allowedMoves!=null) {
+      //      if (!allowedMoves.contains(MoveType.FOLD)) {
+      //          this.foldButton.setVisible(false);
+      //          this.foldButton.setManaged(false);
+//
+      //      }
+      //      if (!allowedMoves.contains(MoveType.BET)) {
+//
+      //          this.betButton.setVisible(false);
+      //          this.betButton.setManaged(false);
+      //          this.betTextFiled.setVisible(false);
+      //          this.betTextFiled.setManaged(false);
+      //          SetLowAndHighStake();
+      //      }
+      //      if (!allowedMoves.contains(MoveType.CHECK)) {
+//
+      //          this.checkButton.setVisible(false);
+      //          this.checkButton.setManaged(false);
+      //      }
+      //      if (!allowedMoves.contains(MoveType.RAISE)) {
+//
+      //          this.raiseButton.setVisible(false);
+      //          this.raiseButton.setManaged(false);
+      //          this.raiseTextFiled.setVisible(false);
+      //          this.raiseTextFiled.setManaged(false);
+      //          SetLowAndHighStake();
+//
+      //      }
+      //      if (!allowedMoves.contains(MoveType.CALL)) {
+      //          this.callButton.setVisible(false);
+      //          this.callButton.setManaged(false);
+      //      }
+      //  }
+      //  else
+      //  {
+      //      this.foldButton.setVisible(false);
+      //      this.foldButton.setManaged(false);
+      //      this.betButton.setVisible(false);
+      //      this.betButton.setManaged(false);
+      //      this.betTextFiled.setVisible(false);
+      //      this.betTextFiled.setManaged(false);
+      //      this.checkButton.setVisible(false);
+      //      this.checkButton.setManaged(false);
+      //      this.raiseButton.setVisible(false);
+      //      this.raiseButton.setManaged(false);
+      //      this.raiseTextFiled.setVisible(false);
+      //      this.raiseTextFiled.setManaged(false);
+      //      this.callButton.setVisible(false);
+      //      this.callButton.setManaged(false);
+      //  }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        this.higeStake = new SimpleIntegerProperty(-1);
+        this.lowStake = new SimpleIntegerProperty(-1);
+
 
     }
 
+    private void SetLowAndHighStake()
+    {
+        this.lowStake.set(model.GetAllowdedStakeRange()[0]);
+        this.higeStake.set(model.GetAllowdedStakeRange()[1]);
+    }
 
+    public void setModel(InterfaceAPI model) {
+        this.model = model;
+    }
 }

@@ -759,4 +759,8 @@ public class Game implements InterfaceAPI {
     public void SetReplayMode(boolean state){
         this.current_hand.SetReplayMode(state);
     }
+    @Override
+    public boolean IsReplayMode(){
+        return this.current_hand.GetReplayMode();
+    }
 }
