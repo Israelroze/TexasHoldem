@@ -5,7 +5,7 @@ import Exceptions.*;
 import GameScene.BetOptions.BetOptionsController;
 import GameScene.Community.CommunityController;
 import GameScene.GameData.HandData;
-import GameScene.ReplayBox.ReplayBoxController;
+import GameScene.WinnersTable.TableViewController;
 import Move.*;
 import GameLogic.GameLogic;
 import GameScene.GameData.GameData;
@@ -13,20 +13,18 @@ import GameScene.GameData.PlayerData;
 import GameScene.GameStatusBox.GameStatusBoxController;
 import GameScene.MainOption.MainOptionController;
 import GameScene.PlayerCube.PlayerCubeController;
-import ReturnType.CurrentHandState;
 
 
 import javafx.beans.binding.Bindings;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.HPos;
-import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -48,13 +46,10 @@ public class GameController implements Initializable {
     private int numOfPlayers;
     private List<PlayerCubeController> playersControllers;
     private CommunityController communityController;
-    private ReplayBoxController replayContorller;
     private List<Node> PlayersNode;
     private Boolean IsGameStarted = false;
     private Boolean IsGameEnded = false;
-    private Boolean IsReplayMode=false;
     private MoveType currentMove;
-
 
     @FXML private StackPane StackMainBoard;
     @FXML private VBox StatusPane;
@@ -64,7 +59,9 @@ public class GameController implements Initializable {
     @FXML private HBox BetOptionsAnchor;
     @FXML private VBox MainOptionVbox;
 
-    public GameController(){}
+
+
+public GameController(){}
 
     //private
     private void BuildMainOption(){
@@ -87,15 +84,17 @@ public class GameController implements Initializable {
                 MenuContorller.SetRequiredButton(false, false, true, true);
             }
 
-            if(this.gameData.getCurrentHand() != null)
-            {
-                //if(0 < this.gameData.getCurrentHand().getCurrent_bid_number() &&  this.gameData.getCurrentHand().getCurrent_bid_number()>0)
-            }
+
+
 
             MenuContorller.HideButton();
             this.MainOptionVbox.getChildren().removeAll();
             this.MainOptionVbox.getChildren().clear();
             this.MainOptionVbox.getChildren().add(MenuBox);
+            MenuContorller.setGameData(this.gameData);
+            MenuContorller.SetBuyButton();
+            MenuContorller.SetQuitButton();
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -123,10 +122,38 @@ public class GameController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
 
+    private void BuildWinnersTableArea() {
+        FXMLLoader loader = new FXMLLoader();
+        URL url =getClass().getResource("/GameScene/WinnersTable/TableView.fxml");
+        loader.setLocation(url);
+
+        try {
+            TableView tableView = loader.load();
+
+              TableViewController winnersTable = loader.getController();
+            //communityController.UpdateCommunityCards();
+            ObservableList<PlayerData> data = gameData.GetDataForTable();
+            tableView.setItems(data);
+            //this.StackMainBoard.getChildren().add(CommArea);
+
+            this.BetOptionsAnchor.getChildren().removeAll();
+            this.BetOptionsAnchor.getChildren().add(tableView);
+
+            TableColumn<?,?> a= (TableColumn<?, ?>) tableView.getColumns().get(tableView.getColumns().size() -1 );
+            a.setSortType(TableColumn.SortType.DESCENDING);
+
+            tableView.getSortOrder().add(tableView.getColumns().get(tableView.getColumns().size() -1 ));
+           tableView.setFixedCellSize(25);
+            tableView.prefHeightProperty().bind(Bindings.size(tableView.getItems()).multiply(tableView.getFixedCellSize()).add(30));
+                       tableView.setFixedCellSize(25);
 
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void BuildStatusBox(){
@@ -161,6 +188,14 @@ public class GameController implements Initializable {
         }
     }
 
+    private void UpdatePlayerState(PlayerData playerData, PlayerCubeController singleController ){
+
+        if (playerData.isIsDealer()) singleController.getStateLabel().setText("Dealer");
+        else if (playerData.isIsBig()) singleController.getStateLabel().setText("Big");
+        else if (playerData.isIsSmall()) singleController.getStateLabel().setText("Small");
+        else singleController.getStateLabel().setText("");
+    }
+
     private void BuildSinglePlayerPane (int playerIndex, PlayerData playerData) {
 
         try {
@@ -180,16 +215,11 @@ public class GameController implements Initializable {
             singleController.getMoneyLabel().textProperty().bind(playerData.numOfChipsProperty());
             singleController.getNumberOfBuyLabel().textProperty().bind(playerData.numOfBuyProperty());
             singleController.getNumberOfWinsLabel().textProperty().bind(playerData.numOfWinsProperty());
-            singleController.getTypeLabel().textProperty().bind(playerData.playerStateProperty());
-
-//            if (playerData.isIsDealer()) singleController.getTypeLabel().setText("Dealer");
-//            else if (playerData.isIsBig()) singleController.getTypeLabel().setText("Big");
-//            else if (playerData.isIsSmall()) singleController.getTypeLabel().setText("Small");
-//            else singleController.getTypeLabel().setText("");
+            singleController.getStateLabel().textProperty().bind(playerData.playerStateProperty());
 
 
             singleController.currentPlayerIdProperty().bind(gameData.currentPlayerIdProperty().isEqualTo(playerData.getId()));
-            //singleController.setCards(playerData.getCard1(), playerData.getCard2());
+           //singleController.setCards(playerData.getCard1(), playerData.getCard2());
             singleController.setPlayerId(playerData.getId());
 
             playersControllers.add(singleController);
@@ -207,15 +237,7 @@ public class GameController implements Initializable {
         //this.gameData.getCurrentHand().UpdateHand();
     }
 
-    private void UpdatePlayerState(PlayerData playerData, PlayerCubeController singleController ){
-
-        if (playerData.isIsDealer()) singleController.getTypeLabel().setText("Dealer");
-        else if (playerData.isIsBig()) singleController.getTypeLabel().setText("Big");
-        else if (playerData.isIsSmall()) singleController.getTypeLabel().setText("Small");
-        else singleController.getTypeLabel().setText("");
-    }
-
-    private void SetMoveAndUpdate(Move move) {
+        private void SetMoveAndUpdate(Move move) {
         try {
             this.model.SetNewMove(move);
             this.model.CheckBidStatus();
@@ -270,19 +292,25 @@ public class GameController implements Initializable {
         gameLogic.StartNewWelcomeScene();
     }
 
-    private void UpdateCardsForPlayerInControllers() {
-        this.gameData.UpdatePlayersCards();
-        int index=0;
-         for (PlayerCubeController controller: this.playersControllers)
-         {
-             controller.setCards(this.gameData.getOnePlayerDataForBinding(index).getCard1(),this.gameData.getOnePlayerDataForBinding(index).getCard2());
-             index++;
-         }
+    public void OnClickReplay(){
+
     }
 
+    private void UpdateCardsForPlayerInControllers() {
+        this.gameData.UpdatePlayersCards();
+        int index = 0;
+        for (PlayerCubeController controller : this.playersControllers) {
+            if (!this.gameData.getOnePlayerDataForBinding(index).isIsQuit()) {
+                controller.setCards(this.gameData.getOnePlayerDataForBinding(index).getCard1(), this.gameData.getOnePlayerDataForBinding(index).getCard2());
+                index++;
+            }
+        }
+    }
     private void PlayOneHand(){
 
         // Deleting the Option box
+        // this.gameData.RemoveDeletedPlayers();
+        //PrintAllPlayers();
         this.MainOptionVbox.getChildren().removeAll();
         this.MainOptionVbox.getChildren().clear();
 
@@ -304,7 +332,7 @@ public class GameController implements Initializable {
                 this.gameData.getCurrentHand().setPot("0");
 
                 //Show Winner TBD
-
+                BuildWinnersTableArea();
                 return;
             });
 
@@ -466,7 +494,7 @@ public class GameController implements Initializable {
 //        this.PrintGame(model.GetCurrentHandState());
 
         Move move=null;
-        if(this.model.IsCurrentPlayerFolded()) {
+        if(this.model.IsCurrentPlayerFolded() ) {
             System.out.println("current player"+this.gameData.GetPlayerData(this.model.GetCurrentPlayerID()).getPlayerName()+" already folded, moving to next player");
             this.MoveToNextPlayerAndUpdate();
         }
@@ -475,9 +503,7 @@ public class GameController implements Initializable {
             if (this.model.IsCurrentPlayerComputer()) {
                 try {
                     move = this.model.GetAutoMove();
-                } catch (PlayerFoldedException e) {
-                    e.printStackTrace();
-                } catch (ChipLessThanPotException e) {
+                } catch (PlayerFoldedException | ChipLessThanPotException e) {
                     e.printStackTrace();
                 }
                 this.SetMoveAndUpdate(move);
@@ -560,6 +586,9 @@ public class GameController implements Initializable {
     }
 
     private void PrintAllPlayers() {
+
+        this.playerGrid.getChildren().removeAll();
+
         if(PlayersNode.size() == 3 ) {
             playerGrid.add(PlayersNode.get(0), 1, 0);
             playerGrid.add(PlayersNode.get(1), 0, 1);
@@ -609,51 +638,6 @@ public class GameController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-
-    ///for replay
-    private void  BuildRaplayMenu() {
-        FXMLLoader loader = new FXMLLoader();
-        URL url =getClass().getResource("/GameScene/ReplayBox/ReplayBox.fxml");
-        loader.setLocation(url);
-
-        try {
-            Node ReplayBox = loader.load();
-            this.replayContorller=loader.getController();
-            this.replayContorller.setGameData(this.gameData);
-            this.replayContorller.ConnectToMainGame(this);
-
-            this.replayContorller.InitChanceTable();
-
-            this.StatusPane.getChildren().add(ReplayBox);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void OnClickReplay(){
-        this.IsReplayMode=true;
-        this.BuildRaplayMenu();
-        this.model.ReverseHandToStart();
-        this.model.SetReplayMode(true);
-        this.gameData.UpdateAllReplayMode();
-        this.communityController.UpdateCommunityCards();
-    }
-
-    public void OnClickReplayBack() {
-        String message=this.model.GetPreviousEvent();
-        this.replayContorller.getEventTextBox().setText(message);
-        this.gameData.UpdateAllReplayMode();
-        if(message.contains("Flop")||message.contains("River")||message.contains("Turn")) this.communityController.UpdateCommunityCards();
-    }
-
-    public void OnClickReplayForward() {
-        String message=this.model.GetNextEvent();
-        this.replayContorller.getEventTextBox().setText(message);
-        this.gameData.UpdateAllReplayMode();
-        if(message.contains("Flop")||message.contains("River")||message.contains("Turn")) this.communityController.UpdateCommunityCards();
     }
 
 

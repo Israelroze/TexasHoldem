@@ -6,6 +6,7 @@ import Player.APlayers;
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
 
+/*
 public class Tester {
    public static void main(String[] args) throws PlayerDataMissingException {
        String conf_file="C:\\Users\\irozenblit\\Documents\\Private\\Java\\TexasHoldem\\Engine\\Resource\\master.xml";
@@ -87,3 +88,4 @@ public class Tester {
 
    }
 }
+*/

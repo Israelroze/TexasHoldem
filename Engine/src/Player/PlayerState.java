@@ -1,5 +1,25 @@
 package Player;
 
 public enum PlayerState {
-    DEALER,BIG,SMALL,NONE
+    DEALER{
+        @Override
+        public String toString() {
+            return "D";
+        }
+    },BIG{
+        @Override
+        public String toString() {
+            return "B";
+        }
+    },SMALL{
+        @Override
+        public String toString() {
+            return "S";
+        }
+    },NONE{
+        @Override
+        public String toString() {
+            return " ";
+        }
+    }
 }

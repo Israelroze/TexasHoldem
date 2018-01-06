@@ -24,13 +24,7 @@ public class APlayer{
     private boolean is_folded;
     private int stake;
 
-<<<<<<< HEAD
-    //for replay
-    private String win_chance;
 
-
-=======
->>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
     //Ctors
     public APlayer(String name, PlayerType type, int ID)
     {
@@ -41,18 +35,7 @@ public class APlayer{
         this.num_of_buys=0;
         this.num_of_wins=0;
         this.money=0;
-        this.win_chance="0%";
         this.state=PlayerState.NONE;
-    }
-
-    public void SetWinChance(String chance)
-    {
-        this.win_chance=chance;
-    }
-
-    public String GetWinChance()
-    {
-        return this.win_chance;
     }
 
     public APlayer(Player player) throws PlayerDataMissingException {
@@ -82,19 +65,10 @@ public class APlayer{
     }
 
     //Getters Setters
-<<<<<<< HEAD
     public void IncWinner()
     {
         this.num_of_wins++;
     }
-    public void DecWinner()
-    {
-        this.num_of_wins--;
-    }
-
-
-=======
->>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
     public int getId() { return id; }
 
     public boolean isPlacedBet() {return is_placed_bet; }
