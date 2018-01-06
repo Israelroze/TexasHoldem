@@ -27,6 +27,8 @@ public class GameData {
     private SimpleIntegerProperty currentPlayerId;
     private HandData currentHand;
     private SimpleBooleanProperty IsCurrentHandFinished;
+    private SimpleBooleanProperty IsInReplay;
+
 
 
     public GameData (InterfaceAPI model) {
@@ -37,7 +39,7 @@ public class GameData {
         this.currentHandNumber = new SimpleStringProperty("Hand Number "+(Integer.toString(model.GetCurrentHandNumber())));
         currentPlayerId = new SimpleIntegerProperty(-1);
         this.IsCurrentHandFinished=new SimpleBooleanProperty(false);
-        //this.currentHand=new HandData(this.model);
+        this.IsInReplay= new SimpleBooleanProperty(false);
         this.LoadPlayers();
     }
 
@@ -119,6 +121,12 @@ public class GameData {
 
     public PlayerData getOnePlayerDataForBinding(int playerIndex) { return  playerData.get(playerIndex); }
 
+    public boolean isIsInReplay() { return IsInReplay.get(); }
+
+    public SimpleBooleanProperty isInReplayProperty() { return IsInReplay; }
+
+    public void setIsInReplay() { this.IsInReplay.set(model.IsReplayMode()); }
+
     public void LoadPlayers() {
         playerData=new LinkedList<>();
         int current_id=model.GetFirstPlayerID();
@@ -165,6 +173,7 @@ public class GameData {
         this.setCurrentPlayerId();
         this.setCurrentHandNumber();
         this.setIsCurrentHandFinished();
+        this.setIsCurrentHandFinished();
     }
 
     public void UpdateAllReplayMode(){
@@ -174,6 +183,7 @@ public class GameData {
             p_date.setWinChance();
         }
         if (this.currentHand != null) this.currentHand.UpdateHand();
+        this.setIsInReplay();
         this.setCurrentPlayerId();
         this.setCurrentHandNumber();
         this.setIsCurrentHandFinished();

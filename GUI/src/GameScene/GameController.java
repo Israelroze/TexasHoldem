@@ -218,8 +218,7 @@ public class GameController implements Initializable {
             singleController.getNumberOfBuyLabel().textProperty().bind(playerData.numOfBuyProperty());
             singleController.getNumberOfWinsLabel().textProperty().bind(playerData.numOfWinsProperty());
             singleController.getStateLabel().textProperty().bind(playerData.playerStateProperty());
-
-
+            singleController.isInReplayModeProperty().bind(gameData.isInReplayProperty());
             singleController.currentPlayerIdProperty().bind(gameData.currentPlayerIdProperty().isEqualTo(playerData.getId()));
            //singleController.setCards(playerData.getCard1(), playerData.getCard2());
             singleController.setPlayerId(playerData.getId());

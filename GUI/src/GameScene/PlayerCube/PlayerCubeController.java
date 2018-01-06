@@ -1,6 +1,7 @@
 package GameScene.PlayerCube;
 
 
+import Game.Game;
 import Utils.ImageUtils;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -41,8 +42,7 @@ public class PlayerCubeController implements Initializable {
     private String secondCardName;
     private int PlayerId;
 
-
-
+    private SimpleBooleanProperty IsInReplayMode;
     private SimpleBooleanProperty CurrentPlayerId;
 
 
@@ -59,6 +59,11 @@ public class PlayerCubeController implements Initializable {
         Card2.getChildren().add(Card2View);
         this.HideCards();
     }
+
+
+    public boolean isIsInReplayMode() { return IsInReplayMode.get(); }
+
+    public SimpleBooleanProperty isInReplayModeProperty() { return IsInReplayMode;}
 
     public void setPlayerId(int id) { this.PlayerId = id; }
 
@@ -87,7 +92,7 @@ public class PlayerCubeController implements Initializable {
     }
 
     private void ShowCards() {
-        if (this.CurrentPlayerId.get())
+        if (this.CurrentPlayerId.get() || this.IsInReplayMode.get() )
         {
             Card1View.setImage(ImageUtils.getImage(this.firstCardName));
             Card2View.setImage(ImageUtils.getImage(this.secondCardName));
@@ -97,9 +102,10 @@ public class PlayerCubeController implements Initializable {
 
     private void HideCards() {
 
-        Card1View.setImage(ImageUtils.getImage(this.UnknownCardImageName));
-        Card2View.setImage(ImageUtils.getImage(this.UnknownCardImageName));
-
+        if(!this.IsInReplayMode.get()) {
+            Card1View.setImage(ImageUtils.getImage(this.UnknownCardImageName));
+            Card2View.setImage(ImageUtils.getImage(this.UnknownCardImageName));
+        }
 
     }
 
@@ -117,8 +123,8 @@ public class PlayerCubeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        CurrentPlayerId = new SimpleBooleanProperty(false);
-
+        this.CurrentPlayerId = new SimpleBooleanProperty(false);
+        this.IsInReplayMode = new SimpleBooleanProperty(false);
 
     }
 
