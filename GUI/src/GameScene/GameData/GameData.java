@@ -129,7 +129,7 @@ public class GameData {
             current_id=model.GetNextPlayerID(current_id);
         }
     }
-    
+
     public void UpdatePlayers(){
         for(PlayerData p_date:this.playerData)
         {
@@ -165,6 +165,27 @@ public class GameData {
         this.setCurrentPlayerId();
         this.setCurrentHandNumber();
         this.setIsCurrentHandFinished();
+    }
+
+    public void UpdateAllReplayMode(){
+        this.UpdatePlayers();
+        for(PlayerData p_date:this.playerData)
+        {
+            p_date.setWinChance();
+        }
+        if (this.currentHand != null) this.currentHand.UpdateHand();
+        this.setCurrentPlayerId();
+        this.setCurrentHandNumber();
+        this.setIsCurrentHandFinished();
+    }
+    public List<String> GetNameOfPlayers(){
+        List<String> Names= new LinkedList<>();
+
+        for (PlayerData player : this.playerData)
+        {
+            Names.add(player.getPlayerName());
+        }
+        return Names;
     }
 
     public ObservableList<PlayerData> GetDataForTable(){

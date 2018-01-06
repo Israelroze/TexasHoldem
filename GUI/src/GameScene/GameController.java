@@ -6,6 +6,7 @@ import GameScene.BetOptions.BetOptionsController;
 import GameScene.Community.CommunityController;
 import GameScene.GameData.HandData;
 import GameScene.WinnersTable.TableViewController;
+import GameScene.ReplayBox.ReplayBoxController;
 import Move.*;
 import GameLogic.GameLogic;
 import GameScene.GameData.GameData;
@@ -28,7 +29,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
+import javafx.scene.control.Label;
 
 import java.io.IOException;
 import java.net.URL;
@@ -46,6 +47,7 @@ public class GameController implements Initializable {
     private int numOfPlayers;
     private List<PlayerCubeController> playersControllers;
     private CommunityController communityController;
+    private ReplayBoxController replayContorller;
     private List<Node> PlayersNode;
     private Boolean IsGameStarted = false;
     private Boolean IsGameEnded = false;
@@ -58,10 +60,10 @@ public class GameController implements Initializable {
     @FXML private GridPane playerGrid;
     @FXML private HBox BetOptionsAnchor;
     @FXML private VBox MainOptionVbox;
+    private boolean IsReplayMode;
 
 
-
-public GameController(){}
+    public GameController(){}
 
     //private
     private void BuildMainOption(){
@@ -291,11 +293,7 @@ public GameController(){}
     public void OnClickBack() {
         gameLogic.StartNewWelcomeScene();
     }
-
-    public void OnClickReplay(){
-
-    }
-
+    
     private void UpdateCardsForPlayerInControllers() {
         this.gameData.UpdatePlayersCards();
         int index = 0;
@@ -494,7 +492,7 @@ public GameController(){}
 //        this.PrintGame(model.GetCurrentHandState());
 
         Move move=null;
-        if(this.model.IsCurrentPlayerFolded() ) {
+        if(this.model.IsCurrentPlayerFolded()) {
             System.out.println("current player"+this.gameData.GetPlayerData(this.model.GetCurrentPlayerID()).getPlayerName()+" already folded, moving to next player");
             this.MoveToNextPlayerAndUpdate();
         }
@@ -503,7 +501,9 @@ public GameController(){}
             if (this.model.IsCurrentPlayerComputer()) {
                 try {
                     move = this.model.GetAutoMove();
-                } catch (PlayerFoldedException | ChipLessThanPotException e) {
+                } catch (PlayerFoldedException e) {
+                    e.printStackTrace();
+                } catch (ChipLessThanPotException e) {
                     e.printStackTrace();
                 }
                 this.SetMoveAndUpdate(move);
@@ -639,6 +639,52 @@ public GameController(){}
             e.printStackTrace();
         }
     }
+
+
+    ///for replay
+    private void  BuildRaplayMenu() {
+        FXMLLoader loader = new FXMLLoader();
+        URL url =getClass().getResource("/GameScene/ReplayBox/ReplayBox.fxml");
+        loader.setLocation(url);
+
+        try {
+            Node ReplayBox = loader.load();
+            this.replayContorller=loader.getController();
+            this.replayContorller.setGameData(this.gameData);
+            this.replayContorller.ConnectToMainGame(this);
+
+            this.replayContorller.InitChanceTable();
+
+            this.StatusPane.getChildren().add(ReplayBox);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void OnClickReplay(){
+        this.IsReplayMode=true;
+        this.BuildRaplayMenu();
+        this.model.ReverseHandToStart();
+        this.model.SetReplayMode(true);
+        this.gameData.UpdateAllReplayMode();
+        this.communityController.UpdateCommunityCards();
+    }
+
+    public void OnClickReplayBack() {
+        String message=this.model.GetPreviousEvent();
+        this.replayContorller.getEventTextBox().setText(message);
+        this.gameData.UpdateAllReplayMode();
+        if(message.contains("Flop")||message.contains("River")||message.contains("Turn")) this.communityController.UpdateCommunityCards();
+    }
+
+    public void OnClickReplayForward() {
+        String message=this.model.GetNextEvent();
+        this.replayContorller.getEventTextBox().setText(message);
+        this.gameData.UpdateAllReplayMode();
+        if(message.contains("Flop")||message.contains("River")||message.contains("Turn")) this.communityController.UpdateCommunityCards();
+    }
+
 
 
 }

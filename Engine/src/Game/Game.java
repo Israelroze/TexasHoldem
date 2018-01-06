@@ -27,6 +27,7 @@ public class Game implements InterfaceAPI {
     private int num_of_hands=0;
     private int global_num_of_buys = 4;
     private Hand current_hand;
+    private boolean Is_replay=false;
 
     //Private Methods
     private void LoadPlayers() throws PlayerDataMissingException {this.players=new APlayers(configuration.getPlayers());}
@@ -389,8 +390,16 @@ public class Game implements InterfaceAPI {
     //Hand Methods
     @Override
     public void StartNewHand(){
+        //init new hand
         this.current_hand=new Hand(this.players,this.configuration.getStructure());
+
+        //forward states
+        this.players.ForwardStates();
+
+        //inc hands counter
         this.num_of_hands++;
+
+        //init placed bet flag of the players
         List<APlayer> players = this.GetPlayers().GetPlayers();
         for (APlayer player :players )
         {
@@ -711,4 +720,43 @@ public class Game implements InterfaceAPI {
 
     }
 
+    ////////////////////////////////////////////////////////////////
+    ///////////// Replay////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////
+
+    public void StartReplay(){
+        this.Is_replay=true;
+
+    }
+    @Override
+    public void ReverseHandToStart(){
+        this.current_hand.RevertToStart();
+    }
+
+    @Override
+    public String GetPreviousEvent(){
+        return this.current_hand.RevertEvent();
+    }
+
+    @Override
+    public String GetNextEvent(){
+        return this.current_hand.PerformEvent();
+    }
+
+    @Override
+    public String GetPlayerWinChance(int id){
+        return this.players.GetPlayer(id).GetWinChance();
+    }
+
+    private void InitPlayersWinChance(){
+        for(APlayer player:this.players.GetPlayers())
+        {
+            player.SetWinChance("0%");
+        }
+    }
+
+    @Override
+    public void SetReplayMode(boolean state){
+        this.current_hand.SetReplayMode(state);
+    }
 }

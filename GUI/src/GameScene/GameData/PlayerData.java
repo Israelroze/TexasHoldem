@@ -2,11 +2,14 @@ package GameScene.GameData;
 
 import API.InterfaceAPI;
 import Card.Card;
+import Player.PlayerState;
+import Utils.ImageUtils;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.util.List;
+import java.util.PrimitiveIterator;
 
 public class PlayerData {
     private InterfaceAPI model;
@@ -18,6 +21,7 @@ public class PlayerData {
     private SimpleStringProperty playerName;
     private SimpleStringProperty Card1;
     private SimpleStringProperty Card2;
+    private SimpleStringProperty WinChance;
     private List<Card> playerCards;
     private final String UnknownCardImageName ="UU.png";
 
@@ -80,6 +84,7 @@ public class PlayerData {
         this.isFolded = new SimpleBooleanProperty(model.GetPlayerIsFolded(id));
         this.isHuman = new SimpleBooleanProperty(model.GetPlayerIsHuman(id));
         this.playerState = new SimpleStringProperty("" );
+        this.WinChance=new SimpleStringProperty(model.GetPlayerWinChance(id));
         SetTypeAsString();
 
 
@@ -102,6 +107,19 @@ public class PlayerData {
 
 
     //set
+
+    public String getWinChance() {
+        return WinChance.get();
+    }
+
+    public SimpleStringProperty winChanceProperty() {
+        return WinChance;
+    }
+
+    public void setWinChance() {
+        this.WinChance.set(model.GetPlayerWinChance(this.id.get()));
+    }
+
     public void setNumOfChips() { this.numOfChips.set(Integer.toString(model.GetPlayerPot(this.id.get())) + " Chips"); }
 
     public void setNumOfBuy() { this.numOfBuy.set(Integer.toString(model.GetPlayerNumOfBuy(this.id.get())) + " Buys");}
@@ -217,6 +235,16 @@ public class PlayerData {
         this.setPlayerState();
     }
 
+    /*
+    public void ShowCard() {
+        SetRealCard1();
+        SetRealCard2();
+    }
 
+    public void HideCards(){
+        HideCard1();
+        HideCard2();
+    }
+*/
 }
 

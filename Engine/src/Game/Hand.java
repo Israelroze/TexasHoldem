@@ -6,6 +6,8 @@ import Exceptions.*;
 import Generated.Structure;
 import Player.*;
 import Move.*;
+import Replay.EventTypes;
+import Replay.GameEvent;
 import com.rundef.poker.EquityCalculator;
 import com.rundef.poker.HandEquity;
 
@@ -30,11 +32,6 @@ public class Hand {
     //bet stats
     private int higest_stake;
     private int poorest_player_chips;
-
-    public void setPot(int pot) {
-        this.pot = pot;
-    }
-
     //money
     private int pot;
     //bets
@@ -51,9 +48,18 @@ public class Hand {
         this.small = structure.getBlindes().getSmall();
         this.deck = new Deck();
         this.winners = new LinkedList<>();
-
+        this.events=new LinkedList<>();
         //deal cards
         this.DealCards();
+    }
+    //for replay
+    private List<GameEvent> events;
+    private int current_event_index;
+    private boolean IsReplay=false;
+
+    public void SetReplayMode(boolean state)
+    {
+        this.IsReplay=state;
     }
 
     //Private Methods
@@ -71,13 +77,18 @@ public class Hand {
         small.DecMoney(this.small);
         //small.setBetPlaceFlag(true);
         small.setStake(this.small);
+        this.current_player=small;
+        LogHandEvent(new Move(MoveType.BET,this.small));
         this.higest_stake = this.small;
+
 
         //for big
         APlayer big = this.players.GetBigPlayer();
         big.DecMoney(this.big);
         big.setBetPlaceFlag(true);
         big.setStake(this.big);
+        this.current_player=big;
+        LogHandEvent(new Move(MoveType.BET,this.big));
         this.higest_stake = this.big;
 
         //set pot
@@ -171,6 +182,10 @@ public class Hand {
 
     public boolean GetIsHandOver(){return this.is_hand_over;}
 
+    public void setPot(int pot) {
+        this.pot = pot;
+    }
+
     public void SetIsBetCycleFinished() {
         if(this.IsAllPlayersPlacedBet()) this.is_bets_finished=true;
     }
@@ -180,15 +195,16 @@ public class Hand {
     }
 
     public void StartNewBidCycle() throws NoSufficientMoneyException {
-        //increase bet cycle number
-        this.bet_num++;
+        if(!this.is_hand_over) {
+            //increase bet cycle number
+            this.bet_num++;
 
-        //init highest stake
-        this.higest_stake=0;
+            //init highest stake
+            this.higest_stake = 0;
 
-        //init flags
-        this.is_bets_started=true;
-        this.is_bets_finished=false;
+            //init flags
+            this.is_bets_started = true;
+            this.is_bets_finished = false;
 
         /*for(APlayer player: this.players.GetPlayers())
         {
@@ -201,21 +217,22 @@ public class Hand {
             }
         }*/
 
-        //init players flags
-        this.InitPlayerFlags();
+            //init players flags
+            this.InitPlayerFlags();
 
-        //forward states
-        this.players.ForwardStates();
+          /*  //forward states
+            this.players.ForwardStates();*/
 
-        //set first playing player
-        this.current_player=this.GetFirstPlayer();
+            //set first playing player
+            this.current_player = this.GetFirstPlayer();
 
-        //blinds
-        if(this.bet_num==1)
-        {
-            this.SetBlinds();
+            //blinds
+            if (this.bet_num == 1) {
+                this.SetBlinds();
+            }
         }
     }
+
 
     public int[] GetAllowdedStakeRange() {
         if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"getting allowded stake range");
@@ -234,32 +251,7 @@ public class Hand {
         {
             high=by_pot;
         }
-//        int low=1;
-//        if(this.current_player.getStake()<this.higest_stake)
-//        {
-//            low=this.higest_stake;
-//        }
-//
-//        if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"higest stake:"+this.higest_stake);
-//        int high=this.higest_stake;
-//        int by_pot=this.pot;
-//        if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"pot:"+this.pot);
-//
-//        int by_poorest=this.GetPoorestChipsValue();
-//        if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"poorest chips:"+by_poorest);
-//
-//        if(by_poorest<=this.higest_stake)
-//        {
-//            low=0;
-//            high=by_poorest;
-//        }
-//        else {
-//            if (by_pot > by_poorest) {
-//                high = by_poorest;
-//            } else {
-//                high = by_pot;
-//            }
-//        }
+
         if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"the range is: low:"+low+" high:"+high+"....");
         return new int[]{low+1, high};
     }
@@ -368,7 +360,7 @@ public class Hand {
     }
 
     public void CheckHandStatus() {
-        if(this.IsOnlyOnePlayerActive())
+        if(this.IsOnlyOnePlayerActive() && !this.is_hand_over)
         {
             this.SetTechincalWinner();
             return;
@@ -377,107 +369,114 @@ public class Hand {
 
     public void ImplementMove(MoveType move,int stake) throws NoSufficientMoneyException, PlayerFoldedException, ChipLessThanPotException, MoveNotAllowdedException, StakeNotInRangeException, PlayerAlreadyBetException {
 
-
-
-        if(move==null)
-        {
-            if(Game.ENABLE_LOG) System.out.println("FROM GAME: current player:"+this.current_player.getId()+" cant play any more");
+        //if(!this.is_hand_over) {
+        if (move == null) {
+            if (Game.ENABLE_LOG)
+                System.out.println("FROM GAME: current player:" + this.current_player.getId() + " cant play any more");
             this.current_player.setBetPlaceFlag(true);
+            return;
         }
-//        if( move == MoveType.FOLD)
-//        {
-//            // ADD BY AVISHAY
-//            if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"Implementing move... type:fold stake:"+stake);
-//            this.current_player.setBetPlaceFlag(true);
-//            this.current_player.setFoldedFlag(true);
-//
-//        }
 
-        if(this.current_player.isPlacedBet())
-        {
+        if (this.current_player.isPlacedBet()) {
             throw new PlayerAlreadyBetException();
         }
 
-        if(!this.IsMoveAllowded(move))
-        {
+        if (!this.IsMoveAllowded(move)) {
             throw new MoveNotAllowdedException();
         }
 
-        if(move==MoveType.BET /* || move==MoveType.RAISE*/){
-            if(!this.IsStakeInRange(stake))
-            {
+        if (move == MoveType.BET /* || move==MoveType.RAISE*/) {
+            if (!this.IsStakeInRange(stake)) {
                 throw new StakeNotInRangeException();
             }
         }
 
         int delta;
-        switch(move){
+        switch (move) {
             case BET:
-                if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"Implementing move... type:bet stake:"+stake);
+                if (Game.ENABLE_LOG)
+                    System.out.println("Player Type:" + this.current_player.GetType() + " ID:" + this.current_player.getId() + "Implementing move... type:bet stake:" + stake);
                 this.current_player.DecMoney(stake);
                 this.current_player.setStake(stake);
                 this.current_player.setBetPlaceFlag(true);
                 this.IncPot(stake);
                 this.InitPlayersBetFlag(this.current_player);
-                this.current_player=this.players.GetNextPlayer(this.current_player);
-                this.higest_stake=stake;
+                LogHandEvent(new Move(move,stake));
+                this.current_player = this.players.GetNextPlayer(this.current_player);
+                this.higest_stake = stake;
                 break;
             case RAISE:
-                if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"Implementing move... type:raise stake:"+stake);
-                delta=stake-this.current_player.getStake();
+                if (Game.ENABLE_LOG)
+                    System.out.println("Player Type:" + this.current_player.GetType() + " ID:" + this.current_player.getId() + "Implementing move... type:raise stake:" + stake);
+                delta = stake - this.current_player.getStake();
                 this.current_player.DecMoney(delta);
                 this.current_player.setStake(stake);
                 this.current_player.setBetPlaceFlag(true);
                 this.IncPot(delta);
                 this.InitPlayersBetFlag(this.current_player);
-                this.current_player=this.players.GetNextPlayer(this.current_player);
-                this.higest_stake=stake;
+                LogHandEvent(new Move(move, delta));
+                this.current_player = this.players.GetNextPlayer(this.current_player);
+                this.higest_stake = stake;
                 break;
             case CALL:
-                if(Game.ENABLE_LOG)System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"Implementing move... type:call stake:"+stake);
-                delta=this.higest_stake-this.current_player.getStake();
+                if (Game.ENABLE_LOG)
+                    System.out.println("Player Type:" + this.current_player.GetType() + " ID:" + this.current_player.getId() + "Implementing move... type:call stake:" + stake);
+                delta = this.higest_stake - this.current_player.getStake();
                 this.current_player.DecMoney(delta);
                 this.current_player.setStake(this.higest_stake);
                 this.current_player.setBetPlaceFlag(true);
                 this.IncPot(delta);
-                this.current_player=this.players.GetNextPlayer(this.current_player);
+                LogHandEvent(new Move(move, delta));
+                this.current_player = this.players.GetNextPlayer(this.current_player);
                 break;
             case CHECK:
-                if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"Implementing move... type:check stake:"+stake);
+                if (Game.ENABLE_LOG)
+                    System.out.println("Player Type:" + this.current_player.GetType() + " ID:" + this.current_player.getId() + "Implementing move... type:check stake:" + stake);
                 this.current_player.setBetPlaceFlag(true);
-                this.current_player=this.players.GetNextPlayer(this.current_player);
+                LogHandEvent(new Move(move, 0));
+                this.current_player = this.players.GetNextPlayer(this.current_player);
                 break;
             case FOLD:
-                if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"Implementing move... type:fold stake:"+stake);
+                if (Game.ENABLE_LOG)
+                    System.out.println("Player Type:" + this.current_player.GetType() + " ID:" + this.current_player.getId() + "Implementing move... type:fold stake:" + stake);
                 this.current_player.setBetPlaceFlag(true);
                 this.current_player.setFoldedFlag(true);
-                this.current_player=this.players.GetNextPlayer(this.current_player);
+                LogHandEvent(new Move(move, 0));
+                this.current_player = this.players.GetNextPlayer(this.current_player);
                 break;
         }
+
         this.SetIsBetCycleFinished();
+        //}
     }
 
     public void Flop() {
-        this.community=new Card[5];
-        for(int i=0;i<3;i++)
-        {
-            this.community[i]=this.deck.PopCard();
+        if(!this.is_hand_over) {
+            this.community = new Card[5];
+            for (int i = 0; i < 3; i++) {
+                this.community[i] = this.deck.PopCard();
+            }
+            LogHandEvent(EventTypes.Flop);
+        }
+    }
+
+    public void River() {
+        if(!this.is_hand_over) {
+            this.community[3] = this.deck.PopCard();
+            LogHandEvent(EventTypes.River);
+        }
+    }
+
+    public void Turn() {
+        if(!this.is_hand_over){
+            this.community[4]=this.deck.PopCard();
+            LogHandEvent(EventTypes.Turn);
         }
     }
 
     public void MoveToNextPlayer()
     {
         this.current_player=this.players.GetNextPlayer(this.current_player);
-    }
-
-    public void River()
-    {
-        this.community[3]=this.deck.PopCard();
-    }
-
-    public void Turn()
-    {
-        this.community[4]=this.deck.PopCard();
     }
 
     public APlayer GetCurrentPlayer() {
@@ -504,25 +503,48 @@ public class Hand {
        return this.players.GetNextPlayer(this.current_player);
     }
 
-    public void SetTechincalWinner() {
-        int index=0;
-        for( APlayer player :this.players.GetPlayers())
+    private String GetBoardForCalculation() {
+        //boards cards to string
+        String board="";
+        for(Card card: this.community)
         {
-            if(player.GetIsFoldedFlag()==false)
-            {
-                this.winners.add(index);
+            if(card!=null) {
+                String type;
+                String number;
+                type = card.GetSuit().toString().toLowerCase();
+                number = card.GetNumber().toString();
+                if (number.equals("10")) {
+                    number = "T";
+                }
+                if (number.equals("1")) {
+                    number = "A";
+                }
+                number = number.toLowerCase();
+                board += number + type;
             }
-            index++;
+        }
+        return board;
+    }
+
+    private String GetPlayerHand(APlayer player) {
+        String str_hand = "";
+
+        for (Card card : player.GetCards()) {
+            String type;
+            String number;
+            type = card.GetSuit().toString().toLowerCase();
+            number = card.GetNumber().toString();
+            if (number.equals("10")) {
+                number = "T";
+            }
+            if (number.equals("1")) {
+                number = "A";
+            }
+            number = number.toLowerCase();
+            str_hand += number + type;
         }
 
-        //set the number of wins for the players
-        this.SetWinnersCounter();
-
-        //devide the pot between the winners
-        this.PassPot();
-
-        this.is_hand_over=true;
-
+        return str_hand;
     }
 
     public void SetWinner() {
@@ -530,24 +552,7 @@ public class Hand {
         EquityCalculator calculator = new EquityCalculator();
 
         //boards cards to string
-        String board="";
-        for(Card card: this.community)
-        {
-            String type;
-            String number;
-            type=card.GetSuit().toString().toLowerCase();
-            number=card.GetNumber().toString();
-            if(number.equals("10"))
-            {
-                number="T";
-            }
-            if(number.equals("1"))
-            {
-                number="A";
-            }
-            number=number.toLowerCase();
-            board+=number+type;
-        }
+        String board=GetBoardForCalculation();
 
         if(Game.ENABLE_LOG) System.out.println("FROM HAND: building Winner calculation, board string:"+board);
         try {
@@ -557,36 +562,23 @@ public class Hand {
         }
 
         int num_of_hands=0;
+
         //player cards to string
         for(APlayer player:this.players.GetPlayers())
         {
-            if(!player.isFolded()) {
-                String str_hand = "";
-                for (Card card : player.GetCards()) {
-                    String type;
-                    String number;
-                    type = card.GetSuit().toString().toLowerCase();
-                    number = card.GetNumber().toString();
-                    if (number.equals("10")) {
-                        number = "T";
-                    }
-                    if (number.equals("1")) {
-                        number = "A";
-                    }
-                    number = number.toLowerCase();
-                    str_hand += number + type;
-                }
-                if(Game.ENABLE_LOG) System.out.println("FROM HAND: Player ID:"+player.getId()+ "building Winner calculation, Hand string:" + str_hand);
-                try {
-                    com.rundef.poker.Hand hand = com.rundef.poker.Hand.fromString(str_hand);
-                    calculator.addHand(hand);
-                    winner_indexs[num_of_hands]=this.players.GetPlayers().indexOf(player);
-                    num_of_hands++;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            String str_hand=GetPlayerHand(player);
+
+            if(Game.ENABLE_LOG) System.out.println("FROM HAND: Player ID:"+player.getId()+ "building Winner calculation, Hand string:" + str_hand);
+            try {
+                com.rundef.poker.Hand hand = com.rundef.poker.Hand.fromString(str_hand);
+                calculator.addHand(hand);
+                winner_indexs[num_of_hands]=this.players.GetPlayers().indexOf(player);
+                num_of_hands++;
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
+
 
         //calculate the winner
         try {
@@ -611,7 +603,32 @@ public class Hand {
         //devide the pot between the winners
         this.PassPot();
 
+
+
         this.is_hand_over=true;
+    }
+
+    public void SetTechincalWinner() {
+        int index=0;
+        for( APlayer player :this.players.GetPlayers())
+        {
+            if(player.GetIsFoldedFlag()==false)
+            {
+                this.winners.add(index);
+            }
+            index++;
+        }
+
+        //set the number of wins for the players
+        this.SetWinnersCounter();
+
+        //devide the pot between the winners
+        this.PassPot();
+
+        //LogHandEvent(EventTypes.Winner);
+
+        this.is_hand_over=true;
+
     }
 
     private void SetWinnersCounter() {
@@ -633,9 +650,11 @@ public class Hand {
                 //int seerit=this.pot%share;
                 for (Integer index : this.winners) {
                     this.players.GetPlayers().get(index).AddMoney(share);
+                    LogHandWinnerEvent(this.winners.get(index),share);
                 }
             } else {//only one
                 this.players.GetPlayers().get(this.winners.get(0)).AddMoney(this.pot);
+                LogHandWinnerEvent(this.winners.get(0),this.pot);
             }
 
             this.pot=0;
@@ -678,4 +697,301 @@ public class Hand {
         return false;
     }
 
+    //for replay
+    private void LogHandEvent(Move move){
+        if (Game.ENABLE_LOG)
+            System.out.println("FROM HAND: EVENT LOGGED: type: move "+", move type:"+move.GetMoveType()+" move value:"+move.GetValue());
+        GameEvent new_event=new GameEvent(EventTypes.Move,move,this.current_player.getId());
+        this.events.add(new_event);
+        this.current_event_index=this.events.size()-1;
+    }
+
+    private void LogHandEvent(EventTypes event){
+        GameEvent new_event=new GameEvent(event);
+
+        switch(event){
+            case Flop:
+                new_event.AddEventCard(this.community[0]);
+                new_event.AddEventCard(this.community[1]);
+                new_event.AddEventCard(this.community[2]);
+                break;
+            case River:
+                new_event.AddEventCard(this.community[3]);
+                break;
+            case Turn:
+                new_event.AddEventCard(this.community[4]);
+                break;
+            case Winner:
+                for(int index:this.winners)
+                {
+                    int id=this.players.GetPlayers().get(index).getId();
+                    int money=this.players.GetPlayers().get(index).GetMoney();
+                    new_event.AddWinner(id,money);
+                }
+                break;
+        }
+        this.events.add(new_event);
+        this.current_event_index=this.events.size()-1;
+    }
+
+    private void LogHandWinnerEvent(int index,int amount){
+        GameEvent new_event=new GameEvent(EventTypes.Winner,amount);
+        new_event.AddWinner(index,amount);
+        this.events.add(new_event);
+        this.current_event_index=this.events.size()-1;
+    }
+
+    public void RevertToStart(){
+        for(int i=0;i<this.events.size();i++)
+        {
+            this.RevertEvent();
+        }
+        this.CalculateWinChance();
+    }
+
+    public String RevertEvent(){
+        if(this.IsReplay) this.current_event_index--;
+        if(this.current_event_index<0) {
+            return "This is the first event, back option is not available.";
+        }
+        String Return_msg="";
+        if(Game.ENABLE_LOG) System.out.println("FROM HAND REPLAY Revert EVENT: POT:"+this.pot +" event number"+this.current_event_index);
+        switch(this.events.get(this.current_event_index).GetEventType()) {
+            case Move:
+                Move move = this.events.get(this.current_event_index).GetMove();
+                APlayer player = this.players.GetPlayer(this.events.get(this.current_event_index).GetPlayerId());
+                switch (move.GetMoveType()) {
+                    case BET:
+                        player.SetMoney(player.GetMoney() + move.GetValue());
+                        this.setPot(this.pot - move.GetValue());
+                        this.current_player=player;
+                        Return_msg=player.GetName() + " placed bet with the value of " + move.GetValue();
+                        break;
+                    case RAISE:
+                        player.SetMoney(player.GetMoney() + move.GetValue());
+                        this.setPot(this.pot - move.GetValue());
+                        this.current_player=player;
+                        Return_msg=player.GetName() + " raised by" + move.GetValue();
+                        break;
+                    case CALL:
+                        player.SetMoney(player.GetMoney() + move.GetValue());
+                        this.setPot(this.pot - move.GetValue());
+                        this.current_player=player;
+                        Return_msg=player.GetName() + " called";
+                        break;
+                    case CHECK:
+                        //player.SetMoney(this.current_player.GetMoney() + move.GetValue());
+                        //this.setPot(this.pot - move.GetValue());
+                        this.current_player=player;
+                        Return_msg=player.GetName() + " checked";
+                        break;
+                    case FOLD:
+                        //player.SetMoney(this.current_player.GetMoney() + move.GetValue());
+                        //this.setPot(this.pot - move.GetValue());
+                        this.current_player=player;
+                        Return_msg=player.GetName() + " folded";
+                        break;
+                }
+                break;
+            case Flop:
+                if(Game.ENABLE_LOG) System.out.println("FROM HAND REPLAY Revert EVENT: flop");
+                this.community[0] = null;
+                this.community[1] = null;
+                this.community[2] = null;
+                this.CalculateWinChance();
+                Return_msg=" Flop";
+                break;
+
+            case River:
+                if(Game.ENABLE_LOG) System.out.println("FROM HAND REPLAY Revert EVENT: river");
+                this.community[3] = null;
+                Return_msg=" River";
+                //this.CalculateWinChance();
+                break;
+
+            case Turn:
+                if(Game.ENABLE_LOG) System.out.println("FROM HAND REPLAY Revert EVENT: turn");
+                this.community[4] = null;
+                Return_msg=" Turn";
+                //this.CalculateWinChance();
+                break;
+
+            case Winner:
+                if(Game.ENABLE_LOG) System.out.println("FROM HAND REPLAY Revert EVENT: setting winner");
+                List<Integer> winners=this.events.get(this.current_event_index).GetWinners();
+                for (int i=0;i<winners.size();i++) {
+                    int index=winners.get(i);
+                    APlayer winner=this.players.GetPlayers().get(index);
+                    int amount = this.events.get(this.current_event_index).GetWinnerMoney(i);
+                    Return_msg="Player "+winner.GetName()+" is winner with the amount of "+amount;
+                    this.IncPot(amount);
+                    try {
+                        winner.DecMoney(amount);
+                        winner.DecWinner();
+                    } catch (NoSufficientMoneyException e) {
+
+                    }
+                }
+                break;
+        }
+     /*   if(this.IsReplay){//
+            if(this.current_event_index<0) return "This is the first event, back option is not available.";
+            this.current_event_index--;
+            if(this.current_event_index<0) return "This is the first event, back option is not available.";
+        }*/
+
+        if(!this.IsReplay) this.current_event_index--;
+        //this.current_event_index--;
+        if(Game.ENABLE_LOG) System.out.println("FROM HAND REPLAY Revert EVENT:"+Return_msg);
+        return Return_msg;
+    }
+
+    public String PerformEvent(){
+
+        if(this.current_event_index>this.events.size()-1) return "This is the last event, forward option not available.";
+        if(this.current_event_index<0) this.current_event_index=0;
+
+        String Return_msg="";
+        if(Game.ENABLE_LOG) System.out.println("FROM HAND REPLAY Forward EVENT: POT:"+this.pot +" event number"+this.current_event_index);
+        switch(this.events.get(this.current_event_index).GetEventType()) {
+            case Move:
+                Move move = this.events.get(this.current_event_index).GetMove();
+                APlayer player = this.players.GetPlayer(this.events.get(this.current_event_index).GetPlayerId());
+
+                switch (move.GetMoveType()) {
+                    case BET:
+                        try {
+                            player.DecMoney(move.GetValue());
+                        } catch (NoSufficientMoneyException e) {
+
+                        }
+                        this.IncPot(move.GetValue());
+                        this.current_player=player;
+                        Return_msg=player.GetName() + " placed bet with the value of" + move.GetValue();
+                        break;
+                    case RAISE:
+                        try {
+                            player.DecMoney(move.GetValue());
+                        } catch (NoSufficientMoneyException e) {
+
+                        }
+                        this.IncPot(move.GetValue());
+                        this.current_player=player;
+                        Return_msg=player.GetName() + " raised by" + move.GetValue();
+                        break;
+                    case CALL:
+                        try {
+                            player.DecMoney(move.GetValue());
+                        } catch (NoSufficientMoneyException e) {
+
+                        }
+                        this.IncPot(move.GetValue());
+                        this.current_player=player;
+                        Return_msg=player.GetName() + " called";
+                        this.current_player=player;
+                        break;
+                    case CHECK:
+                        this.current_player=player;
+                        Return_msg=player.GetName() + " checked";
+                        break;
+                    case FOLD:
+                        this.current_player=player;
+                        Return_msg=player.GetName() + " folded";
+                        break;
+                }
+                break;
+            case Flop:
+                if(Game.ENABLE_LOG) System.out.println("FROM HAND REPLAY Forward EVENT: Flop");
+                this.community[0] = this.events.get(this.current_event_index).GetCards().get(0);
+                this.community[1] = this.events.get(this.current_event_index).GetCards().get(1);
+                this.community[2] = this.events.get(this.current_event_index).GetCards().get(2);
+                Return_msg=" Flop";
+                this.CalculateWinChance();
+                break;
+
+            case River:
+                if(Game.ENABLE_LOG) System.out.println("FROM HAND REPLAY Forward EVENT: River");
+                this.community[3] = this.events.get(this.current_event_index).GetCards().get(0);
+                Return_msg=" River";
+                this.CalculateWinChance();
+                break;
+
+            case Turn:
+                if(Game.ENABLE_LOG) System.out.println("FROM HAND REPLAY Forward EVENT: turn");
+                this.community[4] = this.events.get(this.current_event_index).GetCards().get(0);
+                Return_msg=" Turn";
+                this.CalculateWinChance();
+                break;
+            case Winner:
+                if(Game.ENABLE_LOG) System.out.println("FROM HAND REPLAY Forward EVENT: setting winner");
+                List<Integer> winners=this.events.get(this.current_event_index).GetWinners();
+                for (int i=0;i<winners.size();i++) {
+                    int index=winners.get(i);
+                    APlayer winner=this.players.GetPlayers().get(index);
+                    int amount = this.events.get(this.current_event_index).GetWinnerMoney(i);
+                    Return_msg="Player "+winner.GetName()+" is winner with the amount of "+amount;
+                    this.setPot(this.pot-amount);
+                    winner.IncWinner();
+                    winner.SetMoney(winner.GetMoney()+amount);
+                }
+                break;
+        }
+        if(this.current_event_index<this.events.size()) this.current_event_index++;
+
+        if(Game.ENABLE_LOG) System.out.println("FROM HAND REPLAY Forward EVENT:"+Return_msg);
+        return Return_msg;
+    }
+
+    private void CalculateWinChance() {
+        EquityCalculator calculator = new EquityCalculator();
+
+        //boards cards to string
+        if(this.community!=null && this.community.length>0  ) {
+            //boards cards to string
+            String board = GetBoardForCalculation();
+
+            if (Game.ENABLE_LOG) System.out.println("FROM HAND: building Winner calculation, board string:" + board);
+            if(!board.equals("")) {
+                try {
+                    calculator.setBoardFromString(board);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+
+        int num_of_hands=0;
+        //player cards to string
+        for(APlayer player:this.players.GetPlayers())
+        {
+            String str_hand=GetPlayerHand(player);
+
+            if(Game.ENABLE_LOG) System.out.println("FROM HAND: Player ID:"+player.getId()+ "building Winner calculation, Hand string:" + str_hand);
+            try {
+                com.rundef.poker.Hand hand = com.rundef.poker.Hand.fromString(str_hand);
+                calculator.addHand(hand);
+                num_of_hands++;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        //calculate the winner
+        try {
+            calculator.calculate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //update the chances
+        for (int i = 0; i < num_of_hands; i++) {
+            HandEquity equity=calculator.getHandEquity(i);
+            this.players.GetPlayers().get(i).SetWinChance(equity.toString());
+           /* if(equity.getEquity()!=0)//we have a winner
+            {
+                this.players.GetPlayers().get(i).SetWinChance(String.valueOf(equity.getEquity())+"%");
+            }*/
+        }
+    }
 }
