@@ -26,6 +26,7 @@ public class GameData {
     private List<PlayerData> playerData;
     private SimpleIntegerProperty currentPlayerId;
     private HandData currentHand;
+
     private SimpleBooleanProperty IsCurrentHandFinished;
 
 
@@ -53,9 +54,8 @@ public class GameData {
         this.IsCurrentHandFinished.set(this.model.IsCurrentHandOver());
     }
 
-
-
     //Setters
+
     public void setMaxPot() { this.maxPot.set((Integer.toString(model.GetMaxBuys()) + " Game Money")); }
 
     public void setBig() { this.big.set((Integer.toString(model.GetBig()) + " Big")); }
@@ -75,9 +75,6 @@ public class GameData {
 
 
     //Getters
-
-    public List<PlayerData> getPlayerData() { return playerData; }
-
     public PlayerData GetPlayerData(int id) {
         for( PlayerData pd:this.playerData)
         {
@@ -134,16 +131,6 @@ public class GameData {
         for(PlayerData p_date:this.playerData)
         {
             p_date.UpdatePlayer();
-        }
-    }
-
-    public void RemoveDeletedPlayers()
-    {
-        for(PlayerData p_date:this.playerData)
-        {
-            if(!this.model.IsPlayerExist(p_date.getId())) {
-                this.playerData.remove(p_date);
-            }
         }
     }
 

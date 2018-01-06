@@ -222,6 +222,39 @@ public class Hand {
         return min.intValue();
     }
 
+//        int a;
+//        this.players.GetPlayers();
+//        for(APlayer player : this.players.GetPlayers())
+//        {
+//            if(this.higest_stake==0) //round only started
+//            {
+//                if(Game.ENABLE_LOG) System.out.println("all stakes are o, calculating poorest between all.");
+//                if (min == 0) {
+//                    min = player.GetMoney();
+//                } else {
+//                    if (min > player.GetMoney()) {
+//                       // if (player.getStake() < this.higest_stake) {
+//                            min = player.GetMoney();
+//                        //}
+//                    }
+//                }
+//            }
+//            else {
+//              //  if (player.getStake() != this.higest_stake) {
+//                    if (min == 0) {
+//                        min = player.GetMoney();
+//                    } else {
+//                        if (min >  player.GetMoney()) {
+//                            if (player.getStake() < this.higest_stake) {
+//                                min = player.GetMoney();
+//                            }
+//                        }
+//                    }
+//                //}
+//            }
+//        }
+       //return min;
+    //}
     public boolean GetIsHandOver(){return this.is_hand_over;}
 
     public void setPot(int pot) {
@@ -374,14 +407,19 @@ public class Hand {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void CheckHandStatus() {
         if(this.IsOnlyOnePlayerActive() && !this.is_hand_over)
+=======
+    public void CheckHandStatus()
+    {
+        if(this.IsOnlyOnePlayerActive())
+>>>>>>> parent of e96872e... sdfasfd
         {
             this.SetTechincalWinner();
             return;
         }
     }
-
     public void ImplementMove(MoveType move,int stake) throws NoSufficientMoneyException, PlayerFoldedException, ChipLessThanPotException, MoveNotAllowdedException, StakeNotInRangeException, PlayerAlreadyBetException {
 
         //if(!this.is_hand_over) {
@@ -579,10 +617,17 @@ public class Hand {
     }
 <<<<<<< HEAD
 
+<<<<<<< HEAD
     private String GetBoardForCalculation() {
         //boards cards to string
         String board="";
         for(Card card: this.community)
+=======
+    public void SetTechincalWinner()
+    {
+        int index=0;
+        for( APlayer player :this.players.GetPlayers())
+>>>>>>> parent of e96872e... sdfasfd
         {
             if(card!=null) {
                 String type;
@@ -773,6 +818,7 @@ public class Hand {
         return false;
     }
 
+<<<<<<< HEAD
     //for replay
     private void LogHandEvent(Move move){
         if (Game.ENABLE_LOG)
@@ -1072,4 +1118,7 @@ public class Hand {
     }
 =======
 >>>>>>> parent of 003e11a... Merge pull request #10 from Israelroze/master
+=======
+
+>>>>>>> parent of e96872e... sdfasfd
 }

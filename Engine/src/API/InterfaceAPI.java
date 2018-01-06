@@ -95,7 +95,7 @@ public interface  InterfaceAPI {
     public void CheckCurrentHandStatus();
     public void PlayerPerformBuy(int id);
     public void PlayerPerformQuitFromGame(int id);
-    public boolean IsPlayerExist(int id);
+
 
 
         //for replaye

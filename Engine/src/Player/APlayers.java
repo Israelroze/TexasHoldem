@@ -49,6 +49,31 @@ public class APlayers {
         }
     }
 
+<<<<<<< HEAD
+=======
+    public int GetSize()
+    {
+        return aplayers.size();
+    }
+
+    public int GetFirstPlayerID(){
+        return this.aplayers.get(0).getId();
+    }
+
+    public APlayer GetPlayer(int id)
+    {
+        for(APlayer player: this.aplayers)
+        {
+            if(player.getId()==id)
+            {
+                return player;
+            }
+        }
+        return null;
+        //return aplayers.get(index);
+    }
+
+>>>>>>> parent of e96872e... sdfasfd
     public APlayer GetNextPlayer(APlayer player)
     {
         int index=this.aplayers.indexOf(player);

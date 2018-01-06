@@ -32,11 +32,14 @@ public class PlayerData {
     private SimpleBooleanProperty isSmall;
     private SimpleBooleanProperty isHuman;
     private SimpleBooleanProperty isFolded;
+<<<<<<< HEAD
     public boolean isIsQuit() { return isQuit.get(); }
 
     public SimpleBooleanProperty isQuitProperty() { return isQuit; }
     public void setIsQuit(boolean isQuit) { this.isQuit.set(isQuit); }
     private SimpleBooleanProperty isQuit;
+=======
+>>>>>>> parent of e96872e... sdfasfd
 
     public String getPlayerState() { return playerState.get(); }
 
@@ -63,7 +66,7 @@ public class PlayerData {
         this.numOfWins = new SimpleStringProperty(Integer.toString(model.GetPlayerNumOfWins(id)) + " Wins");
         this.Card2 = new SimpleStringProperty(UnknownCardImageName);
         this.Card1 = new SimpleStringProperty(UnknownCardImageName);
-        this.isQuit = new SimpleBooleanProperty(false);
+
         this.isDealer = new SimpleBooleanProperty(model.GetPlayerIsDealer(id));
         this.isBig = new SimpleBooleanProperty(model.GetPlayerIsBig(id));
         this.isSmall = new SimpleBooleanProperty(model.GetPlayerIsSmall(id));
