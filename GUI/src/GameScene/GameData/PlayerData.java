@@ -2,14 +2,11 @@ package GameScene.GameData;
 
 import API.InterfaceAPI;
 import Card.Card;
-import Player.PlayerState;
-import Utils.ImageUtils;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.util.List;
-import java.util.PrimitiveIterator;
 
 public class PlayerData {
     private InterfaceAPI model;
@@ -21,25 +18,27 @@ public class PlayerData {
     private SimpleStringProperty playerName;
     private SimpleStringProperty Card1;
     private SimpleStringProperty Card2;
-
-    private SimpleStringProperty WinChance;
-
     private List<Card> playerCards;
     private final String UnknownCardImageName ="UU.png";
-    private SimpleBooleanProperty isDealer;
 
+    public String getTypeAsString() {
+        return typeAsString;
+    }
+
+    private String typeAsString;
+
+    private SimpleBooleanProperty isDealer;
     private SimpleBooleanProperty isBig;
     private SimpleBooleanProperty isSmall;
+
     private SimpleBooleanProperty isHuman;
     private SimpleBooleanProperty isFolded;
-<<<<<<< HEAD
-    public boolean isIsQuit() { return isQuit.get(); }
 
+    public boolean isIsQuit() { return isQuit.get(); }
     public SimpleBooleanProperty isQuitProperty() { return isQuit; }
     public void setIsQuit(boolean isQuit) { this.isQuit.set(isQuit); }
+
     private SimpleBooleanProperty isQuit;
-=======
->>>>>>> parent of e96872e... sdfasfd
 
     public String getPlayerState() { return playerState.get(); }
 
@@ -50,6 +49,14 @@ public class PlayerData {
         else if (isIsBig()) playerState.set("Big");
         else if (isIsSmall()) playerState.set("Small");
         else  playerState.set("");
+    }
+
+    private void  SetTypeAsString()
+    {
+        //this.typeAsString = new SimpleStringProperty("");
+        if (this.isIsHuman()){ this.typeAsString= "Human";}
+        else {this.typeAsString = "Computer";}
+
     }
 
     private SimpleStringProperty playerState;
@@ -66,14 +73,16 @@ public class PlayerData {
         this.numOfWins = new SimpleStringProperty(Integer.toString(model.GetPlayerNumOfWins(id)) + " Wins");
         this.Card2 = new SimpleStringProperty(UnknownCardImageName);
         this.Card1 = new SimpleStringProperty(UnknownCardImageName);
-
+        this.isQuit = new SimpleBooleanProperty(false);
         this.isDealer = new SimpleBooleanProperty(model.GetPlayerIsDealer(id));
         this.isBig = new SimpleBooleanProperty(model.GetPlayerIsBig(id));
         this.isSmall = new SimpleBooleanProperty(model.GetPlayerIsSmall(id));
         this.isFolded = new SimpleBooleanProperty(model.GetPlayerIsFolded(id));
         this.isHuman = new SimpleBooleanProperty(model.GetPlayerIsHuman(id));
         this.playerState = new SimpleStringProperty("" );
-        this.WinChance=new SimpleStringProperty(model.GetPlayerWinChance(id));
+        SetTypeAsString();
+
+
     }
 
     public void SetCards()
@@ -84,29 +93,16 @@ public class PlayerData {
     }
 
 
+   // public void SetRealCards () {this.}
+//    private void SetRealCard1() { this.Card1.set(this.playerCards.get(0).toString()); }
+//    private void SetRealCard2() { this.Card2.set(this.playerCards.get(1).toString()); }
+//    private void HideCard1() { this.Card1.set(this.UnknownCardImageName); }
+//    private void HideCard2() { this.Card2.set(this.UnknownCardImageName); }
 
-    // public void SetRealCards () {this.}
 
-    //    private void HideCard2() { this.Card2.set(this.UnknownCardImageName); }
 
-    //    private void HideCard1() { this.Card1.set(this.UnknownCardImageName); }
     //set
-
-    public String getWinChance() {
-        return WinChance.get();
-    }
-
-    public SimpleStringProperty winChanceProperty() {
-        return WinChance;
-    }
-
-    public void setWinChance() {
-        this.WinChance.set(model.GetPlayerWinChance(this.id.get()));
-    }
-
-    //    private void SetRealCard2() { this.Card2.set(this.playerCards.get(1).toString()); }
     public void setNumOfChips() { this.numOfChips.set(Integer.toString(model.GetPlayerPot(this.id.get())) + " Chips"); }
-    //    private void SetRealCard1() { this.Card1.set(this.playerCards.get(0).toString()); }
 
     public void setNumOfBuy() { this.numOfBuy.set(Integer.toString(model.GetPlayerNumOfBuy(this.id.get())) + " Buys");}
 
@@ -204,17 +200,11 @@ public class PlayerData {
     }
 
     public void MakeABuy() { model.PlayerPerformBuy(this.id.get());}
-/*
-    public void ShowCard() {
-        SetRealCard1();
-        SetRealCard2();
-    }
 
-    public void HideCards(){
-        HideCard1();
-        HideCard2();
-    }
-*/
+    public void QuitFromGame() {
+        this.isQuit.set(true);
+        model.PlayerPerformQuitFromGame(this.id.get());}
+
 
     public void UpdatePlayer() {
         this.setNumOfChips();
@@ -226,5 +216,7 @@ public class PlayerData {
         this.setIsFolded();
         this.setPlayerState();
     }
+
+
 }
 

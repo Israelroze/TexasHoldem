@@ -3,27 +3,31 @@ package Player;
 import Exceptions.PlayerDataMissingException;
 import Generated.Player;
 import Generated.Players;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
+
+import java.util.*;
 
 public class APlayers {
     private List<APlayer> aplayers;
     private APlayer dealer;
     private APlayer big;
     private APlayer small;
-
-
+    private Map<Integer,Integer> ids;
 
     public APlayers(Players players) throws PlayerDataMissingException {
         aplayers=new LinkedList<APlayer>();
+        ids=new HashMap<>();
 
+        int index=0;
         for (Player player: players.getPlayer())
         {
             APlayer nplayer=new APlayer(player);
             aplayers.add(nplayer);
         }
+    }
+
+    public APlayers()  {
+        aplayers=new LinkedList<APlayer>();
+        ids=new HashMap<>();
     }
 
     public void RandomPlayerSeats() {
@@ -38,7 +42,7 @@ public class APlayers {
         }
     }
 
-    private APlayer GetNextPlayer(int index)
+    public APlayer GetNextPlayer(int index)
     {
         if((index+1)<=aplayers.size()-1) {
             return aplayers.get(index + 1);
@@ -49,8 +53,29 @@ public class APlayers {
         }
     }
 
-<<<<<<< HEAD
-=======
+    public void DeletePlayerById(int id){
+
+        for(APlayer player: this.aplayers)
+        {
+            if(player.getId()==id)
+            {
+                this.aplayers.remove(player);
+                return;
+            }
+        }
+    }
+
+    public boolean IsPlayerExist(int id){
+        for(APlayer player: this.aplayers)
+        {
+            if(player.getId()==id)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public int GetSize()
     {
         return aplayers.size();
@@ -73,7 +98,6 @@ public class APlayers {
         //return aplayers.get(index);
     }
 
->>>>>>> parent of e96872e... sdfasfd
     public APlayer GetNextPlayer(APlayer player)
     {
         int index=this.aplayers.indexOf(player);

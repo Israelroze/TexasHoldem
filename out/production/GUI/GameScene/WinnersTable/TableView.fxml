@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+
+<TableView fx:id="playersTable" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameScene.WinnersTable.TableViewController">
+  <columns>
+    <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Name" />
+    <TableColumn fx:id="typeColumn" prefWidth="75.0" text="Type" />
+      <TableColumn fx:id="buysColumn" prefWidth="75.0" text="Buys" />
+      <TableColumn fx:id="hadsWonsColumn" prefWidth="75.0" text="Hands Won" />
+      <TableColumn fx:id="moneyColumn" prefWidth="75.0" text="Money" />
+  </columns>
+</TableView>
