@@ -517,20 +517,20 @@ public class Hand {
         String board="";
         for(Card card: this.community)
         {
-            String type;
-            String number;
-            type=card.GetSuit().toString().toLowerCase();
-            number=card.GetNumber().toString();
-            if(number.equals("10"))
-            {
-                number="T";
+            if(card!=null) {
+                String type;
+                String number;
+                type = card.GetSuit().toString().toLowerCase();
+                number = card.GetNumber().toString();
+                if (number.equals("10")) {
+                    number = "T";
+                }
+                if (number.equals("1")) {
+                    number = "A";
+                }
+                number = number.toLowerCase();
+                board += number + type;
             }
-            if(number.equals("1"))
-            {
-                number="A";
-            }
-            number=number.toLowerCase();
-            board+=number+type;
         }
         return board;
     }
@@ -759,7 +759,7 @@ public class Hand {
     }
 
     public String RevertEvent(){
-        if(this.IsReplay) this.current_event_index--;
+        if(this.IsReplay) if(this.current_event_index>=1) this.current_event_index--;
         String Return_msg="";
         if(Game.ENABLE_LOG) System.out.println("FROM HAND REPLAY Revert EVENT: POT:"+this.pot +" event number"+this.current_event_index);
         switch(this.events.get(this.current_event_index).GetEventType()) {
@@ -801,18 +801,21 @@ public class Hand {
                 this.community[1] = null;
                 this.community[2] = null;
                 this.CalculateWinChance();
+                Return_msg=" Flop";
                 break;
 
             case River:
                 if(Game.ENABLE_LOG) System.out.println("FROM HAND REPLAY Revert EVENT: river");
                 this.community[3] = null;
-                this.CalculateWinChance();
+                Return_msg=" River";
+                //this.CalculateWinChance();
                 break;
 
             case Turn:
                 if(Game.ENABLE_LOG) System.out.println("FROM HAND REPLAY Revert EVENT: turn");
                 this.community[4] = null;
-                this.CalculateWinChance();
+                Return_msg=" Turn";
+                //this.CalculateWinChance();
                 break;
 
             case Winner:
@@ -822,6 +825,7 @@ public class Hand {
                     int index=winners.get(i);
                     APlayer winner=this.players.GetPlayers().get(index);
                     int amount = this.events.get(this.current_event_index).GetWinnerMoney(i);
+                    Return_msg="Player "+winner.GetName()+" is winner with the amount of "+amount;
                     this.IncPot(amount);
                     try {
                         winner.DecMoney(amount);
@@ -890,18 +894,21 @@ public class Hand {
                 this.community[0] = this.events.get(this.current_event_index).GetCards().get(0);
                 this.community[1] = this.events.get(this.current_event_index).GetCards().get(1);
                 this.community[2] = this.events.get(this.current_event_index).GetCards().get(2);
+                Return_msg=" Flop";
                 this.CalculateWinChance();
                 break;
 
             case River:
                 if(Game.ENABLE_LOG) System.out.println("FROM HAND REPLAY Forward EVENT: River");
-                this.community[3] = this.events.get(this.current_event_index).GetCards().get(3);
+                this.community[3] = this.events.get(this.current_event_index).GetCards().get(0);
+                Return_msg=" River";
                 this.CalculateWinChance();
                 break;
 
             case Turn:
                 if(Game.ENABLE_LOG) System.out.println("FROM HAND REPLAY Forward EVENT: turn");
-                this.community[4] = this.events.get(this.current_event_index).GetCards().get(4);
+                this.community[4] = this.events.get(this.current_event_index).GetCards().get(0);
+                Return_msg=" Turn";
                 this.CalculateWinChance();
                 break;
             case Winner:
@@ -911,6 +918,7 @@ public class Hand {
                     int index=winners.get(i);
                     APlayer winner=this.players.GetPlayers().get(index);
                     int amount = this.events.get(this.current_event_index).GetWinnerMoney(i);
+                    Return_msg="Player "+winner.GetName()+" is winner with the amount of "+amount;
                     this.setPot(this.pot-amount);
                     winner.IncWinner();
                     winner.SetMoney(winner.GetMoney()+amount);

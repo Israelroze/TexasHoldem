@@ -103,8 +103,8 @@
       <file leaf-file-name="Hand.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Engine/src/Game/Hand.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="411" column="20" lean-forward="true" selection-start-line="411" selection-start-column="20" selection-end-line="411" selection-end-column="20" />
+            <state relative-caret-position="253">
+              <caret line="909" column="94" lean-forward="false" selection-start-line="909" selection-start-column="94" selection-end-line="909" selection-end-column="94" />
               <folding>
                 <element signature="method#Hand#0;class#Hand#0" expanded="false" />
                 <element signature="e#1438#1439#0" expanded="true" />
@@ -129,7 +129,6 @@
                 <element signature="method#IsStakeInRange#0;class#Hand#0" expanded="false" />
                 <element signature="method#CheckHandStatus#0;class#Hand#0" expanded="false" />
                 <element signature="e#12580#12616#0" expanded="false" />
-                <element signature="method#GetBoardForCalculation#0;class#Hand#0" expanded="false" />
                 <element signature="method#GetPlayerHand#0;class#Hand#0" expanded="false" />
                 <element signature="method#SetWinner#0;class#Hand#0" expanded="false" />
                 <element signature="method#SetTechincalWinner#0;class#Hand#0" expanded="false" />
@@ -138,8 +137,8 @@
                 <element signature="method#GetWinnerNames#0;class#Hand#0" expanded="false" />
                 <element signature="method#IsOnlyOnePlayerActive#0;class#Hand#0" expanded="false" />
                 <element signature="method#IsNoPlayerActive#0;class#Hand#0" expanded="false" />
-                <element signature="e#27270#27338#0" expanded="false" />
-                <element signature="e#27558#27626#0" expanded="false" />
+                <element signature="e#27385#27453#0" expanded="false" />
+                <element signature="e#27673#27741#0" expanded="false" />
                 <element signature="method#CalculateWinChance#0;class#Hand#0" expanded="false" />
               </folding>
             </state>
@@ -833,15 +832,15 @@
       <workItem from="1514933173394" duration="1798000" />
       <workItem from="1515008290502" duration="14822000" />
       <workItem from="1515076954631" duration="21824000" />
-      <workItem from="1515158768036" duration="33890000" />
+      <workItem from="1515158768036" duration="34963000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="374200000" />
+    <option name="totallyTimeSpent" value="375273000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-2" y="-2" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1030,7 +1029,7 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/Engine/src/Game/Hand.java</url>
-          <line>966</line>
+          <line>974</line>
           <properties />
           <option name="timeStamp" value="275" />
         </line-breakpoint>
@@ -1060,7 +1059,7 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/Engine/src/Game/Hand.java</url>
-          <line>888</line>
+          <line>892</line>
           <properties />
           <option name="timeStamp" value="294" />
         </line-breakpoint>
@@ -1427,7 +1426,7 @@
         <state relative-caret-position="175">
           <caret line="104" column="0" lean-forward="false" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
           <folding>
-            <element signature="e#3123#3124#0" expanded="true" />
+            <element signature="e#3123#3124#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1437,7 +1436,7 @@
         <state relative-caret-position="395">
           <caret line="157" column="0" lean-forward="false" selection-start-line="157" selection-start-column="0" selection-end-line="157" selection-end-column="0" />
           <folding>
-            <element signature="e#3418#3419#0" expanded="true" />
+            <element signature="e#3418#3419#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1447,9 +1446,9 @@
         <state relative-caret-position="223">
           <caret line="55" column="0" lean-forward="false" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
           <folding>
-            <element signature="e#1508#1509#0" expanded="true" />
-            <element signature="e#1577#1578#0" expanded="true" />
-            <element signature="e#1629#1630#0" expanded="true" />
+            <element signature="e#1508#1509#0" expanded="false" />
+            <element signature="e#1577#1578#0" expanded="false" />
+            <element signature="e#1629#1630#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1459,7 +1458,7 @@
         <state relative-caret-position="175">
           <caret line="1657" column="0" lean-forward="false" selection-start-line="1657" selection-start-column="0" selection-end-line="1657" selection-end-column="0" />
           <folding>
-            <element signature="e#66921#66922#0" expanded="true" />
+            <element signature="e#66921#66922#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1634,8 +1633,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Engine/src/Game/Hand.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="411" column="20" lean-forward="true" selection-start-line="411" selection-start-column="20" selection-end-line="411" selection-end-column="20" />
+        <state relative-caret-position="253">
+          <caret line="909" column="94" lean-forward="false" selection-start-line="909" selection-start-column="94" selection-end-line="909" selection-end-column="94" />
           <folding>
             <element signature="method#Hand#0;class#Hand#0" expanded="false" />
             <element signature="e#1438#1439#0" expanded="true" />
@@ -1660,7 +1659,6 @@
             <element signature="method#IsStakeInRange#0;class#Hand#0" expanded="false" />
             <element signature="method#CheckHandStatus#0;class#Hand#0" expanded="false" />
             <element signature="e#12580#12616#0" expanded="false" />
-            <element signature="method#GetBoardForCalculation#0;class#Hand#0" expanded="false" />
             <element signature="method#GetPlayerHand#0;class#Hand#0" expanded="false" />
             <element signature="method#SetWinner#0;class#Hand#0" expanded="false" />
             <element signature="method#SetTechincalWinner#0;class#Hand#0" expanded="false" />
@@ -1669,8 +1667,8 @@
             <element signature="method#GetWinnerNames#0;class#Hand#0" expanded="false" />
             <element signature="method#IsOnlyOnePlayerActive#0;class#Hand#0" expanded="false" />
             <element signature="method#IsNoPlayerActive#0;class#Hand#0" expanded="false" />
-            <element signature="e#27270#27338#0" expanded="false" />
-            <element signature="e#27558#27626#0" expanded="false" />
+            <element signature="e#27385#27453#0" expanded="false" />
+            <element signature="e#27673#27741#0" expanded="false" />
             <element signature="method#CalculateWinChance#0;class#Hand#0" expanded="false" />
           </folding>
         </state>
