@@ -71,6 +71,7 @@ public class Hand {
             return this.players.GetBigPlayer();
         } else {
             return this.players.GetSmallPlayer();
+            //return this.players.GetDealer();
         }
     }
 
@@ -223,8 +224,8 @@ public class Hand {
             //init players flags
             this.InitPlayerFlags();
 
-            //forward states
-            this.players.ForwardStates();
+          /*  //forward states
+            this.players.ForwardStates();*/
 
             //set first playing player
             this.current_player = this.GetFirstPlayer();
@@ -410,7 +411,7 @@ public class Hand {
                     this.current_player.setBetPlaceFlag(true);
                     this.IncPot(stake);
                     this.InitPlayersBetFlag(this.current_player);
-                    LogHandEvent(new Move(move, this.higest_stake));
+                    LogHandEvent(new Move(move,stake));
                     this.current_player = this.players.GetNextPlayer(this.current_player);
                     this.higest_stake = stake;
                     break;
@@ -759,7 +760,10 @@ public class Hand {
     }
 
     public String RevertEvent(){
-        if(this.IsReplay) if(this.current_event_index>=1) this.current_event_index--;
+        if(this.IsReplay) this.current_event_index--;
+        if(this.current_event_index<0) {
+            return "This is the first event, back option is not available.";
+        }
         String Return_msg="";
         if(Game.ENABLE_LOG) System.out.println("FROM HAND REPLAY Revert EVENT: POT:"+this.pot +" event number"+this.current_event_index);
         switch(this.events.get(this.current_event_index).GetEventType()) {
@@ -770,27 +774,31 @@ public class Hand {
                     case BET:
                         player.SetMoney(player.GetMoney() + move.GetValue());
                         this.setPot(this.pot - move.GetValue());
+                        this.current_player=player;
                         Return_msg=player.GetName() + " placed bet with the value of " + move.GetValue();
                         break;
-
                     case RAISE:
                         player.SetMoney(player.GetMoney() + move.GetValue());
                         this.setPot(this.pot - move.GetValue());
+                        this.current_player=player;
                         Return_msg=player.GetName() + " raised by" + move.GetValue();
                         break;
                     case CALL:
                         player.SetMoney(player.GetMoney() + move.GetValue());
                         this.setPot(this.pot - move.GetValue());
+                        this.current_player=player;
                         Return_msg=player.GetName() + " called";
                         break;
                     case CHECK:
                         //player.SetMoney(this.current_player.GetMoney() + move.GetValue());
                         //this.setPot(this.pot - move.GetValue());
+                        this.current_player=player;
                         Return_msg=player.GetName() + " checked";
                         break;
                     case FOLD:
                         //player.SetMoney(this.current_player.GetMoney() + move.GetValue());
                         //this.setPot(this.pot - move.GetValue());
+                        this.current_player=player;
                         Return_msg=player.GetName() + " folded";
                         break;
                 }
@@ -836,16 +844,23 @@ public class Hand {
                 }
                 break;
         }
-        if(!this.IsReplay) if(this.current_event_index>=1) this.current_event_index--;
-        else{
+     /*   if(this.IsReplay){//
+            if(this.current_event_index<0) return "This is the first event, back option is not available.";
+            this.current_event_index--;
+            if(this.current_event_index<0) return "This is the first event, back option is not available.";
+        }*/
 
-        }
+        if(!this.IsReplay) this.current_event_index--;
+        //this.current_event_index--;
         if(Game.ENABLE_LOG) System.out.println("FROM HAND REPLAY Revert EVENT:"+Return_msg);
         return Return_msg;
     }
 
     public String PerformEvent(){
-        //if(this.IsReplay) this.current_event_index++;
+
+        if(this.current_event_index>this.events.size()-1) return "This is the last event, forward option not available.";
+        if(this.current_event_index<0) this.current_event_index=0;
+
         String Return_msg="";
         if(Game.ENABLE_LOG) System.out.println("FROM HAND REPLAY Forward EVENT: POT:"+this.pot +" event number"+this.current_event_index);
         switch(this.events.get(this.current_event_index).GetEventType()) {
@@ -861,6 +876,7 @@ public class Hand {
 
                         }
                         this.IncPot(move.GetValue());
+                        this.current_player=player;
                         Return_msg=player.GetName() + " placed bet with the value of" + move.GetValue();
                         break;
                     case RAISE:
@@ -870,6 +886,7 @@ public class Hand {
 
                         }
                         this.IncPot(move.GetValue());
+                        this.current_player=player;
                         Return_msg=player.GetName() + " raised by" + move.GetValue();
                         break;
                     case CALL:
@@ -879,12 +896,16 @@ public class Hand {
 
                         }
                         this.IncPot(move.GetValue());
+                        this.current_player=player;
                         Return_msg=player.GetName() + " called";
+                        this.current_player=player;
                         break;
                     case CHECK:
+                        this.current_player=player;
                         Return_msg=player.GetName() + " checked";
                         break;
                     case FOLD:
+                        this.current_player=player;
                         Return_msg=player.GetName() + " folded";
                         break;
                 }
@@ -925,7 +946,8 @@ public class Hand {
                 }
                 break;
         }
-        if(this.IsReplay) if(this.current_event_index<this.events.size()) this.current_event_index++;
+        if(this.current_event_index<this.events.size()) this.current_event_index++;
+
         if(Game.ENABLE_LOG) System.out.println("FROM HAND REPLAY Forward EVENT:"+Return_msg);
         return Return_msg;
     }
@@ -939,10 +961,12 @@ public class Hand {
             String board = GetBoardForCalculation();
 
             if (Game.ENABLE_LOG) System.out.println("FROM HAND: building Winner calculation, board string:" + board);
-            try {
-                calculator.setBoardFromString(board);
-            } catch (Exception e) {
-                e.printStackTrace();
+            if(!board.equals("")) {
+                try {
+                    calculator.setBoardFromString(board);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
         }

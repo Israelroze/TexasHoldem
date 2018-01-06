@@ -390,8 +390,16 @@ public class Game implements InterfaceAPI {
     //Hand Methods
     @Override
     public void StartNewHand(){
+        //init new hand
         this.current_hand=new Hand(this.players,this.configuration.getStructure());
+
+        //forward states
+        this.players.ForwardStates();
+
+        //inc hands counter
         this.num_of_hands++;
+
+        //init placed bet flag of the players
         List<APlayer> players = this.GetPlayers().GetPlayers();
         for (APlayer player :players )
         {

@@ -650,13 +650,18 @@ public class GameController implements Initializable {
     }
 
     public void OnClickReplayBack() {
-        this.replayContorller.getEventTextBox().setText(this.model.GetPreviousEvent());
+        String message=this.model.GetPreviousEvent();
+        this.replayContorller.getEventTextBox().setText(message);
         this.gameData.UpdateAllReplayMode();
+        if(message.contains("Flop")||message.contains("River")||message.contains("Turn")) this.communityController.UpdateCommunityCards();
     }
 
     public void OnClickReplayForward() {
-        this.replayContorller.getEventTextBox().setText(this.model.GetNextEvent());
+        String message=this.model.GetNextEvent();
+        this.replayContorller.getEventTextBox().setText(message);
         this.gameData.UpdateAllReplayMode();
+        if(message.contains("Flop")||message.contains("River")||message.contains("Turn")) this.communityController.UpdateCommunityCards();
     }
+
 
 }
