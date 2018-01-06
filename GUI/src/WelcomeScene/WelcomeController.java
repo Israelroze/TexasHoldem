@@ -111,7 +111,7 @@ public class WelcomeController implements Initializable {
         });
         taskProgressBar.setVisible(true);
         new Thread(currentRunningTask).start();
-        log("Loading finished");
+        //log("Loading finished");
 
 
 

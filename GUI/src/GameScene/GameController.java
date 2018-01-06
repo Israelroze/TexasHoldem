@@ -5,6 +5,7 @@ import Exceptions.*;
 import GameScene.BetOptions.BetOptionsController;
 import GameScene.Community.CommunityController;
 import GameScene.GameData.HandData;
+import GameScene.LoadingReplayMode.LoadingReplayMode;
 import GameScene.WinnersTable.TableViewController;
 import GameScene.ReplayBox.ReplayBoxController;
 import Move.*;
@@ -35,6 +36,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class GameController implements Initializable {
@@ -48,6 +50,7 @@ public class GameController implements Initializable {
     private List<PlayerCubeController> playersControllers;
     private CommunityController communityController;
     private ReplayBoxController replayContorller;
+    private  MainOptionController MenuContorller;
     private List<Node> PlayersNode;
     private Boolean IsGameStarted = false;
     private Boolean IsGameEnded = false;
@@ -74,7 +77,7 @@ public class GameController implements Initializable {
         try {
             Node MenuBox = loader.load();
 
-            MainOptionController MenuContorller=loader.getController();
+            MenuContorller=loader.getController();
             MenuContorller.ConnectToMainGame(this);
 
             this.MainOptionVbox.setAlignment(Pos.CENTER);
@@ -101,6 +104,16 @@ public class GameController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void ShowAllPlayersCards()
+    {
+
+        for (PlayerCubeController playerCubeController : this.playersControllers)
+        {
+            playerCubeController.ShowCards();
+        }
+
     }
 
     private void BuildCommunityArea() {
@@ -664,11 +677,41 @@ public class GameController implements Initializable {
 
     public void OnClickReplay(){
         this.IsReplayMode=true;
-        this.BuildRaplayMenu();
-        this.model.ReverseHandToStart();
-        this.model.SetReplayMode(true);
-        this.gameData.UpdateAllReplayMode();
-        this.communityController.UpdateCommunityCards();
+        //this.model.ReverseHandToStart();////!!!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@3123
+        MakeReverseForReplay(() -> {
+            this.BuildRaplayMenu();
+            this.model.SetReplayMode(true);
+            this.gameData.UpdateAllReplayMode();
+            this.communityController.UpdateCommunityCards();
+            ShowAllPlayersCards();
+
+        });
+
+    }
+    private void onLoadRepalyFinished(Optional<Runnable> onFinish)
+    {
+
+        this.MenuContorller.getReplayProgressBar().progressProperty().unbind();
+        onFinish.ifPresent(Runnable::run);
+
+    }
+
+
+    private void MakeReverseForReplay(Runnable onFinish)
+    {
+        LoadingReplayMode replay = new LoadingReplayMode(this.model);
+        this.MenuContorller.getReplayProgressBar().setDisable(false);
+        this.MenuContorller.getReplayProgressBar().setVisible(true);
+        this.MenuContorller.getReplayProgressBar().progressProperty().bind(replay.progressProperty());
+
+        replay.valueProperty().addListener((observable, oldValue, newValue) -> {
+            onLoadRepalyFinished(Optional.ofNullable(onFinish));
+        });
+
+        new Thread(replay).start();
+
+
+
     }
 
     public void OnClickReplayBack() {

@@ -45,10 +45,10 @@ public class FileLoading extends Task<Boolean>  {
 
 
     public Boolean loadXML() {
-        System.out.println("I Am Here2");
+
 
         try {
-            System.out.println("I Am Here3");
+
             model.LoadFromXML(fullPath);
         } catch (GameStartedException e) {
             errorMessage.set("Game Already Start");
@@ -99,7 +99,6 @@ public class FileLoading extends Task<Boolean>  {
             isErrorHappend.set(true);
             return false;
         }
-        System.out.println("After the Loading and Finised OK!!");
         updateProgress(1,2);
         updateMessage("Validate File");
         if(this.isErrorHappend.get() == false)

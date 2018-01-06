@@ -4,13 +4,17 @@ import GameScene.GameController;
 import GameScene.GameData.GameData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class MainOptionController {
+public class MainOptionController implements Initializable {
 
     @FXML private Button StartGameButton;
     @FXML private Button BackButton;
@@ -29,7 +33,7 @@ public class MainOptionController {
     @FXML private Button quitButtonPlayer4;
     @FXML private Button quitButtonPlayer5;
     @FXML private Button quitButtonPlayer6;
-
+    @FXML private ProgressBar ReplayProgressBar;
 
 
     private Boolean isRequiredStartGameButton;
@@ -48,6 +52,7 @@ public class MainOptionController {
 
     }
 
+    public ProgressBar getReplayProgressBar() { return ReplayProgressBar; }
 
     public void setGameData(GameData gameData) { this.gameData = gameData; }
 
@@ -82,6 +87,7 @@ public class MainOptionController {
     }
 
     @FXML void HandleReplayButton(MouseEvent event) {
+        this.ReplayButton.setDisable(true);
         MainOptionVBox.getChildren().removeAll();
         this.mainGame.OnClickReplay();
     }
@@ -327,5 +333,9 @@ public class MainOptionController {
     }
 
 
-
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        this.ReplayProgressBar.setVisible(false);
+        this.ReplayProgressBar.setDisable(true);
+    }
 }

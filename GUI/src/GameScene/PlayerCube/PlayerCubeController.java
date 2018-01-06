@@ -91,7 +91,7 @@ public class PlayerCubeController implements Initializable {
         return MoneyLabel;
     }
 
-    private void ShowCards() {
+    public void ShowCards() {
         if (this.CurrentPlayerId.get() || this.IsInReplayMode.get() )
         {
             Card1View.setImage(ImageUtils.getImage(this.firstCardName));
@@ -127,6 +127,8 @@ public class PlayerCubeController implements Initializable {
         this.IsInReplayMode = new SimpleBooleanProperty(false);
 
     }
+
+
 
 
     public void AllUnbind() {
