@@ -5,7 +5,6 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.VBox?>
 
-
 <VBox alignment="CENTER" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameScene.MainOption.MainOptionController">
    <children>
       <VBox fx:id="MainOptionVBox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="25.0">
@@ -36,12 +35,12 @@
       <Separator />
       <VBox fx:id="VboxQuitGame" alignment="CENTER" spacing="10.0">
          <children>
-            <Button mnemonicParsing="false" text="Button" />
-            <Button mnemonicParsing="false" text="Button" />
-            <Button mnemonicParsing="false" text="Button" />
-            <Button mnemonicParsing="false" text="Button" />
-            <Button mnemonicParsing="false" text="Button" />
-            <Button mnemonicParsing="false" text="Button" />
+            <Button fx:id="quitButtonPlayer1" mnemonicParsing="false" onAction="#HandleQuitPlayer1" text="Quit Player 1" />
+            <Button fx:id="quitButtonPlayer2" mnemonicParsing="false" onAction="#HandleQuitPlayer2" text="Quit Player 2" />
+            <Button fx:id="quitButtonPlayer3" mnemonicParsing="false" onAction="#HandleQuitPlayer3" text="Quit Playe 3" />
+            <Button fx:id="quitButtonPlayer4" mnemonicParsing="false" onAction="#HandleQuitPlayer4" text="Quit Player 4" />
+            <Button fx:id="quitButtonPlayer5" mnemonicParsing="false" onAction="#HandleQuitPlayer5" text="Quit Player 5" />
+            <Button fx:id="quitButtonPlayer6" mnemonicParsing="false" onAction="#HandleQuitPlayer6" text="Quit Player 6 " />
          </children>
          <padding>
             <Insets bottom="10.0" top="10.0" />

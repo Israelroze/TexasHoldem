@@ -60,6 +60,7 @@ public class APlayers {
             if(player.getId()==id)
             {
                 this.aplayers.remove(player);
+                return;
             }
         }
     }

@@ -57,7 +57,7 @@ public class CommunityController implements Initializable {
         this.handData= handData;
     }
 
-    public void  UpdateCommunityCards(){
+    public void UpdateCommunityCards(){
 
         communityCardsImages.clear();
 

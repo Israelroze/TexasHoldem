@@ -113,10 +113,4 @@ public interface  InterfaceAPI {
     public boolean IsPlayerExist(int id);
 
 
-        //for replaye
-    public void ReverseHandToStart();
-    public String GetPreviousEvent();
-    public String GetNextEvent();
-    public String GetPlayerWinChance(int id);
-    public void SetReplayMode(boolean state);
 }

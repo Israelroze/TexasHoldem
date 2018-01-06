@@ -133,25 +133,30 @@ public class GameData {
     public void UpdatePlayers(){
         for(PlayerData p_date:this.playerData)
         {
+            if(!p_date.isIsQuit())
             p_date.UpdatePlayer();
         }
     }
 
-    public void RemoveDeletedPlayers()
-    {
-        for(PlayerData p_date:this.playerData)
-        {
-            if(!this.model.IsPlayerExist(p_date.getId())) {
-                this.playerData.remove(p_date);
+    public void RemoveDeletedPlayers() {
+        Boolean notFinisined = true;
+        while (notFinisined) {
+            notFinisined =false;
+            for (PlayerData p_date : this.playerData) {
+
+                if (!this.model.IsPlayerExist(p_date.getId())) {
+                    this.playerData.remove(p_date);
+                    notFinisined=true;
+                    break;
+                }
             }
         }
     }
-
     public void UpdatePlayersCards()
     {
         for(PlayerData p_date:this.playerData)
         {
-            p_date.SetCards();
+            if(!p_date.isIsQuit()) p_date.SetCards();
         }
     }
     public void UpdateAll(){
@@ -162,35 +167,14 @@ public class GameData {
         this.setIsCurrentHandFinished();
     }
 
-    public void UpdateAllReplayMode(){
-        this.UpdatePlayers();
-        for(PlayerData p_date:this.playerData)
-        {
-            p_date.setWinChance();
-        }
-        if (this.currentHand != null) this.currentHand.UpdateHand();
-        this.setCurrentPlayerId();
-        this.setCurrentHandNumber();
-        this.setIsCurrentHandFinished();
-    }
-    public List<String> GetNameOfPlayers(){
-        List<String> Names= new LinkedList<>();
+    public ObservableList<PlayerData> GetDataForTable(){
 
-        for (PlayerData player : this.playerData)
-        {
-            Names.add(player.getPlayerName());
-        }
-        return Names;
-    }
-    public List<Runnable> GetBuyFunctions()
-    {
-        List<Runnable> res = new LinkedList<>();
-        for (PlayerData player : this.playerData)
-        {
-            res.add( ()-> {player.MakeABuy();});
+        ObservableList<PlayerData> res = FXCollections.observableArrayList();
+
+        for (PlayerData player : this.playerData) {
+            res.add(player);
         }
         return res;
-
     }
 
 }

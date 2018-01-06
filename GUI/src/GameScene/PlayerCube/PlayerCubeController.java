@@ -70,7 +70,7 @@ public class PlayerCubeController implements Initializable {
         return NameLable;
     }
 
-    public Label getTypeLabel() {
+    public Label getStateLabel() {
         return TypeLabel;
     }
 

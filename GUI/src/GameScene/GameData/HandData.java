@@ -23,6 +23,8 @@ public class HandData {
 
     private InterfaceAPI model;
 
+
+
     public HandData(InterfaceAPI model) {
         this.model=model;
         this.community=new LinkedList<Card>();
@@ -32,7 +34,9 @@ public class HandData {
         communityAsString = new LinkedList<>();
         this.communityCards = new SimpleListProperty<>();
         this.current_bid_number=new SimpleIntegerProperty(0);
+
     }
+
 
     public int getCurrent_bid_number() {
         return this.current_bid_number.get();
@@ -131,5 +135,8 @@ public class HandData {
             System.out.println("Hand Updated, current bid cycle status:false");
         }
     }
+
+
+    public Boolean Is_current_hand_finished() { return model.IsCurrentHandOver(); }
 
 }

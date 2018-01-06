@@ -17,27 +17,27 @@ public class MainOptionController {
     @FXML private Button StartNewHandButton;
     @FXML private Button ReplayButton;
     @FXML private VBox MainOptionVBox;
-    @FXML private VBox VboxBuy;
-
     @FXML private Button buyButtonPlayer1;
     @FXML private Button buyButtonPlayer2;
     @FXML private Button buyButtonPlayer3;
     @FXML private Button buyButtonPlayer4;
     @FXML private Button buyButtonPlayer5;
     @FXML private Button buyButtonPlayer6;
+    @FXML private Button quitButtonPlayer1;
+    @FXML private Button quitButtonPlayer2;
+    @FXML private Button quitButtonPlayer3;
+    @FXML private Button quitButtonPlayer4;
+    @FXML private Button quitButtonPlayer5;
+    @FXML private Button quitButtonPlayer6;
 
 
-    @FXML private VBox VboxQuitGame;
+
     private Boolean isRequiredStartGameButton;
     private Boolean isRequiredBackButton;
     private Boolean isRequiredStartNewHandButton;
     private Boolean isRequiredReplayButton;
     private GameController mainGame;
     private GameData gameData;
-
-
-
-    public void setGameData(GameData gameData) { this.gameData = gameData; }
 
     public void SetRequiredButton(Boolean startGame, Boolean backButton, Boolean startNewGameButton, Boolean replayButton)
     {
@@ -48,13 +48,12 @@ public class MainOptionController {
 
     }
 
-    public void ConnectToMainGame(GameController game)
-    {
-        this.mainGame =game;
-    }
 
-    public void HideButton()
-    {
+    public void setGameData(GameData gameData) { this.gameData = gameData; }
+
+    public void ConnectToMainGame(GameController game) { this.mainGame =game; }
+
+    public void HideButton() {
         if(!this.isRequiredStartGameButton)
         {
             this.StartGameButton.setManaged(false);
@@ -75,7 +74,6 @@ public class MainOptionController {
             this.ReplayButton.setManaged(false);
             this.ReplayButton.setVisible(false);
         }
-
     }
 
     @FXML void HandleBackButton(MouseEvent event) {
@@ -114,16 +112,30 @@ public class MainOptionController {
         this.buyButtonPlayer6.setManaged(false);
 
     }
-    public void SetBuyButton()
+    private void HideQuitButton()
     {
 
+        this.quitButtonPlayer1.setDisable(true);
+        this.quitButtonPlayer1.setManaged(false);
+        this.quitButtonPlayer2.setDisable(true);
+        this.quitButtonPlayer2.setManaged(false);
+        this.quitButtonPlayer3.setDisable(true);
+        this.quitButtonPlayer3.setManaged(false);
+        this.quitButtonPlayer4.setDisable(true);
+        this.quitButtonPlayer4.setManaged(false);
+        this.quitButtonPlayer5.setDisable(true);
+        this.quitButtonPlayer5.setManaged(false);
+        this.quitButtonPlayer6.setDisable(true);
+        this.quitButtonPlayer6.setManaged(false);
 
+    }
 
+    public void SetBuyButton() {
 
         HideBuyButton();
 
         if (gameData == null || gameData.getCurrentHand() == null) return;
-        if(0 < this.gameData.getCurrentHand().getCurrent_bid_number() &&  this.gameData.getCurrentHand().getCurrent_bid_number()<4) {
+        if(this.gameData.getCurrentHand().Is_current_hand_finished()) {
 
 
             if (!gameData.getPlayerData().get(0).isIsQuit() && gameData.getPlayerData().get(0).isIsHuman()) {
@@ -169,39 +181,151 @@ public class MainOptionController {
 
 
     }
+
+
+    public void SetQuitButton() {
+
+        HideQuitButton();
+
+        if (gameData == null || gameData.getCurrentHand() == null) return;
+        if(this.gameData.getCurrentHand().Is_current_hand_finished()) {
+
+
+            if (!gameData.getPlayerData().get(0).isIsQuit() && gameData.getPlayerData().get(0).isIsHuman()) {
+                this.quitButtonPlayer1.textProperty().set("Quit: " + gameData.getPlayerData().get(0).getPlayerName());
+                this.quitButtonPlayer1.setDisable(false);
+                this.quitButtonPlayer1.setManaged(true);
+            }
+
+            if (!gameData.getPlayerData().get(1).isIsQuit()  && gameData.getPlayerData().get(1).isIsHuman()) {
+                this.quitButtonPlayer2.textProperty().set("Quit: " +gameData.getPlayerData().get(1).getPlayerName());
+                this.quitButtonPlayer2.setDisable(false);
+                this.quitButtonPlayer2.setManaged(true);
+            }
+            if (!gameData.getPlayerData().get(2).isIsQuit()  && gameData.getPlayerData().get(2).isIsHuman()) {
+                this.quitButtonPlayer3.textProperty().set("Quit: " +gameData.getPlayerData().get(2).getPlayerName());
+                this.quitButtonPlayer3.setDisable(false);
+                this.quitButtonPlayer3.setManaged(true);
+            }
+            if(gameData.getPlayerData().size()>3){
+                if (!gameData.getPlayerData().get(3).isIsQuit()  && gameData.getPlayerData().get(3).isIsHuman()) {
+                    this.quitButtonPlayer4.textProperty().set("Quit: " +gameData.getPlayerData().get(3).getPlayerName());
+                    this.quitButtonPlayer4.setDisable(false);
+                    this.quitButtonPlayer4.setManaged(true);
+                }
+            }
+            if(gameData.getPlayerData().size()>4){
+                if (!gameData.getPlayerData().get(4).isIsQuit()  && gameData.getPlayerData().get(4).isIsHuman()) {
+                    this.quitButtonPlayer5.textProperty().set("Quit: " +gameData.getPlayerData().get(4).getPlayerName());
+                    this.quitButtonPlayer5.setDisable(false);
+                    this.quitButtonPlayer5.setManaged(true);
+                }
+            }
+            if(gameData.getPlayerData().size()>5  && gameData.getPlayerData().get(5).isIsHuman()) {
+                if (!gameData.getPlayerData().get(5).isIsQuit()) {
+                    this.quitButtonPlayer6.textProperty().set("Quit: " +gameData.getPlayerData().get(5).getPlayerName());
+                    this.quitButtonPlayer6.setDisable(false);
+                    this.quitButtonPlayer6.setManaged(true);
+                }
+            }
+
+        }
+
+
+
+    }
+
     @FXML void HandleBuyPlayer1(ActionEvent event) {
         gameData.getPlayerData().get(0).MakeABuy();
         gameData.getPlayerData().get(0).UpdatePlayer();
+
     }
 
     @FXML void HandleBuyPlayer2(ActionEvent event) {
         gameData.getPlayerData().get(1).MakeABuy();
         gameData.getPlayerData().get(1).UpdatePlayer();
+
     }
 
     @FXML
     void HandleBuyPlayer3(ActionEvent event) {
         gameData.getPlayerData().get(2).MakeABuy();
         gameData.UpdatePlayers();
+
+
     }
 
     @FXML
     void HandleBuyPlayer4(ActionEvent event) {
         gameData.getPlayerData().get(3).MakeABuy();
         gameData.UpdatePlayers();
+
+
     }
 
     @FXML
     void HandleBuyPlayer5(ActionEvent event) {
         gameData.getPlayerData().get(4).MakeABuy();
         gameData.UpdatePlayers();
+
+
     }
 
     @FXML
     void HandleBuyPlayer6(ActionEvent event) {
         gameData.getPlayerData().get(5).MakeABuy();
         gameData.UpdatePlayers();
+
     }
+
+   private void HandleQuitPlayerGeneric(Button quitButton,Button buyButton ,int index)
+    {
+        gameData.getPlayerData().get(index).QuitFromGame();
+        gameData.getPlayerData().get(index).playerStateProperty().set("Quit");
+        quitButton.textProperty().set(gameData.getPlayerData().get(index).getPlayerName() + "\nQuit");
+        quitButton.setDisable(true);
+        buyButton.textProperty().set(gameData.getPlayerData().get(index).getPlayerName() + "\nQuit");
+        buyButton.setDisable(true);
+    }
+
+    @FXML
+    void HandleQuitPlayer1(ActionEvent event) {
+
+        HandleQuitPlayerGeneric(this.quitButtonPlayer1,this.buyButtonPlayer1,0);
+
+    }
+
+    @FXML
+    void HandleQuitPlayer2(ActionEvent event) {
+        HandleQuitPlayerGeneric(this.quitButtonPlayer2,this.buyButtonPlayer2,1);
+
+    }
+
+    @FXML
+    void HandleQuitPlayer3(ActionEvent event) {
+        HandleQuitPlayerGeneric(this.quitButtonPlayer3,this.buyButtonPlayer3,2);
+
+
+    }
+
+    @FXML
+    void HandleQuitPlayer4(ActionEvent event) {
+        HandleQuitPlayerGeneric(this.quitButtonPlayer4,this.buyButtonPlayer4,3);
+
+
+
+    }
+
+    @FXML
+    void HandleQuitPlayer5(ActionEvent event) {
+        HandleQuitPlayerGeneric(this.quitButtonPlayer5,this.buyButtonPlayer5,4);
+    }
+
+    @FXML
+    void HandleQuitPlayer6(ActionEvent event) {
+        HandleQuitPlayerGeneric(this.quitButtonPlayer6,this.buyButtonPlayer6,5);
+    }
+
 
 
 }
