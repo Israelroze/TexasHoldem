@@ -738,7 +738,7 @@ public class Game implements InterfaceAPI {
 
        return  new CurrentHandState(PlayersHands,comCards,this.current_hand.GetPot(),humanPlayerIndex , this.configuration.getStructure().getBlindes().getBig(),this.configuration.getStructure().getBlindes().getSmall());
 
-    }
+}
 
     ////////////////////////////////////////////////////////////////
     public void StartReplay(){
@@ -804,5 +804,10 @@ public class Game implements InterfaceAPI {
     @Override
     public int GetAllowdedHandNumber(){
         return this.configuration.getStructure().getHandsCount();
+    }
+
+    @Override
+    public void CheckNoActiveHumans(){
+        this.current_hand.CheckNoActiveHumanPlayers();
     }
 }

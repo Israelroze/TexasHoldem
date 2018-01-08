@@ -574,16 +574,19 @@ public class Hand {
         //player cards to string
         for(APlayer player:this.players.GetPlayers())
         {
-            String str_hand=GetPlayerHand(player);
+            if(!player.GetIsFoldedFlag()) {
+                String str_hand = GetPlayerHand(player);
 
-            if(Game.ENABLE_LOG) System.out.println("FROM HAND: Player ID:"+player.getId()+ "building Winner calculation, Hand string:" + str_hand);
-            try {
-                com.rundef.poker.Hand hand = com.rundef.poker.Hand.fromString(str_hand);
-                calculator.addHand(hand);
-                winner_indexs[num_of_hands]=this.players.GetPlayers().indexOf(player);
-                num_of_hands++;
-            } catch (Exception e) {
-                e.printStackTrace();
+                if (Game.ENABLE_LOG)
+                    System.out.println("FROM HAND: Player ID:" + player.getId() + "building Winner calculation, Hand string:" + str_hand);
+                try {
+                    com.rundef.poker.Hand hand = com.rundef.poker.Hand.fromString(str_hand);
+                    calculator.addHand(hand);
+                    winner_indexs[num_of_hands] = this.players.GetPlayers().indexOf(player);
+                    num_of_hands++;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
 
@@ -1014,5 +1017,19 @@ public class Hand {
 
     public int GetTotalEventsNumber(){
         return this.events.size();
+    }
+
+    public void CheckNoActiveHumanPlayers(){
+        int active_humans=0;
+        for(APlayer player: this.players.GetPlayers())
+        {
+            if(player.GetType()==PlayerType.HUMAN && !player.GetIsFoldedFlag())
+            {
+                active_humans++;
+            }
+        }
+
+        if(active_humans==0) this.is_hand_over=true;
+
     }
 }

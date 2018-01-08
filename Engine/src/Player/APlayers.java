@@ -68,7 +68,7 @@ public class APlayers {
                     if(this.aplayers.size()==num_of_humans) this.is_only_one_player=true;
                 }
                 else if(num_of_humans<1) this.is_only_one_player=true;
-                
+
                 return;
             }
         }

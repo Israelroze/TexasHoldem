@@ -258,36 +258,8 @@ public class GameController implements Initializable {
         else singleController.getStateLabel().setText("");
     }
 
-    private void MoveToNextPlayerAndUpdate(){
-        this.model.MoveToNextPlayer();
-        this.model.CheckBidStatus();
-        this.model.CheckCurrentHandStatus();
-        this.gameData.UpdateAll();
-        //this.gameData.getCurrentHand().UpdateHand();
-    }
 
-    private void SetMoveAndUpdate(Move move) {
-        try {
-            this.model.SetNewMove(move);
-            this.model.CheckBidStatus();
-            this.model.CheckCurrentHandStatus();
-            this.gameData.UpdateAll();
-            //this.gameData.getCurrentHand().UpdateHand();
-            //this.gameData.UpdatePlayers();
-        } catch (StakeNotInRangeException e) {
-            e.printStackTrace();
-        } catch (PlayerFoldedException e) {
-            e.printStackTrace();
-        } catch (MoveNotAllowdedException e) {
-            e.printStackTrace();
-        } catch (ChipLessThanPotException e) {
-            e.printStackTrace();
-        } catch (NoSufficientMoneyException e) {
-            e.printStackTrace();
-        } catch (PlayerAlreadyBetException e) {
-            e.printStackTrace();
-        }
-    };
+
 
     public void setModel(InterfaceAPI model) {
         this.model = model;
@@ -302,6 +274,7 @@ public class GameController implements Initializable {
         this.gameLogic=gl;
     }
 
+
     public void OnClickStart() {
         this.IsGameStarted = true;
         BuildMainOption();
@@ -315,6 +288,8 @@ public class GameController implements Initializable {
         gameLogic.StartNewWelcomeScene();
     }
 
+
+
     private void UpdateCardsForPlayerInControllers() {
         this.gameData.UpdatePlayersCards();
         int index = 0;
@@ -325,6 +300,9 @@ public class GameController implements Initializable {
             }
         }
     }
+
+
+
 
     private void PlayOneHand(){
 
@@ -464,6 +442,37 @@ public class GameController implements Initializable {
         //hand.setCurrent_player_id();
     }
 
+    private void MoveToNextPlayerAndUpdate(){
+        this.model.MoveToNextPlayer();
+        this.model.CheckBidStatus();
+        this.model.CheckCurrentHandStatus();
+        this.gameData.UpdateAll();
+        //this.gameData.getCurrentHand().UpdateHand();
+    }
+
+    private void SetMoveAndUpdate(Move move) {
+        try {
+            this.model.SetNewMove(move);
+            this.model.CheckBidStatus();
+            this.model.CheckCurrentHandStatus();
+            this.model.CheckNoActiveHumans();
+            this.gameData.UpdateAll();
+            //this.gameData.getCurrentHand().UpdateHand();
+            //this.gameData.UpdatePlayers();
+        } catch (StakeNotInRangeException e) {
+            e.printStackTrace();
+        } catch (PlayerFoldedException e) {
+            e.printStackTrace();
+        } catch (MoveNotAllowdedException e) {
+            e.printStackTrace();
+        } catch (ChipLessThanPotException e) {
+            e.printStackTrace();
+        } catch (NoSufficientMoneyException e) {
+            e.printStackTrace();
+        } catch (PlayerAlreadyBetException e) {
+            e.printStackTrace();
+        }
+    }
 
 //    public  void PrintGame(CurrentHandState curHandState){
     private void GetPlayerMove() {
