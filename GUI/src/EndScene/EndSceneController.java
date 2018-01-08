@@ -33,17 +33,19 @@ public class EndSceneController implements Initializable{
 
 
 
-
     public void BuildWinnersTableArea() {
         FXMLLoader loader = new FXMLLoader();
         URL url =getClass().getResource("/GameScene/WinnersTable/TableView.fxml");
         loader.setLocation(url);
 
         try {
-            TableView tableView = loader.load();
+            VBox winnerVbox = loader.load();
+
 
             TableViewController winnersTable = loader.getController();
             ObservableList<PlayerData> data = gameData.GetDataForTable();
+
+            TableView tableView = winnersTable.getPlayersTable();
             tableView.setItems(data);
             //this.StackMainBoard.getChildren().add(CommArea);
 
@@ -59,7 +61,7 @@ public class EndSceneController implements Initializable{
             tableView.setFixedCellSize(25);
             tableView.prefHeightProperty().bind(Bindings.size(tableView.getItems()).multiply(tableView.getFixedCellSize()).add(30));
 
-           // tableView.prefWidthProperty().bind(Bindings.size(tableView.getColumns()).multiply(tableView.getFixedCellSize()).add(5));
+            // tableView.prefWidthProperty().bind(Bindings.size(tableView.getColumns()).multiply(tableView.getFixedCellSize()).add(5));
             tableView.prefWidthProperty().set(300);
 
 
@@ -67,8 +69,6 @@ public class EndSceneController implements Initializable{
             e.printStackTrace();
         }
     }
-
-
     public void setGameLogic(GameLogic gameLogic) {
         this.gameLogic = gameLogic;
     }

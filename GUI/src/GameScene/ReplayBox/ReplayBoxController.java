@@ -63,7 +63,9 @@ public class ReplayBoxController {
     {
         this.mainGame =game;
     }
+
     public void setGameData(GameData gameData) { this.gameData = gameData; }
+
     public void InitChanceTable() {
         this.WinChanceTable.getChildren().removeAll();
         int index=0;

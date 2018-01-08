@@ -30,6 +30,8 @@ public class PlayerCubeController implements Initializable {
     @FXML private Label NumberOfBuyLabel;
     @FXML private Label NumberOfWinsLabel;
     @FXML private Label MoneyLabel;
+    @FXML private Label ComOrHumanLabel;
+    @FXML private Label IDLabel;
 
 
 
@@ -60,7 +62,8 @@ public class PlayerCubeController implements Initializable {
         this.HideCards();
     }
 
-
+    public Label getComOrHumanLabel() { return ComOrHumanLabel; }
+    public Label getIDLabel() { return IDLabel; }
     public boolean isIsInReplayMode() { return IsInReplayMode.get(); }
 
     public SimpleBooleanProperty isInReplayModeProperty() { return IsInReplayMode;}

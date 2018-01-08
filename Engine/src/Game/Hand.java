@@ -16,28 +16,38 @@ import java.util.List;
 import java.util.Set;
 
 public class Hand {
-
     //winners
     List<Integer> winners;
+
     //players data
     private APlayers players;
     private APlayer current_player;
+
     //cards
     private Card[] community;
     private Deck deck;
+
     //flags
     private boolean is_bets_started;
     private boolean is_bets_finished;
     private boolean is_hand_over;
+
     //bet stats
     private int higest_stake;
     private int poorest_player_chips;
+
     //money
     private int pot;
+
     //bets
     private int bet_num;
     private int big;
     private int small;
+
+    //for replay
+    private List<GameEvent> events;
+    private int current_event_index;
+    private boolean IsReplay=false;
 
     //ctor
     public Hand(APlayers players, Structure structure) {
@@ -59,15 +69,6 @@ public class Hand {
 
         //deal cards
         this.DealCards();
-    }
-    //for replay
-    private List<GameEvent> events;
-    private int current_event_index;
-    private boolean IsReplay=false;
-
-    public void SetReplayMode(boolean state)
-    {
-        this.IsReplay=state;
     }
 
     //Private Methods
@@ -174,6 +175,8 @@ public class Hand {
 
 
     //Public Methods
+
+    //getters
     public int GetPoorestChipsValue() {
         Integer min = null;
         for (APlayer player : this.players.GetPlayers()) {
@@ -190,57 +193,9 @@ public class Hand {
 
     public boolean GetIsHandOver(){return this.is_hand_over;}
 
-    public void setPot(int pot) {
-        this.pot = pot;
-    }
-
-    public void SetIsBetCycleFinished() {
-        if(this.IsAllPlayersPlacedBet()) this.is_bets_finished=true;
-    }
-
     public Card[] GetCommunity() {
         return this.community;
     }
-
-    public void StartNewBidCycle() throws NoSufficientMoneyException {
-        if(!this.is_hand_over) {
-            //increase bet cycle number
-            this.bet_num++;
-
-            //init highest stake
-            this.higest_stake = 0;
-
-            //init flags
-            this.is_bets_started = true;
-            this.is_bets_finished = false;
-
-        /*for(APlayer player: this.players.GetPlayers())
-        {
-            if(player.GetType()==PlayerType.HUMAN)
-            {
-                if(player.isFolded())
-                {
-                    this.is_bets_finished=true;
-                }
-            }
-        }*/
-
-            //init players flags
-            this.InitPlayerFlags();
-
-          /*  //forward states
-            this.players.ForwardStates();*/
-
-            //set first playing player
-            this.current_player = this.GetFirstPlayer();
-
-            //blinds
-            if (this.bet_num == 1) {
-                this.SetBlinds();
-            }
-        }
-    }
-
 
     public int[] GetAllowdedStakeRange() {
         if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"getting allowded stake range");
@@ -262,14 +217,6 @@ public class Hand {
 
         if(Game.ENABLE_LOG) System.out.println("Player Type:"+this.current_player.GetType() +" ID:"+this.current_player.getId()+"the range is: low:"+low+" high:"+high+"....");
         return new int[]{low+1, high};
-    }
-
-    public boolean IsOneOfPlayersOutOfMoney() {
-        for(APlayer player:this.players.GetPlayers())
-        {
-            if(player.GetMoney()==0) return true;
-        }
-        return false;
     }
 
     public List<MoveType> GetAllowdedMoves() throws PlayerFoldedException, ChipLessThanPotException {
@@ -346,34 +293,219 @@ public class Hand {
         return this.higest_stake;
     }
 
-    public boolean IsMoveAllowded(MoveType mtype) throws PlayerFoldedException, ChipLessThanPotException {
-        for(MoveType move:this.GetAllowdedMoves())
+    public APlayer GetCurrentPlayer() {
+        return this.current_player;
+    }
+
+    public int GetPot() {
+        return this.pot;
+    }
+
+    public int GetBetCycleNumber() {
+        return this.bet_num;
+    }
+
+    public APlayer GetNextPlayer() {
+        return this.players.GetNextPlayer(this.current_player);
+    }
+
+    private String GetBoardForCalculation() {
+        //boards cards to string
+        String board="";
+        for(Card card: this.community)
         {
-            if(mtype==move)
-            {
-                return true;
+            if(card!=null) {
+                String type;
+                String number;
+                type = card.GetSuit().toString().toLowerCase();
+                number = card.GetNumber().toString();
+                if (number.equals("10")) {
+                    number = "T";
+                }
+                if (number.equals("1")) {
+                    number = "A";
+                }
+                number = number.toLowerCase();
+                board += number + type;
             }
         }
-        return false;
+        return board;
     }
 
-    public boolean IsStakeInRange(int stake) {
-        int[] range=this.GetAllowdedStakeRange();
+    private String GetPlayerHand(APlayer player) {
+        String str_hand = "";
 
-        if(stake>=range[0] && stake<=range[1])
-        {
-            return true;
+        for (Card card : player.GetCards()) {
+            String type;
+            String number;
+            type = card.GetSuit().toString().toLowerCase();
+            number = card.GetNumber().toString();
+            if (number.equals("10")) {
+                number = "T";
+            }
+            if (number.equals("1")) {
+                number = "A";
+            }
+            number = number.toLowerCase();
+            str_hand += number + type;
         }
-        return false;
+
+        return str_hand;
     }
 
-    public void CheckHandStatus() {
-        if(this.IsOnlyOnePlayerActive() && !this.is_hand_over)
+    public List<String> GetWinnerNames() {
+        List<String> win_names=new LinkedList<>();
+        for (Integer index : this.winners) {
+            win_names.add(this.players.GetPlayers().get(index).GetName());
+        }
+        return win_names;
+    }
+
+    //setters
+
+    public void setPot(int pot) {
+        this.pot = pot;
+    }
+
+    public void SetIsBetCycleFinished() {
+        if(this.IsAllPlayersPlacedBet()) this.is_bets_finished=true;
+    }
+
+    public void StartNewBidCycle() throws NoSufficientMoneyException {
+        if(!this.is_hand_over) {
+            //increase bet cycle number
+            this.bet_num++;
+
+            //init highest stake
+            this.higest_stake = 0;
+
+            //init flags
+            this.is_bets_started = true;
+            this.is_bets_finished = false;
+
+        /*for(APlayer player: this.players.GetPlayers())
         {
-            this.SetTechincalWinner();
-            return;
+            if(player.GetType()==PlayerType.HUMAN)
+            {
+                if(player.isFolded())
+                {
+                    this.is_bets_finished=true;
+                }
+            }
+        }*/
+
+            //init players flags
+            this.InitPlayerFlags();
+
+          /*  //forward states
+            this.players.ForwardStates();*/
+
+            //set first playing player
+            this.current_player = this.GetFirstPlayer();
+
+            //blinds
+            if (this.bet_num == 1) {
+                this.SetBlinds();
+            }
         }
     }
+
+    public void SetWinner() {
+        int[] winner_indexs=new int[4];
+        EquityCalculator calculator = new EquityCalculator();
+
+        //boards cards to string
+        String board=GetBoardForCalculation();
+
+        if(Game.ENABLE_LOG) System.out.println("FROM HAND: building Winner calculation, board string:"+board);
+        try {
+            calculator.setBoardFromString(board);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        int num_of_hands=0;
+
+        //player cards to string
+        for(APlayer player:this.players.GetPlayers())
+        {
+            if(!player.GetIsFoldedFlag()) {
+                String str_hand = GetPlayerHand(player);
+
+                if (Game.ENABLE_LOG)
+                    System.out.println("FROM HAND: Player ID:" + player.getId() + "building Winner calculation, Hand string:" + str_hand);
+                try {
+                    com.rundef.poker.Hand hand = com.rundef.poker.Hand.fromString(str_hand);
+                    calculator.addHand(hand);
+                    winner_indexs[num_of_hands] = this.players.GetPlayers().indexOf(player);
+                    num_of_hands++;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+
+        //calculate the winner
+        try {
+            calculator.calculate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        for (int i = 0; i < num_of_hands; i++) {
+            HandEquity equity=calculator.getHandEquity(i);
+            if(equity.getEquity()!=0)//we have a winner
+            {
+                if(Game.ENABLE_LOG) System.out.println("Adding player in index"+winner_indexs[i]+" as winner");
+                this.winners.add(winner_indexs[i]);
+            }
+            if(Game.ENABLE_LOG) System.out.println("Player ID"+this.players.GetPlayers().get(winner_indexs[i]).getId()+"Hand #" + (i+1) + ": Rank: " + calculator.getHandRanking(i) + " Equity: " + calculator.getHandEquity(i));
+        }
+
+        //set the number of wins for the players
+        this.SetWinnersCounter();
+
+        //devide the pot between the winners
+        this.PassPot();
+
+
+
+        this.is_hand_over=true;
+    }
+
+    public void SetTechincalWinner() {
+        int index=0;
+        for( APlayer player :this.players.GetPlayers())
+        {
+            if(player.GetIsFoldedFlag()==false)
+            {
+                this.winners.add(index);
+            }
+            index++;
+        }
+
+        //set the number of wins for the players
+        this.SetWinnersCounter();
+
+        //devide the pot between the winners
+        this.PassPot();
+
+        //LogHandEvent(EventTypes.Winner);
+
+        this.is_hand_over=true;
+
+    }
+
+    private void SetWinnersCounter() {
+        for(Integer index:this.winners)
+        {
+            this.players.GetPlayers().get(index).IncWinner();
+        }
+    }
+
+
+    //actions
 
     public void ImplementMove(MoveType move,int stake) throws NoSufficientMoneyException, PlayerFoldedException, ChipLessThanPotException, MoveNotAllowdedException, StakeNotInRangeException, PlayerAlreadyBetException {
 
@@ -487,168 +619,6 @@ public class Hand {
         this.current_player=this.players.GetNextPlayer(this.current_player);
     }
 
-    public APlayer GetCurrentPlayer() {
-        return this.current_player;
-    }
-
-    public boolean IsBetsCycleFinished() {
-        return this.is_bets_finished;
-    }
-
-    public boolean IsHandOver() {
-        return this.is_hand_over;
-    }
-
-    public int GetPot() {
-        return this.pot;
-    }
-
-    public int GetBetCycleNumber() {
-        return this.bet_num;
-    }
-
-    public APlayer GetNextPlayer() {
-       return this.players.GetNextPlayer(this.current_player);
-    }
-
-    private String GetBoardForCalculation() {
-        //boards cards to string
-        String board="";
-        for(Card card: this.community)
-        {
-            if(card!=null) {
-                String type;
-                String number;
-                type = card.GetSuit().toString().toLowerCase();
-                number = card.GetNumber().toString();
-                if (number.equals("10")) {
-                    number = "T";
-                }
-                if (number.equals("1")) {
-                    number = "A";
-                }
-                number = number.toLowerCase();
-                board += number + type;
-            }
-        }
-        return board;
-    }
-
-    private String GetPlayerHand(APlayer player) {
-        String str_hand = "";
-
-        for (Card card : player.GetCards()) {
-            String type;
-            String number;
-            type = card.GetSuit().toString().toLowerCase();
-            number = card.GetNumber().toString();
-            if (number.equals("10")) {
-                number = "T";
-            }
-            if (number.equals("1")) {
-                number = "A";
-            }
-            number = number.toLowerCase();
-            str_hand += number + type;
-        }
-
-        return str_hand;
-    }
-
-    public void SetWinner() {
-        int[] winner_indexs=new int[4];
-        EquityCalculator calculator = new EquityCalculator();
-
-        //boards cards to string
-        String board=GetBoardForCalculation();
-
-        if(Game.ENABLE_LOG) System.out.println("FROM HAND: building Winner calculation, board string:"+board);
-        try {
-            calculator.setBoardFromString(board);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        int num_of_hands=0;
-
-        //player cards to string
-        for(APlayer player:this.players.GetPlayers())
-        {
-            if(!player.GetIsFoldedFlag()) {
-                String str_hand = GetPlayerHand(player);
-
-                if (Game.ENABLE_LOG)
-                    System.out.println("FROM HAND: Player ID:" + player.getId() + "building Winner calculation, Hand string:" + str_hand);
-                try {
-                    com.rundef.poker.Hand hand = com.rundef.poker.Hand.fromString(str_hand);
-                    calculator.addHand(hand);
-                    winner_indexs[num_of_hands] = this.players.GetPlayers().indexOf(player);
-                    num_of_hands++;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-
-        //calculate the winner
-        try {
-            calculator.calculate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        for (int i = 0; i < num_of_hands; i++) {
-            HandEquity equity=calculator.getHandEquity(i);
-            if(equity.getEquity()!=0)//we have a winner
-            {
-                if(Game.ENABLE_LOG) System.out.println("Adding player in index"+winner_indexs[i]+" as winner");
-                this.winners.add(winner_indexs[i]);
-            }
-            if(Game.ENABLE_LOG) System.out.println("Player ID"+this.players.GetPlayers().get(winner_indexs[i]).getId()+"Hand #" + (i+1) + ": Rank: " + calculator.getHandRanking(i) + " Equity: " + calculator.getHandEquity(i));
-        }
-
-        //set the number of wins for the players
-        this.SetWinnersCounter();
-
-        //devide the pot between the winners
-        this.PassPot();
-
-
-
-        this.is_hand_over=true;
-    }
-
-    public void SetTechincalWinner() {
-        int index=0;
-        for( APlayer player :this.players.GetPlayers())
-        {
-            if(player.GetIsFoldedFlag()==false)
-            {
-                this.winners.add(index);
-            }
-            index++;
-        }
-
-        //set the number of wins for the players
-        this.SetWinnersCounter();
-
-        //devide the pot between the winners
-        this.PassPot();
-
-        //LogHandEvent(EventTypes.Winner);
-
-        this.is_hand_over=true;
-
-    }
-
-    private void SetWinnersCounter() {
-        for(Integer index:this.winners)
-        {
-            this.players.GetPlayers().get(index).IncWinner();
-        }
-    }
-
     private void PassPot() {
         if(this.winners.size()<1)
         {
@@ -672,12 +642,95 @@ public class Hand {
         }
     }
 
-    public List<String> GetWinnerNames() {
-        List<String> win_names=new LinkedList<>();
-        for (Integer index : this.winners) {
-            win_names.add(this.players.GetPlayers().get(index).GetName());
+    private void CalculateWinChance() {
+        EquityCalculator calculator = new EquityCalculator();
+
+        //boards cards to string
+        if(this.community!=null && this.community.length>0  ) {
+            //boards cards to string
+            String board = GetBoardForCalculation();
+
+            if (Game.ENABLE_LOG) System.out.println("FROM HAND: building Winner calculation, board string:" + board);
+            if(!board.equals("")) {
+                try {
+                    calculator.setBoardFromString(board);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
         }
-        return win_names;
+
+        int num_of_hands=0;
+        //player cards to string
+        for(APlayer player:this.players.GetPlayers())
+        {
+            String str_hand=GetPlayerHand(player);
+
+            if(Game.ENABLE_LOG) System.out.println("FROM HAND: Player ID:"+player.getId()+ "building Winner calculation, Hand string:" + str_hand);
+            try {
+                com.rundef.poker.Hand hand = com.rundef.poker.Hand.fromString(str_hand);
+                calculator.addHand(hand);
+                num_of_hands++;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        //calculate the winner
+        try {
+            calculator.calculate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //update the chances
+        for (int i = 0; i < num_of_hands; i++) {
+            HandEquity equity=calculator.getHandEquity(i);
+            this.players.GetPlayers().get(i).SetWinChance(equity.toString());
+           /* if(equity.getEquity()!=0)//we have a winner
+            {
+                this.players.GetPlayers().get(i).SetWinChance(String.valueOf(equity.getEquity())+"%");
+            }*/
+        }
+    }
+
+    //checks
+    public boolean IsOneOfPlayersOutOfMoney() {
+        for(APlayer player:this.players.GetPlayers())
+        {
+            if(player.GetMoney()==0) return true;
+        }
+        return false;
+    }
+
+    public boolean IsMoveAllowded(MoveType mtype) throws PlayerFoldedException, ChipLessThanPotException {
+        for(MoveType move:this.GetAllowdedMoves())
+        {
+            if(mtype==move)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean IsStakeInRange(int stake) {
+        int[] range=this.GetAllowdedStakeRange();
+
+        if(stake>=range[0] && stake<=range[1])
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean IsBetsCycleFinished() {
+        return this.is_bets_finished;
+    }
+
+    public boolean IsHandOver() {
+        return this.is_hand_over;
     }
 
     public boolean IsOnlyOnePlayerActive(){
@@ -707,6 +760,29 @@ public class Hand {
         if(num_of_active_players<1) return true;
         return false;
     }
+
+    public void CheckHandStatus() {
+        if(this.IsOnlyOnePlayerActive() && !this.is_hand_over)
+        {
+            this.SetTechincalWinner();
+            return;
+        }
+    }
+
+    public void CheckNoActiveHumanPlayers(){
+        int active_humans=0;
+        for(APlayer player: this.players.GetPlayers())
+        {
+            if(player.GetType()==PlayerType.HUMAN && !player.GetIsFoldedFlag())
+            {
+                active_humans++;
+            }
+        }
+
+        if(active_humans==0) this.is_hand_over=true;
+
+    }
+
 
     //for replay
     private void LogHandEvent(Move move){
@@ -782,7 +858,14 @@ public class Hand {
                         player.SetMoney(player.GetMoney() + move.GetValue());
                         this.setPot(this.pot - move.GetValue());
                         this.current_player=player;
-                        Return_msg=player.GetName() + " raised by" + move.GetValue();
+                        if(this.current_event_index>=1)
+                        {
+                            Return_msg=player.GetName() + " raised by" + (move.GetValue()-this.events.get(this.current_event_index-1).GetMove().GetValue());
+                        }
+                        else
+                        {
+                            Return_msg=player.GetName() + " raised by" + move.GetValue();
+                        }
                         break;
                     case CALL:
                         player.SetMoney(player.GetMoney() + move.GetValue());
@@ -888,7 +971,14 @@ public class Hand {
                         }
                         this.IncPot(move.GetValue());
                         this.current_player=player;
-                        Return_msg=player.GetName() + " raised by" + move.GetValue();
+                        if(this.current_event_index>=1)
+                        {
+                            Return_msg=player.GetName() + " raised by" + (move.GetValue()-this.events.get(this.current_event_index-1).GetMove().GetValue());
+                        }
+                        else
+                        {
+                            Return_msg=player.GetName() + " raised by" + move.GetValue();
+                        }
                         break;
                     case CALL:
                         try {
@@ -953,59 +1043,6 @@ public class Hand {
         return Return_msg;
     }
 
-    private void CalculateWinChance() {
-        EquityCalculator calculator = new EquityCalculator();
-
-        //boards cards to string
-        if(this.community!=null && this.community.length>0  ) {
-            //boards cards to string
-            String board = GetBoardForCalculation();
-
-            if (Game.ENABLE_LOG) System.out.println("FROM HAND: building Winner calculation, board string:" + board);
-            if(!board.equals("")) {
-                try {
-                    calculator.setBoardFromString(board);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-        }
-
-        int num_of_hands=0;
-        //player cards to string
-        for(APlayer player:this.players.GetPlayers())
-        {
-            String str_hand=GetPlayerHand(player);
-
-            if(Game.ENABLE_LOG) System.out.println("FROM HAND: Player ID:"+player.getId()+ "building Winner calculation, Hand string:" + str_hand);
-            try {
-                com.rundef.poker.Hand hand = com.rundef.poker.Hand.fromString(str_hand);
-                calculator.addHand(hand);
-                num_of_hands++;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        //calculate the winner
-        try {
-            calculator.calculate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        //update the chances
-        for (int i = 0; i < num_of_hands; i++) {
-            HandEquity equity=calculator.getHandEquity(i);
-            this.players.GetPlayers().get(i).SetWinChance(equity.toString());
-           /* if(equity.getEquity()!=0)//we have a winner
-            {
-                this.players.GetPlayers().get(i).SetWinChance(String.valueOf(equity.getEquity())+"%");
-            }*/
-        }
-    }
-
     public boolean GetReplayMode()
     {
         return this.IsReplay;
@@ -1019,17 +1056,8 @@ public class Hand {
         return this.events.size();
     }
 
-    public void CheckNoActiveHumanPlayers(){
-        int active_humans=0;
-        for(APlayer player: this.players.GetPlayers())
-        {
-            if(player.GetType()==PlayerType.HUMAN && !player.GetIsFoldedFlag())
-            {
-                active_humans++;
-            }
-        }
-
-        if(active_humans==0) this.is_hand_over=true;
-
+    public void SetReplayMode(boolean state)
+    {
+        this.IsReplay=state;
     }
 }

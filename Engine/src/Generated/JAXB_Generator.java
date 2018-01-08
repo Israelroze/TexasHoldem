@@ -45,7 +45,7 @@ public class JAXB_Generator {
         if(!container.getClass().getSimpleName().equals("GameDescriptor")){throw new UnexpectedObjectException("GameDescriptor");}
     }
 
-    public void ValidateXMLData() throws BigSmallMismatchException, HandsCountSmallerException, HandsCountDevideException, NullObjectException {
+    public void ValidateXMLData() throws BigSmallMismatchException, HandsCountSmallerException, HandsCountDevideException, NullObjectException, PlayerIDsNotUniqueException {
 
         try {
             container.getStructure();
@@ -74,18 +74,9 @@ public class JAXB_Generator {
         catch (NullPointerException e){
             throw  new NullObjectException("Players List");
         }
-//        try {
-//            container.getStructure();
-//        }
-//        catch (NullPointerException e){
-//            throw  new NullObjectException("Structure");
-//        }
-//
-//        if(container.getStructure()==null){throw  new NullObjectException("Structure");}
-//        if(container.getStructure().getBlindes()==null){throw  new NullObjectException("Blinds");}
-//        if(container.getPlayers()==null){throw  new NullObjectException("Players");}
-//        if(container.getPlayers().getPlayer()==null){throw  new NullObjectException("Player List");}
-//
+
+
+
         int big=container.getStructure().getBlindes().getBig();
         int small=container.getStructure().getBlindes().getSmall();
         int num_of_players;

@@ -233,6 +233,8 @@ public class GameController implements Initializable {
             singleController.getStateLabel().textProperty().bind(playerData.playerStateProperty());
             singleController.isInReplayModeProperty().bind(gameData.isInReplayProperty());
             singleController.currentPlayerIdProperty().bind(gameData.currentPlayerIdProperty().isEqualTo(playerData.getId()));
+            singleController.getIDLabel().textProperty().setValue(String.valueOf(playerData.getId()));
+            singleController.getComOrHumanLabel().textProperty().bind(Bindings.when(playerData.isHumanProperty()).then("Human").otherwise("Computer"));
             //singleController.setCards(playerData.getCard1(), playerData.getCard2());
             singleController.setPlayerId(playerData.getId());
 
@@ -460,17 +462,17 @@ public class GameController implements Initializable {
             //this.gameData.getCurrentHand().UpdateHand();
             //this.gameData.UpdatePlayers();
         } catch (StakeNotInRangeException e) {
-            e.printStackTrace();
+            this.GetPlayerMove();
         } catch (PlayerFoldedException e) {
-            e.printStackTrace();
+            this.MoveToNextPlayerAndUpdate();
         } catch (MoveNotAllowdedException e) {
-            e.printStackTrace();
+            this.GetPlayerMove();
         } catch (ChipLessThanPotException e) {
-            e.printStackTrace();
+            this.GetPlayerMove();
         } catch (NoSufficientMoneyException e) {
-            e.printStackTrace();
+            this.GetPlayerMove();
         } catch (PlayerAlreadyBetException e) {
-            e.printStackTrace();
+            this.MoveToNextPlayerAndUpdate();
         }
     }
 

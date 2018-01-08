@@ -45,8 +45,6 @@ public class FileLoading extends Task<Boolean>  {
 
 
     public Boolean loadXML() {
-
-
         try {
 
             model.LoadFromXML(fullPath);
@@ -96,6 +94,14 @@ public class FileLoading extends Task<Boolean>  {
             return false;
         } catch (BigBiggerThanBuyException e) {
             errorMessage.set("Problem in XML file, The big blind is bigger than the buy");
+            isErrorHappend.set(true);
+            return false;
+        } catch (MaxBigMoreThanHalfBuyException e) {
+            errorMessage.set("Problem in XML file, The max big is bigger than half of the buy");
+            isErrorHappend.set(true);
+            return false;
+        } catch (PlayerIDsNotUniqueException e) {
+            errorMessage.set("Problem in XML file, Player ID's not unique");
             isErrorHappend.set(true);
             return false;
         }
