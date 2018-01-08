@@ -3,7 +3,6 @@ package GameScene.ReplayBox;
 import GameScene.GameController;
 import GameScene.GameData.GameData;
 import GameScene.GameData.PlayerData;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -35,10 +34,6 @@ public class ReplayBoxController {
         this.mainGame.OnClickReplayForward();
     }
 
-    @FXML
-    void HandleEndReplay(ActionEvent event) {
-            this.mainGame.OnClickEndRepaly();
-    }
 
     public TextArea getEventTextBox() {
         return EventTextBox;

@@ -24,16 +24,12 @@ public class Game implements InterfaceAPI {
     private CurrentHandState state;
     private APlayers players;
     boolean is_game_started=false;
-
-    boolean is_game_over=false;
-
     private int num_of_hands=0;
-    private int global_num_of_buys = 0;
+    private int global_num_of_buys = 4;
     private Hand current_hand;
     private boolean Is_replay=false;
-    private boolean is_first_hand=false;
-    //Private Methods
 
+    //Private Methods
     private void LoadPlayers() throws PlayerDataMissingException {this.players=new APlayers(configuration.getPlayers());}
     private void SetPlayersChips() {
         for(APlayer player : this.players.GetPlayers())
@@ -117,8 +113,8 @@ public class Game implements InterfaceAPI {
         this.players.GetPlayers().add(new APlayer("Bunker",PlayerType.COMPUTER,33));
         this.players.GetPlayers().add(new APlayer("Camper",PlayerType.HUMAN,65));
     }
-    //for testing
 
+    //for testing
     private Move GetConsoleMove(APlayer player) {
         MoveType type = null;
         int value=0;
@@ -158,6 +154,7 @@ public class Game implements InterfaceAPI {
 
         return new Move(type,value);
     }
+
     private void PringCurrentAvailable(APlayer current,List<MoveType> allowded_moves,int[]  range) {
         boolean is_get_value=false;
        if(ENABLE_LOG) System.out.println("Allowded move for player"+current.GetName()+":");
@@ -200,10 +197,9 @@ public class Game implements InterfaceAPI {
         }
     }
 
-
     /////////////////////////////////////////////////////////////API's/////////////////////////////////////////////////////////////////////////////////////////
-    //xml file apis
 
+    //xml file apis
     @Override
     public void LoadFromXML(String file_name) throws FileNotFoundException, FileNotXMLException, WrongFileNameException, JAXBException, UnexpectedObjectException, HandsCountDevideException, BigSmallMismatchException, HandsCountSmallerException, GameStartedException, PlayerDataMissingException, MinusZeroValueException, BigBiggerThanBuyException {
 
@@ -235,19 +231,18 @@ public class Game implements InterfaceAPI {
         }
     }
 
-    //TBD devide the validation before, xml loading and validation after to apis
-    //game apis
+        //TBD devide the validation before, xml loading and validation after to apis
 
+    //game apis
     @Override
     public void StartGame() {
         this.is_game_started=true;
-        this.global_num_of_buys=this.players.GetSize();
         //TBD - insert function pass result
     }
+
     @Override
     public int GetMoneyInGame() {
         return this.global_num_of_buys * this.configuration.getStructure().getBuy();
-
     }
 
     @Override
@@ -271,11 +266,11 @@ public class Game implements InterfaceAPI {
     }
 
     //player apis
-
     @Override
     public void AddNewPlayer(String name, PlayerType type, int ID){
         this.players.GetPlayers().add(new APlayer(name,type,ID));
     }
+
     @Override
     public int GetTotalNumberOfPlayers(){
         return this.players.GetSize();
@@ -393,30 +388,23 @@ public class Game implements InterfaceAPI {
     }
 
     //Hand Methods
-
     @Override
     public void StartNewHand(){
         //init new hand
         this.current_hand=new Hand(this.players,this.configuration.getStructure());
 
+        //forward states
+        this.players.ForwardStates();
+
         //inc hands counter
         this.num_of_hands++;
-        this.is_first_hand=true;
 
-        if(this.num_of_hands>1)
-        {
-            System.out.println("kjdflv,df");
-        }
-       /* //init placed bet flag of the players
+        //init placed bet flag of the players
         List<APlayer> players = this.GetPlayers().GetPlayers();
         for (APlayer player :players )
         {
             player.setFoldedFlag(false);
-        }*/
-    }
-    @Override
-    public boolean IsFirstHand(){
-        return this.is_first_hand;
+        }
     }
 
     @Override
@@ -428,20 +416,17 @@ public class Game implements InterfaceAPI {
     public void PlayerPerformBuy(int id) {
         //Written by avishay
         for (APlayer player : players.GetPlayers()) {
-            if (player.getId() == id){
-                player.BuyMoney(this.configuration.getStructure().getBuy());
-                //MUST TO BE UPDATE, Changing bilnds
-                this.global_num_of_buys++;
-                return;
-            }
+            if (player.getId() == id) player.BuyMoney(this.configuration.getStructure().getBuy());
+            //MUST TO BE UPDATE, Changing bilnds
+            this.global_num_of_buys++;
         }
+
     }
 
     @Override
     public void CheckCurrentHandStatus(){
         this.current_hand.CheckHandStatus();
     }
-
     //////////////////////TBD////////////////////////
     @Override
     public void PlayerPerformQuitFromGame(int id) {
@@ -456,10 +441,6 @@ public class Game implements InterfaceAPI {
        return this.current_hand.GetCurrentPlayer().getId();
     }
 
-    @Override
-    public boolean IsOnlyOnePlayerLeft(){
-        return this.players.IsOnlyOnePlayerLeft();
-    }
     @Override
     public int GetNumberOfHands() {
         return this.configuration.getStructure().getHandsCount();
@@ -503,11 +484,11 @@ public class Game implements InterfaceAPI {
     }
 
     //Bid Cycle Methods
-
     @Override
     public void StartNewBidCycle() throws NoSufficientMoneyException {
         this.current_hand.StartNewBidCycle();
     }
+
     @Override
     public boolean IsCurrentPlayerHuman(){
         if(this.GetCurrentHand().GetCurrentPlayer().GetType()== PlayerType.HUMAN){return true;}
@@ -668,7 +649,6 @@ public class Game implements InterfaceAPI {
             }
         }
     }
-
     @Override
     public boolean IsHumanPlayerFolded() {
         for(APlayer player:this.players.GetPlayers())
@@ -683,6 +663,7 @@ public class Game implements InterfaceAPI {
         }
         return false;
     }
+
     @Override
     public boolean IsAnyPlayerOutOfMoney() {
         List<APlayer> players = this.players.GetPlayers();
@@ -693,8 +674,8 @@ public class Game implements InterfaceAPI {
         }
         return false;
     }
-
     ///////////////////////////////////////////////////////////////
+    //Stats apis
     @Override
     public List<PlayerStats>  GetPlayersInfo() {
         List<PlayerStats> stats=new LinkedList<>();
@@ -704,7 +685,6 @@ public class Game implements InterfaceAPI {
         }
         return stats;
     }
-    //Stats apis
     @Override
     public CurrentHandState GetCurrentHandState(){
 
@@ -741,17 +721,18 @@ public class Game implements InterfaceAPI {
 }
 
     ////////////////////////////////////////////////////////////////
+    ///////////// Replay////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////
+
     public void StartReplay(){
         this.Is_replay=true;
 
     }
-
-    ////////////////////////////////////////////////////////////////
     @Override
     public void ReverseHandToStart(){
         this.current_hand.RevertToStart();
     }
-    ///////////// Replay////////////////////////////////////////////
+
     @Override
     public String GetPreviousEvent(){
         return this.current_hand.RevertEvent();
@@ -778,11 +759,11 @@ public class Game implements InterfaceAPI {
     public void SetReplayMode(boolean state){
         this.current_hand.SetReplayMode(state);
     }
-
     @Override
     public boolean IsReplayMode(){
         return this.current_hand.GetReplayMode();
     }
+<<<<<<< HEAD
     @Override
     public int GetCurrentEventNumber(){
         return this.current_hand.GetCurrentEventNumber();
@@ -810,4 +791,6 @@ public class Game implements InterfaceAPI {
     public void CheckNoActiveHumans(){
         this.current_hand.CheckNoActiveHumanPlayers();
     }
+=======
+>>>>>>> parent of 912f167... Almost final
 }

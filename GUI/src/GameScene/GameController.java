@@ -22,15 +22,15 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.HorizontalDirection;
-import javafx.geometry.NodeOrientation;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.scene.control.Label;
 
 import java.io.IOException;
 import java.net.URL;
@@ -55,7 +55,6 @@ public class GameController implements Initializable {
     private Boolean IsGameStarted = false;
     private Boolean IsGameEnded = false;
     private MoveType currentMove;
-    private VBox CommArea;
 
     @FXML private StackPane StackMainBoard;
     @FXML private VBox StatusPane;
@@ -94,8 +93,6 @@ public class GameController implements Initializable {
 
 
             MenuContorller.HideButton();
-            MenuContorller.getReplayButton().visibleProperty().bind(Bindings.createBooleanBinding(()->this.model.IsFirstHand()));
-            MenuContorller.getReplayButton().managedProperty().bind(Bindings.createBooleanBinding(()->this.model.IsFirstHand()));
             this.MainOptionVbox.getChildren().removeAll();
             this.MainOptionVbox.getChildren().clear();
             this.MainOptionVbox.getChildren().add(MenuBox);
@@ -109,7 +106,8 @@ public class GameController implements Initializable {
         }
     }
 
-    private void ShowAllPlayersCards() {
+    private void ShowAllPlayersCards()
+    {
 
         for (PlayerCubeController playerCubeController : this.playersControllers)
         {
@@ -124,15 +122,13 @@ public class GameController implements Initializable {
         loader.setLocation(url);
 
         try {
-            //this.CommArea.getChildren().removeAll();
-            this.CommArea = loader.load();
+            Node CommArea = loader.load();
 
             this.communityController  = loader.getController();
             //communityController.UpdateCommunityCards();
-
-
+            this.communityController.SetHandData(this.gameData.getCurrentHand());
+            this.communityController.getPotLabel().textProperty().bind(this.gameData.getCurrentHand().potProperty());
             this.StackMainBoard.getChildren().add(0,CommArea);
-
             //this.StackMainBoard.getChildren().add(CommArea);
 
             this.StackMainBoard.setAlignment(Pos.CENTER);
@@ -142,6 +138,7 @@ public class GameController implements Initializable {
             e.printStackTrace();
         }
     }
+
 
     private void BuildWinnersTableArea() {
         FXMLLoader loader = new FXMLLoader();
@@ -211,6 +208,14 @@ public class GameController implements Initializable {
         }
     }
 
+    private void UpdatePlayerState(PlayerData playerData, PlayerCubeController singleController ){
+
+        if (playerData.isIsDealer()) singleController.getStateLabel().setText("Dealer");
+        else if (playerData.isIsBig()) singleController.getStateLabel().setText("Big");
+        else if (playerData.isIsSmall()) singleController.getStateLabel().setText("Small");
+        else singleController.getStateLabel().setText("");
+    }
+
     private void BuildSinglePlayerPane (int playerIndex, PlayerData playerData) {
 
         try {
@@ -233,7 +238,7 @@ public class GameController implements Initializable {
             singleController.getStateLabel().textProperty().bind(playerData.playerStateProperty());
             singleController.isInReplayModeProperty().bind(gameData.isInReplayProperty());
             singleController.currentPlayerIdProperty().bind(gameData.currentPlayerIdProperty().isEqualTo(playerData.getId()));
-            //singleController.setCards(playerData.getCard1(), playerData.getCard2());
+           //singleController.setCards(playerData.getCard1(), playerData.getCard2());
             singleController.setPlayerId(playerData.getId());
 
             playersControllers.add(singleController);
@@ -243,6 +248,7 @@ public class GameController implements Initializable {
         }
     }
 
+<<<<<<< HEAD
     public void UpdateCommunityToCurrentHand() {
 
         this.communityController.SetHandData(this.gameData.getCurrentHand());
@@ -260,6 +266,38 @@ public class GameController implements Initializable {
 
 
 
+=======
+    private void MoveToNextPlayerAndUpdate(){
+        this.model.MoveToNextPlayer();
+        this.model.CheckBidStatus();
+        this.model.CheckCurrentHandStatus();
+        this.gameData.UpdateAll();
+        //this.gameData.getCurrentHand().UpdateHand();
+    }
+
+        private void SetMoveAndUpdate(Move move) {
+        try {
+            this.model.SetNewMove(move);
+            this.model.CheckBidStatus();
+            this.model.CheckCurrentHandStatus();
+            this.gameData.UpdateAll();
+            //this.gameData.getCurrentHand().UpdateHand();
+            //this.gameData.UpdatePlayers();
+        } catch (StakeNotInRangeException e) {
+            e.printStackTrace();
+        } catch (PlayerFoldedException e) {
+            e.printStackTrace();
+        } catch (MoveNotAllowdedException e) {
+            e.printStackTrace();
+        } catch (ChipLessThanPotException e) {
+            e.printStackTrace();
+        } catch (NoSufficientMoneyException e) {
+            e.printStackTrace();
+        } catch (PlayerAlreadyBetException e) {
+            e.printStackTrace();
+        }
+    };
+>>>>>>> parent of 912f167... Almost final
 
     public void setModel(InterfaceAPI model) {
         this.model = model;
@@ -274,6 +312,14 @@ public class GameController implements Initializable {
         this.gameLogic=gl;
     }
 
+<<<<<<< HEAD
+=======
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+
+    }
+>>>>>>> parent of 912f167... Almost final
 
     public void OnClickStart() {
         this.IsGameStarted = true;
@@ -287,9 +333,13 @@ public class GameController implements Initializable {
     public void OnClickBack() {
         gameLogic.StartNewWelcomeScene();
     }
+<<<<<<< HEAD
 
 
 
+=======
+    
+>>>>>>> parent of 912f167... Almost final
     private void UpdateCardsForPlayerInControllers() {
         this.gameData.UpdatePlayersCards();
         int index = 0;
@@ -300,10 +350,13 @@ public class GameController implements Initializable {
             }
         }
     }
+<<<<<<< HEAD
 
 
 
 
+=======
+>>>>>>> parent of 912f167... Almost final
     private void PlayOneHand(){
 
         // Deleting the Option box
@@ -321,32 +374,16 @@ public class GameController implements Initializable {
             //update properties
             this.UpdateCardsForPlayerInControllers();
             this.gameData.setCurrentHand();
-            if( this.communityController != null) this.communityController.InitCommunityCards();
-            this.gameData.setCurrentHandNumber();
-            this.gameData.setIsCurrentHandFinished();
-            this.gameData.setBig();
-            this.gameData.setSmall();
-            this.gameData.setMaxPot();
-            //this.gameData.setIsInReplay();
-            //this.gameData.UpdateAll();
 
             //Hand over listener
             this.gameData.isCurrentHandFinishedProperty().addListener((observable, oldValue, newValue) -> {
-                //System.out.println("Hand Finished changed to :"+newValue);
-                if(newValue==true) {
-                    if(this.gameData.getCurrentHandNumber()==this.model.GetAllowdedHandNumber())
-                    {
-                        this.model.SetGameOver(true);
-                        this.gameData.setIsGameOver();
-                    }
-                    this.BuildMainOption();
-                    this.BetOptionsAnchor.getChildren().removeAll();
-                    this.BetOptionsAnchor.getChildren().clear();
-                    this.gameData.getCurrentHand().setPot("0");
+                this.BuildMainOption();
+                this.BetOptionsAnchor.getChildren().removeAll();
+                this.BetOptionsAnchor.getChildren().clear();
+                this.gameData.getCurrentHand().setPot("0");
 
-                    //Show Winner TBD
-                    BuildWinnersTableArea();
-                }
+                //Show Winner TBD
+                BuildWinnersTableArea();
                 return;
             });
 
@@ -387,8 +424,7 @@ public class GameController implements Initializable {
             this.gameData.getCurrentHand().UpdateHand();
             this.gameData.setCurrentPlayerId();
             this.gameData.UpdatePlayers();
-            UpdateCommunityToCurrentHand();
-            //BuildCommunityArea();
+            BuildCommunityArea();
             this.HandEventshandler(this.gameData.getCurrentHand());
         }
     }
@@ -442,6 +478,7 @@ public class GameController implements Initializable {
         //hand.setCurrent_player_id();
     }
 
+<<<<<<< HEAD
     private void MoveToNextPlayerAndUpdate(){
         this.model.MoveToNextPlayer();
         this.model.CheckBidStatus();
@@ -474,7 +511,70 @@ public class GameController implements Initializable {
         }
     }
 
+=======
+>>>>>>> parent of 912f167... Almost final
 //    public  void PrintGame(CurrentHandState curHandState){
+//
+//
+////        System.out.format("%s",curHandState.getPlayersState().get(0).getCard().toString());
+////        System.out.format("%s",curHandState.getPlayersState().get(0).getCard().toString());
+////        System.out.format("%s",curHandState.getPlayersState().get(1).IsHuman() ?"": "Cards: ");
+////        System.out.format("%s",curHandState.getPlayersState().get(1).getCard().toString());
+//
+//
+//        System.out.format("%-9s  %-4d  %s       %-9s  %-4d  %s\n",curHandState.getPlayersState().get(0).getName(),curHandState.getPlayersState().get(0).getId(),curHandState.getCurrentPlayer() == 0 ? "***": "   ",curHandState.getPlayersState().get(3).getName(),curHandState.getPlayersState().get(3).getId(),curHandState.getCurrentPlayer() == 3 ? "***": "   ");
+//        System.out.format("*****************%s       *****************%s\n",curHandState.getCurrentPlayer() == 0 ? "***": "** ",curHandState.getCurrentPlayer() == 3 ? "***": "** ");
+//        System.out.format("* Type: %1s        %s       * Type: %1s        %s\n",curHandState.getPlayersState().get(0).GetType().toString(),curHandState.getCurrentPlayer() == 0 ? "***": " * ",curHandState.getPlayersState().get(3).GetType().toString(),curHandState.getCurrentPlayer() == 3 ? "***": " * ");
+//        System.out.format("* State %1s         *        * State %1s         *\n",curHandState.getPlayersState().get(0).getState().toString(),curHandState.getPlayersState().get(3).getState().toString());
+//        System.out.format("* Chips: %-8d *        * Chips: %-8d *\n",curHandState.getPlayersState().get(0).getChips(),curHandState.getPlayersState().get(3).getChips());
+//        System.out.format("* Bets: %-8d  *        * Bets: %-8d  *\n",curHandState.getPlayersState().get(0).getBet(),curHandState.getPlayersState().get(3).getBet());
+//        if(curHandState.getPlayersState().get(0).IsHuman() ){
+//            System.out.format("* %6s %-3s%3s  *        ",
+//                    "Cards: ",curHandState.getPlayersState().get(0).getCard().get(0).toString(),curHandState.getPlayersState().get(0).getCard().get(1).toString());
+//        }
+//        else{
+//            System.out.format("*                 *        ");
+//
+//        }
+//        if(curHandState.getPlayersState().get(3).IsHuman() ){
+//            System.out.format("* %6s %-3s%3s  *\n",
+//                    "Cards: ",curHandState.getPlayersState().get(3).getCard().get(0).toString(),curHandState.getPlayersState().get(3).getCard().get(1).toString());
+//        }else
+//        {
+//            System.out.format("*                 *\n");
+//        }
+//
+//        System.out.format("*******************        *******************\n");
+//        System.out.format("\n");
+//        System.out.format("     %s            ***POT: %d *** \n", curHandState.getStringOfCommunityCard(),curHandState.getPot());
+//        System.out.format("Big Blind: %-5d   Small Blind : %-5d \n", curHandState.getBigBlind(), curHandState.getSmallBlind());
+//        System.out.format("\n");
+//        System.out.format("%-9s  %-4d  %s       %-9s %4d  %s\n",curHandState.getPlayersState().get(1).getName(),curHandState.getPlayersState().get(1).getId(),curHandState.getCurrentPlayer() == 1 ? "***": "   ",curHandState.getPlayersState().get(2).getName(),curHandState.getPlayersState().get(2).getId(),curHandState.getCurrentPlayer() == 2 ? "***": "   ");
+//        System.out.format("*****************%s       *****************%s\n",curHandState.getCurrentPlayer() == 1 ? "***": "** ",curHandState.getCurrentPlayer() == 2 ? "***": "** ");
+//        System.out.format("* Type: %1s        %s       * Type: %1s        %s\n",curHandState.getPlayersState().get(1).GetType().toString(),curHandState.getCurrentPlayer() == 1 ? "***": " * ",curHandState.getPlayersState().get(2).GetType().toString(),curHandState.getCurrentPlayer() == 2 ? "***": " * ");
+//        System.out.format("* State %1s         *        * State %1s         *\n",curHandState.getPlayersState().get(1).getState().toString(),curHandState.getPlayersState().get(2).getState().toString());
+//        System.out.format("* Chips: %-8d *        * Chips: %-8d *\n",curHandState.getPlayersState().get(1).getChips(),curHandState.getPlayersState().get(2).getChips());
+//        System.out.format("* Bets: %-8d  *        * Bets: %-8d  *\n",curHandState.getPlayersState().get(1).getBet(),curHandState.getPlayersState().get(2).getBet());
+//        if(curHandState.getPlayersState().get(1).IsHuman() ){
+//            System.out.format("* %6s %-3s%3s  *        ",
+//                    "Cards: ",curHandState.getPlayersState().get(1).getCard().get(0).toString(),curHandState.getPlayersState().get(1).getCard().get(1).toString());
+//        }
+//        else{
+//            System.out.format("*                 *        ");
+//
+//        }
+//        if(curHandState.getPlayersState().get(2).IsHuman() ){
+//            System.out.format("* %6s %-3s%3s  *\n",
+//                    "Cards: ",curHandState.getPlayersState().get(2).getCard().get(0).toString(),curHandState.getPlayersState().get(2).getCard().get(1).toString());
+//        }else
+//        {
+//            System.out.format("*                 *\n");
+//        }
+//        System.out.format("*******************        *******************\n");
+//
+//
+//    }
+
     private void GetPlayerMove() {
         System.out.println("INSIDE GetPlayerMove, player id"+this.gameData.getCurrentHand().getCurrent_player_id());
 //        this.PrintGame(model.GetCurrentHandState());
@@ -523,12 +623,10 @@ public class GameController implements Initializable {
         }
     }
 
-    //    }
     public void setHumanMove(Move move){
         this.SetMoveAndUpdate(move);
     }
 
-    //
     private Move PlayHumanPlayer() {
         //List<String> moveChars = new LinkedList<>();// = Arrays.asList("B","b","F","f","R","r","C","c","K","k");
         //int amount =0;
@@ -559,24 +657,15 @@ public class GameController implements Initializable {
         return null;
     }
 
-    //
     public Move GetHumanMove(MoveType move){
 
         return null;
     }
 
-    //        System.out.format("*******************        *******************\n");
     public void StartGameView () {
         this.gameData = new GameData(model);
-
-        //Game Over Listener
-        this.gameData.isGameOverProperty().addListener((observable, oldValue, newValue) -> {
-            this.gameLogic.BuildEndScene(this.gameData);
-        });
-
         this.numOfPlayers = gameData.getNumberOfPlayers();
 
-        BuildCommunityArea();
         BuildMainOption();
         BuildPlayersPane();
         BuildStatusBox();
@@ -584,15 +673,6 @@ public class GameController implements Initializable {
 
     }
 
-    //        }
-    public void MoveToEndScene()
-        {
-
-
-
-        }
-
-    //            System.out.format("*                 *\n");
     private void PrintAllPlayers() {
 
         this.playerGrid.getChildren().removeAll();
@@ -625,7 +705,7 @@ public class GameController implements Initializable {
 
         }
     }
-    //        {
+
     private void GetHumanNaxtMoveFromGUI(List<MoveType> AllowedMove) {
         FXMLLoader load = new FXMLLoader();
         URL url = getClass().getResource("/GameScene/BetOptions/BetOptions.fxml");
@@ -649,12 +729,8 @@ public class GameController implements Initializable {
         }
     }
 
-    //        }else
 
-    //                    "Cards: ",curHandState.getPlayersState().get(2).getCard().get(0).toString(),curHandState.getPlayersState().get(2).getCard().get(1).toString());
     ///for replay
-
-    //            System.out.format("* %6s %-3s%3s  *\n",
     private void  BuildRaplayMenu() {
         FXMLLoader loader = new FXMLLoader();
         URL url =getClass().getResource("/GameScene/ReplayBox/ReplayBox.fxml");
@@ -667,28 +743,35 @@ public class GameController implements Initializable {
             this.replayContorller.ConnectToMainGame(this);
 
             this.replayContorller.InitChanceTable();
-            Node Seperator=new Separator();
-            Seperator.nodeOrientationProperty().setValue(NodeOrientation.INHERIT);
-            this.StatusPane.getChildren().add(Seperator);
+
             this.StatusPane.getChildren().add(ReplayBox);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    //        if(curHandState.getPlayersState().get(2).IsHuman() ){
-    //        }
 
+    public void OnClickReplay(){
+        this.IsReplayMode=true;
+        //this.model.ReverseHandToStart();////!!!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@3123
+        MakeReverseForReplay(() -> {
+            this.BuildRaplayMenu();
+            this.model.SetReplayMode(true);
+            this.gameData.UpdateAllReplayMode();
+            this.communityController.UpdateCommunityCards();
+            ShowAllPlayersCards();
+
+        });
+
+    }
     private void onLoadRepalyFinished(Optional<Runnable> onFinish)
     {
-        this.MainOptionVbox.getChildren().clear();
-        this.MainOptionVbox.getChildren().removeAll();
+
         this.MenuContorller.getReplayProgressBar().progressProperty().unbind();
         onFinish.ifPresent(Runnable::run);
 
     }
-    //
-    //            System.out.format("*                 *        ");
+
 
     private void MakeReverseForReplay(Runnable onFinish)
     {
@@ -706,7 +789,6 @@ public class GameController implements Initializable {
 
 
     }
-    //        else{
 
     public void OnClickReplayBack() {
         String message=this.model.GetPreviousEvent();
@@ -714,7 +796,6 @@ public class GameController implements Initializable {
         this.gameData.UpdateAllReplayMode();
         if(message.contains("Flop")||message.contains("River")||message.contains("Turn")) this.communityController.UpdateCommunityCards();
     }
-    //        }
 
     public void OnClickReplayForward() {
         String message=this.model.GetNextEvent();
@@ -722,55 +803,7 @@ public class GameController implements Initializable {
         this.gameData.UpdateAllReplayMode();
         if(message.contains("Flop")||message.contains("River")||message.contains("Turn")) this.communityController.UpdateCommunityCards();
     }
-    //                    "Cards: ",curHandState.getPlayersState().get(1).getCard().get(0).toString(),curHandState.getPlayersState().get(1).getCard().get(1).toString());
-
-    public void HandleQuitPlayerGeneric(Button quitButton, Button buyButton , int index) {
-
-        this.gameData.isOnlyOnePlayerProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue==true)
-            {
-                this.model.SetGameOver(true);
-            }
-        });
-
-        this.gameData.getPlayerData().get(index).QuitFromGame();
-        this.gameData.getPlayerData().get(index).playerStateProperty().set("Quit");
-        this.gameData.setIsOnlyOnePlayer();
-
-        quitButton.textProperty().set(gameData.getPlayerData().get(index).getPlayerName() + "\nQuit");
-        quitButton.setDisable(true);
-        buyButton.textProperty().set(gameData.getPlayerData().get(index).getPlayerName() + "\nQuit");
-        buyButton.setDisable(true);
-
-    }
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
 
 
-    }
 
-    public void OnClickReplay(){
-        this.IsReplayMode=true;
-
-        //this.MainOptionVbox.getChildren().clear();
-
-        //this.model.ReverseHandToStart();////!!!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@3123
-        MakeReverseForReplay(() -> {
-            this.BuildRaplayMenu();
-            this.model.SetReplayMode(true);
-            this.gameData.UpdateAllReplayMode();
-            this.communityController.UpdateCommunityCards();
-            ShowAllPlayersCards();
-
-        });
-
-    }
-
-    public void OnClickEndRepaly() {
-        this.StatusPane.getChildren().removeAll();
-        this.StatusPane.getChildren().clear();
-        this.BuildMainOption();
-
-        this.BuildStatusBox();
-    }
 }
