@@ -27,7 +27,7 @@ public class CommunityController implements Initializable {
     @FXML private VBox commVbox;
     @FXML private HBox CardHBox;
     @FXML private HBox PotHBox;
-
+    @FXML private HBox BilndsAndPotsHBox;
     @FXML private Label PotLabel;
 
 
@@ -57,11 +57,18 @@ public class CommunityController implements Initializable {
         this.handData= handData;
     }
 
+    public void InitCommunityCards(){
+
+        CardHBox.getChildren().removeAll();
+        CardHBox.getChildren().clear();
+    }
+
     public void UpdateCommunityCards(){
 
         communityCardsImages.clear();
 
         ObservableList<String> cardTemp = this.handData.getCommunityCards();
+
         CardHBox.getChildren().clear();
 
 

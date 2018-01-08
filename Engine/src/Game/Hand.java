@@ -49,6 +49,14 @@ public class Hand {
         this.deck = new Deck();
         this.winners = new LinkedList<>();
         this.events=new LinkedList<>();
+        this.community=null;
+
+        //init player flags
+        this.players.InitPlayersNewHand();
+
+        //forward player states
+        this.players.ForwardStates();
+
         //deal cards
         this.DealCards();
     }
@@ -998,5 +1006,13 @@ public class Hand {
     public boolean GetReplayMode()
     {
         return this.IsReplay;
+    }
+
+    public int GetCurrentEventNumber(){
+        return this.current_event_index;
+    }
+
+    public int GetTotalEventsNumber(){
+        return this.events.size();
     }
 }

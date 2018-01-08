@@ -1,13 +1,21 @@
 package GameLogic;
 
 import API.InterfaceAPI;
+import EndScene.EndSceneController;
 import Game.Game;
 import GameScene.GameController;
+import GameScene.GameData.GameData;
+import GameScene.GameData.PlayerData;
+import GameScene.WinnersTable.TableViewController;
 import WelcomeScene.WelcomeController;
+import javafx.beans.binding.Bindings;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -51,6 +59,31 @@ public class GameLogic {
         }
 
     }
+
+
+    public void BuildEndScene(GameData gameData) {
+        FXMLLoader loader = new FXMLLoader();
+        URL url = getClass().getResource("/EndScene/EndScene.fxml");
+        loader.setLocation(url);
+
+        try {
+            Parent end = loader.load();
+
+            EndSceneController endScene = loader.getController();
+            endScene.setGameData(gameData);
+            endScene.setGameLogic(this);
+            endScene.BuildWinnersTableArea();
+            Scene scene = new Scene(end, 1000, 600);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 
     public void SetGameScene() {
 
