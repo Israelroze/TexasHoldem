@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 <VBox alignment="CENTER" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameScene.WinnersTable.TableViewController">
    <children>
@@ -22,6 +23,8 @@
    </children>
 </VBox>
 =======
+=======
+>>>>>>> parent of 912f167... Almost final
 <TableView fx:id="playersTable" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameScene.WinnersTable.TableViewController">
   <columns>
     <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Name" />

@@ -1003,6 +1003,7 @@ public class Hand {
         return this.IsReplay;
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     public int GetCurrentEventNumber(){
         return this.current_event_index;
@@ -1025,6 +1026,8 @@ public class Hand {
         if(active_humans==0) this.is_hand_over=true;
 
     }
+=======
+>>>>>>> parent of 912f167... Almost final
 =======
 >>>>>>> parent of 912f167... Almost final
 }

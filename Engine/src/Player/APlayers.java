@@ -61,6 +61,7 @@ public class APlayers {
             {
                 this.aplayers.remove(player);
 <<<<<<< HEAD
+<<<<<<< HEAD
                 int num_of_humans=0;
                 for(APlayer hp:this.aplayers) { if(hp.GetType()==PlayerType.HUMAN) num_of_humans++; }
                 if(num_of_humans==1)
@@ -69,6 +70,8 @@ public class APlayers {
                 }
                 else if(num_of_humans<1) this.is_only_one_player=true;
 
+=======
+>>>>>>> parent of 912f167... Almost final
 =======
 >>>>>>> parent of 912f167... Almost final
                 return;

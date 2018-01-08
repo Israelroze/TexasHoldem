@@ -10,7 +10,12 @@
 <?import javafx.scene.layout.VBox?>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameScene.ReplayBox.ReplayBoxController">
+=======
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameScene.ReplayBox.ReplayBoxController">
+>>>>>>> parent of 912f167... Almost final
 =======
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameScene.ReplayBox.ReplayBoxController">

@@ -764,6 +764,7 @@ public class Game implements InterfaceAPI {
         return this.current_hand.GetReplayMode();
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
     @Override
     public int GetCurrentEventNumber(){
         return this.current_hand.GetCurrentEventNumber();
@@ -791,6 +792,8 @@ public class Game implements InterfaceAPI {
     public void CheckNoActiveHumans(){
         this.current_hand.CheckNoActiveHumanPlayers();
     }
+=======
+>>>>>>> parent of 912f167... Almost final
 =======
 >>>>>>> parent of 912f167... Almost final
 }
