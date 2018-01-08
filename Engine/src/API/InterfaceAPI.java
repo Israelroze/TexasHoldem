@@ -113,10 +113,13 @@ public interface  InterfaceAPI {
     public boolean IsPlayerExist(int id);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     public void CheckNoActiveHumans();
     public boolean IsOnlyOnePlayerLeft();
     public boolean IsGameOver();
+=======
+>>>>>>> parent of 912f167... Almost final
 =======
 >>>>>>> parent of 912f167... Almost final
 =======

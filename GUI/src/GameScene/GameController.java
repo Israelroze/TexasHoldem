@@ -250,6 +250,7 @@ public class GameController implements Initializable {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void UpdateCommunityToCurrentHand() {
 
         this.communityController.SetHandData(this.gameData.getCurrentHand());
@@ -268,6 +269,8 @@ public class GameController implements Initializable {
 
 
 =======
+=======
+>>>>>>> parent of 912f167... Almost final
 =======
 >>>>>>> parent of 912f167... Almost final
     private void MoveToNextPlayerAndUpdate(){
@@ -317,7 +320,10 @@ public class GameController implements Initializable {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 912f167... Almost final
 =======
 >>>>>>> parent of 912f167... Almost final
     @Override
@@ -326,6 +332,9 @@ public class GameController implements Initializable {
 
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 912f167... Almost final
+=======
 >>>>>>> parent of 912f167... Almost final
 =======
 >>>>>>> parent of 912f167... Almost final
@@ -344,9 +353,13 @@ public class GameController implements Initializable {
     }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
 
+=======
+    
+>>>>>>> parent of 912f167... Almost final
 =======
     
 >>>>>>> parent of 912f167... Almost final
@@ -365,10 +378,13 @@ public class GameController implements Initializable {
     }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
 
 
+=======
+>>>>>>> parent of 912f167... Almost final
 =======
 >>>>>>> parent of 912f167... Almost final
 =======
@@ -496,6 +512,7 @@ public class GameController implements Initializable {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     private void MoveToNextPlayerAndUpdate(){
         this.model.MoveToNextPlayer();
         this.model.CheckBidStatus();
@@ -528,6 +545,8 @@ public class GameController implements Initializable {
         }
     }
 
+=======
+>>>>>>> parent of 912f167... Almost final
 =======
 >>>>>>> parent of 912f167... Almost final
 =======
