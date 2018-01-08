@@ -1,15 +1,12 @@
 package GameLogic;
 
 import API.InterfaceAPI;
+import EndScene.EndSceneController;
 import Game.Game;
 import GameScene.GameController;
-<<<<<<< HEAD
 import GameScene.GameData.GameData;
 import WelcomeScene.WelcomeController;
 import javafx.beans.property.SimpleIntegerProperty;
-=======
-import WelcomeScene.WelcomeController;
->>>>>>> parent of 912f167... Almost final
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -67,7 +64,6 @@ public class GameLogic {
 
     }
 
-<<<<<<< HEAD
 
     public void BuildEndScene(GameData gameData) {
         FXMLLoader loader = new FXMLLoader();
@@ -99,9 +95,6 @@ public class GameLogic {
         scene.getStylesheets().clear();
         System.out.println("This is The Style sheet Now " + String.valueOf(CSS_STYLE_NUMBER.get()));
         scene.getStylesheets().addAll(getClass().getResource("/resources/css/welcome" + CSS_STYLE_NUMBER.get()  + ".css").toExternalForm());
-=======
-    public void SetGameScene() {
->>>>>>> parent of 912f167... Almost final
 
     }
 
