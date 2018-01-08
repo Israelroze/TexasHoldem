@@ -5,17 +5,11 @@ import EndScene.EndSceneController;
 import Game.Game;
 import GameScene.GameController;
 import GameScene.GameData.GameData;
-import GameScene.GameData.PlayerData;
-import GameScene.WinnersTable.TableViewController;
 import WelcomeScene.WelcomeController;
-import javafx.beans.binding.Bindings;
-import javafx.collections.ObservableList;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,16 +20,23 @@ public class GameLogic {
     private WelcomeController cWelcome;
     private GameController cGame;
     private Stage primaryStage;
+    private Scene scene;
+
+    static public SimpleIntegerProperty CSS_STYLE_NUMBER  = new SimpleIntegerProperty(1);
 
     public void SetPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
 
+    public static void AccomdateSkinNumber() {
+
+        CSS_STYLE_NUMBER.set((CSS_STYLE_NUMBER.get()  ) %3 + 1);
+    }
     public void StartNewWelcomeScene()
     {
         model = new Game();
 
-        primaryStage.setTitle("Texas Holdm");
+        primaryStage.setTitle("Texas Holdem");
 
         //if you just want to load the FXML
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -48,8 +49,11 @@ public class GameLogic {
             welcomeController.setModel(model);
             welcomeController.serLoader(fxmlLoader);
             welcomeController.setGameLogic(this);
-            Scene scene = new Scene(root, 1000, 600);
 
+
+            scene = new Scene(root, 1200, 600);
+
+            scene.getStylesheets().addAll(getClass().getResource("/resources/css/welcome" + CSS_STYLE_NUMBER.get()  + ".css").toExternalForm());
 
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -73,7 +77,9 @@ public class GameLogic {
             endScene.setGameData(gameData);
             endScene.setGameLogic(this);
             endScene.BuildWinnersTableArea();
-            Scene scene = new Scene(end, 1000, 600);
+            scene = new Scene(end, 1200, 600);
+            scene.getStylesheets().addAll(getClass().getResource("/resources/css/welcome" + CSS_STYLE_NUMBER.get()  + ".css").toExternalForm());
+
             primaryStage.setScene(scene);
             primaryStage.show();
 
@@ -85,7 +91,10 @@ public class GameLogic {
 
 
 
-    public void SetGameScene() {
+    public void SetNextSkin() {
+        scene.getStylesheets().clear();
+        System.out.println("This is The Style sheet Now " + String.valueOf(CSS_STYLE_NUMBER.get()));
+        scene.getStylesheets().addAll(getClass().getResource("/resources/css/welcome" + CSS_STYLE_NUMBER.get()  + ".css").toExternalForm());
 
     }
 

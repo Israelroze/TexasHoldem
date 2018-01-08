@@ -30,29 +30,6 @@ public class Main extends Application {
         GL.SetPrimaryStage(stage);
         GL.StartNewWelcomeScene();
 
-//        model = new Game();
-//
-//        primaryStage.setTitle("Welcome FXML");
-//
-//        //if you just want to load the FXML
-////       Parent root = FXMLLoader.load(Main.class.getResource("GameLogic.WelcomeScene"));
-//
-//        //if you want to load the FXML and get access to its controller
-//        fxmlLoader = new FXMLLoader();
-//        URL url = getClass().getResource("GameLogic.fxml");
-//        fxmlLoader.setLocation(url);
-//        Parent root = fxmlLoader.load(url.openStream());
-//
-//        WelcomeController welcomeController = fxmlLoader.getController();
-//        welcomeController.setPrimaryStage(primaryStage);
-//        welcomeController.setModel(model);
-//        welcomeController.serLoader(fxmlLoader);
-//
-//    Scene scene = new Scene(root, 1000, 600);
-//
-//
-//        primaryStage.setScene(scene);
-//        primaryStage.show();
     }
 
     public static void main(String[] args) {

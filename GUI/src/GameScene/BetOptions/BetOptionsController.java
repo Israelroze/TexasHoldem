@@ -89,53 +89,53 @@ public class BetOptionsController implements Initializable {
     public void updateOptions()
     {
 
-        this.foldButton.setVisible(false);
+        this.foldButton.setDisable(true);
         this.foldButton.setManaged(false);
-        this.betButton.setVisible(false);
+        this.betButton.setDisable(true);
         this.betButton.setManaged(false);
-        this.betTextFiled.setVisible(false);
+        this.betTextFiled.setDisable(true);
         this.betTextFiled.setManaged(false);
-        this.checkButton.setVisible(false);
+        this.checkButton.setDisable(true);
         this.checkButton.setManaged(false);
-        this.raiseButton.setVisible(false);
+        this.raiseButton.setDisable(true);
         this.raiseButton.setManaged(false);
-        this.raiseTextFiled.setVisible(false);
+        this.raiseTextFiled.setDisable(true);
         this.raiseTextFiled.setManaged(false);
-        this.callButton.setVisible(false);
+        this.callButton.setDisable(true);
         this.callButton.setManaged(false);
 
         if(allowedMoves!=null) {
             if (allowedMoves.contains(MoveType.FOLD)) {
-                this.foldButton.setVisible(true);
+                this.foldButton.setDisable(false);
                 this.foldButton.setManaged(true);
 
             }
             if (allowedMoves.contains(MoveType.BET)) {
 
-                this.betButton.setVisible(true);
+                this.betButton.setDisable(false);
                 this.betButton.setManaged(true);
-                this.betTextFiled.setVisible(true);
+                this.betTextFiled.setDisable(false);
                 this.betTextFiled.setManaged(true);
                 SetLowAndHighStake();
                 this.betTextFiled.setPromptText(PromptText());
             }
             if (allowedMoves.contains(MoveType.CHECK)) {
 
-                this.checkButton.setVisible(true);
+                this.checkButton.setDisable(false);
                 this.checkButton.setManaged(true);
             }
             if (allowedMoves.contains(MoveType.RAISE)) {
 
-                this.raiseButton.setVisible(true);
+                this.raiseButton.setDisable(false);
                 this.raiseButton.setManaged(true);
-                this.raiseTextFiled.setVisible(true);
+                this.raiseTextFiled.setDisable(false);
                 this.raiseTextFiled.setManaged(true);
                 SetLowAndHighStake();
                 this.raiseTextFiled.setPromptText(PromptText());
 
             }
             if (allowedMoves.contains(MoveType.CALL)) {
-                this.callButton.setVisible(true);
+                this.callButton.setDisable(false);
                 this.callButton.setManaged(true);
             }
         }

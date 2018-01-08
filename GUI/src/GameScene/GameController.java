@@ -149,16 +149,21 @@ public class GameController implements Initializable {
         loader.setLocation(url);
 
         try {
-            TableView tableView = loader.load();
+
+
+
+            VBox WinnerVbox= loader.load();
 
               TableViewController winnersTable = loader.getController();
             //communityController.UpdateCommunityCards();
+
+            TableView tableView = winnersTable.getPlayersTable();
             ObservableList<PlayerData> data = gameData.GetDataForTable();
             tableView.setItems(data);
             //this.StackMainBoard.getChildren().add(CommArea);
 
             this.BetOptionsAnchor.getChildren().removeAll();
-            this.BetOptionsAnchor.getChildren().add(tableView);
+            this.BetOptionsAnchor.getChildren().add(WinnerVbox);
 
             TableColumn<?,?> a= (TableColumn<?, ?>) tableView.getColumns().get(tableView.getColumns().size() -1 );
             a.setSortType(TableColumn.SortType.DESCENDING);

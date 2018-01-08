@@ -70,7 +70,29 @@ public class WelcomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        GridPane
+        TextButtonNextSkinNumberInButton();
+    }
+
+    @FXML
+    private Button ChangeStyle;
+
+
+
+    @FXML
+    public void TextButtonNextSkinNumberInButton()
+    {
+        int nextNumber = GameLogic.CSS_STYLE_NUMBER.get() %3 +1;
+        this.ChangeStyle.setText("Move to Skin " + String.valueOf(nextNumber));
+
+    }
+
+    public void handleChangeStyle(ActionEvent event) {
+        GameLogic.AccomdateSkinNumber();
+        TextButtonNextSkinNumberInButton();
+        gameLogic.SetNextSkin();
+
+
+
     }
 
     @FXML protected void handleLoadFromXmlFileButtonAction(ActionEvent event) {
@@ -152,13 +174,19 @@ public class WelcomeController implements Initializable {
 
             gameController.StartGameView();
             setPrimaryStage(this.primaryStage);
-            Scene scene = new Scene(root1, 1000, 600);
+            Scene scene = new Scene(root1, 1200, 600);
+            scene.getStylesheets().addAll(getClass().getResource("/resources/css/game" + GameLogic.CSS_STYLE_NUMBER.get()  + ".css").toExternalForm());
+
+
+
             primaryStage.setScene(scene);
             primaryStage.show();
 
         } catch (IOException e) {
             e.printStackTrace();
             Utils.Utils.log("Game FXML Loading error.");
+
+
         }
     }
 public static void log(String message) { System.out.println(message); }

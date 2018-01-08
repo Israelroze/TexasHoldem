@@ -1,0 +1,29 @@
+.root {
+    -fx-background-image: url("/resources/images/background2.png");
+    -fx-background-size: stretch;
+    -fx-background-repeat: no-repeat;
+}
+
+.label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+}
+.progress-bar .bar {
+    -fx-padding: 10px;
+    -fx-background-insets: 0;
+}
+
+
+.button {
+    -fx-text-fill: white;
+    -fx-font-family: "Arial";
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(#ffce37, #2738ff);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(#2738ff, #ffce37 );
+}

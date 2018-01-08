@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -17,13 +18,16 @@ public class TableViewController  implements Initializable{
         this.playersTable = playersTable;
     }
 
+
     @FXML private TableView<?> playersTable;
     @FXML private TableColumn<?, ?> nameColumn;
     @FXML private TableColumn<?, ?> typeColumn;
     @FXML private TableColumn<?, ?> buysColumn;
     @FXML private TableColumn<?, ?> hadsWonsColumn;
     @FXML private TableColumn<?, ?> moneyColumn;
+    @FXML private HBox HBoxTableView;
 
+    public TableColumn<?, ?> getNameColumn() { return nameColumn; }
 
 
 
