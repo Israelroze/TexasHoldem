@@ -112,35 +112,18 @@ public interface  InterfaceAPI {
     public void PlayerPerformQuitFromGame(int id);
     public boolean IsPlayerExist(int id);
 <<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> parent of 54754d7... revert
 
     public void CheckNoActiveHumans();
     public boolean IsOnlyOnePlayerLeft();
     public boolean IsGameOver();
-<<<<<<< HEAD
 =======
 >>>>>>> parent of 912f167... Almost final
-=======
->>>>>>> parent of 912f167... Almost final
-=======
->>>>>>> parent of 912f167... Almost final
-=======
->>>>>>> parent of 54754d7... revert
 
-    //for replay
+    //for replaye
     public void ReverseHandToStart();
     public String GetPreviousEvent();
     public String GetNextEvent();
     public String GetPlayerWinChance(int id);
     public void SetReplayMode(boolean state);
     public boolean IsReplayMode();
-    public int GetCurrentEventNumber();
-    public int GetTotalEventsNumber();
-    public boolean IsFirstHand();
-    public void SetGameOver(boolean is_game_over);
-    public int GetAllowdedHandNumber();
 }

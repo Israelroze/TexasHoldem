@@ -163,6 +163,7 @@ public class WelcomeController implements Initializable {
 
     private void StartGameScene() {
         try {
+
             FXMLLoader n = new FXMLLoader();
             URL url = getClass().getResource("/GameScene/Game.fxml");
             n.setLocation(url);
@@ -181,6 +182,7 @@ public class WelcomeController implements Initializable {
 
             primaryStage.setScene(scene);
             primaryStage.show();
+
 
         } catch (IOException e) {
             e.printStackTrace();
