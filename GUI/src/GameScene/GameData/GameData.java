@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import javax.print.attribute.standard.MediaSize;
+import javax.script.Bindings;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,8 +29,9 @@ public class GameData {
     private HandData currentHand;
     private SimpleBooleanProperty IsCurrentHandFinished;
     private SimpleBooleanProperty IsInReplay;
-
-
+    private SimpleBooleanProperty IsFirstHand;
+    private SimpleBooleanProperty IsGameOver;
+    private SimpleBooleanProperty IsOnlyOnePlayer;
 
     public GameData (InterfaceAPI model) {
         this.model = model;
@@ -40,7 +42,39 @@ public class GameData {
         currentPlayerId = new SimpleIntegerProperty(-1);
         this.IsCurrentHandFinished=new SimpleBooleanProperty(false);
         this.IsInReplay= new SimpleBooleanProperty(false);
+        this.IsFirstHand=new SimpleBooleanProperty(this.model.IsFirstHand());
+        this.IsOnlyOnePlayer=new SimpleBooleanProperty(this.model.IsOnlyOnePlayerLeft());
+        this.IsGameOver=new SimpleBooleanProperty(false);
         this.LoadPlayers();
+    }
+
+    public void setCurrentHandNumber(String currentHandNumber) {
+        this.currentHandNumber.set(currentHandNumber);
+    }
+
+    public boolean isIsGameOver() {
+        return IsGameOver.get();
+    }
+
+    public SimpleBooleanProperty isGameOverProperty() {
+        return IsGameOver;
+    }
+
+    public void setIsGameOver() {
+        this.IsGameOver.set(this.model.IsGameOver());
+    }
+
+    public boolean isIsOnlyOnePlayer() {
+        return this.IsOnlyOnePlayer.get();
+    }
+
+    public SimpleBooleanProperty isOnlyOnePlayerProperty() {
+        return this.IsOnlyOnePlayer;
+    }
+
+    public void setIsOnlyOnePlayer() {
+        this.IsOnlyOnePlayer.set(this.model.IsOnlyOnePlayerLeft());
+        this.IsGameOver.set(this.model.IsGameOver());
     }
 
     public boolean isIsCurrentHandFinished() {
@@ -56,8 +90,16 @@ public class GameData {
     }
 
 
+    public boolean isIsFirstHand() {
+        return IsFirstHand.get();
+    }
+
+    public SimpleBooleanProperty isFirstHandProperty() {
+        return IsFirstHand;
+    }
 
     //Setters
+
     public void setMaxPot() { this.maxPot.set((Integer.toString(model.GetMaxBuys()) + " Game Money")); }
 
     public void setBig() { this.big.set((Integer.toString(model.GetBig()) + " Big")); }
@@ -75,8 +117,8 @@ public class GameData {
         this.currentHand=new HandData(this.model);
     }
 
-
     //Getters
+
 
     public List<PlayerData> getPlayerData() { return playerData; }
 
@@ -124,6 +166,7 @@ public class GameData {
     public boolean isIsInReplay() { return IsInReplay.get(); }
 
     public SimpleBooleanProperty isInReplayProperty() { return IsInReplay; }
+
 
     public void setIsInReplay() { this.IsInReplay.set(model.IsReplayMode()); }
 
@@ -176,7 +219,9 @@ public class GameData {
         this.setCurrentPlayerId();
         this.setCurrentHandNumber();
         this.setIsCurrentHandFinished();
-        this.setIsCurrentHandFinished();
+        //this.setIsCurrentHandFinished();
+        this.setIsOnlyOnePlayer();
+        this.isFirstHandProperty().set(this.model.IsFirstHand());
     }
 
     public void UpdateAllReplayMode(){

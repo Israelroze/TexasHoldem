@@ -19,7 +19,9 @@ public class MainOptionController implements Initializable {
     @FXML private Button StartGameButton;
     @FXML private Button BackButton;
     @FXML private Button StartNewHandButton;
+
     @FXML private Button ReplayButton;
+
     @FXML private VBox MainOptionVBox;
     @FXML private Button buyButtonPlayer1;
     @FXML private Button buyButtonPlayer2;
@@ -35,14 +37,13 @@ public class MainOptionController implements Initializable {
     @FXML private Button quitButtonPlayer6;
     @FXML private ProgressBar ReplayProgressBar;
 
-
     private Boolean isRequiredStartGameButton;
+
     private Boolean isRequiredBackButton;
     private Boolean isRequiredStartNewHandButton;
     private Boolean isRequiredReplayButton;
     private GameController mainGame;
     private GameData gameData;
-
     public void SetRequiredButton(Boolean startGame, Boolean backButton, Boolean startNewGameButton, Boolean replayButton)
     {
         this.isRequiredBackButton= backButton;
@@ -50,6 +51,10 @@ public class MainOptionController implements Initializable {
         this.isRequiredStartGameButton = startGame;
         this.isRequiredStartNewHandButton = startNewGameButton;
 
+    }
+
+    public Button getReplayButton() {
+        return this.ReplayButton;
     }
 
     public ProgressBar getReplayProgressBar() { return ReplayProgressBar; }
@@ -241,95 +246,101 @@ public class MainOptionController implements Initializable {
 
     }
 
-    @FXML void HandleBuyPlayer1(ActionEvent event) {
-        gameData.getPlayerData().get(0).MakeABuy();
-        gameData.getPlayerData().get(0).UpdatePlayer();
+    private void GenericBuy(int i){
+        gameData.getPlayerData().get(i).MakeABuy();
+        gameData.setMaxPot();
+        gameData.getPlayerData().get(i).UpdatePlayer();
 
     }
 
+    @FXML void HandleBuyPlayer1(ActionEvent event) { this.GenericBuy(0); }
+
     @FXML void HandleBuyPlayer2(ActionEvent event) {
-        gameData.getPlayerData().get(1).MakeABuy();
-        gameData.getPlayerData().get(1).UpdatePlayer();
+        this.GenericBuy(1);
 
     }
 
     @FXML
     void HandleBuyPlayer3(ActionEvent event) {
-        gameData.getPlayerData().get(2).MakeABuy();
-        gameData.UpdatePlayers();
+        this.GenericBuy(2);
 
 
     }
 
     @FXML
     void HandleBuyPlayer4(ActionEvent event) {
-        gameData.getPlayerData().get(3).MakeABuy();
-        gameData.UpdatePlayers();
+        this.GenericBuy(3);
 
 
     }
 
     @FXML
     void HandleBuyPlayer5(ActionEvent event) {
-        gameData.getPlayerData().get(4).MakeABuy();
-        gameData.UpdatePlayers();
+        this.GenericBuy(4);
 
 
     }
 
     @FXML
     void HandleBuyPlayer6(ActionEvent event) {
-        gameData.getPlayerData().get(5).MakeABuy();
-        gameData.UpdatePlayers();
+        this.GenericBuy(5);
 
     }
+/*
 
-   private void HandleQuitPlayerGeneric(Button quitButton,Button buyButton ,int index)
+    private void HandleQuitPlayerGeneric(Button quitButton,Button buyButton ,int index)
     {
-        gameData.getPlayerData().get(index).QuitFromGame();
-        gameData.getPlayerData().get(index).playerStateProperty().set("Quit");
+        this.gameData.isOnlyOnePlayerProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue==true)
+            {
+                   this.mainGame.
+            }
+        });
+
+        this.gameData.getPlayerData().get(index).QuitFromGame();
+        this.gameData.getPlayerData().get(index).playerStateProperty().set("Quit");
+        this.gameData.setIsOnlyOnePlayer();
         quitButton.textProperty().set(gameData.getPlayerData().get(index).getPlayerName() + "\nQuit");
         quitButton.setDisable(true);
         buyButton.textProperty().set(gameData.getPlayerData().get(index).getPlayerName() + "\nQuit");
         buyButton.setDisable(true);
+
     }
+*/
 
     @FXML
     void HandleQuitPlayer1(ActionEvent event) {
 
-        HandleQuitPlayerGeneric(this.quitButtonPlayer1,this.buyButtonPlayer1,0);
+        this.mainGame.HandleQuitPlayerGeneric(this.quitButtonPlayer1,this.buyButtonPlayer1,0);
 
     }
 
     @FXML
     void HandleQuitPlayer2(ActionEvent event) {
-        HandleQuitPlayerGeneric(this.quitButtonPlayer2,this.buyButtonPlayer2,1);
+        this.mainGame.HandleQuitPlayerGeneric(this.quitButtonPlayer2,this.buyButtonPlayer2,1);
 
     }
 
     @FXML
     void HandleQuitPlayer3(ActionEvent event) {
-        HandleQuitPlayerGeneric(this.quitButtonPlayer3,this.buyButtonPlayer3,2);
+        this.mainGame.HandleQuitPlayerGeneric(this.quitButtonPlayer3,this.buyButtonPlayer3,2);
 
 
     }
 
     @FXML
     void HandleQuitPlayer4(ActionEvent event) {
-        HandleQuitPlayerGeneric(this.quitButtonPlayer4,this.buyButtonPlayer4,3);
-
-
-
+        this.mainGame.HandleQuitPlayerGeneric(this.quitButtonPlayer4,this.buyButtonPlayer4,3);
     }
 
     @FXML
     void HandleQuitPlayer5(ActionEvent event) {
-        HandleQuitPlayerGeneric(this.quitButtonPlayer5,this.buyButtonPlayer5,4);
+        this.mainGame.HandleQuitPlayerGeneric(this.quitButtonPlayer5,this.buyButtonPlayer5,4);
     }
 
     @FXML
     void HandleQuitPlayer6(ActionEvent event) {
-        HandleQuitPlayerGeneric(this.quitButtonPlayer6,this.buyButtonPlayer6,5);
+        this.mainGame.HandleQuitPlayerGeneric(this.quitButtonPlayer6,this.buyButtonPlayer6,5);
     }
 
 

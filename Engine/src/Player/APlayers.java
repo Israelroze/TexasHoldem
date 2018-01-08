@@ -12,6 +12,7 @@ public class APlayers {
     private APlayer big;
     private APlayer small;
     private Map<Integer,Integer> ids;
+    private boolean is_only_one_player=false;
 
     public APlayers(Players players) throws PlayerDataMissingException {
         aplayers=new LinkedList<APlayer>();
@@ -63,6 +64,9 @@ public class APlayers {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 54754d7... revert
                 int num_of_humans=0;
                 for(APlayer hp:this.aplayers) { if(hp.GetType()==PlayerType.HUMAN) num_of_humans++; }
                 if(num_of_humans==1)
@@ -71,15 +75,22 @@ public class APlayers {
                 }
                 else if(num_of_humans<1) this.is_only_one_player=true;
 
+<<<<<<< HEAD
 =======
 >>>>>>> parent of 912f167... Almost final
 =======
 >>>>>>> parent of 912f167... Almost final
 =======
 >>>>>>> parent of 912f167... Almost final
+=======
+>>>>>>> parent of 54754d7... revert
                 return;
             }
         }
+    }
+
+    public boolean IsOnlyOnePlayerLeft(){
+        return this.is_only_one_player;
     }
 
     public boolean IsPlayerExist(int id){
@@ -174,5 +185,14 @@ public class APlayers {
     public List<APlayer> GetPlayers()
     {
         return this.aplayers;
+    }
+
+    public void InitPlayersNewHand(){
+        for (APlayer player:this.aplayers)
+        {
+            player.setFoldedFlag(false);
+            player.setBetPlaceFlag(false);
+            player.setStake(0);
+        }
     }
 }
