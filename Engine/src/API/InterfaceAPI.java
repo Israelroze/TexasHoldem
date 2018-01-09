@@ -111,7 +111,6 @@ public interface  InterfaceAPI {
     public void PlayerPerformBuy(int id);
     public void PlayerPerformQuitFromGame(int id);
     public boolean IsPlayerExist(int id);
-
     public void CheckNoActiveHumans();
     public boolean IsOnlyOnePlayerLeft();
     public boolean IsGameOver();

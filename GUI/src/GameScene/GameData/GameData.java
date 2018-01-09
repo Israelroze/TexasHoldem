@@ -118,8 +118,6 @@ public class GameData {
     }
 
     //Getters
-
-
     public List<PlayerData> getPlayerData() { return playerData; }
 
     public PlayerData GetPlayerData(int id) {
@@ -167,7 +165,6 @@ public class GameData {
 
     public SimpleBooleanProperty isInReplayProperty() { return IsInReplay; }
 
-
     public void setIsInReplay() { this.IsInReplay.set(model.IsReplayMode()); }
 
     public void LoadPlayers() {
@@ -189,9 +186,6 @@ public class GameData {
         }
     }
 
-
-
-
     public void RemoveDeletedPlayers() {
         Boolean notFinisined = true;
         while (notFinisined) {
@@ -206,13 +200,14 @@ public class GameData {
             }
         }
     }
-    public void UpdatePlayersCards()
-    {
+
+    public void UpdatePlayersCards() {
         for(PlayerData p_date:this.playerData)
         {
             if(!p_date.isIsQuit()) p_date.SetCards();
         }
     }
+
     public void UpdateAll(){
         this.UpdatePlayers();
         if (this.currentHand != null) this.currentHand.UpdateHand();
@@ -236,6 +231,7 @@ public class GameData {
         this.setCurrentHandNumber();
         this.setIsCurrentHandFinished();
     }
+
     public List<String> GetNameOfPlayers(){
         List<String> Names= new LinkedList<>();
 

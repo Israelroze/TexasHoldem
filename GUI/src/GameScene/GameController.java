@@ -260,9 +260,6 @@ public class GameController implements Initializable {
         else singleController.getStateLabel().setText("");
     }
 
-
-
-
     public void setModel(InterfaceAPI model) {
         this.model = model;
     }
@@ -275,7 +272,6 @@ public class GameController implements Initializable {
     {
         this.gameLogic=gl;
     }
-
 
     public void OnClickStart() {
         this.IsGameStarted = true;
@@ -290,6 +286,44 @@ public class GameController implements Initializable {
         gameLogic.StartNewWelcomeScene();
     }
 
+    public void OnClickReplayBack() {
+        String message=this.model.GetPreviousEvent();
+        this.replayContorller.getEventTextBox().setText(message);
+        this.gameData.UpdateAllReplayMode();
+        if(message.contains("Flop")||message.contains("River")||message.contains("Turn")) this.communityController.UpdateCommunityCards();
+    }
+
+    public void OnClickReplayForward() {
+        String message=this.model.GetNextEvent();
+        this.replayContorller.getEventTextBox().setText(message);
+        this.gameData.UpdateAllReplayMode();
+        if(message.contains("Flop")||message.contains("River")||message.contains("Turn")) this.communityController.UpdateCommunityCards();
+    }
+
+    public void OnClickReplay(){
+        this.IsReplayMode=true;
+
+        //this.MainOptionVbox.getChildren().clear();
+
+        //this.model.ReverseHandToStart();////!!!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@3123
+        MakeReverseForReplay(() -> {
+            this.BuildRaplayMenu();
+            this.model.SetReplayMode(true);
+            this.gameData.UpdateAllReplayMode();
+            this.communityController.UpdateCommunityCards();
+            ShowAllPlayersCards();
+
+        });
+
+    }
+
+    public void OnClickEndRepaly() {
+        this.StatusPane.getChildren().removeAll();
+        this.StatusPane.getChildren().clear();
+        this.BuildMainOption();
+
+        this.BuildStatusBox();
+    }
 
 
     private void UpdateCardsForPlayerInControllers() {
@@ -303,9 +337,6 @@ public class GameController implements Initializable {
         }
     }
 
-
-
-
     private void PlayOneHand(){
 
         // Deleting the Option box
@@ -315,7 +346,10 @@ public class GameController implements Initializable {
         this.MainOptionVbox.getChildren().clear();
 
         if (this.model.IsAnyPlayerOutOfMoney()) {
-            this.IsGameEnded = true;
+            System.out.println("Players with out money!");
+            this.model.SetGameOver(true);
+            this.gameData.setIsGameOver();
+            return;
         }
         else {
             this.model.StartNewHand();
@@ -476,7 +510,6 @@ public class GameController implements Initializable {
         }
     }
 
-//    public  void PrintGame(CurrentHandState curHandState){
     private void GetPlayerMove() {
         System.out.println("INSIDE GetPlayerMove, player id"+this.gameData.getCurrentHand().getCurrent_player_id());
 //        this.PrintGame(model.GetCurrentHandState());
@@ -525,12 +558,10 @@ public class GameController implements Initializable {
         }
     }
 
-    //    }
     public void setHumanMove(Move move){
         this.SetMoveAndUpdate(move);
     }
 
-    //
     private Move PlayHumanPlayer() {
         //List<String> moveChars = new LinkedList<>();// = Arrays.asList("B","b","F","f","R","r","C","c","K","k");
         //int amount =0;
@@ -561,13 +592,11 @@ public class GameController implements Initializable {
         return null;
     }
 
-    //
     public Move GetHumanMove(MoveType move){
 
         return null;
     }
 
-    //        System.out.format("*******************        *******************\n");
     public void StartGameView () {
         this.gameData = new GameData(model);
 
@@ -586,15 +615,12 @@ public class GameController implements Initializable {
 
     }
 
-    //        }
-    public void MoveToEndScene()
-        {
+    public void MoveToEndScene() {
 
 
 
         }
 
-    //            System.out.format("*                 *\n");
     private void PrintAllPlayers() {
 
         this.playerGrid.getChildren().removeAll();
@@ -611,23 +637,23 @@ public class GameController implements Initializable {
             playerGrid.add(PlayersNode.get(3), 2, 0);
         }
         else if(PlayersNode.size() == 5) {
-            playerGrid.add(PlayersNode.get(0), 0, 0);
-            playerGrid.add(PlayersNode.get(1), 0, 1);
-            playerGrid.add(PlayersNode.get(4), 1, 1);
+            playerGrid.add(PlayersNode.get(0), 1, 0);
+            playerGrid.add(PlayersNode.get(1), 0, 0);
+            playerGrid.add(PlayersNode.get(2), 0, 1);
             playerGrid.add(PlayersNode.get(3), 2, 1);
             playerGrid.add(PlayersNode.get(4), 2, 0);
 
         }else if(PlayersNode.size() == 6) {
             playerGrid.add(PlayersNode.get(0), 0, 0);
             playerGrid.add(PlayersNode.get(1), 0, 1);
-            playerGrid.add(PlayersNode.get(4), 1, 1);
+            playerGrid.add(PlayersNode.get(2), 1, 1);
             playerGrid.add(PlayersNode.get(3), 2, 1);
             playerGrid.add(PlayersNode.get(4), 2, 0);
             playerGrid.add(PlayersNode.get(5), 1, 0);
 
         }
     }
-    //        {
+
     private void GetHumanNaxtMoveFromGUI(List<MoveType> AllowedMove) {
         FXMLLoader load = new FXMLLoader();
         URL url = getClass().getResource("/GameScene/BetOptions/BetOptions.fxml");
@@ -651,12 +677,6 @@ public class GameController implements Initializable {
         }
     }
 
-    //        }else
-
-    //                    "Cards: ",curHandState.getPlayersState().get(2).getCard().get(0).toString(),curHandState.getPlayersState().get(2).getCard().get(1).toString());
-    ///for replay
-
-    //            System.out.format("* %6s %-3s%3s  *\n",
     private void  BuildRaplayMenu() {
         FXMLLoader loader = new FXMLLoader();
         URL url =getClass().getResource("/GameScene/ReplayBox/ReplayBox.fxml");
@@ -678,22 +698,16 @@ public class GameController implements Initializable {
             e.printStackTrace();
         }
     }
-    //        if(curHandState.getPlayersState().get(2).IsHuman() ){
-    //        }
 
-    private void onLoadRepalyFinished(Optional<Runnable> onFinish)
-    {
+    private void onLoadRepalyFinished(Optional<Runnable> onFinish) {
         this.MainOptionVbox.getChildren().clear();
         this.MainOptionVbox.getChildren().removeAll();
         this.MenuContorller.getReplayProgressBar().progressProperty().unbind();
         onFinish.ifPresent(Runnable::run);
 
     }
-    //
-    //            System.out.format("*                 *        ");
 
-    private void MakeReverseForReplay(Runnable onFinish)
-    {
+    private void MakeReverseForReplay(Runnable onFinish) {
         LoadingReplayMode replay = new LoadingReplayMode(this.model);
         this.MenuContorller.getReplayProgressBar().setDisable(false);
         this.MenuContorller.getReplayProgressBar().setVisible(true);
@@ -708,23 +722,6 @@ public class GameController implements Initializable {
 
 
     }
-    //        else{
-
-    public void OnClickReplayBack() {
-        String message=this.model.GetPreviousEvent();
-        this.replayContorller.getEventTextBox().setText(message);
-        this.gameData.UpdateAllReplayMode();
-        if(message.contains("Flop")||message.contains("River")||message.contains("Turn")) this.communityController.UpdateCommunityCards();
-    }
-    //        }
-
-    public void OnClickReplayForward() {
-        String message=this.model.GetNextEvent();
-        this.replayContorller.getEventTextBox().setText(message);
-        this.gameData.UpdateAllReplayMode();
-        if(message.contains("Flop")||message.contains("River")||message.contains("Turn")) this.communityController.UpdateCommunityCards();
-    }
-    //                    "Cards: ",curHandState.getPlayersState().get(1).getCard().get(0).toString(),curHandState.getPlayersState().get(1).getCard().get(1).toString());
 
     public void HandleQuitPlayerGeneric(Button quitButton, Button buyButton , int index) {
 
@@ -745,34 +742,10 @@ public class GameController implements Initializable {
         buyButton.setDisable(true);
 
     }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
 
-    }
-
-    public void OnClickReplay(){
-        this.IsReplayMode=true;
-
-        //this.MainOptionVbox.getChildren().clear();
-
-        //this.model.ReverseHandToStart();////!!!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@3123
-        MakeReverseForReplay(() -> {
-            this.BuildRaplayMenu();
-            this.model.SetReplayMode(true);
-            this.gameData.UpdateAllReplayMode();
-            this.communityController.UpdateCommunityCards();
-            ShowAllPlayersCards();
-
-        });
-
-    }
-
-    public void OnClickEndRepaly() {
-        this.StatusPane.getChildren().removeAll();
-        this.StatusPane.getChildren().clear();
-        this.BuildMainOption();
-
-        this.BuildStatusBox();
     }
 }

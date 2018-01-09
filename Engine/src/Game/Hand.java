@@ -411,7 +411,7 @@ public class Hand {
     }
 
     public void SetWinner() {
-        int[] winner_indexs=new int[4];
+        List<Integer> winner_indexs=new LinkedList<>();
         EquityCalculator calculator = new EquityCalculator();
 
         //boards cards to string
@@ -437,7 +437,7 @@ public class Hand {
                 try {
                     com.rundef.poker.Hand hand = com.rundef.poker.Hand.fromString(str_hand);
                     calculator.addHand(hand);
-                    winner_indexs[num_of_hands] = this.players.GetPlayers().indexOf(player);
+                    winner_indexs.add(this.players.GetPlayers().indexOf(player));
                     num_of_hands++;
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -457,10 +457,10 @@ public class Hand {
             HandEquity equity=calculator.getHandEquity(i);
             if(equity.getEquity()!=0)//we have a winner
             {
-                if(Game.ENABLE_LOG) System.out.println("Adding player in index"+winner_indexs[i]+" as winner");
-                this.winners.add(winner_indexs[i]);
+                if(Game.ENABLE_LOG) System.out.println("Adding player in index"+winner_indexs.get(i)+" as winner");
+                this.winners.add(winner_indexs.get(i));
             }
-            if(Game.ENABLE_LOG) System.out.println("Player ID"+this.players.GetPlayers().get(winner_indexs[i]).getId()+"Hand #" + (i+1) + ": Rank: " + calculator.getHandRanking(i) + " Equity: " + calculator.getHandEquity(i));
+            if(Game.ENABLE_LOG) System.out.println("Player ID"+this.players.GetPlayers().get(winner_indexs.get(i)).getId()+"Hand #" + (i+1) + ": Rank: " + calculator.getHandRanking(i) + " Equity: " + calculator.getHandEquity(i));
         }
 
         //set the number of wins for the players

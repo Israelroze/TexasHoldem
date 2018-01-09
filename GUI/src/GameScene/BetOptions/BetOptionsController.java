@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.util.List;
@@ -28,6 +29,13 @@ public class BetOptionsController implements Initializable {
     @FXML private Button callButton;
     @FXML private Button checkButton;
     @FXML private Button foldButton;
+    @FXML private VBox raiseVbox;
+    @FXML private VBox betVbox;
+    @FXML private VBox foldVbox;
+    @FXML private VBox callVbox;
+    @FXML private VBox checkVbox;
+
+
 
 
 
@@ -103,15 +111,30 @@ public class BetOptionsController implements Initializable {
         this.raiseTextFiled.setManaged(false);
         this.callButton.setDisable(true);
         this.callButton.setManaged(false);
+        this.raiseVbox.setDisable(true);
+        this.raiseVbox.setManaged(false);
+        this.betVbox.setDisable(true);
+        this.betVbox.setManaged(false);
+        this.checkVbox.setDisable(true);
+        this.checkVbox.setManaged(false);
+        this.foldVbox.setDisable(true);
+        this.foldVbox.setManaged(false);
+        this.callVbox.setDisable(true);
+        this.callVbox.setManaged(false);
 
         if(allowedMoves!=null) {
             if (allowedMoves.contains(MoveType.FOLD)) {
                 this.foldButton.setDisable(false);
                 this.foldButton.setManaged(true);
+                this.foldVbox.setDisable(false);
+                this.foldVbox.setManaged(true);
+
 
             }
             if (allowedMoves.contains(MoveType.BET)) {
 
+                this.betVbox.setDisable(false);
+                this.betVbox.setManaged(true);
                 this.betButton.setDisable(false);
                 this.betButton.setManaged(true);
                 this.betTextFiled.setDisable(false);
@@ -120,12 +143,14 @@ public class BetOptionsController implements Initializable {
                 this.betTextFiled.setPromptText(PromptText());
             }
             if (allowedMoves.contains(MoveType.CHECK)) {
-
+                this.checkVbox.setDisable(false);
+                this.checkVbox.setManaged(true);
                 this.checkButton.setDisable(false);
                 this.checkButton.setManaged(true);
             }
             if (allowedMoves.contains(MoveType.RAISE)) {
-
+                this.raiseVbox.setDisable(false);
+                this.raiseVbox.setManaged(true);
                 this.raiseButton.setDisable(false);
                 this.raiseButton.setManaged(true);
                 this.raiseTextFiled.setDisable(false);
@@ -135,6 +160,8 @@ public class BetOptionsController implements Initializable {
 
             }
             if (allowedMoves.contains(MoveType.CALL)) {
+                this.callVbox.setDisable(false);
+                this.callVbox.setManaged(true);
                 this.callButton.setDisable(false);
                 this.callButton.setManaged(true);
             }
