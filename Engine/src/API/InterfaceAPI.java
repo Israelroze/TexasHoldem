@@ -15,7 +15,7 @@ import java.util.List;
 public interface  InterfaceAPI {
 
     //option 1
-    public void LoadFromXML(String filename) throws GameStartedException, UnexpectedObjectException, FileNotFoundException, BigSmallMismatchException, PlayerDataMissingException, HandsCountDevideException, WrongFileNameException, HandsCountSmallerException, JAXBException, FileNotXMLException, MinusZeroValueException, BigBiggerThanBuyException, MaxBigMoreThanHalfBuyException, PlayerIDsNotUniqueException;
+    public void LoadFromXML(String filename) throws GameStartedException, UnexpectedObjectException, FileNotFoundException, BigSmallMismatchException, PlayerDataMissingException, HandsCountDevideException, WrongFileNameException, HandsCountSmallerException, JAXBException, FileNotXMLException, MinusZeroValueException, BigBiggerThanBuyException, MaxBigMoreThanHalfBuyException, PlayerIDsNotUniqueException, WrongNumberOfPlayersException;
 
     //option2
     public void StartGame();

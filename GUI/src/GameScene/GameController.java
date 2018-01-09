@@ -288,6 +288,7 @@ public class GameController implements Initializable {
 
     public void OnClickReplayBack() {
         String message=this.model.GetPreviousEvent();
+        this.replayContorller.getEventTextBox().setWrapText(true);
         this.replayContorller.getEventTextBox().setText(message);
         this.gameData.UpdateAllReplayMode();
         if(message.contains("Flop")||message.contains("River")||message.contains("Turn")) this.communityController.UpdateCommunityCards();
@@ -295,6 +296,7 @@ public class GameController implements Initializable {
 
     public void OnClickReplayForward() {
         String message=this.model.GetNextEvent();
+        this.replayContorller.getEventTextBox().setWrapText(true);
         this.replayContorller.getEventTextBox().setText(message);
         this.gameData.UpdateAllReplayMode();
         if(message.contains("Flop")||message.contains("River")||message.contains("Turn")) this.communityController.UpdateCommunityCards();

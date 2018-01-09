@@ -49,7 +49,7 @@ public class Game implements InterfaceAPI {
     private Hand GetCurrentHand(){
         return this.current_hand;
     }
-    private void ValidateXML(GameDescriptor container) throws NullObjectException, BigSmallMismatchException, HandsCountSmallerException, HandsCountDevideException, MinusZeroValueException, BigBiggerThanBuyException, MaxBigMoreThanHalfBuyException, PlayerIDsNotUniqueException {
+    private void ValidateXML(GameDescriptor container) throws NullObjectException, BigSmallMismatchException, HandsCountSmallerException, HandsCountDevideException, MinusZeroValueException, BigBiggerThanBuyException, MaxBigMoreThanHalfBuyException, PlayerIDsNotUniqueException, WrongNumberOfPlayersException {
         int big;
         int small;
         int buy;
@@ -93,6 +93,13 @@ public class Game implements InterfaceAPI {
         small=container.getStructure().getBlindes().getSmall();
         buy=container.getStructure().getBuy();
 
+        //validate player number in range
+
+
+        if(num_of_players<3 || num_of_players>6)
+        {
+            throw new WrongNumberOfPlayersException();
+        }
 
         //validate unique player id
         for(Player main_player : container.getPlayers().getPlayer())
@@ -232,7 +239,7 @@ public class Game implements InterfaceAPI {
     /////////////////////////////////////////////////////////////API's/////////////////////////////////////////////////////////////////////////////////////////
     //xml file apis
     @Override
-    public void LoadFromXML(String file_name) throws FileNotFoundException, FileNotXMLException, WrongFileNameException, JAXBException, UnexpectedObjectException, HandsCountDevideException, BigSmallMismatchException, HandsCountSmallerException, GameStartedException, PlayerDataMissingException, MinusZeroValueException, BigBiggerThanBuyException, MaxBigMoreThanHalfBuyException,PlayerIDsNotUniqueException{
+    public void LoadFromXML(String file_name) throws FileNotFoundException, FileNotXMLException, WrongFileNameException, JAXBException, UnexpectedObjectException, HandsCountDevideException, BigSmallMismatchException, HandsCountSmallerException, GameStartedException, PlayerDataMissingException, MinusZeroValueException, BigBiggerThanBuyException, MaxBigMoreThanHalfBuyException, PlayerIDsNotUniqueException, WrongNumberOfPlayersException {
 
         if(!this.is_game_started) {
             JAXB_Generator generator = new JAXB_Generator((file_name));

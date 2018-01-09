@@ -104,7 +104,12 @@ public class FileLoading extends Task<Boolean>  {
             errorMessage.set("Problem in XML file, Player ID's not unique");
             isErrorHappend.set(true);
             return false;
+        } catch (WrongNumberOfPlayersException e) {
+            errorMessage.set("Problem in XML file, Wrong number of players, only between 3-6 allowed");
+            isErrorHappend.set(true);
+            return false;
         }
+
         updateProgress(1,2);
         updateMessage("Validate File");
         if(this.isErrorHappend.get() == false)

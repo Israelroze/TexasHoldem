@@ -860,7 +860,7 @@ public class Hand {
                         this.current_player=player;
                         if(this.current_event_index>=1)
                         {
-                            Return_msg=player.GetName() + " raised by" + (move.GetValue()-this.events.get(this.current_event_index-1).GetMove().GetValue());
+                            Return_msg=player.GetName() + " called "+this.events.get(this.current_event_index-1).GetMove().GetValue()+" and raised by " + (move.GetValue()-this.events.get(this.current_event_index-1).GetMove().GetValue());
                         }
                         else
                         {
@@ -961,7 +961,7 @@ public class Hand {
                         }
                         this.IncPot(move.GetValue());
                         this.current_player=player;
-                        Return_msg=player.GetName() + " placed bet with the value of" + move.GetValue();
+                        Return_msg=player.GetName() + " placed bet with the value of " + move.GetValue();
                         break;
                     case RAISE:
                         try {
@@ -973,7 +973,7 @@ public class Hand {
                         this.current_player=player;
                         if(this.current_event_index>=1)
                         {
-                            Return_msg=player.GetName() + " raised by" + (move.GetValue()-this.events.get(this.current_event_index-1).GetMove().GetValue());
+                            Return_msg=player.GetName() + " called "+this.events.get(this.current_event_index-1).GetMove().GetValue()+" and raised by " + (move.GetValue()-this.events.get(this.current_event_index-1).GetMove().GetValue());
                         }
                         else
                         {
